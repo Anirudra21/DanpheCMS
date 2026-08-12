@@ -34,11 +34,31 @@ const stats = [
 ];
 
 const team = [
-  { name: 'Ram P. Dhungana', role: 'Chairman' },
-  { name: 'Dr Prabhat Adhikari, MD', role: 'Co-Founder and Clinical Director' },
-  { name: 'Shiv P Koirala', role: 'Co-Founder and Technical Director' },
-  { name: 'Dr.Binod Dhungana, MD, MBA', role: 'Co-founder and Director' },
-  { name: 'Yubraj Parajuli', role: 'Chief Executive Officer' },
+  {
+    name: 'Ram P. Dhungana',
+    role: 'Chairman',
+    image: '/team/ram-dhungana.jpg',
+  },
+  {
+    name: 'Dr Prabhat Adhikari, MD',
+    role: 'Co-Founder and\nClinical Director',
+    image: '/team/prabhat-adhikari.jpg',
+  },
+  {
+    name: 'Shiv P Koirala',
+    role: 'Co-Founder and\nTechnical Director',
+    image: '/team/shiv-koirala.jpg',
+  },
+  {
+    name: 'Dr.Binod Dhungana, MD, MBA',
+    role: 'Co-founder and Director',
+    image: '/team/binod-dhungana.jpg',
+  },
+  {
+    name: 'Yubraj Parajuli',
+    role: 'Chief Executive Officer',
+    image: '/team/yubraj-parajuli.jpg',
+  },
 ];
 
 const serviceCategories = [
@@ -265,7 +285,7 @@ export default function CompanyPage() {
             <h2 className="text-2xl font-bold text-danphe-primary sm:text-3xl">Professional Team Members of DANPHE</h2>
             <p className="mt-3 text-danphe-text-light">Tailored Technologies for Global Healthcare Challenges</p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {team.map((member, i) => (
               <motion.div
                 key={member.name}
@@ -275,13 +295,21 @@ export default function CompanyPage() {
                 whileInView="visible"
                 viewport={{ once: true }}
               >
-                <Card className="h-full border-danphe-border text-center">
-                  <CardContent className="p-6">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-danphe-primary/10">
-                      <span className="text-2xl font-bold text-danphe-primary">{member.name.charAt(0)}</span>
+                <Card className="group h-full overflow-hidden border-danphe-border text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <CardContent className="p-0">
+                    <div className="relative mx-auto mt-5 h-28 w-28 overflow-hidden rounded-full ring-3 ring-danphe-accent/20 ring-offset-2 transition-all duration-300 group-hover:ring-danphe-accent/50 sm:h-32 sm:w-32">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover object-top"
+                        sizes="(max-width: 640px) 50vw, 20vw"
+                      />
                     </div>
-                    <h3 className="text-sm font-bold text-danphe-primary">{member.name}</h3>
-                    <p className="mt-1 text-xs text-danphe-text-light">{member.role}</p>
+                    <div className="p-4 pb-5">
+                      <h3 className="text-sm font-bold text-danphe-primary sm:text-base">{member.name}</h3>
+                      <p className="mt-1.5 whitespace-pre-line text-xs leading-relaxed text-danphe-text-light sm:text-sm">{member.role}</p>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>

@@ -595,3 +595,38 @@ Stage Summary:
 - Decorative blur circles properly clipped by their wrapper, no visual bleed
 - Fully responsive on all tested viewports
 - Lint clean, no errors
+
+---
+Task ID: 12
+Agent: main
+Task: Replace team member placeholder initials with official Danphe Health profile photos
+
+Work Log:
+- Scraped danphehealth.com/company using web-reader CLI to extract official team member data
+- Identified 5 team members in the 'Professional Team Members of DANPHE' section with exact HTML structure
+- Extracted name/designation/image mappings:
+  1. Ram P. Dhungana - Chairman - nc2YYOp5UgiAIZbiOMUj82uxIdG4jlNwKztoLIdn.jpg
+  2. Dr Prabhat Adhikari, MD - Co-Founder and Clinical Director - oQLbkHz6vDmpHhrZodXRmQiXOv44n7S5MX6WrKbm.jpg
+  3. Shiv P Koirala - Co-Founder and Technical Director - Z5p6J64WddandSwTO03HBpjeNI0dxB2T8rauXZwv.jpg
+  4. Dr.Binod Dhungana, MD, MBA - Co-founder and Director - Ez0mPHOJJ7XkxkvkgerlblVKqiwtJcQDGHPTF73J.jpg
+  5. Yubraj Parajuli - Chief Executive Officer - R9gD9uD4mHA8hKxg5p5ZUIvs1GXp0CloKR3C1TZX.jpg
+- Downloaded all 5 images to /public/team/ with descriptive filenames (ram-dhungana.jpg, prabhat-adhikari.jpg, shiv-koirala.jpg, binod-dhungana.jpg, yubraj-parajuli.jpg)
+- Updated team data array in company/page.tsx: added 'image' field with local /team/* paths
+- Updated designations to exactly match official site (e.g., 'Co-Founder and\nClinical Director' with line break)
+- Replaced placeholder initial-circle cards with professional photo cards:
+  - Circular profile photos (h-28 w-28 mobile, h-32 w-32 desktop) using Next.js Image fill + object-cover object-top
+  - Teal ring-3 accent border with ring-offset-2, hover intensifies ring color
+  - Card hover effect: -translate-y-1 lift + shadow-xl
+  - Proper whitespace-pre-line for multi-line designations
+- Verified with agent-browser:
+  - Desktop (1440x900): all 5 images loaded (naturalWidth/Height ~288px), correct names/designations
+  - Mobile (iPhone 14): all 5 images loaded, 2-col grid layout, proper display
+  - Zero console errors, zero lint errors
+
+Stage Summary:
+- Created: /public/team/ directory with 5 official profile images (total ~826KB)
+- Modified: /src/app/(internal)/company/page.tsx (team data + card JSX)
+- All placeholder initials replaced with real photos from danphehealth.com
+- Names and designations match official site exactly
+- Images stored locally (no external dependency for team photos)
+- Professional card design with hover effects and responsive sizing
