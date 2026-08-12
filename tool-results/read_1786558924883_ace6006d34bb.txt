@@ -1,0 +1,1612 @@
+     1→<html lang="en"><head>
+     2→    <meta charset="UTF-8">
+     3→    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     4→    <meta name="description" content="Danphe Health is a complete solution for HIMS with EMR, offering precision in healthcare information management">
+     5→    <meta name="keywords" content="Danphe Health, HIMS, healthcare information management system, Top HIMS system in Nepal, Complete HIMS Solution in Nepal, OPD management system in Nepal, Payroll management system in Nepal">
+     6→    <meta name="author" content="Imark Digital Pvt. Ltd.">
+     7→    <meta name="robots" content="index, follow">
+     8→    <meta property="og:title" content="Danphe Health - a complete solution for HIMS with EMR">
+     9→    <meta property="og:description" content="Danphe Health is a complete solution for HIMS with EMR, offering precision in healthcare information management">
+    10→    <meta property="og:image" content="">
+    11→    <meta property="og:url" content="https://danphehealth.com">
+    12→    <meta property="og:type" content="website">
+    13→    <meta property="og:site_name" content="Danphe Health">
+    14→    <meta name="twitter:card" content="summary_large_image">
+    15→    <meta name="twitter:title" content="Danphe Health - a complete solution for HIMS with EMR">
+    16→    <meta name="twitter:description" content="Danphe Health is a complete solution for HIMS with EMR, offering precision in healthcare information management">
+    17→    <meta name="twitter:image" content="">
+    18→    <meta name="twitter:url" content="https://danphehealth.com">
+    19→    <meta name="twitter:site" content="@DanpheHealth">
+    20→    <link rel="shortcut icon" href="https://danphehealth.com/admin/assets/media/logos/favicon.ico">
+    21→    <title>Danphe Health </title>
+    22→    <link rel="stylesheet" href="https://danphehealth.com/frontend/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    23→    <script src="https://danphehealth.com/frontend/jquery/jquery-3.6.0.min.js"></script>
+    24→    <link rel="stylesheet" href="https://danphehealth.com/frontend/aos/aos.css">
+    25→    <link rel="stylesheet" href="https://danphehealth.com/frontend/js/plugins/slick-slider/slick/slick.css">
+    26→    <link rel="stylesheet" href="https://danphehealth.com/frontend/js/plugins/slick-slider/slick/slick-theme.css">
+    27→    <link href="https://danphehealth.com/frontend/fontawesome/css/fontawesome.css" rel="stylesheet">
+    28→    <link href="https://danphehealth.com/frontend/fontawesome/css/brands.css" rel="stylesheet">
+    29→    <link href="https://danphehealth.com/frontend/fontawesome/css/solid.css" rel="stylesheet">
+    30→    <link href="https://danphehealth.com/frontend/fontawesome/css/regular.css" rel="stylesheet">
+    31→    <link rel="stylesheet" href="https://danphehealth.com/frontend/css/style.css">
+    32→</head>
+    33→
+    34→<body data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+    35→    <button id="scrollToTopBtn" onclick="ScrollToTop()">
+    36→        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    37→    </button>
+    38→    <div class="sticky-contact-btn">
+    39→        <a href="https://danphehealth.com/contact" class="btn btn-primary">Contact Us</a>
+    40→    </div>
+    41→    <!-- Header Start -->
+    42→<header wire:id="kajsBU2ITZ1WxoocKbVs" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;kajsBU2ITZ1WxoocKbVs&quot;,&quot;name&quot;:&quot;frontend.components.navbar&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;54ff513e&quot;,&quot;data&quot;:{&quot;menuItems&quot;:[],&quot;dropDownMenuItems&quot;:[],&quot;navButtons&quot;:[]},&quot;dataMeta&quot;:{&quot;modelCollections&quot;:{&quot;menuItems&quot;:{&quot;class&quot;:&quot;App\\Models\\MenuItems&quot;,&quot;id&quot;:[1,8,2,4,3,6],&quot;relations&quot;:[&quot;childern&quot;],&quot;connection&quot;:&quot;mysql&quot;,&quot;collectionClass&quot;:null},&quot;dropDownMenuItems&quot;:{&quot;class&quot;:null,&quot;id&quot;:[],&quot;relations&quot;:[],&quot;connection&quot;:null,&quot;collectionClass&quot;:null},&quot;navButtons&quot;:{&quot;class&quot;:&quot;App\\Models\\MenuItems&quot;,&quot;id&quot;:[7],&quot;relations&quot;:[],&quot;connection&quot;:&quot;mysql&quot;,&quot;collectionClass&quot;:null}}},&quot;checksum&quot;:&quot;208ff1d774b976a3b65faa3bee1fbeed19641d879278fe0b785fa34a5c0a1d98&quot;}}">
+    43→    <div class="top-header">
+    44→        <div class="container">
+    45→            <div class="header-flex d-flex justify-content-between align-items-center">
+    46→                <div class="top-left-header d-flex justify-content-between align-items-center gap-3">
+    47→                    <ul class="top-menu d-flex align-items-center">
+    48→                        <li><a href="mailto:info@danphehealth.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>info@danphehealth.com</a>
+    49→                        </li>
+    50→                        <li><a href="tel:+9779852088004"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone-call"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+977- 9852088004</a></li>
+    51→                    </ul>
+    52→                </div>
+    53→                <div class="top-right-header d-flex justify-content-between align-items-center gap-3">
+    54→                    <div class="social-wrapper">
+    55→                        <a target="_blank" href="https://www.facebook.com/DapheHealth"><img src="https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg" alt=""></a>
+    56→                        <a target="_blank" href="https://www.instagram.com/danphe_health/"><img src="https://danphehealth.com/frontend/img/svg/instagram.svg" alt=""></a>
+    57→                    </div>
+    58→                    <div class="button-wrapper">
+    59→                        <a href="https://danphehealth.com/partners" type="button" class="btn btn-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Partners</a>
+    60→                        <a href="https://danphehealth.com/contact" class="btn btn-white-outline"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone-call"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+    61→                            Contact Us</a>
+    62→                    </div>
+    63→                </div>
+    64→            </div>
+    65→        </div>
+    66→    </div>
+    67→    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    68→        <div class="container justify-content-between">
+    69→            <a class="navbar-brand" href="https://danphehealth.com/home"><img src="https://danphehealth.com/frontend/img/logo.png" alt=""></a>
+    70→            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    71→                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    72→                                            
+    73→                                                        <li class="nav-item ">
+    74→                                <a class="nav-link  " href="https://danphehealth.com/company">
+    75→                                    Company                                </a>
+    76→                                                                    <ul class="dropdown-menu">
+    77→                </ul>
+    78→                                                            </li>
+    79→                        
+    80→                                            
+    81→                                                        <li class="nav-item ">
+    82→                                <a class="nav-link  " href="https://danphehealth.com/solutions">
+    83→                                    Our Solution                                </a>
+    84→                                                                    <ul class="dropdown-menu">
+    85→                </ul>
+    86→                                                            </li>
+    87→                        
+    88→                                            
+    89→                                                        <li class="nav-item ">
+    90→                                <a class="nav-link  " href="https://danphehealth.com/clients">
+    91→                                    Our Clients                                </a>
+    92→                                                                    <ul class="dropdown-menu">
+    93→                </ul>
+    94→                                                            </li>
+    95→                        
+    96→                                            
+    97→                                                        <li class="nav-item ">
+    98→                                <a class="nav-link  " href="https://danphehealth.com/news-event">
+    99→                                    News &amp; Events                                </a>
+   100→                                                                    <ul class="dropdown-menu">
+   101→                </ul>
+   102→                                                            </li>
+   103→                        
+   104→                                            
+   105→                                                        <li class="nav-item ">
+   106→                                <a class="nav-link  " href="https://danphehealth.com/careers">
+   107→                                    Career                                </a>
+   108→                                                                    <ul class="dropdown-menu">
+   109→                </ul>
+   110→                                                            </li>
+   111→                        
+   112→                                            
+   113→                                                        <li class="nav-item ">
+   114→                                <a class="nav-link  " href="https://danphehealth.com/danphe-community">
+   115→                                    Danphe Community                                </a>
+   116→                                                                    <ul class="dropdown-menu">
+   117→                </ul>
+   118→                                                            </li>
+   119→                        
+   120→                                        
+   121→
+   122→                </ul>
+   123→            </div>
+   124→            <div class="top-right-header">
+   125→                <div class="button-wrapper header-button">
+   126→                                            <a class="btn btn-primary" href="https://danphehealth.com/schedule-a-demo"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule a Demo</a>
+   127→                                    </div>
+   128→            </div>
+   129→            <div class="mobile-menu-icon">
+   130→                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+   131→                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+   132→                </button>
+   133→            </div>
+   134→        </div>
+   135→        <!-- Mobileview Nav -->
+   136→        <div class="container mobile-container">
+   137→            <div class="offcanvas offcanvas-start mobilenav d-block d-md-block d-lg-none" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+   138→                <div class="offcanvas-header">
+   139→                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Danphe Health Menu</h5>
+   140→                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+   141→                </div>
+   142→                <div class="offcanvas-body">
+   143→                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+   144→                                                                                        <li class="nav-item ">
+   145→                                    <a class="nav-link  " href="https://danphehealth.com/company">
+   146→                                        Company                                    </a>
+   147→                                                                            <ul class="dropdown-menu">
+   148→                </ul>
+   149→                                                                    </li>
+   150→                                                                                        <li class="nav-item ">
+   151→                                    <a class="nav-link  " href="https://danphehealth.com/solutions">
+   152→                                        Our Solution                                    </a>
+   153→                                                                            <ul class="dropdown-menu">
+   154→                </ul>
+   155→                                                                    </li>
+   156→                                                                                        <li class="nav-item ">
+   157→                                    <a class="nav-link  " href="https://danphehealth.com/clients">
+   158→                                        Our Clients                                    </a>
+   159→                                                                            <ul class="dropdown-menu">
+   160→                </ul>
+   161→                                                                    </li>
+   162→                                                                                        <li class="nav-item ">
+   163→                                    <a class="nav-link  " href="https://danphehealth.com/news-event">
+   164→                                        News &amp; Events                                    </a>
+   165→                                                                            <ul class="dropdown-menu">
+   166→                </ul>
+   167→                                                                    </li>
+   168→                                                                                        <li class="nav-item ">
+   169→                                    <a class="nav-link  " href="https://danphehealth.com/careers">
+   170→                                        Career                                    </a>
+   171→                                                                            <ul class="dropdown-menu">
+   172→                </ul>
+   173→                                                                    </li>
+   174→                                                                                        <li class="nav-item ">
+   175→                                    <a class="nav-link  " href="https://danphehealth.com/danphe-community">
+   176→                                        Danphe Community                                    </a>
+   177→                                                                            <ul class="dropdown-menu">
+   178→                </ul>
+   179→                                                                    </li>
+   180→                            
+   181→                    </ul>
+   182→                    <div class="header-button">
+   183→                        <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule
+   184→                            a Demo</a>
+   185→                    </div>
+   186→                </div>
+   187→            </div>
+   188→
+   189→        </div>
+   190→    </nav>
+   191→</header>
+   192→<!-- Header End -->
+   193→
+   194→<!-- Livewire Component wire-end:kajsBU2ITZ1WxoocKbVs -->
+   195→        <!-- Hero Section End -->
+   196→    
+   197→        <section class="hero-section">
+   198→            <div class="blur-circle">
+   199→                <div class="blur-primary"></div>
+   200→                <div class="blur-secondary"></div>
+   201→            </div>
+   202→            <div class="container">
+   203→                <div class="row align-items-center">
+   204→                    <div class="col-lg-12 col-md-12">
+   205→                        <div class="hero-slider slick-initialized slick-slider slick-dotted">
+   206→                                                                                                <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 7812px; transform: translate3d(-2232px, 0px, 0px);"><div class="hero-slide slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true" tabindex="-1" style="width: 1116px;">
+   207→                                        <div class="row align-items-center">
+   208→                                            <div class="col-lg-5 col-md-6">
+   209→                                                <div class="left-content-section">
+   210→                                                    <div class="title">
+   211→                                                        <h2>All-In-One Solutions for Hospital Information Management</h2>
+   212→                                                    </div>
+   213→                                                    <p></p><p>Trusted by Top Hospitals. Used in 53+ Hospitals and growing more?</p><p></p>
+   214→                                                    <div class="btn-wrapper mt-5">
+   215→                                                        <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary" tabindex="-1">
+   216→                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule a Demo</a>
+   217→                                                                                                                    <a href="https://danphehealth.com/company" class="btn btn-primary-outline" tabindex="-1">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+   218→                                                                                                            </div>
+   219→                                                </div>
+   220→                                            </div>
+   221→                                            <div class="col-lg-6 col-md-6 offset-lg-1 d-none d-sm-block">
+   222→                                                <div class="hero-img-wrap">
+   223→                                                    <div class="hero-img"><img src="https://danphehealth.com/storage/uploads/gNobfWer8kFqkYAYiKbXvwkIAMe5sKqX6PSSkyNH.png" alt="Image 1">
+   224→                                                    </div>
+   225→                                                </div>
+   226→                                            </div>
+   227→                                        </div>
+   228→                                    </div><div class="hero-slide slick-slide" data-slick-index="0" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 1116px;">
+   229→                                        <div class="row align-items-center">
+   230→                                            <div class="col-lg-5 col-md-6">
+   231→                                                <div class="left-content-section">
+   232→                                                    <div class="title">
+   233→                                                        <h2>Efficient, Reliable and Affordable</h2>
+   234→                                                    </div>
+   235→                                                    <p></p><p><span class="text-big">Transforming healthcare information management with complete Health Care Solutions.</span></p><p></p>
+   236→                                                    <div class="btn-wrapper mt-5">
+   237→                                                        <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary" tabindex="-1">
+   238→                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule a demo</a>
+   239→                                                                                                                    <a href="https://danphehealth.com/company" class="btn btn-primary-outline" tabindex="-1">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+   240→                                                                                                            </div>
+   241→                                                </div>
+   242→                                            </div>
+   243→                                            <div class="col-lg-6 col-md-6 offset-lg-1 d-none d-sm-block">
+   244→                                                <div class="hero-img-wrap">
+   245→                                                    <div class="hero-img"><img src="https://danphehealth.com/storage/uploads/5BRPoCDX4MLIIdGkW2LQVtlcBFKZa61HMKed8Plg.png" alt="Image 1">
+   246→                                                    </div>
+   247→                                                </div>
+   248→                                            </div>
+   249→                                        </div>
+   250→                                    </div><div class="hero-slide hero-slide-position slick-slide slick-current slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01" style="width: 1116px;">
+   251→                                <div class="row align-items-center">
+   252→                                    <div class="col-lg-6 col-md-6">
+   253→                                        <div class="left-content-section">
+   254→                                            <div class="title">
+   255→                                                <h2>What values <span>DANPHE can ADD</span> to your business </h2>
+   256→                                            </div>
+   257→                                            <ul class="list">
+   258→                                                <li>Helping our customer to take lead in their business using Information
+   259→                                                    Technology </li>
+   260→                                                <li>Time tested products to increase customer operational efficiency
+   261→                                                    immediately
+   262→                                                </li>
+   263→                                            </ul>
+   264→                                            <div class="btn-wrapper mt-5">
+   265→                                                <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+   266→                                                    Schedule
+   267→                                                    a Demo</a>
+   268→                                                <a href="https://danphehealth.com/company" class="btn btn-primary-outline" tabindex="0">Learn More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+   269→                                            </div>
+   270→                                        </div>
+   271→                                    </div>
+   272→                                    <div class="col-lg-6 col-md-6  d-none d-sm-block">
+   273→                                        <div class="hero-img-wrap">
+   274→                                            <div class="hero-img"><img src="https://danphehealth.com/frontend/img/slideimg2.png" alt="Image 1"></div>
+   275→
+   276→                                            <div class="bottom-slide-content">
+   277→                                                <h3>Availability of information’s in right product will help in right
+   278→                                                    decision making </h3>
+   279→                                            </div>
+   280→                                        </div>
+   281→                                    </div>
+   282→                                </div>
+   283→                            </div><div class="hero-slide slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02" style="width: 1116px;">
+   284→                                        <div class="row align-items-center">
+   285→                                            <div class="col-lg-5 col-md-6">
+   286→                                                <div class="left-content-section">
+   287→                                                    <div class="title">
+   288→                                                        <h2>All-In-One Solutions for Hospital Information Management</h2>
+   289→                                                    </div>
+   290→                                                    <p></p><p>Trusted by Top Hospitals. Used in 53+ Hospitals and growing more?</p><p></p>
+   291→                                                    <div class="btn-wrapper mt-5">
+   292→                                                        <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary" tabindex="-1">
+   293→                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule a Demo</a>
+   294→                                                                                                                    <a href="https://danphehealth.com/company" class="btn btn-primary-outline" tabindex="-1">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+   295→                                                                                                            </div>
+   296→                                                </div>
+   297→                                            </div>
+   298→                                            <div class="col-lg-6 col-md-6 offset-lg-1 d-none d-sm-block">
+   299→                                                <div class="hero-img-wrap">
+   300→                                                    <div class="hero-img"><img src="https://danphehealth.com/storage/uploads/gNobfWer8kFqkYAYiKbXvwkIAMe5sKqX6PSSkyNH.png" alt="Image 1">
+   301→                                                    </div>
+   302→                                                </div>
+   303→                                            </div>
+   304→                                        </div>
+   305→                                    </div><div class="hero-slide slick-slide slick-cloned" data-slick-index="3" id="" aria-hidden="true" tabindex="-1" style="width: 1116px;">
+   306→                                        <div class="row align-items-center">
+   307→                                            <div class="col-lg-5 col-md-6">
+   308→                                                <div class="left-content-section">
+   309→                                                    <div class="title">
+   310→                                                        <h2>Efficient, Reliable and Affordable</h2>
+   311→                                                    </div>
+   312→                                                    <p></p><p><span class="text-big">Transforming healthcare information management with complete Health Care Solutions.</span></p><p></p>
+   313→                                                    <div class="btn-wrapper mt-5">
+   314→                                                        <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary" tabindex="-1">
+   315→                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule a demo</a>
+   316→                                                                                                                    <a href="https://danphehealth.com/company" class="btn btn-primary-outline" tabindex="-1">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+   317→                                                                                                            </div>
+   318→                                                </div>
+   319→                                            </div>
+   320→                                            <div class="col-lg-6 col-md-6 offset-lg-1 d-none d-sm-block">
+   321→                                                <div class="hero-img-wrap">
+   322→                                                    <div class="hero-img"><img src="https://danphehealth.com/storage/uploads/5BRPoCDX4MLIIdGkW2LQVtlcBFKZa61HMKed8Plg.png" alt="Image 1">
+   323→                                                    </div>
+   324→                                                </div>
+   325→                                            </div>
+   326→                                        </div>
+   327→                                    </div><div class="hero-slide hero-slide-position slick-slide slick-cloned" data-slick-index="4" id="" aria-hidden="true" tabindex="-1" style="width: 1116px;">
+   328→                                <div class="row align-items-center">
+   329→                                    <div class="col-lg-6 col-md-6">
+   330→                                        <div class="left-content-section">
+   331→                                            <div class="title">
+   332→                                                <h2>What values <span>DANPHE can ADD</span> to your business </h2>
+   333→                                            </div>
+   334→                                            <ul class="list">
+   335→                                                <li>Helping our customer to take lead in their business using Information
+   336→                                                    Technology </li>
+   337→                                                <li>Time tested products to increase customer operational efficiency
+   338→                                                    immediately
+   339→                                                </li>
+   340→                                            </ul>
+   341→                                            <div class="btn-wrapper mt-5">
+   342→                                                <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+   343→                                                    Schedule
+   344→                                                    a Demo</a>
+   345→                                                <a href="https://danphehealth.com/company" class="btn btn-primary-outline" tabindex="-1">Learn More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+   346→                                            </div>
+   347→                                        </div>
+   348→                                    </div>
+   349→                                    <div class="col-lg-6 col-md-6  d-none d-sm-block">
+   350→                                        <div class="hero-img-wrap">
+   351→                                            <div class="hero-img"><img src="https://danphehealth.com/frontend/img/slideimg2.png" alt="Image 1"></div>
+   352→
+   353→                                            <div class="bottom-slide-content">
+   354→                                                <h3>Availability of information’s in right product will help in right
+   355→                                                    decision making </h3>
+   356→                                            </div>
+   357→                                        </div>
+   358→                                    </div>
+   359→                                </div>
+   360→                            </div><div class="hero-slide slick-slide slick-cloned" data-slick-index="5" id="" aria-hidden="true" tabindex="-1" style="width: 1116px;">
+   361→                                        <div class="row align-items-center">
+   362→                                            <div class="col-lg-5 col-md-6">
+   363→                                                <div class="left-content-section">
+   364→                                                    <div class="title">
+   365→                                                        <h2>All-In-One Solutions for Hospital Information Management</h2>
+   366→                                                    </div>
+   367→                                                    <p></p><p>Trusted by Top Hospitals. Used in 53+ Hospitals and growing more?</p><p></p>
+   368→                                                    <div class="btn-wrapper mt-5">
+   369→                                                        <a href="https://danphehealth.com/schedule-a-demo" class="btn btn-primary" tabindex="-1">
+   370→                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule a Demo</a>
+   371→                                                                                                                    <a href="https://danphehealth.com/company" class="btn btn-primary-outline" tabindex="-1">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+   372→                                                                                                            </div>
+   373→                                                </div>
+   374→                                            </div>
+   375→                                            <div class="col-lg-6 col-md-6 offset-lg-1 d-none d-sm-block">
+   376→                                                <div class="hero-img-wrap">
+   377→                                                    <div class="hero-img"><img src="https://danphehealth.com/storage/uploads/gNobfWer8kFqkYAYiKbXvwkIAMe5sKqX6PSSkyNH.png" alt="Image 1">
+   378→                                                    </div>
+   379→                                                </div>
+   380→                                            </div>
+   381→                                        </div>
+   382→                                    </div></div></div>
+   383→                                                                                                                                                    
+   384→                                                                                                                                                            
+   385→                                                                                    <ul class="slick-dots" style="" role="tablist"><li class="" role="presentation"><button type="button" role="tab" id="slick-slide-control00" aria-controls="slick-slide00" aria-label="1 of 3" tabindex="-1">1</button></li><li role="presentation" class="slick-active"><button type="button" role="tab" id="slick-slide-control01" aria-controls="slick-slide01" aria-label="2 of 3" tabindex="0" aria-selected="true">2</button></li><li role="presentation"><button type="button" role="tab" id="slick-slide-control02" aria-controls="slick-slide02" aria-label="3 of 3" tabindex="-1">3</button></li></ul></div>
+   386→                    </div>
+   387→                </div>
+   388→            </div>
+   389→        </section>
+   390→    
+   391→    <!-- Hero Section End -->
+   392→    <!-- Solution Start -->
+   393→    <section class="solution-section">
+   394→        <div class="container">
+   395→            <div class="section-title text-center">
+   396→                <h2>Discover a complete solution for HIMS with EMR</h2>
+   397→                <p>All-in-one hospital management solution for seamless operations</p>
+   398→            </div>
+   399→            <div class="module-slider-wrapper">
+   400→                <ul class="module-slider nav nav-pills mb-3 slick-initialized slick-slider" id="pills-tab" role="tablist"><button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
+   401→                                            <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 4334px; transform: translate3d(-788px, 0px, 0px);"><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="-4" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   402→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#pathology-software" type="button" role="tab" aria-controls="pathology-software" aria-selected="false" tabindex="-1">
+   403→                                <i class="icon">
+   404→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/KFsFp99lsTgyXnVKJbiUi7gCRmRp2NR1umxVb19S.svg" alt="">
+   405→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/Xvqm3QartPuNThCvMEGOaXKlPYTcOgAKAJJbELsw.svg" alt="">
+   406→                                </i>
+   407→                                Pathology Software</button>
+   408→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="-3" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   409→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#pharmacy" type="button" role="tab" aria-controls="pharmacy" aria-selected="false" tabindex="-1">
+   410→                                <i class="icon">
+   411→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/lBnFUPj2tIcbTR3o0nL771yPqyvn9iy538SOfRrH.svg" alt="">
+   412→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/ap8hzm56Nfyn3drN6WloW0nimKuACXPl0ViThHH8.svg" alt="">
+   413→                                </i>
+   414→                                Pharmacy</button>
+   415→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="-2" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   416→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#inventory-management" type="button" role="tab" aria-controls="inventory-management" aria-selected="false" tabindex="-1">
+   417→                                <i class="icon">
+   418→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/Yn3oJlVoSPd36iYdBg85CBZADxQrdi5TjpDPepKe.svg" alt="">
+   419→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/CSdzRoHePc9wwhavblw3rEj0yPSAFqL9bbIiWR2A.svg" alt="">
+   420→                                </i>
+   421→                                Inventory Management</button>
+   422→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="-1" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   423→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#queue-management" type="button" role="tab" aria-controls="queue-management" aria-selected="false" tabindex="-1">
+   424→                                <i class="icon">
+   425→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/3ifn90GrhvLTmH9h79XwY4ebCxajfC8ivC1JHe3L.svg" alt="">
+   426→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/X58IC6Jo47xTRG1OactLdafrZ7AMXYmNJuaYmjkw.svg" alt="">
+   427→                                </i>
+   428→                                Queue Management</button>
+   429→                        </li><li class="nav-item slick-slide slick-current slick-active" role="presentation" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 197px;">
+   430→                            <button class="nav-link active" id="patient-administration}}" data-bs-toggle="tab" data-bs-target="#patient-administration" type="button" role="tab" aria-controls="patient-administration" aria-selected="true" tabindex="0">
+   431→                                <i class="icon">
+   432→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/o8LhlIHosonN1ss1Xbnx4BuPQIH2j5kTJLsqkWUF.svg" alt="">
+   433→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/pCqJyn1pu7uF8Xe01RcdhS8Z7SUXL0H0pTgFaziI.svg" alt="">
+   434→                                </i>
+   435→                                Patient Administration</button>
+   436→                        </li><li class="nav-item slick-slide slick-active" role="presentation" data-slick-index="1" aria-hidden="false" tabindex="0" style="width: 197px;">
+   437→                            <button class="nav-link " id="opd-management}}" data-bs-toggle="tab" data-bs-target="#opd-management" type="button" role="tab" aria-controls="opd-management" aria-selected="false" tabindex="-1">
+   438→                                <i class="icon">
+   439→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/1FLzrtg52EKgMbKXaPPcngIBl8ThbVT5f93VKn5U.svg" alt="">
+   440→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/EpXK5EDyLENjofm1vsFABjwl9l831nRZw44NFfuc.svg" alt="">
+   441→                                </i>
+   442→                                OPD Management</button>
+   443→                        </li><li class="nav-item slick-slide slick-active" role="presentation" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 197px;">
+   444→                            <button class="nav-link " id="ipd-management}}" data-bs-toggle="tab" data-bs-target="#ipd-management" type="button" role="tab" aria-controls="ipd-management" aria-selected="false" tabindex="-1">
+   445→                                <i class="icon">
+   446→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/JZb6vJSIzCQZjvPUKBy1ds3KmAL8FMlvVL1XhtV7.svg" alt="">
+   447→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/NZUBZq4tEOd4Y57kbvgsbE2UkZYnJGFQI5jpRdon.svg" alt="">
+   448→                                </i>
+   449→                                IPD Management</button>
+   450→                        </li><li class="nav-item slick-slide slick-active" role="presentation" data-slick-index="3" aria-hidden="false" tabindex="0" style="width: 197px;">
+   451→                            <button class="nav-link " id="ot-management}}" data-bs-toggle="tab" data-bs-target="#ot-management" type="button" role="tab" aria-controls="ot-management" aria-selected="false" tabindex="-1">
+   452→                                <i class="icon">
+   453→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/CACHu7gc6zeiiyuUvDBzfZIn2tBT51gzsKA0wpLj.svg" alt="">
+   454→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/60DLrOSCtJoKjQAjfLtzrLJkmwE2PwYnXSnwdmNj.svg" alt="">
+   455→                                </i>
+   456→                                OT Management</button>
+   457→                        </li><li class="nav-item slick-slide" role="presentation" data-slick-index="4" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   458→                            <button class="nav-link " id="ssf-management}}" data-bs-toggle="tab" data-bs-target="#ssf-management" type="button" role="tab" aria-controls="ssf-management" aria-selected="false" tabindex="-1">
+   459→                                <i class="icon">
+   460→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/aSIoLyT5ERWOjXCnvgrP9PKL5797LBQc2MQY0lim.svg" alt="">
+   461→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/TEOZjK4GizUOcRSJNzlS57CV0JKt5mQxvJPUsKiS.svg" alt="">
+   462→                                </i>
+   463→                                SSF Management</button>
+   464→                        </li><li class="nav-item slick-slide" role="presentation" data-slick-index="5" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   465→                            <button class="nav-link " id="pathology-software}}" data-bs-toggle="tab" data-bs-target="#pathology-software" type="button" role="tab" aria-controls="pathology-software" aria-selected="false" tabindex="-1">
+   466→                                <i class="icon">
+   467→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/KFsFp99lsTgyXnVKJbiUi7gCRmRp2NR1umxVb19S.svg" alt="">
+   468→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/Xvqm3QartPuNThCvMEGOaXKlPYTcOgAKAJJbELsw.svg" alt="">
+   469→                                </i>
+   470→                                Pathology Software</button>
+   471→                        </li><li class="nav-item slick-slide" role="presentation" data-slick-index="6" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   472→                            <button class="nav-link " id="pharmacy}}" data-bs-toggle="tab" data-bs-target="#pharmacy" type="button" role="tab" aria-controls="pharmacy" aria-selected="false" tabindex="-1">
+   473→                                <i class="icon">
+   474→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/lBnFUPj2tIcbTR3o0nL771yPqyvn9iy538SOfRrH.svg" alt="">
+   475→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/ap8hzm56Nfyn3drN6WloW0nimKuACXPl0ViThHH8.svg" alt="">
+   476→                                </i>
+   477→                                Pharmacy</button>
+   478→                        </li><li class="nav-item slick-slide" role="presentation" data-slick-index="7" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   479→                            <button class="nav-link " id="inventory-management}}" data-bs-toggle="tab" data-bs-target="#inventory-management" type="button" role="tab" aria-controls="inventory-management" aria-selected="false" tabindex="-1">
+   480→                                <i class="icon">
+   481→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/Yn3oJlVoSPd36iYdBg85CBZADxQrdi5TjpDPepKe.svg" alt="">
+   482→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/CSdzRoHePc9wwhavblw3rEj0yPSAFqL9bbIiWR2A.svg" alt="">
+   483→                                </i>
+   484→                                Inventory Management</button>
+   485→                        </li><li class="nav-item slick-slide" role="presentation" data-slick-index="8" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   486→                            <button class="nav-link " id="queue-management}}" data-bs-toggle="tab" data-bs-target="#queue-management" type="button" role="tab" aria-controls="queue-management" aria-selected="false" tabindex="-1">
+   487→                                <i class="icon">
+   488→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/3ifn90GrhvLTmH9h79XwY4ebCxajfC8ivC1JHe3L.svg" alt="">
+   489→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/X58IC6Jo47xTRG1OactLdafrZ7AMXYmNJuaYmjkw.svg" alt="">
+   490→                                </i>
+   491→                                Queue Management</button>
+   492→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="9" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   493→                            <button class="nav-link active" id="" data-bs-toggle="tab" data-bs-target="#patient-administration" type="button" role="tab" aria-controls="patient-administration" aria-selected="true" tabindex="-1">
+   494→                                <i class="icon">
+   495→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/o8LhlIHosonN1ss1Xbnx4BuPQIH2j5kTJLsqkWUF.svg" alt="">
+   496→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/pCqJyn1pu7uF8Xe01RcdhS8Z7SUXL0H0pTgFaziI.svg" alt="">
+   497→                                </i>
+   498→                                Patient Administration</button>
+   499→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="10" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   500→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#opd-management" type="button" role="tab" aria-controls="opd-management" aria-selected="false" tabindex="-1">
+   501→                                <i class="icon">
+   502→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/1FLzrtg52EKgMbKXaPPcngIBl8ThbVT5f93VKn5U.svg" alt="">
+   503→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/EpXK5EDyLENjofm1vsFABjwl9l831nRZw44NFfuc.svg" alt="">
+   504→                                </i>
+   505→                                OPD Management</button>
+   506→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="11" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   507→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#ipd-management" type="button" role="tab" aria-controls="ipd-management" aria-selected="false" tabindex="-1">
+   508→                                <i class="icon">
+   509→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/JZb6vJSIzCQZjvPUKBy1ds3KmAL8FMlvVL1XhtV7.svg" alt="">
+   510→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/NZUBZq4tEOd4Y57kbvgsbE2UkZYnJGFQI5jpRdon.svg" alt="">
+   511→                                </i>
+   512→                                IPD Management</button>
+   513→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="12" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   514→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#ot-management" type="button" role="tab" aria-controls="ot-management" aria-selected="false" tabindex="-1">
+   515→                                <i class="icon">
+   516→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/CACHu7gc6zeiiyuUvDBzfZIn2tBT51gzsKA0wpLj.svg" alt="">
+   517→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/60DLrOSCtJoKjQAjfLtzrLJkmwE2PwYnXSnwdmNj.svg" alt="">
+   518→                                </i>
+   519→                                OT Management</button>
+   520→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="13" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   521→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#ssf-management" type="button" role="tab" aria-controls="ssf-management" aria-selected="false" tabindex="-1">
+   522→                                <i class="icon">
+   523→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/aSIoLyT5ERWOjXCnvgrP9PKL5797LBQc2MQY0lim.svg" alt="">
+   524→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/TEOZjK4GizUOcRSJNzlS57CV0JKt5mQxvJPUsKiS.svg" alt="">
+   525→                                </i>
+   526→                                SSF Management</button>
+   527→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="14" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   528→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#pathology-software" type="button" role="tab" aria-controls="pathology-software" aria-selected="false" tabindex="-1">
+   529→                                <i class="icon">
+   530→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/KFsFp99lsTgyXnVKJbiUi7gCRmRp2NR1umxVb19S.svg" alt="">
+   531→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/Xvqm3QartPuNThCvMEGOaXKlPYTcOgAKAJJbELsw.svg" alt="">
+   532→                                </i>
+   533→                                Pathology Software</button>
+   534→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="15" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   535→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#pharmacy" type="button" role="tab" aria-controls="pharmacy" aria-selected="false" tabindex="-1">
+   536→                                <i class="icon">
+   537→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/lBnFUPj2tIcbTR3o0nL771yPqyvn9iy538SOfRrH.svg" alt="">
+   538→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/ap8hzm56Nfyn3drN6WloW0nimKuACXPl0ViThHH8.svg" alt="">
+   539→                                </i>
+   540→                                Pharmacy</button>
+   541→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="16" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   542→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#inventory-management" type="button" role="tab" aria-controls="inventory-management" aria-selected="false" tabindex="-1">
+   543→                                <i class="icon">
+   544→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/Yn3oJlVoSPd36iYdBg85CBZADxQrdi5TjpDPepKe.svg" alt="">
+   545→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/CSdzRoHePc9wwhavblw3rEj0yPSAFqL9bbIiWR2A.svg" alt="">
+   546→                                </i>
+   547→                                Inventory Management</button>
+   548→                        </li><li class="nav-item slick-slide slick-cloned" role="presentation" data-slick-index="17" id="" aria-hidden="true" tabindex="-1" style="width: 197px;">
+   549→                            <button class="nav-link " id="" data-bs-toggle="tab" data-bs-target="#queue-management" type="button" role="tab" aria-controls="queue-management" aria-selected="false" tabindex="-1">
+   550→                                <i class="icon">
+   551→                                    <img class="primary-icon" src="https://danphehealth.com/storage/uploads/3ifn90GrhvLTmH9h79XwY4ebCxajfC8ivC1JHe3L.svg" alt="">
+   552→                                    <img class="secondary-icon" src="https://danphehealth.com/storage/uploads/X58IC6Jo47xTRG1OactLdafrZ7AMXYmNJuaYmjkw.svg" alt="">
+   553→                                </i>
+   554→                                Queue Management</button>
+   555→                        </li></div></div>
+   556→                                            
+   557→                                            
+   558→                                            
+   559→                                            
+   560→                                            
+   561→                                            
+   562→                                            
+   563→                                            
+   564→                                    <button class="slick-next slick-arrow" aria-label="Next" type="button" style="">Next</button></ul>
+   565→            </div>
+   566→            <div class="tab-content" id="pills-tabContent">
+   567→                                    <div class="tab-pane fade show active" id="patient-administration" role="tabpanel" aria-labelledby="patient-administration" tabindex="0">
+   568→                        <div class="module-item">
+   569→                            <div class="row gx-0">
+   570→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   571→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   572→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/B06yY9y2MQiUCBEHpIcSITBjuN4yhkH4mLGvejX0.jpg" alt=""></div>
+   573→                                    </div>
+   574→                                </div>
+   575→                                <div class="col-lg-5 col-md-6">
+   576→                                    <div class="module-content">
+   577→                                        <div class="module-title">
+   578→                                            <h4>Our Module</h4>
+   579→                                            <h2>Enhancing Patient Care and Staff Incentives</h2>
+   580→                                        </div>
+   581→                                        <div class="module-bottom-content">
+   582→                                                                                        <p>This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others.</p>
+   583→                                            <div class="button-wrap">
+   584→                                                <a href="https://danphehealth.com/solution/patient-administration" class="btn btn-primary">View
+   585→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   586→                                            </div>
+   587→                                        </div>
+   588→                                    </div>
+   589→                                </div>
+   590→                            </div>
+   591→                        </div>
+   592→                    </div>
+   593→                                    <div class="tab-pane fade show " id="opd-management" role="tabpanel" aria-labelledby="opd-management" tabindex="0">
+   594→                        <div class="module-item">
+   595→                            <div class="row gx-0">
+   596→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   597→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   598→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/3BiXFrnlBFMoMRwWZkoNm4XuMbUw1kNJgDkGIYdo.jpg" alt=""></div>
+   599→                                    </div>
+   600→                                </div>
+   601→                                <div class="col-lg-5 col-md-6">
+   602→                                    <div class="module-content">
+   603→                                        <div class="module-title">
+   604→                                            <h4>Our Module</h4>
+   605→                                            <h2>In Person OPD Management</h2>
+   606→                                        </div>
+   607→                                        <div class="module-bottom-content">
+   608→                                                                                        <p>An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software.</p>
+   609→                                            <div class="button-wrap">
+   610→                                                <a href="https://danphehealth.com/solution/opd-management" class="btn btn-primary">View
+   611→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   612→                                            </div>
+   613→                                        </div>
+   614→                                    </div>
+   615→                                </div>
+   616→                            </div>
+   617→                        </div>
+   618→                    </div>
+   619→                                    <div class="tab-pane fade show " id="ipd-management" role="tabpanel" aria-labelledby="ipd-management" tabindex="0">
+   620→                        <div class="module-item">
+   621→                            <div class="row gx-0">
+   622→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   623→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   624→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/91ujO9IGH8LC6R1nc1fwwGeEiLrNIJQMSDegvElw.jpg" alt=""></div>
+   625→                                    </div>
+   626→                                </div>
+   627→                                <div class="col-lg-5 col-md-6">
+   628→                                    <div class="module-content">
+   629→                                        <div class="module-title">
+   630→                                            <h4>Our Module</h4>
+   631→                                            <h2>The Comprehensive Inpatient Management Solution</h2>
+   632→                                        </div>
+   633→                                        <div class="module-bottom-content">
+   634→                                                                                        <p>The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records.</p>
+   635→                                            <div class="button-wrap">
+   636→                                                <a href="https://danphehealth.com/solution/ipd-management" class="btn btn-primary">View
+   637→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   638→                                            </div>
+   639→                                        </div>
+   640→                                    </div>
+   641→                                </div>
+   642→                            </div>
+   643→                        </div>
+   644→                    </div>
+   645→                                    <div class="tab-pane fade show " id="ot-management" role="tabpanel" aria-labelledby="ot-management" tabindex="0">
+   646→                        <div class="module-item">
+   647→                            <div class="row gx-0">
+   648→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   649→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   650→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/bBYlK3VeJuVsh9FG2yR6gS2Y11p3dUJmWPNmE7nX.jpg" alt=""></div>
+   651→                                    </div>
+   652→                                </div>
+   653→                                <div class="col-lg-5 col-md-6">
+   654→                                    <div class="module-content">
+   655→                                        <div class="module-title">
+   656→                                            <h4>Our Module</h4>
+   657→                                            <h2>Innovations in Operation Theater Management</h2>
+   658→                                        </div>
+   659→                                        <div class="module-bottom-content">
+   660→                                                                                        <p><span style="background-color:rgb(255,255,255);color:rgb(13,13,13);">The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient tracking, operation theater rosters, and notes, along with managing death and birth certificates. The purpose of OT management is to optimize the utilization of operation theaters, reduce patient wait times, and ensure timely and efficient surgical procedures.</span></p>
+   661→                                            <div class="button-wrap">
+   662→                                                <a href="https://danphehealth.com/solution/ot-management" class="btn btn-primary">View
+   663→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   664→                                            </div>
+   665→                                        </div>
+   666→                                    </div>
+   667→                                </div>
+   668→                            </div>
+   669→                        </div>
+   670→                    </div>
+   671→                                    <div class="tab-pane fade show " id="ssf-management" role="tabpanel" aria-labelledby="ssf-management" tabindex="0">
+   672→                        <div class="module-item">
+   673→                            <div class="row gx-0">
+   674→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   675→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   676→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/qFoZIpGXbbatD2dCVlfzh7RqWhUuOx9t3Dl5pQpA.jpg" alt=""></div>
+   677→                                    </div>
+   678→                                </div>
+   679→                                <div class="col-lg-5 col-md-6">
+   680→                                    <div class="module-content">
+   681→                                        <div class="module-title">
+   682→                                            <h4>Our Module</h4>
+   683→                                            <h2>SSF Insurance Scheme Management Module for Hospitals</h2>
+   684→                                        </div>
+   685→                                        <div class="module-bottom-content">
+   686→                                                                                        <p>This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports registration, billing, pharmacy, and claim management and is equipped with API integration with the SSF system.</p>
+   687→                                            <div class="button-wrap">
+   688→                                                <a href="https://danphehealth.com/solution/ssf-management" class="btn btn-primary">View
+   689→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   690→                                            </div>
+   691→                                        </div>
+   692→                                    </div>
+   693→                                </div>
+   694→                            </div>
+   695→                        </div>
+   696→                    </div>
+   697→                                    <div class="tab-pane fade show " id="pathology-software" role="tabpanel" aria-labelledby="pathology-software" tabindex="0">
+   698→                        <div class="module-item">
+   699→                            <div class="row gx-0">
+   700→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   701→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   702→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/PsJBHIIIEf0rhUAtYiK14G1fZx0lB76ZKIr90GS2.jpg" alt=""></div>
+   703→                                    </div>
+   704→                                </div>
+   705→                                <div class="col-lg-5 col-md-6">
+   706→                                    <div class="module-content">
+   707→                                        <div class="module-title">
+   708→                                            <h4>Our Module</h4>
+   709→                                            <h2>Automating Processes and Enhancing Efficiency</h2>
+   710→                                        </div>
+   711→                                        <div class="module-bottom-content">
+   712→                                                                                        <p>The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully configurable laboratory test reports that can be ordered for both outpatients and inpatients instantaneously.</p>
+   713→                                            <div class="button-wrap">
+   714→                                                <a href="https://danphehealth.com/solution/pathology-software" class="btn btn-primary">View
+   715→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   716→                                            </div>
+   717→                                        </div>
+   718→                                    </div>
+   719→                                </div>
+   720→                            </div>
+   721→                        </div>
+   722→                    </div>
+   723→                                    <div class="tab-pane fade show " id="pharmacy" role="tabpanel" aria-labelledby="pharmacy" tabindex="0">
+   724→                        <div class="module-item">
+   725→                            <div class="row gx-0">
+   726→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   727→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   728→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/toh9opS0qNh9sYaC0VLqXpjHSYnJUrfowh50Ogkh.jpg" alt=""></div>
+   729→                                    </div>
+   730→                                </div>
+   731→                                <div class="col-lg-5 col-md-6">
+   732→                                    <div class="module-content">
+   733→                                        <div class="module-title">
+   734→                                            <h4>Our Module</h4>
+   735→                                            <h2>Optimizing Workflow and Administration</h2>
+   736→                                        </div>
+   737→                                        <div class="module-bottom-content">
+   738→                                                                                        <p>The pharmacy module encompasses both central and distributed pharmacies, incorporating several functional units such as stock tracking, ordering, and receiving medicines from vendors.</p>
+   739→                                            <div class="button-wrap">
+   740→                                                <a href="https://danphehealth.com/solution/pharmacy" class="btn btn-primary">View
+   741→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   742→                                            </div>
+   743→                                        </div>
+   744→                                    </div>
+   745→                                </div>
+   746→                            </div>
+   747→                        </div>
+   748→                    </div>
+   749→                                    <div class="tab-pane fade show " id="inventory-management" role="tabpanel" aria-labelledby="inventory-management" tabindex="0">
+   750→                        <div class="module-item">
+   751→                            <div class="row gx-0">
+   752→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   753→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   754→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/MQfWurB0r1HXok9nRVNTJ0B4iNaxVgI7XMhyNJ6g.jpg" alt=""></div>
+   755→                                    </div>
+   756→                                </div>
+   757→                                <div class="col-lg-5 col-md-6">
+   758→                                    <div class="module-content">
+   759→                                        <div class="module-title">
+   760→                                            <h4>Our Module</h4>
+   761→                                            <h2>Streamlining Hospital Stock Management</h2>
+   762→                                        </div>
+   763→                                        <div class="module-bottom-content">
+   764→                                                                                        <p>The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other departments, regulating the complete stock movement throughout the institution.</p>
+   765→                                            <div class="button-wrap">
+   766→                                                <a href="https://danphehealth.com/solution/inventory-management" class="btn btn-primary">View
+   767→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   768→                                            </div>
+   769→                                        </div>
+   770→                                    </div>
+   771→                                </div>
+   772→                            </div>
+   773→                        </div>
+   774→                    </div>
+   775→                                    <div class="tab-pane fade show " id="queue-management" role="tabpanel" aria-labelledby="queue-management" tabindex="0">
+   776→                        <div class="module-item">
+   777→                            <div class="row gx-0">
+   778→                                <div class="col-lg-5 col-md-6 offset-lg-1">
+   779→                                    <div class="d-flex align-items-center justify-content-end img-wrap">
+   780→                                        <div class="module-image"><img src="https://danphehealth.com/storage/uploads/nlWH1aOywuLS90YcmM2ZCMZrYkB7xv9eFNtulLV0.jpg" alt=""></div>
+   781→                                    </div>
+   782→                                </div>
+   783→                                <div class="col-lg-5 col-md-6">
+   784→                                    <div class="module-content">
+   785→                                        <div class="module-title">
+   786→                                            <h4>Our Module</h4>
+   787→                                            <h2>DANPHE HIMS Queue Management Feature</h2>
+   788→                                        </div>
+   789→                                        <div class="module-bottom-content">
+   790→                                                                                        <p>The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient flow within the hospital. It ensures that patients are attended to promptly and efficiently, thereby reducing waiting times and enhancing patient satisfaction.</p>
+   791→                                            <div class="button-wrap">
+   792→                                                <a href="https://danphehealth.com/solution/queue-management" class="btn btn-primary">View
+   793→                                                    Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   794→                                            </div>
+   795→                                        </div>
+   796→                                    </div>
+   797→                                </div>
+   798→                            </div>
+   799→                        </div>
+   800→                    </div>
+   801→                            </div>
+   802→        </div>
+   803→    </section>
+   804→    <!-- Solution End -->
+   805→    <section class="service-solution">
+   806→        <div class="container">
+   807→                        <div class="row my-3">
+   808→                    <div class="col-lg-7 col-md-6">
+   809→                        <div class="solution-item">
+   810→                            <div class="title-solution">
+   811→                                <div class="icon">
+   812→                                    <img src="https://danphehealth.com/frontend/img/svg/file-text.svg" alt="">
+   813→                                </div>
+   814→                                <div class="title-content">
+   815→                                    <h3>Danphe HIMS</h3>
+   816→                                    <p>For Healthcare Institutions</p>
+   817→                                </div>
+   818→                            </div>
+   819→                            <h2 class="title">Delivering better outcomes by working together to build smart system solutions for you</h2>
+   820→                            <ul class="solution-list">
+   821→                                                                                                    <li>
+   822→                                        <h4></h4>
+   823→                                        <p>Improve your patient experience by improving your process with DANPHE HMIS Software</p>
+   824→                                    </li>
+   825→                                                                    <li>
+   826→                                        <h4></h4>
+   827→                                        <p>Significant reduction in time and effort required to manage your Health Institution</p>
+   828→                                    </li>
+   829→                                                            </ul>
+   830→                            <div class="button-wrap">
+   831→                                <a href="https://danphehealth.com/company" class="btn btn-primary">Explore More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   832→                            </div>
+   833→                        </div>
+   834→                    </div>
+   835→                    <div class="col-lg-5 col-md-6">
+   836→                        <div class="solution-img">
+   837→                            <img src="https://danphehealth.com/storage/uploads/J5HGllnvBypttl0s1w0gHmgj05xHz50zl1ly15NQ.jpg" alt="">
+   838→                        </div>
+   839→                    </div>
+   840→                </div>
+   841→                            <div class="efficiency">
+   842→                <div class="row">
+   843→                    <div class="col-lg-4 col-md-4">
+   844→                        <div class="card solid-card">
+   845→                            <h4>Danphe Efficiency</h4>
+   846→                            <div class="solid-card-content">
+   847→                                <h3>Explore more about Danphe!</h3>
+   848→                                <!-- <p>One solution, no software clutter – Comprehensive EHR and HIMS in a nutshell.</p> -->
+   849→                                <div class="button-wrap">
+   850→                                    <a href="https://danphehealth.com/company" class="btn btn-primary">View Detail <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+   851→                                </div>
+   852→                            </div>
+   853→                        </div>
+   854→                    </div>
+   855→                    <div class="col-lg-4 col-md-4">
+   856→                        <div class="card simple-card">
+   857→                            <div class="inner-card">
+   858→                                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+   859→                                <h3>Brochure</h3>
+   860→                                <p>One solution, no software clutter – Comprehensive EHR and HIMS in a nutshell.</p>
+   861→                                <div class="link-wrap">
+   862→                                    <a href="https://danphehealth.com/downloads/danphe-hmis-brochure.pdf" download="broucher" class="btn btn-outline-primary">Download Now<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></a>
+   863→
+   864→                                </div>
+   865→                            </div>
+   866→                        </div>
+   867→                    </div>
+   868→                    <div class="col-lg-4 col-md-4">
+   869→                        <div class="card simple-card">
+   870→                            <div class="inner-card">
+   871→                                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+   872→                                <h3>Presentation</h3>
+   873→                                <p>One solution, no software clutter – Comprehensive EHR and HIMS in a nutshell.</p>
+   874→                                <div class="link-wrap">
+   875→                                    <a href="https://danphehealth.com/downloads/danphe-presentation.pdf" download="presentation" class="btn btn-outline-primary">Download Now<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></a>
+   876→                                </div>
+   877→                            </div>
+   878→                        </div>
+   879→                    </div>
+   880→                </div>
+   881→            </div>
+   882→        </div>
+   883→    </section>
+   884→    <!-- About Section Start -->
+   885→    <section class="about-section">
+   886→        <div class="container">
+   887→            <div class="section-title text-center">
+   888→                <h2>We Provide Trusted and Best Software </h2>
+   889→                <p>All-in-one hospital management solution for seamless operations</p>
+   890→            </div>
+   891→            <div class="row align-items-center">
+   892→                <div class="col-lg-6 col-md-12">
+   893→                    <div class="about-img">
+   894→                        <img src="https://danphehealth.com/frontend/img/about-img.png" alt="">
+   895→                    </div>
+   896→                </div>
+   897→                <div class="col-lg-5 col-md-12 offset-lg-1">
+   898→                    <div class="about-content">
+   899→                        <ul>
+   900→                            <li>
+   901→                                <div class="list-content-wrap">
+   902→                                    <div class="icon-wrap">
+   903→                                        <i class="icon"><img src="https://danphehealth.com/frontend/img/svg/fi_2785482.svg" alt=""></i>
+   904→                                    </div>
+   905→                                    <div class="list-content">
+   906→                                        <h4>Built By Doctors For Doctors</h4>
+   907→                                        <p>We have your efficiency and ease in mind, so we have developed an
+   908→                                            user-friendly solution.
+   909→                                        </p>
+   910→                                    </div>
+   911→                                </div>
+   912→                            </li>
+   913→                            <li>
+   914→                                <div class="list-content-wrap">
+   915→                                    <div class="icon-wrap">
+   916→                                        <i class="icon"><img src="https://danphehealth.com/frontend/img/svg/fi_487551.svg" alt=""></i>
+   917→                                    </div>
+   918→                                    <div class="list-content">
+   919→                                        <h4>Customizable &amp; Scalable</h4>
+   920→                                        <p>We built it from the bottom up, so we can customize to your needs. Also, as
+   921→                                            your business grows, Danphe can scale to meet your demands</p>
+   922→                                    </div>
+   923→                                </div>
+   924→                            </li>
+   925→                            <li>
+   926→                                <div class="list-content-wrap">
+   927→                                    <div class="icon-wrap">
+   928→                                        <i class="icon"><img src="https://danphehealth.com/frontend/img/svg/fi_3305673.svg" alt=""></i>
+   929→                                    </div>
+   930→                                    <div class="list-content">
+   931→                                        <h4>Cloudbase Service</h4>
+   932→                                        <p>We offer both on premises and cloud based services catering to your needs.
+   933→                                        </p>
+   934→                                    </div>
+   935→
+   936→                                </div>
+   937→                            </li>
+   938→                        </ul>
+   939→                    </div>
+   940→                </div>
+   941→            </div>
+   942→        </div>
+   943→    </section>
+   944→    <!-- About Section End -->
+   945→    <!-- Testimonial Section Start -->
+   946→            <section class="testimonial-section">
+   947→            <div class="container">
+   948→                <div class="section-title text-center">
+   949→                    <h2>Access Your Inventory</h2>
+   950→                    <p>See what our valuable clients tell about us</p>
+   951→                </div>
+   952→                <div class="testimonial-carousel slick-initialized slick-slider slick-dotted">
+   953→                                            <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 4836px; transform: translate3d(-1116px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-3" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+   954→                            <div class="content-wrapper">
+   955→                                <div class="testimonial-detailinfo">
+   956→                                    
+   957→                                    <p> </p><p style="text-align:center;">Charak Memorial Hospital strives for excellence in quality, hygiene, and technology, meeting public health needs in the Western Region through innovation and cost-effective solutions.</p><p></p>
+   958→                                    <div class="testimonial-detail">
+   959→                                        <div class="rating">
+   960→                                            <i class="fa-solid fa-star"></i>
+   961→                                            <i class="fa-solid fa-star"></i>
+   962→                                            <i class="fa-solid fa-star"></i>
+   963→                                            <i class="fa-solid fa-star"></i>
+   964→                                            <i class="fa-regular fa-star"></i>
+   965→                                        </div>
+   966→                                        <div class="author-detail">
+   967→                                            
+   968→                                            <h4>Charak Hospital Pvt. Ltd.</h4>
+   969→                                        </div>
+   970→                                        <div class="author">
+   971→                                            <img src="https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg" alt="">
+   972→                                        </div>
+   973→                                    </div>
+   974→                                </div>
+   975→                            </div>
+   976→                        </div><div class="slick-slide slick-cloned" data-slick-index="-2" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+   977→                            <div class="content-wrapper">
+   978→                                <div class="testimonial-detailinfo">
+   979→                                    
+   980→                                    <p> </p><p style="text-align:center;">This hospital plays a vital role related to health issues and their solution in the far west development region in Nepal, with great experience and an expert doctors team. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><p></p>
+   981→                                    <div class="testimonial-detail">
+   982→                                        <div class="rating">
+   983→                                            <i class="fa-solid fa-star"></i>
+   984→                                            <i class="fa-solid fa-star"></i>
+   985→                                            <i class="fa-solid fa-star"></i>
+   986→                                            <i class="fa-solid fa-star"></i>
+   987→                                            <i class="fa-regular fa-star"></i>
+   988→                                        </div>
+   989→                                        <div class="author-detail">
+   990→                                            
+   991→                                            <h4>Maya Metro Hospital pvt. Ltd.</h4>
+   992→                                        </div>
+   993→                                        <div class="author">
+   994→                                            <img src="https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png" alt="">
+   995→                                        </div>
+   996→                                    </div>
+   997→                                </div>
+   998→                            </div>
+   999→                        </div><div class="slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+  1000→                            <div class="content-wrapper">
+  1001→                                <div class="testimonial-detailinfo">
+  1002→                                    
+  1003→                                    <p> </p><p>MMTH, part of NEHCO, champions equitable healthcare and quality education through collaborative efforts.</p><p></p>
+  1004→                                    <div class="testimonial-detail">
+  1005→                                        <div class="rating">
+  1006→                                            <i class="fa-solid fa-star"></i>
+  1007→                                            <i class="fa-solid fa-star"></i>
+  1008→                                            <i class="fa-solid fa-star"></i>
+  1009→                                            <i class="fa-solid fa-star"></i>
+  1010→                                            <i class="fa-regular fa-star"></i>
+  1011→                                        </div>
+  1012→                                        <div class="author-detail">
+  1013→                                            
+  1014→                                            <h4>Manmohan Hospital</h4>
+  1015→                                        </div>
+  1016→                                        <div class="author">
+  1017→                                            <img src="https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg" alt="">
+  1018→                                        </div>
+  1019→                                    </div>
+  1020→                                </div>
+  1021→                            </div>
+  1022→                        </div><div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide20" aria-describedby="slick-slide-control20" style="width: 372px;">
+  1023→                            <div class="content-wrapper">
+  1024→                                <div class="testimonial-detailinfo">
+  1025→                                    
+  1026→                                    <p> </p><p style="text-align:center;">MI Kidney Centre is focusing on spreading Dialysis services in different districts of Nepal, prioritizing rural cities with frequent screening and awareness programs for Kidney diseases.</p><p></p>
+  1027→                                    <div class="testimonial-detail">
+  1028→                                        <div class="rating">
+  1029→                                            <i class="fa-solid fa-star"></i>
+  1030→                                            <i class="fa-solid fa-star"></i>
+  1031→                                            <i class="fa-solid fa-star"></i>
+  1032→                                            <i class="fa-solid fa-star"></i>
+  1033→                                            <i class="fa-regular fa-star"></i>
+  1034→                                        </div>
+  1035→                                        <div class="author-detail">
+  1036→                                            
+  1037→                                            <h4>Mark International Kidney Center</h4>
+  1038→                                        </div>
+  1039→                                        <div class="author">
+  1040→                                            <img src="https://danphehealth.com/storage/uploads/CvegKrVeoWfcXC7sMrXLVmB6Vj5ikChWIPZEln7d.png" alt="">
+  1041→                                        </div>
+  1042→                                    </div>
+  1043→                                </div>
+  1044→                            </div>
+  1045→                        </div><div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide21" style="width: 372px;">
+  1046→                            <div class="content-wrapper">
+  1047→                                <div class="testimonial-detailinfo">
+  1048→                                    
+  1049→                                    <p> </p><p style="text-align:center;">A team of doctors committed to providing affordable and high-quality basic medical services believes in preventing and reducing illness within an affordable setup.</p><p></p>
+  1050→                                    <div class="testimonial-detail">
+  1051→                                        <div class="rating">
+  1052→                                            <i class="fa-solid fa-star"></i>
+  1053→                                            <i class="fa-solid fa-star"></i>
+  1054→                                            <i class="fa-solid fa-star"></i>
+  1055→                                            <i class="fa-solid fa-star"></i>
+  1056→                                            <i class="fa-regular fa-star"></i>
+  1057→                                        </div>
+  1058→                                        <div class="author-detail">
+  1059→                                            
+  1060→                                            <h4>Buddhanilkantha Healthcare Pvt. Ltd.</h4>
+  1061→                                        </div>
+  1062→                                        <div class="author">
+  1063→                                            <img src="https://danphehealth.com/storage/uploads/WJhqEGEa3RoG8kMO0vitnHKhk5L3LDixj72dxwfm.png" alt="">
+  1064→                                        </div>
+  1065→                                    </div>
+  1066→                                </div>
+  1067→                            </div>
+  1068→                        </div><div class="slick-slide slick-active" data-slick-index="2" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide22" style="width: 372px;">
+  1069→                            <div class="content-wrapper">
+  1070→                                <div class="testimonial-detailinfo">
+  1071→                                    
+  1072→                                    <p> </p><p style="text-align:center;">Charak Memorial Hospital strives for excellence in quality, hygiene, and technology, meeting public health needs in the Western Region through innovation and cost-effective solutions.</p><p></p>
+  1073→                                    <div class="testimonial-detail">
+  1074→                                        <div class="rating">
+  1075→                                            <i class="fa-solid fa-star"></i>
+  1076→                                            <i class="fa-solid fa-star"></i>
+  1077→                                            <i class="fa-solid fa-star"></i>
+  1078→                                            <i class="fa-solid fa-star"></i>
+  1079→                                            <i class="fa-regular fa-star"></i>
+  1080→                                        </div>
+  1081→                                        <div class="author-detail">
+  1082→                                            
+  1083→                                            <h4>Charak Hospital Pvt. Ltd.</h4>
+  1084→                                        </div>
+  1085→                                        <div class="author">
+  1086→                                            <img src="https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg" alt="">
+  1087→                                        </div>
+  1088→                                    </div>
+  1089→                                </div>
+  1090→                            </div>
+  1091→                        </div><div class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide23" aria-describedby="slick-slide-control21" style="width: 372px;">
+  1092→                            <div class="content-wrapper">
+  1093→                                <div class="testimonial-detailinfo">
+  1094→                                    
+  1095→                                    <p> </p><p style="text-align:center;">This hospital plays a vital role related to health issues and their solution in the far west development region in Nepal, with great experience and an expert doctors team. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><p></p>
+  1096→                                    <div class="testimonial-detail">
+  1097→                                        <div class="rating">
+  1098→                                            <i class="fa-solid fa-star"></i>
+  1099→                                            <i class="fa-solid fa-star"></i>
+  1100→                                            <i class="fa-solid fa-star"></i>
+  1101→                                            <i class="fa-solid fa-star"></i>
+  1102→                                            <i class="fa-regular fa-star"></i>
+  1103→                                        </div>
+  1104→                                        <div class="author-detail">
+  1105→                                            
+  1106→                                            <h4>Maya Metro Hospital pvt. Ltd.</h4>
+  1107→                                        </div>
+  1108→                                        <div class="author">
+  1109→                                            <img src="https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png" alt="">
+  1110→                                        </div>
+  1111→                                    </div>
+  1112→                                </div>
+  1113→                            </div>
+  1114→                        </div><div class="slick-slide" data-slick-index="4" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide24" style="width: 372px;">
+  1115→                            <div class="content-wrapper">
+  1116→                                <div class="testimonial-detailinfo">
+  1117→                                    
+  1118→                                    <p> </p><p>MMTH, part of NEHCO, champions equitable healthcare and quality education through collaborative efforts.</p><p></p>
+  1119→                                    <div class="testimonial-detail">
+  1120→                                        <div class="rating">
+  1121→                                            <i class="fa-solid fa-star"></i>
+  1122→                                            <i class="fa-solid fa-star"></i>
+  1123→                                            <i class="fa-solid fa-star"></i>
+  1124→                                            <i class="fa-solid fa-star"></i>
+  1125→                                            <i class="fa-regular fa-star"></i>
+  1126→                                        </div>
+  1127→                                        <div class="author-detail">
+  1128→                                            
+  1129→                                            <h4>Manmohan Hospital</h4>
+  1130→                                        </div>
+  1131→                                        <div class="author">
+  1132→                                            <img src="https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg" alt="">
+  1133→                                        </div>
+  1134→                                    </div>
+  1135→                                </div>
+  1136→                            </div>
+  1137→                        </div><div class="slick-slide slick-cloned" data-slick-index="5" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+  1138→                            <div class="content-wrapper">
+  1139→                                <div class="testimonial-detailinfo">
+  1140→                                    
+  1141→                                    <p> </p><p style="text-align:center;">MI Kidney Centre is focusing on spreading Dialysis services in different districts of Nepal, prioritizing rural cities with frequent screening and awareness programs for Kidney diseases.</p><p></p>
+  1142→                                    <div class="testimonial-detail">
+  1143→                                        <div class="rating">
+  1144→                                            <i class="fa-solid fa-star"></i>
+  1145→                                            <i class="fa-solid fa-star"></i>
+  1146→                                            <i class="fa-solid fa-star"></i>
+  1147→                                            <i class="fa-solid fa-star"></i>
+  1148→                                            <i class="fa-regular fa-star"></i>
+  1149→                                        </div>
+  1150→                                        <div class="author-detail">
+  1151→                                            
+  1152→                                            <h4>Mark International Kidney Center</h4>
+  1153→                                        </div>
+  1154→                                        <div class="author">
+  1155→                                            <img src="https://danphehealth.com/storage/uploads/CvegKrVeoWfcXC7sMrXLVmB6Vj5ikChWIPZEln7d.png" alt="">
+  1156→                                        </div>
+  1157→                                    </div>
+  1158→                                </div>
+  1159→                            </div>
+  1160→                        </div><div class="slick-slide slick-cloned" data-slick-index="6" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+  1161→                            <div class="content-wrapper">
+  1162→                                <div class="testimonial-detailinfo">
+  1163→                                    
+  1164→                                    <p> </p><p style="text-align:center;">A team of doctors committed to providing affordable and high-quality basic medical services believes in preventing and reducing illness within an affordable setup.</p><p></p>
+  1165→                                    <div class="testimonial-detail">
+  1166→                                        <div class="rating">
+  1167→                                            <i class="fa-solid fa-star"></i>
+  1168→                                            <i class="fa-solid fa-star"></i>
+  1169→                                            <i class="fa-solid fa-star"></i>
+  1170→                                            <i class="fa-solid fa-star"></i>
+  1171→                                            <i class="fa-regular fa-star"></i>
+  1172→                                        </div>
+  1173→                                        <div class="author-detail">
+  1174→                                            
+  1175→                                            <h4>Buddhanilkantha Healthcare Pvt. Ltd.</h4>
+  1176→                                        </div>
+  1177→                                        <div class="author">
+  1178→                                            <img src="https://danphehealth.com/storage/uploads/WJhqEGEa3RoG8kMO0vitnHKhk5L3LDixj72dxwfm.png" alt="">
+  1179→                                        </div>
+  1180→                                    </div>
+  1181→                                </div>
+  1182→                            </div>
+  1183→                        </div><div class="slick-slide slick-cloned" data-slick-index="7" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+  1184→                            <div class="content-wrapper">
+  1185→                                <div class="testimonial-detailinfo">
+  1186→                                    
+  1187→                                    <p> </p><p style="text-align:center;">Charak Memorial Hospital strives for excellence in quality, hygiene, and technology, meeting public health needs in the Western Region through innovation and cost-effective solutions.</p><p></p>
+  1188→                                    <div class="testimonial-detail">
+  1189→                                        <div class="rating">
+  1190→                                            <i class="fa-solid fa-star"></i>
+  1191→                                            <i class="fa-solid fa-star"></i>
+  1192→                                            <i class="fa-solid fa-star"></i>
+  1193→                                            <i class="fa-solid fa-star"></i>
+  1194→                                            <i class="fa-regular fa-star"></i>
+  1195→                                        </div>
+  1196→                                        <div class="author-detail">
+  1197→                                            
+  1198→                                            <h4>Charak Hospital Pvt. Ltd.</h4>
+  1199→                                        </div>
+  1200→                                        <div class="author">
+  1201→                                            <img src="https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg" alt="">
+  1202→                                        </div>
+  1203→                                    </div>
+  1204→                                </div>
+  1205→                            </div>
+  1206→                        </div><div class="slick-slide slick-cloned" data-slick-index="8" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+  1207→                            <div class="content-wrapper">
+  1208→                                <div class="testimonial-detailinfo">
+  1209→                                    
+  1210→                                    <p> </p><p style="text-align:center;">This hospital plays a vital role related to health issues and their solution in the far west development region in Nepal, with great experience and an expert doctors team. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><p></p>
+  1211→                                    <div class="testimonial-detail">
+  1212→                                        <div class="rating">
+  1213→                                            <i class="fa-solid fa-star"></i>
+  1214→                                            <i class="fa-solid fa-star"></i>
+  1215→                                            <i class="fa-solid fa-star"></i>
+  1216→                                            <i class="fa-solid fa-star"></i>
+  1217→                                            <i class="fa-regular fa-star"></i>
+  1218→                                        </div>
+  1219→                                        <div class="author-detail">
+  1220→                                            
+  1221→                                            <h4>Maya Metro Hospital pvt. Ltd.</h4>
+  1222→                                        </div>
+  1223→                                        <div class="author">
+  1224→                                            <img src="https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png" alt="">
+  1225→                                        </div>
+  1226→                                    </div>
+  1227→                                </div>
+  1228→                            </div>
+  1229→                        </div><div class="slick-slide slick-cloned" data-slick-index="9" id="" aria-hidden="true" tabindex="-1" style="width: 372px;">
+  1230→                            <div class="content-wrapper">
+  1231→                                <div class="testimonial-detailinfo">
+  1232→                                    
+  1233→                                    <p> </p><p>MMTH, part of NEHCO, champions equitable healthcare and quality education through collaborative efforts.</p><p></p>
+  1234→                                    <div class="testimonial-detail">
+  1235→                                        <div class="rating">
+  1236→                                            <i class="fa-solid fa-star"></i>
+  1237→                                            <i class="fa-solid fa-star"></i>
+  1238→                                            <i class="fa-solid fa-star"></i>
+  1239→                                            <i class="fa-solid fa-star"></i>
+  1240→                                            <i class="fa-regular fa-star"></i>
+  1241→                                        </div>
+  1242→                                        <div class="author-detail">
+  1243→                                            
+  1244→                                            <h4>Manmohan Hospital</h4>
+  1245→                                        </div>
+  1246→                                        <div class="author">
+  1247→                                            <img src="https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg" alt="">
+  1248→                                        </div>
+  1249→                                    </div>
+  1250→                                </div>
+  1251→                            </div>
+  1252→                        </div></div></div>
+  1253→                                            
+  1254→                                            
+  1255→                                            
+  1256→                                            
+  1257→                                    <ul class="slick-dots" style="" role="tablist"><li class="slick-active" role="presentation"><button type="button" role="tab" id="slick-slide-control20" aria-controls="slick-slide20" aria-label="1 of 2" tabindex="0" aria-selected="true">1</button></li><li role="presentation"><button type="button" role="tab" id="slick-slide-control21" aria-controls="slick-slide23" aria-label="2 of 2" tabindex="-1">2</button></li></ul></div>
+  1258→            </div>
+  1259→        </section>
+  1260→        <!-- Testimonial Section End -->
+  1261→    <!-- Client Section Start -->
+  1262→            <section class="client-section">
+  1263→            <div class="container">
+  1264→                <div class="section-title text-center">
+  1265→                    <h2>Trusted by</h2>
+  1266→                    
+  1267→                </div>
+  1268→                <div class="client-slider1">
+  1269→                                            <div class="client-list-item text-center single-client">
+  1270→                            <span class="client-logo">
+  1271→                                <img src="https://danphehealth.com/storage/uploads/4IY4SO3BaLokN5TATWTijwqOSQvnAq880dX06swm.png" alt="">
+  1272→                            </span>
+  1273→                            <p class="title">Manipal College of Medical Science</p>
+  1274→                        </div>
+  1275→                                            <div class="client-list-item text-center single-client">
+  1276→                            <span class="client-logo">
+  1277→                                <img src="https://danphehealth.com/storage/uploads/YRlPFHdotC4yL6OpPwfpJi6W0S8G0kcPNNmvL5JG.png" alt="">
+  1278→                            </span>
+  1279→                            <p class="title">Tilganga Institute of Ophthalmology (Tilganga)</p>
+  1280→                        </div>
+  1281→                                            <div class="client-list-item text-center single-client">
+  1282→                            <span class="client-logo">
+  1283→                                <img src="https://danphehealth.com/storage/uploads/LvNtx7mQtJlbz9ycPe8pQZVoPzLBiFsuMyfRY1Pr.png" alt="">
+  1284→                            </span>
+  1285→                            <p class="title">APF (Armed Police Force) Hospital</p>
+  1286→                        </div>
+  1287→                                            <div class="client-list-item text-center single-client">
+  1288→                            <span class="client-logo">
+  1289→                                <img src="https://danphehealth.com/storage/uploads/dpOuibvB4foJdzuMpROb1Xaduko2KPZ8h5sof1Nz.png" alt="">
+  1290→                            </span>
+  1291→                            <p class="title">Siddhartha Nagar City Hospital Pvt.Ltd.</p>
+  1292→                        </div>
+  1293→                                            <div class="client-list-item text-center single-client">
+  1294→                            <span class="client-logo">
+  1295→                                <img src="https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg" alt="">
+  1296→                            </span>
+  1297→                            <p class="title">Charak Hospital Pvt. Ltd.</p>
+  1298→                        </div>
+  1299→                                            <div class="client-list-item text-center single-client">
+  1300→                            <span class="client-logo">
+  1301→                                <img src="https://danphehealth.com/storage/uploads/rqjKdONW5AKP4sX49m4IIgKAx8zo4I6qm9pHLIdw.png" alt="">
+  1302→                            </span>
+  1303→                            <p class="title">Fishtail Hospital Pvt. Ltd.</p>
+  1304→                        </div>
+  1305→                                            <div class="client-list-item text-center single-client">
+  1306→                            <span class="client-logo">
+  1307→                                <img src="https://danphehealth.com/storage/uploads/DvtgZd0LZopNWutTMb8AYZ7AnQRKHH4ROmN7zCIw.png" alt="">
+  1308→                            </span>
+  1309→                            <p class="title">Manakamana Hospital Pvt. Ltd.</p>
+  1310→                        </div>
+  1311→                                            <div class="client-list-item text-center single-client">
+  1312→                            <span class="client-logo">
+  1313→                                <img src="https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png" alt="">
+  1314→                            </span>
+  1315→                            <p class="title">Maya Metro Hospital pvt. Ltd.</p>
+  1316→                        </div>
+  1317→                                            <div class="client-list-item text-center single-client">
+  1318→                            <span class="client-logo">
+  1319→                                <img src="https://danphehealth.com/storage/uploads/PSjGCpwlgqK620FI8qTz4h6vkUvexhNIq0iQUvEz.png" alt="">
+  1320→                            </span>
+  1321→                            <p class="title">Neuro Cardio Hospital</p>
+  1322→                        </div>
+  1323→                                            <div class="client-list-item text-center single-client">
+  1324→                            <span class="client-logo">
+  1325→                                <img src="https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg" alt="">
+  1326→                            </span>
+  1327→                            <p class="title">Manmohan Hospital</p>
+  1328→                        </div>
+  1329→                                            <div class="client-list-item text-center single-client">
+  1330→                            <span class="client-logo">
+  1331→                                <img src="https://danphehealth.com/storage/uploads/XwKrcFgg8NzD5hs58C8dz91oiCFZ0MnLJNKoqdaQ.png" alt="">
+  1332→                            </span>
+  1333→                            <p class="title">Lumbini Provincial Hospital</p>
+  1334→                        </div>
+  1335→                                            <div class="client-list-item text-center single-client">
+  1336→                            <span class="client-logo">
+  1337→                                <img src="https://danphehealth.com/storage/uploads/roKTGWaMI1ZvCpKyogTJV22ri3QYifaTXylgCdcC.png" alt="">
+  1338→                            </span>
+  1339→                            <p class="title">SGM Hospital Pvt. Ltd</p>
+  1340→                        </div>
+  1341→                                    </div>
+  1342→                <div class="button-wrapper text-center mt-5">
+  1343→                    <a href="https://danphehealth.com/clients" class="btn btn-primary">View All <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+  1344→
+  1345→                </div>
+  1346→            </div>
+  1347→        </section>
+  1348→        <!-- client Section End -->
+  1349→    <!-- Support Section Start -->
+  1350→    <section class="support-section">
+  1351→        <div class="container">
+  1352→            <div class="row">
+  1353→                <div class="col-lg-6 col-md-6">
+  1354→                    <div class="section-title">
+  1355→                        <h2>Let us know how we
+  1356→                            <span>can help you.</span>
+  1357→                        </h2>
+  1358→                        <p>You can send an email to <a href="mailto:info@danphehealth.com">info@danphehealth.com</a></p>
+  1359→                    </div>
+  1360→                    <div class="support-form">
+  1361→                        <form id="contact-form">
+  1362→                            <input type="hidden" name="_token" value="JrPFn2dMWeF3S0CYUgenPgEqtG06WPpSbYWFxXgt">                            <div class="row g-3 mb-3">
+  1363→                                <div class="col-lg-6">
+  1364→                                    <label for="firstName" class="form-label">First Name<span class="text-danger">*</span></label>
+  1365→                                    <input type="text" class="form-control " id="firstName" name="firstName">
+  1366→                                                                    </div>
+  1367→                                <div class="col-lg-6">
+  1368→                                    <label for="lastName" class="form-label ">Last
+  1369→                                        Name<span class="text-danger">*</span></label>
+  1370→                                    <input type="text" class="form-control " id="lastName" name="lastName">
+  1371→                                                                    </div>
+  1372→                            </div>
+  1373→                            <div class="mb-3">
+  1374→                                <label for="mobile-number" class="form-label">Phone Number<span class="text-danger">*</span></label>
+  1375→                                <input type="text" class="form-control " id="phone" name="phone">
+  1376→                                                            </div>
+  1377→                            <div class="mb-3">
+  1378→                                <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
+  1379→                                <input type="email" class="form-control " id="email" aria-describedby="email" name="email">
+  1380→                                                            </div>
+  1381→                            <div class="mb-3">
+  1382→                                <label for="message" class="form-label">Message<span class="text-danger">*</span></label>
+  1383→                                <textarea class="form-control " id="message" rows="3" name="message"></textarea>
+  1384→                                                            </div>
+  1385→                            <button type="submit" id="submit-btn" class="btn btn-lg btn-primary">Send Message</button>
+  1386→                        </form>
+  1387→                    </div>
+  1388→                </div>
+  1389→                <div class="col-lg-5 col-md-6 offset-lg-1">
+  1390→                    <div class="google-map">
+  1391→                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.32398903228!2d85.32684882524008!3d27.707281275494772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb197f4baea3f5%3A0x55e4bb647cf623f8!2sImark%20Digital!5e0!3m2!1sen!2snp!4v1707112335014!5m2!1sen!2snp" width="100%" height="625" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  1392→                    </div>
+  1393→                </div>
+  1394→            </div>
+  1395→
+  1396→
+  1397→        </div>
+  1398→    </section>
+  1399→    <!-- Support Section End -->
+  1400→    <div class="position-fixed top-0 end-0 p-3" style="z-index: 999">
+  1401→        <div class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true" id="myToast">
+  1402→            <div class="d-flex">
+  1403→                <div class="toast-body" id="response-message">
+  1404→                </div>
+  1405→                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  1406→            </div>
+  1407→        </div>
+  1408→    </div>
+  1409→    <!-- Enroll Section Start -->
+  1410→    <section class="enroll-section">
+  1411→        <div class="container">
+  1412→            <div class="enroll-container">
+  1413→                <div class="row">
+  1414→                    <div class="col-lg-8 offset-lg-4">
+  1415→                        <div class="enroll-content">
+  1416→                            <h2><span class="primary-text">Subscribe for a Transformative Demo</span> <span>of Our
+  1417→                                    Cutting-Edge Solutions!</span></h2>
+  1418→                            <p>Subscribe now for a personalized demo and unlock the future with innovative solutions
+  1419→                                tailored to enhance efficiency and elevate your overall experience.</p>
+  1420→                            <form id="newsletter-form">
+  1421→                                <input type="hidden" name="_token" value="JrPFn2dMWeF3S0CYUgenPgEqtG06WPpSbYWFxXgt">                                <div class="subcribe-form">
+  1422→                                    <input type="email" class="form-control" id="subscription_email" name="subscription_email" placeholder="Enter Email">
+  1423→                                    <button type="submit" id="submit-btn" class="btn btn-primary">Subscribe</button>
+  1424→                                </div>
+  1425→                            </form>
+  1426→                        </div>
+  1427→                    </div>
+  1428→                </div>
+  1429→                <div class="image">
+  1430→                    <img src="https://danphehealth.com/frontend/img/doctor.png" alt="">
+  1431→                </div>
+  1432→            </div>
+  1433→        </div>
+  1434→    </section>
+  1435→    <!-- Enroll Section End -->
+  1436→    <footer>
+  1437→        <div class="container">
+  1438→            <div class="row">
+  1439→                <div class="col-lg-3 col-md-6">
+  1440→                    <div class="footer-menu">
+  1441→                        <h4>Site Menu</h4>
+  1442→                        <ul>
+  1443→                            <li><a href="https://danphehealth.com/company">Company</a></li>
+  1444→                            <li><a href="https://danphehealth.com/clients">Our Clients</a></li>
+  1445→                            <li><a href="https://danphehealth.com/careers">Career</a></li>
+  1446→                            <li><a href="https://danphehealth.com/news-event">News &amp; Events</a></li>
+  1447→                            <li><a href="https://danphehealth.com/contact">Contact Us</a></li>
+  1448→                        </ul>
+  1449→                    </div>
+  1450→                </div>
+  1451→                <div class="col-lg-3 col-md-6">
+  1452→                    <div class="footer-menu">
+  1453→                        <h4>HMIS with EMR Solutions</h4>
+  1454→                        <ul>
+  1455→                                                        <li><a href="https://danphehealth.com/emr-module/patient-management">Patient Management</a></li>
+  1456→                                                        <li><a href="https://danphehealth.com/emr-module/materials-goods-management">Materials (goods) Management</a></li>
+  1457→                                                        <li><a href="https://danphehealth.com/emr-module/revenue-management">Revenue Management</a></li>
+  1458→                                                        <li><a href="https://danphehealth.com/emr-module/hospital-employee-management-hr-management">Hospital Employee Management (HR Management)</a></li>
+  1459→                                                    </ul>
+  1460→                    </div>
+  1461→                </div>
+  1462→                <div class="col-lg-3 col-md-6">
+  1463→                    <div class="footer-menu">
+  1464→                        <h4>Info</h4>
+  1465→                        <ul>
+  1466→                            <li><a href="https://danphehealth.com/faq">FAQs</a></li>
+  1467→                            <li><a href="https://danphehealth.com/privacy-policy">Privacy Policy</a></li>
+  1468→                            <li><a href="https://danphehealth.com/terms-condition">Terms &amp; Conditions</a></li>
+  1469→                        </ul>
+  1470→
+  1471→                    </div>
+  1472→                </div>
+  1473→                <div class="col-lg-3 col-md-6">
+  1474→                    <div class="footer-menu">
+  1475→                        <h4>Contact Us</h4>
+  1476→                        <ul>
+  1477→                            <li>Imark Digital Pvt. Ltd.
+  1478→                                Dillibazar, Kathmandu, Nepal</li>
+  1479→                            <li class="d-flex align-items-center gap-2"><i class="icon"><img src="https://danphehealth.com/frontend/img/mdi_phone-classic.svg" alt=""></i> +977 9852088004, 9802310817</li>
+  1480→                            <li class="d-flex align-items-center gap-2"><i class="icon"><img src="https://danphehealth.com/frontend/img/mdi_envelope-open.svg" alt=""></i>info@danphehealth.com</li>
+  1481→                            <li class="d-flex align-items-center gap-2"><i class="icon"><img src="https://danphehealth.com/frontend/img/global.svg" alt=""></i><a href="http://www.danphecare.com" target="_blank">www.danphecare.com</a>
+  1482→                                /
+  1483→                                <a href="http://www.danphehealth.com" target="_blank">www.danphehealth.com</a>
+  1484→                            </li>
+  1485→                        </ul>
+  1486→                    </div>
+  1487→                </div>
+  1488→            </div>
+  1489→            <div class="bottom-footer">
+  1490→                <div class="copy-right">Copyright 2024. All Rights Reserved.</div>
+  1491→                <div class="social-links">
+  1492→                    <a href="https://www.facebook.com/DapheHealth/" target="_blank"><img src="https://danphehealth.com/frontend/img/facebook.svg" alt=""></a>
+  1493→                    <a href="https://www.instagram.com/danphe_health/" target="_blank"><img src="https://danphehealth.com/frontend/img/instagram.svg" alt=""></a>
+  1494→                    <a href="https://np.linkedin.com/company/danphe-health?trk=public_post_feed-actor-name" target="_blank"><img src="https://danphehealth.com/frontend/img/linkedin.svg" alt=""></a>
+  1495→                    <a href="https://www.youtube.com/channel/UCnwJUeA3SY4G_e2P7sW-UVg" target="_blank"><img src="https://danphehealth.com/frontend/img/youtube.svg" alt=""></a>
+  1496→                </div>
+  1497→            </div>
+  1498→        </div>
+  1499→    </footer>
+  1500→    <!-- Footer Section End -->
+  1501→
+  1502→
+  1503→    <script>
+  1504→        $(document).ready(function() {
+  1505→            $('#newsletter-form').submit(function(event) {
+  1506→                event.preventDefault();
+  1507→                var formData = $(this).serialize();
+  1508→                var submitButton = $(this).find('#submit-btn');
+  1509→                submitButton.prop('disabled', true).html(
+  1510→                    '<span class="spinner-border spinner-border-sm p-2" role="status" aria-hidden="true"></span> Subscribing...'
+  1511→                );
+  1512→                $(this).find('.is-invalid').removeClass('is-invalid');
+  1513→                $(this).find('.invalid-feedback').remove();
+  1514→                //Make an ajax call to make request
+  1515→                $.ajax({
+  1516→                    url: "https://danphehealth.com/subscribe-newsletter",
+  1517→                    type: 'POST',
+  1518→                    data: formData,
+  1519→                    success: function(response) {
+  1520→                        var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+  1521→                        // document.getElementById('myToast').addClass('bg-success');
+  1522→                        $('#myToast').addClass('bg-success');
+  1523→                        $('#response-message').html("Thanks for subscribing newsletter");
+  1524→                        myToast.show();
+  1525→                        submitButton.prop('disabled', false).html('Send Message');
+  1526→                        $('#newsletter-form').trigger('reset');
+  1527→                    },
+  1528→                    error: function(xhr, status, error) {
+  1529→                        submitButton.prop('disabled', false).html('Send Message');
+  1530→                        var err = eval("(" + xhr.responseText + ")");
+  1531→                        var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+  1532→                            $('#myToast').addClass('bg-danger');
+  1533→                            if (err.errors) {
+  1534→                                $.each(err.errors, function(key, value) {
+  1535→                                    $("#" + key).addClass('is-invalid');
+  1536→                                    $('#response-message').html(`${value}`);
+  1537→                                    myToast.show();
+  1538→                            });
+  1539→                        } else {
+  1540→                            var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+  1541→                            $('#myToast').addClass('bg-danger');
+  1542→                            $('#response-message').html("Unable to subscribe! Please try again");
+  1543→                            myToast.show();
+  1544→                        }
+  1545→                    }
+  1546→                });
+  1547→            });
+  1548→        });
+  1549→
+  1550→    </script>
+  1551→    <script src="https://danphehealth.com/frontend/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  1552→    <script src="https://danphehealth.com/frontend/node_modules/feather-icons/dist/feather.js"></script>
+  1553→    <script src="https://danphehealth.com/frontend/aos/aos.js"></script>
+  1554→    <script src="https://danphehealth.com/frontend/js/plugins/slick-slider/slick/slick.min.js"></script>
+  1555→    <script src="https://danphehealth.com/frontend/jquery-ui/jquery-ui.min.js"></script>
+  1556→    
+  1557→    
+  1558→    <script src="https://danphehealth.com/frontend/js/form.js"></script>
+  1559→    <script src="https://danphehealth.com/frontend/js/script.js"></script>
+  1560→    <script>
+  1561→        AOS.init();
+  1562→    </script>
+  1563→        <script>
+  1564→        $(document).ready(function() {
+  1565→            $('#contact-form').submit(function(event) {
+  1566→                event.preventDefault();
+  1567→                var formData = $(this).serialize();
+  1568→                var submitButton = $(this).find('#submit-btn');
+  1569→                submitButton.prop('disabled', true).html(
+  1570→                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...'
+  1571→                );
+  1572→                $(this).find('.is-invalid').removeClass('is-invalid');
+  1573→                $(this).find('.invalid-feedback').remove();
+  1574→                //Make an ajax call to make request
+  1575→                $.ajax({
+  1576→                    url: 'https://danphehealth.com/contact/store',
+  1577→                    type: 'POST',
+  1578→                    data: formData,
+  1579→                    success: function(response) {
+  1580→                        var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+  1581→                        $('#myToast').addClass('bg-success');
+  1582→                        $('#response-message').html(`${response.message}`);
+  1583→                        myToast.show();
+  1584→                        submitButton.prop('disabled', false).html('Send Message');
+  1585→                        $('#contact-form').trigger('reset');
+  1586→                    },
+  1587→                    error: function(xhr, status, error) {
+  1588→                        submitButton.prop('disabled', false).html('Send Message');
+  1589→                        var err = eval("(" + xhr.responseText + ")");
+  1590→                        if (err.errors) {
+  1591→                            $.each(err.errors, function(key, value) {
+  1592→                                $("#" + key).addClass('is-invalid').after(
+  1593→                                    '<div class="invalid-feedback">' + value +
+  1594→                                    '</div>');
+  1595→                            });
+  1596→                        } else {
+  1597→                            var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+  1598→                            // document.getElementById('myToast').addClass('bg-danger');
+  1599→                            $('#myToast').addClass('bg-danger');
+  1600→                        $('#response-message').html(`Unable to submit enquiry! Please contact through other medium`);
+  1601→                        myToast.show();
+  1602→                        }
+  1603→                    }
+  1604→                });
+  1605→            });
+  1606→        });
+  1607→    </script>
+  1608→
+  1609→
+  1610→
+  1611→</body></html>
+  1612→
