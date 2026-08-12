@@ -400,3 +400,27 @@ Stage Summary:
 - FloatingSideNav: 5 pills with correct page routes, dark pill design, cyan glow, smooth animations
 - Mobile: full navigation preserved via Sheet menu
 - Zero lint errors, zero runtime errors
+
+---
+Task ID: 4
+Agent: main
+Task: Remove last 2 nav items from header, add to FloatingSideNav (now 7 items total)
+
+Work Log:
+- Removed 'Our Solution' and 'Danphe Community' from Header.tsx desktop nav (replaced with comment placeholder)
+- Cleaned up unused navTextColor/navHoverColor variables from Header.tsx
+- Added Layers icon for 'Our Solution' and MessageCircle icon for 'Danphe Community' to FloatingSideNav
+- Updated SIDE_NAV_ITEMS array to 7 items: Company, Our Solution, Our Clients, Career, News & Events, Danphe Community, Contact Us
+- Verified via agent-browser:
+  - Desktop header: zero nav links in top bar, only logo + contacts + socials + CTA
+  - Floating nav expands to 7 pill buttons with correct staggered animation
+  - All 7 hrefs correct: /company, /solutions, /clients, /careers, /news-events, /danphe-community, /contact
+  - Mobile: hamburger sheet still shows all 6 NAV_ITEMS, floating nav hidden (lg:flex)
+  - Zero console errors
+- Ran `bun run lint` - zero errors
+
+Stage Summary:
+- Header.tsx: all nav links removed from desktop top bar, mobile sheet unchanged
+- FloatingSideNav.tsx: now contains all 7 site navigation links with proper icons and page routes
+- Dark pill design, cyan icons/glow, rounded corners, smooth staggered animations preserved
+- Zero lint errors, zero runtime errors

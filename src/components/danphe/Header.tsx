@@ -48,12 +48,6 @@ export default function Header() {
   }, [handleScroll]);
 
   /* Dynamic text/border colors based on position */
-  const navTextColor = overHero && !scrolled
-    ? 'text-white/90'
-    : 'text-danphe-text';
-  const navHoverColor = overHero && !scrolled
-    ? 'hover:text-white'
-    : 'hover:text-danphe-accent';
   const contactTextColor = overHero && !scrolled
     ? 'text-white/70'
     : 'text-danphe-text-light';
@@ -105,19 +99,7 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav links — Company, Our Clients, Career, News & Events, Contact Us moved to FloatingSideNav */}
-          <div className="hidden items-center gap-1 xl:flex">
-            {NAV_ITEMS.filter((item) => ['Our Solution', 'Danphe Community'].includes(item.label)).map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`group relative px-3 py-2 text-sm font-medium transition-colors ${navTextColor} ${navHoverColor}`}
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-3 right-3 h-0.5 origin-left scale-x-0 rounded-full bg-danphe-accent transition-transform duration-300 group-hover:scale-x-100" />
-              </Link>
-            ))}
-          </div>
+          {/* All nav links moved to FloatingSideNav */}
 
           {/* Desktop right section: contacts + socials + CTA */}
           <div className="hidden items-center gap-4 lg:flex">

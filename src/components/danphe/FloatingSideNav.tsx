@@ -11,6 +11,8 @@ import {
   Phone,
   Menu,
   X,
+  Layers,
+  MessageCircle,
 } from 'lucide-react';
 
 interface SideNavItem {
@@ -19,12 +21,14 @@ interface SideNavItem {
   href: string;
 }
 
-/* These 5 links are moved here from the top header navbar */
+/* All 7 site navigation links */
 const SIDE_NAV_ITEMS: SideNavItem[] = [
   { label: 'Company', icon: Building2, href: '/company' },
+  { label: 'Our Solution', icon: Layers, href: '/solutions' },
   { label: 'Our Clients', icon: Users, href: '/clients' },
   { label: 'Career', icon: Briefcase, href: '/careers' },
   { label: 'News & Events', icon: Newspaper, href: '/news-events' },
+  { label: 'Danphe Community', icon: MessageCircle, href: '/danphe-community' },
   { label: 'Contact Us', icon: Phone, href: '/contact' },
 ];
 
