@@ -254,3 +254,58 @@ Stage Summary:
 - Footer: premium dark footer with gradient accent bars, hover-animated chevron links, refined social icons
 - All existing text content, links, navigation, and external URLs preserved exactly
 - Zero lint errors, zero type errors
+
+---
+Task ID: 5-f-1
+Agent: feature-agent-1
+Task: Add FAQ section + Comparison section + International section to homepage
+
+Work Log:
+- Read worklog.md, constants.ts, globals.css to understand existing design system, data, and component patterns
+- Read accordion.tsx UI component to understand Accordion API (AccordionItem, AccordionTrigger, AccordionContent from @radix-ui/react-accordion)
+- Created /src/components/danphe/FAQSection.tsx: Imports SHARED_FAQS (6 questions) from constants.ts, uses Accordion from @/components/ui/accordion, bg-white py-20 md:py-28, centered heading 'Frequently Asked Questions' in font-heading font-bold text-3xl md:text-4xl text-danphe-primary, subtitle in danphe-text-light, max-w-3xl mx-auto, each FAQ item in border-b border-danphe-border/50 AccordionItem, AccordionTrigger with font-semibold text-danphe-text and ChevronDown icon that rotates on open via [[data-state=open]>&]:rotate-180, AccordionContent with text-sm leading-relaxed text-danphe-text-light pl-1, staggered whileInView animation (delay: idx * 0.08)
+- Created /src/components/danphe/ComparisonSection.tsx: dot-pattern-light bg-danphe-bg-light py-20 md:py-28, heading 'Why Healthcare Institutions Choose DANPHE', subtitle about doctors/open source, 3 cards in lg:grid-cols-3 gap-6 (Built by Healthcare Professionals/Stethoscope, Proven in Production/BadgeCheck, Open-Source Freedom/Code2), each card bg-white rounded-2xl p-6 md:p-8 shadow-premium border-danphe-border/30, icon in h-14 w-14 rounded-2xl bg-danphe-accent/10 text-danphe-accent, font-heading title, danphe-text-light description, whileHover scale(1.02) + shadow-premium-lg, staggered whileInView animation
+- Created /src/components/danphe/InternationalSection.tsx: bg-white py-20 md:py-28, heading 'Trusted Across Borders', subtitle about cross-border operations, lg:grid-cols-12 layout (5/7 split), left side with 2 stacked glass cards (Nepal with MapPin icon showing 60+ Hospitals + Headquarters Kathmandu, Growing Global Presence with Globe icon), right side with dark rounded-3xl map container (bg-danphe-dark/95 rounded-3xl p-8 md:p-10) containing: dot-grid background, simplified SVG world map outline (7 continent paths at opacity-[0.12]), 4 glowing dots positioned on map (Kathmandu primary with animate-ping ring + label, Pokhara, Biratnagar, Butwal secondary), SVG dashed connection lines between dots, 'Hospital Network Coverage' label at bottom, staggered whileInView animations with spring physics for dots
+- ESLint: 0 errors, 0 warnings on all 3 new files
+- TypeScript: 0 errors in all 3 new files (pre-existing 4 errors in unrelated examples/skills files)
+
+Stage Summary:
+- 3 new homepage section components created: FAQSection, ComparisonSection (Why Danphe), InternationalSection
+- All components use 'use client', framer-motion useInView for scroll animations, proper TypeScript
+- FAQSection reuses SHARED_FAQS from constants.ts with Accordion UI component
+- ComparisonSection features 3 premium cards with whileHover scale + shadow effects
+- InternationalSection features a stylized dark map with SVG continent outlines, glowing location dots with ping animations, and dashed connection lines
+- All components follow established design system: font-heading, glassmorphism, shadow-premium, danphe-* color tokens
+- Zero lint errors, zero type errors
+
+---
+Task ID: 5-e-2
+Agent: styling-agent
+Task: Add preloader + enhance ScrollToTop with progress ring
+
+Work Log:
+- Created `/src/components/danphe/Preloader.tsx` — full-screen preloader with Danphe Health logo (inverted white on danphe-dark bg), pulsing opacity animation on logo, animated accent loading bar (0→100% over 1.5s via framer-motion), AnimatePresence fade-out on completion
+- Rewrote `/src/components/danphe/ScrollToTop.tsx` — replaced simple circle button with circular SVG progress ring; ring uses stroke-dasharray/dashoffset technique (radius 18, circumference ~113.1, stroke-dashoffset = circumference * (1 - progress/100)); background track circle at 20% white opacity; accent stroke at #0d9488; smooth CSS transition on offset; scroll progress calculated from scrollY / (docHeight - viewportHeight); button visible >400px scroll; framer-motion AnimatePresence for show/hide with scale+opacity; glass + shadow-premium styling; chevron icon text-danphe-primary h-4 w-4
+- Both components use 'use client', framer-motion, design system tokens (danphe-dark, danphe-accent, danphe-primary, glass, shadow-premium)
+
+---
+Task ID: 1
+Agent: main
+Task: Create floating side navigation component with circular hamburger button, pill-shaped labels, cyan glow
+
+Work Log:
+- Read existing Header.tsx, page.tsx, globals.css, StickyContact.tsx, ScrollToTop.tsx to understand current layout
+- Created FloatingSideNav.tsx: circular hamburger button with dark bg (#0a1628/95), cyan glow borders, backdrop blur
+- 5 nav items: Company, Our Clients, Career, News & Events, Contact Us with lucide icons
+- Hamburger/X toggle with rotation animation, pill items with staggered expand/collapse
+- Appears after 300px scroll (same threshold as StickyContact), hidden on mobile (hidden lg:flex)
+- Added id="trusted" to TrustedSection for "Our Clients" scroll target
+- ContactSection already had id="contact"
+- Integrated component into page.tsx
+- Verified via agent-browser: expand/collapse works, scroll to #contact and #trusted works, no console errors, correctly hidden on mobile (390px viewport)
+
+Stage Summary:
+- Produced: src/components/danphe/FloatingSideNav.tsx
+- Modified: src/app/page.tsx (added import + component), src/components/danphe/TrustedSection.tsx (added id="trusted")
+- Visual: Dark circular button (h-12 w-12) with cyan-500/30 border, expanding into 5 pill-shaped items with cyan glow, left accent bar on hover, staggered framer-motion animations
+- All QA passed: desktop visible, mobile hidden, scroll targets functional, zero runtime errors

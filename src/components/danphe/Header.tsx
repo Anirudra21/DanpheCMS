@@ -22,14 +22,20 @@ import {
   Youtube,
 } from 'lucide-react';
 
+/* Hero section is ~682px. While over hero, use light text on dark bg.
+   After scrolling past, switch to dark text on glass bg. */
+const HERO_BREAKPOINT = 500;
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [overHero, setOverHero] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
-    setScrolled(y > 20);
+    setScrolled(y > 10);
+    setOverHero(y < HERO_BREAKPOINT);
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (docHeight > 0) {
       setScrollProgress((y / docHeight) * 100);
@@ -40,6 +46,32 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  /* Dynamic text/border colors based on position */
+  const navTextColor = overHero && !scrolled
+    ? 'text-white/90'
+    : 'text-danphe-text';
+  const navHoverColor = overHero && !scrolled
+    ? 'hover:text-white'
+    : 'hover:text-danphe-accent';
+  const contactTextColor = overHero && !scrolled
+    ? 'text-white/70'
+    : 'text-danphe-text-light';
+  const contactHoverColor = overHero && !scrolled
+    ? 'hover:text-white'
+    : 'hover:text-danphe-accent';
+  const dividerColor = overHero && !scrolled
+    ? 'bg-white/20'
+    : 'bg-danphe-border';
+  const hamburgerColor = overHero && !scrolled
+    ? 'text-white'
+    : 'text-danphe-text';
+  const hamburgerHoverBg = overHero && !scrolled
+    ? 'hover:bg-white/10'
+    : 'hover:bg-danphe-bg-light';
+  const logoFilter = overHero && !scrolled
+    ? 'brightness-0 invert'
+    : '';
 
   return (
     <header className="fixed top-0 z-50 w-full transition-all duration-500">
@@ -68,7 +100,7 @@ export default function Header() {
               width={160}
               height={44}
               unoptimized
-              className="h-10 w-auto lg:h-11"
+              className={`h-10 w-auto transition-all duration-300 lg:h-11 ${logoFilter}`}
               priority
             />
           </Link>
@@ -79,7 +111,7 @@ export default function Header() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="group relative px-3 py-2 text-sm font-medium text-danphe-text transition-colors hover:text-danphe-accent"
+                className={`group relative px-3 py-2 text-sm font-medium transition-colors ${navTextColor} ${navHoverColor}`}
               >
                 {item.label}
                 <span className="absolute bottom-0 left-3 right-3 h-0.5 origin-left scale-x-0 rounded-full bg-danphe-accent transition-transform duration-300 group-hover:scale-x-100" />
@@ -89,18 +121,19 @@ export default function Header() {
 
           {/* Desktop right section: contacts + socials + CTA */}
           <div className="hidden items-center gap-4 lg:flex">
-            {/* Email + Phone (hidden on mobile/tablet) */}
+            {/* Email */}
             <a
               href="mailto:info@danphehealth.com"
-              className="flex items-center gap-1.5 text-sm text-danphe-text-light transition-colors hover:text-danphe-accent"
+              className={`flex items-center gap-1.5 text-sm transition-colors ${contactTextColor} ${contactHoverColor}`}
               aria-label="Email Danphe Health"
             >
               <Mail className="h-3.5 w-3.5" />
               <span>info@danphehealth.com</span>
             </a>
+            {/* Phone */}
             <a
               href="tel:+9779852088004"
-              className="flex items-center gap-1.5 text-sm text-danphe-text-light transition-colors hover:text-danphe-accent"
+              className={`flex items-center gap-1.5 text-sm transition-colors ${contactTextColor} ${contactHoverColor}`}
               aria-label="Call Danphe Health"
             >
               <Phone className="h-3.5 w-3.5" />
@@ -108,49 +141,30 @@ export default function Header() {
             </a>
 
             {/* Divider */}
-            <div className="h-5 w-px bg-danphe-border" />
+            <div className={`h-5 w-px ${dividerColor} transition-colors duration-300`} />
 
             {/* Social icons */}
             <div className="flex items-center gap-2">
-              <a
-                href="https://www.facebook.com/DapheHealth"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
-              <a
-                href="https://www.instagram.com/danphe_health/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
-                aria-label="YouTube"
-              >
-                <Youtube className="h-4 w-4" />
-              </a>
+              {[
+                { icon: Facebook, href: 'https://www.facebook.com/DapheHealth', label: 'Facebook' },
+                { icon: Instagram, href: 'https://www.instagram.com/danphe_health/', label: 'Instagram' },
+                { icon: Linkedin, href: '#', label: 'LinkedIn' },
+                { icon: Youtube, href: '#', label: 'YouTube' },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`transition-colors ${contactTextColor} ${contactHoverColor}`}
+                  aria-label={s.label}
+                >
+                  <s.icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
 
-            {/* CTA Button */}
+            {/* CTA Button - always visible, always accent */}
             <Link
               href="/schedule-a-demo"
               className="rounded-full bg-danphe-accent px-5 py-2.5 text-sm font-semibold text-white shadow-glow-accent transition-all hover:bg-danphe-accent-light hover:shadow-lg"
@@ -164,7 +178,7 @@ export default function Header() {
             <SheetTrigger asChild className="lg:hidden">
               <button
                 aria-label="Open menu"
-                className="flex h-10 w-10 items-center justify-center rounded-lg text-danphe-text transition-colors hover:bg-white/10"
+                className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors ${hamburgerColor} ${hamburgerHoverBg}`}
               >
                 <Menu className="h-6 w-6" />
               </button>
@@ -203,12 +217,13 @@ export default function Header() {
                   aria-label="Mobile navigation"
                 >
                   <div className="flex flex-col gap-1">
-                    {NAV_ITEMS.map((item) => (
+                    {NAV_ITEMS.map((item, idx) => (
                       <Link
                         key={item.label}
                         href={item.href}
                         onClick={() => setMobileOpen(false)}
-                        className="rounded-lg px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                        className="rounded-lg px-4 py-3 text-sm font-medium text-white/80 transition-all hover:bg-white/10 hover:text-white hover:pl-5"
+                        style={{ transitionDelay: `${idx * 30}ms` }}
                       >
                         {item.label}
                       </Link>
@@ -218,7 +233,6 @@ export default function Header() {
 
                 {/* Mobile sheet footer */}
                 <div className="border-t border-white/10 p-5">
-                  {/* Contact info */}
                   <div className="mb-4 flex flex-col gap-2 text-sm text-white/60">
                     <a
                       href="mailto:info@danphehealth.com"
@@ -235,46 +249,25 @@ export default function Header() {
                       +977-9852088004
                     </a>
                   </div>
-                  {/* Mobile social icons */}
                   <div className="mb-4 flex items-center gap-3">
-                    <a
-                      href="https://www.facebook.com/DapheHealth"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/50 transition-colors hover:text-white"
-                      aria-label="Facebook"
-                    >
-                      <Facebook className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="https://www.instagram.com/danphe_health/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/50 transition-colors hover:text-white"
-                      aria-label="Instagram"
-                    >
-                      <Instagram className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="#"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/50 transition-colors hover:text-white"
-                      aria-label="LinkedIn"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="#"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/50 transition-colors hover:text-white"
-                      aria-label="YouTube"
-                    >
-                      <Youtube className="h-4 w-4" />
-                    </a>
+                    {[
+                      { icon: Facebook, href: 'https://www.facebook.com/DapheHealth', label: 'Facebook' },
+                      { icon: Instagram, href: 'https://www.instagram.com/danphe_health/', label: 'Instagram' },
+                      { icon: Linkedin, href: '#', label: 'LinkedIn' },
+                      { icon: Youtube, href: '#', label: 'YouTube' },
+                    ].map((s) => (
+                      <a
+                        key={s.label}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white/50 transition-colors hover:text-white"
+                        aria-label={s.label}
+                      >
+                        <s.icon className="h-4 w-4" />
+                      </a>
+                    ))}
                   </div>
-                  {/* Mobile CTA */}
                   <Link
                     href="/schedule-a-demo"
                     onClick={() => setMobileOpen(false)}

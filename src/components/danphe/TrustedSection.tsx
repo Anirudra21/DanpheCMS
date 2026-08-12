@@ -14,6 +14,7 @@ export default function TrustedSection() {
   return (
     <section
       ref={ref}
+      id="trusted"
       className="bg-danphe-bg-light py-20 md:py-28"
       aria-label="Trusted Hospitals"
     >
