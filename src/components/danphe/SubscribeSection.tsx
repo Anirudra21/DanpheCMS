@@ -21,11 +21,11 @@ export default function SubscribeSection() {
   return (
     <section
       ref={ref}
-      className="relative overflow-x-hidden mesh-gradient-hero py-24 md:py-32"
+      className="relative mesh-gradient-hero py-20 md:py-24 lg:py-28"
       aria-label="Subscribe"
     >
-      {/* Floating decorative circles */}
-      <div className="pointer-events-none absolute inset-0">
+      {/* Floating decorative circles — clipped to prevent bleed */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute -top-20 right-1/4 h-80 w-80 rounded-full bg-danphe-accent/10 blur-3xl"
           animate={{ y: [0, -15, 0], scale: [1, 1.05, 1] }}

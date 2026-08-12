@@ -571,3 +571,27 @@ Stage Summary:
 - Brand teal colors (teal-200, danphe-accent-light) used for key labels on dark backgrounds
 - No content was hidden or removed
 - Lint passes cleanly, dev server compiles without errors
+
+---
+Task ID: 11
+Agent: main
+Task: Fix internal scrolling in SubscribeSection
+
+Work Log:
+- Diagnosed root cause: `overflow-x-hidden` on the `<section>` element triggers CSS spec behavior where setting one overflow axis to a non-visible value implicitly sets the other to `auto`, creating a vertical scroll container
+- The decorative circles with `-top-20` and `-bottom-20` extended beyond the section bounds, causing `scrollHeight (692px) > clientHeight (598px)` which produced a visible vertical scrollbar on mobile
+- Fix applied:
+  1. Removed `overflow-x-hidden` from the section element entirely
+  2. Added `overflow-hidden` to the decorative circles wrapper div (clips decorative elements without affecting section overflow)
+  3. Adjusted padding from `py-24 md:py-32` to `py-20 md:py-24 lg:py-28` for more natural page fit
+- Verified on 3 viewports: mobile (390x844), tablet (768x1024), desktop (1440x900)
+- All viewports now show `overflowY: visible` with `scrollHeight === clientHeight`
+- Confirmed all content (badge, form, submit button, decorative animations) remains intact
+- No console errors
+
+Stage Summary:
+- Internal vertical scrollbar completely eliminated from Subscribe/Demo section
+- Section now flows naturally within page — users only scroll the main webpage
+- Decorative blur circles properly clipped by their wrapper, no visual bleed
+- Fully responsive on all tested viewports
+- Lint clean, no errors
