@@ -29,7 +29,7 @@ export default function FeaturesSection() {
           <h2 className="font-heading text-3xl font-bold text-danphe-primary md:text-4xl">
             We Provide Trusted and Best Software
           </h2>
-          <p className="mt-3 text-danphe-text-light">
+          <p className="mt-3 text-danphe-text">
             All-in-one hospital management solution for seamless operations
           </p>
           {/* Decorative gradient bar */}
@@ -85,7 +85,7 @@ export default function FeaturesSection() {
                       <h3 className="font-heading mb-3 text-xl font-bold md:text-2xl">
                         {card.title}
                       </h3>
-                      <p className="max-w-lg text-white/80 leading-relaxed">
+                      <p className="max-w-lg text-white/90 leading-relaxed">
                         {card.description}
                       </p>
                     </div>
@@ -106,10 +106,10 @@ export default function FeaturesSection() {
                         className="h-8 w-8 object-contain"
                       />
                     </div>
-                    <h3 className="font-heading mb-3 text-lg font-bold text-danphe-text">
+                    <h3 className="font-heading mb-3 text-lg font-bold text-danphe-primary">
                       {card.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-danphe-text-light">
+                    <p className="text-sm leading-relaxed text-danphe-text">
                       {card.description}
                     </p>
                   </motion.div>

@@ -211,7 +211,7 @@ export default function ModuleSection() {
                     {mod.name}
                   </span>
                   {/* Title - truncated to 1 line */}
-                  <span className="text-[11px] leading-tight text-danphe-text-light line-clamp-1">
+                  <span className="text-[11px] leading-tight text-danphe-text/70 line-clamp-1">
                     {mod.title}
                   </span>
                 </motion.button>
@@ -246,7 +246,7 @@ export default function ModuleSection() {
 
                   {/* Key Features */}
                   <div className="mb-6">
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-danphe-text-light">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-danphe-primary/70">
                       Key Features
                     </h4>
                     <AnimatePresence mode="wait">
@@ -264,7 +264,7 @@ export default function ModuleSection() {
                             className="flex items-start gap-2"
                           >
                             <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-danphe-accent" />
-                            <span className="text-xs text-danphe-text-light">
+                            <span className="text-xs text-danphe-text">
                               {feature}
                             </span>
                           </motion.div>
@@ -275,7 +275,7 @@ export default function ModuleSection() {
                     {hasMoreFeatures && (
                       <button
                         onClick={() => setShowAllFeatures((prev) => !prev)}
-                        className="mt-3 text-xs font-semibold text-danphe-accent hover:text-danphe-primary transition-colors cursor-pointer"
+                        className="mt-3 text-xs font-semibold text-danphe-accent hover:text-danphe-primary transition-colors cursor-pointer underline decoration-danphe-accent/30 underline-offset-2"
                       >
                         {showAllFeatures ? 'Show Less' : 'Show All Features'}
                       </button>
@@ -305,7 +305,7 @@ export default function ModuleSection() {
 
               {/* Bottom nav: counter + prev/next */}
               <div className="mt-6 flex items-center justify-end gap-3 border-t border-danphe-border/30 pt-4">
-                <span className="text-sm font-medium text-danphe-text-light">
+                <span className="text-sm font-medium text-danphe-text">
                   <span className="font-bold text-danphe-primary">{String(activeIdx + 1).padStart(2, '0')}</span>
                   <span className="mx-1">/</span>
                   {String(MODULES.length).padStart(2, '0')}

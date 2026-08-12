@@ -49,7 +49,7 @@ export default function OutcomesSection() {
                 >
                   <div className="flex items-start gap-3">
                     <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-danphe-accent" />
-                    <span className="text-sm leading-relaxed text-danphe-text">{point}</span>
+                    <span className="text-sm leading-relaxed text-danphe-text font-medium">{point}</span>
                   </div>
                 </motion.div>
               ))}
@@ -112,7 +112,7 @@ export default function OutcomesSection() {
                 <h3 className="font-heading mb-2 text-xl font-bold text-danphe-primary sm:text-2xl">
                   Danphe Efficiency
                 </h3>
-                <p className="max-w-2xl text-danphe-text-light">
+                <p className="max-w-2xl text-danphe-text">
                   Explore more about Danphe! One solution, no software clutter – Comprehensive EHR and HIMS in a nutshell.
                 </p>
               </div>

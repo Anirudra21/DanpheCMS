@@ -37,8 +37,8 @@
   --color-danphe-accent: #0d9488;
   --color-danphe-accent-light: #14b8a6;
   --color-danphe-dark: #082f49;
-  --color-danphe-text: #1e293b;
-  --color-danphe-text-light: #64748b;
+  --color-danphe-text: #0f172a;
+  --color-danphe-text-light: #475569;
   --color-danphe-bg-light: #f8fafc;
   --color-danphe-bg-alt: #f0f9ff;
   --color-danphe-white: #ffffff;
@@ -50,17 +50,17 @@
 :root {
   --radius: 0.75rem;
   --background: #ffffff;
-  --foreground: #1e293b;
+  --foreground: #0f172a;
   --card: #ffffff;
-  --card-foreground: #1e293b;
+  --card-foreground: #0f172a;
   --popover: #ffffff;
-  --popover-foreground: #1e293b;
+  --popover-foreground: #0f172a;
   --primary: #0c4a6e;
   --primary-foreground: #ffffff;
   --secondary: #f0f9ff;
   --secondary-foreground: #0c4a6e;
   --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --muted-foreground: #475569;
   --accent: #0d9488;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
@@ -88,130 +88,138 @@
   }
 }
 
-@layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+/* ============================================================ */
+/* Custom utilities — UN-LAYERED for highest cascade priority    */
+/* Tailwind v4 @layer utilities has lower priority than internal */
+/* styles, so we place these outside any layer.                 */
+/* ============================================================ */
 
-  /* Glassmorphism utilities */
-  .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-  .glass-dark {
-    background: rgba(8, 47, 73, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .glass-subtle {
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
-  /* Mesh gradient backgrounds */
-  .mesh-gradient-hero {
-    background: 
-      radial-gradient(at 20% 20%, rgba(13, 148, 136, 0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 80%, rgba(30, 111, 160, 0.2) 0px, transparent 50%),
-      radial-gradient(at 50% 50%, rgba(12, 74, 110, 0.9) 0px, rgba(8, 47, 73, 1) 100%);
-  }
+/* Glassmorphism utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.glass-dark {
+  background: rgba(8, 47, 73, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  /* Dot pattern */
-  .dot-pattern {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-  .dot-pattern-light {
-    background-image: radial-gradient(circle, rgba(12, 74, 110, 0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
+/* Mesh gradient backgrounds */
+.mesh-gradient-hero {
+  background-color: #082f49;
+  background-image:
+    radial-gradient(at 20% 20%, rgba(13, 148, 136, 0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(30, 111, 160, 0.2) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(12, 74, 110, 0.9) 0px, rgba(8, 47, 73, 1) 100%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px;
+  background-position: center, center, center, center;
+}
 
-  /* Grid pattern */
-  .grid-pattern {
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
+/* Dot pattern */
+.dot-pattern {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.dot-pattern-light {
+  background-image: radial-gradient(circle, rgba(12, 74, 110, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
 
-  /* Premium shadow levels */
-  .shadow-premium {
-    box-shadow: 
-      0 4px 6px -1px rgba(12, 74, 110, 0.05),
-      0 10px 15px -3px rgba(12, 74, 110, 0.08),
-      0 20px 25px -5px rgba(12, 74, 110, 0.04);
-  }
-  .shadow-premium-lg {
-    box-shadow: 
-      0 10px 15px -3px rgba(12, 74, 110, 0.08),
-      0 20px 25px -5px rgba(12, 74, 110, 0.1),
-      0 25px 50px -12px rgba(12, 74, 110, 0.15);
-  }
-  .shadow-glow-accent {
-    box-shadow: 0 0 30px rgba(13, 148, 136, 0.15), 0 0 60px rgba(13, 148, 136, 0.05);
-  }
+/* Grid pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
 
-  /* Gradient text */
-  .gradient-text {
-    background: linear-gradient(135deg, #14b8a6 0%, #1e6fa0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .gradient-text-white {
-    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+/* Premium shadow levels */
+.shadow-premium {
+  box-shadow:
+    0 4px 6px -1px rgba(12, 74, 110, 0.05),
+    0 10px 15px -3px rgba(12, 74, 110, 0.08),
+    0 20px 25px -5px rgba(12, 74, 110, 0.04);
+}
+.shadow-premium-lg {
+  box-shadow:
+    0 10px 15px -3px rgba(12, 74, 110, 0.08),
+    0 20px 25px -5px rgba(12, 74, 110, 0.1),
+    0 25px 50px -12px rgba(12, 74, 110, 0.15);
+}
+.shadow-glow-accent {
+  box-shadow: 0 0 30px rgba(13, 148, 136, 0.15), 0 0 60px rgba(13, 148, 136, 0.05);
+}
 
-  /* Marquee animation */
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #14b8a6 0%, #1e6fa0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-white {
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Counter animation */
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
   .animate-marquee {
-    animation: marquee 30s linear infinite;
+    animation: none;
   }
-  .animate-marquee:hover {
-    animation-play-state: paused;
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
+}
 
-  /* Counter animation */
-  @keyframes fade-up {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .animate-marquee {
-      animation: none;
-    }
-    * {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-
-  /* WCAG focus-visible styles */
-  :focus-visible {
-    outline: 2px solid var(--color-danphe-accent);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-  a:focus-visible,
-  button:focus-visible {
-    outline: 2px solid var(--color-danphe-accent);
-    outline-offset: 2px;
-  }
+/* WCAG focus-visible styles */
+:focus-visible {
+  outline: 2px solid var(--color-danphe-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-danphe-accent);
+  outline-offset: 2px;
 }

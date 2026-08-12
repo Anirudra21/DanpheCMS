@@ -37,7 +37,7 @@ export default function InternationalSection() {
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
             Trusted Across Borders
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-danphe-text-light">
+          <p className="mx-auto max-w-2xl text-base text-danphe-text">
             From urban hospitals in Kathmandu to healthcare institutions across
             regions, DANPHE powers critical hospital operations wherever they
             are needed.
@@ -62,10 +62,10 @@ export default function InternationalSection() {
                   Nepal
                 </h3>
               </div>
-              <p className="font-heading mb-1 text-2xl font-bold text-danphe-text">
+              <p className="font-heading mb-1 text-2xl font-bold text-danphe-primary">
                 60+ Hospitals
               </p>
-              <p className="text-sm text-danphe-text-light">
+              <p className="text-sm text-danphe-text">
                 Headquarters: Kathmandu
               </p>
             </div>
@@ -80,7 +80,7 @@ export default function InternationalSection() {
                   Growing Global Presence
                 </h3>
               </div>
-              <p className="text-sm leading-relaxed text-danphe-text-light">
+              <p className="text-sm leading-relaxed text-danphe-text">
                 Expanding to serve healthcare institutions internationally,
                 bringing modern HMIS solutions to regions that need them most.
               </p>
@@ -216,7 +216,7 @@ export default function InternationalSection() {
               {/* Corner branding */}
               <div className="relative z-10 mt-auto flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-danphe-accent" />
-                <span className="text-xs font-medium text-white/50">
+                <span className="text-xs font-medium text-white/70">
                   Hospital Network Coverage
                 </span>
               </div>

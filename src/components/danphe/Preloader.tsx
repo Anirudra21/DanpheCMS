@@ -50,7 +50,7 @@ export default function Preloader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 0.6, 0.6] }}
               transition={{ duration: 1.2 }}
-              className="text-xs text-white/40"
+              className="text-xs text-white/60"
             >
               Loading your healthcare solution…
             </motion.p>

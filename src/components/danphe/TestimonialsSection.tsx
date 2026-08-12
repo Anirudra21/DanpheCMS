@@ -80,7 +80,7 @@ function TestimonialCard({
           <div className="relative flex h-full flex-col px-6 pb-6 pl-8 pt-6 md:px-8 md:pb-8 md:pl-10 md:pt-8">
             <StarRating />
 
-            <blockquote className="mt-4 mb-6 flex-1 text-sm leading-relaxed italic text-danphe-text/90">
+            <blockquote className="mt-4 mb-6 flex-1 text-sm leading-relaxed italic text-danphe-text">
               &ldquo;{testimonial.quote}&rdquo;
             </blockquote>
 
@@ -99,7 +99,7 @@ function TestimonialCard({
                     />
                   </div>
                 </div>
-                <span className="text-sm font-semibold text-danphe-primary">
+                <span className="text-sm font-bold text-danphe-primary">
                   {testimonial.name}
                 </span>
               </div>
@@ -163,7 +163,7 @@ export default function TestimonialsSection() {
           <h2 className="font-heading mb-3 text-3xl font-bold text-danphe-primary md:text-4xl">
             See what our valuable clients tell about us
           </h2>
-          <p className="mx-auto max-w-xl text-sm leading-relaxed text-danphe-text-light">
+          <p className="mx-auto max-w-xl text-sm leading-relaxed text-danphe-text">
             Trusted by leading healthcare institutions across Nepal, our clients
             share their experiences working with Danphe Health&apos;s hospital
             management system.

@@ -31,7 +31,7 @@ export default function FAQSection() {
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-danphe-text-light">
+          <p className="mx-auto max-w-2xl text-base text-danphe-text">
             Everything you need to know about DANPHE HMIS
           </p>
         </motion.div>
@@ -53,7 +53,7 @@ export default function FAQSection() {
                     {faq.question}
                     <ChevronDown className="pointer-events-none h-4 w-4 shrink-0 text-danphe-text-light transition-transform duration-200 [[data-state=open]>&]:rotate-180" />
                   </AccordionTrigger>
-                  <AccordionContent className="pl-1 text-sm leading-relaxed text-danphe-text-light">
+                  <AccordionContent className="pl-1 text-sm leading-relaxed text-danphe-text">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

@@ -48,7 +48,7 @@ export default function TechSection() {
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
             Built on Modern Technology
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-danphe-text-light">
+          <p className="mx-auto max-w-2xl text-base text-danphe-text">
             Designed for reliability, scalability, and performance in mission-critical healthcare
             environments.
           </p>
@@ -99,7 +99,7 @@ export default function TechSection() {
                 </h3>
                 <p
                   className={`text-sm leading-relaxed ${
-                    isFirst ? 'text-white/80' : 'text-danphe-text-light'
+                    isFirst ? 'text-white/90' : 'text-danphe-text'
                   }`}
                 >
                   {item.description}

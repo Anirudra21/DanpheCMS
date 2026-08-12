@@ -534,3 +534,40 @@ Stage Summary:
 - Tablet (768x1024): Badge 80px below header, H1 134px below header  
 - Desktop (1440x900): Badge 44px below header, H1 98px below header
 - All content clearly visible below fixed header on every screen size
+
+---
+Task ID: 11
+Agent: main
+Task: Fix text visibility throughout the Danphe Health website — improve contrast, fix hero background rendering
+
+Work Log:
+- Audited all 17 section components for text visibility and contrast issues
+- Changed `danphe-text` from #1e293b to #0f172a (slate-900) for stronger primary text
+- Changed `danphe-text-light` from #64748b to #475569 (slate-600) — improves contrast from ~4.6:1 to ~7.1:1 on white
+- Updated all `:root` CSS variables (foreground, card-foreground, popover-foreground, muted-foreground) to match
+- HeroSection: badge text now uses `text-teal-200` (brand teal), sub-headline `text-white/90`, stats labels `text-white/70`, dashboard sidebar items `text-white/60`, all dashboard labels increased from /40 to /60
+- ModuleSection: feature items changed from `text-danphe-text-light` to `text-danphe-text`, counter text improved
+- ValueSection: value point text now uses `font-medium` with `text-danphe-text`
+- FeaturesSection: subtitle and glass card descriptions use `text-danphe-text` instead of `text-danphe-text-light`, dark card description `text-white/90`
+- TestimonialsSection: quote text from `text-danphe-text/90` to `text-danphe-text`, names `font-bold`
+- ComparisonSection: subtitle and descriptions use `text-danphe-text`
+- InternationalSection: descriptions use `text-danphe-text`, stat number uses `text-danphe-primary`
+- ContactSection: subtitle and success message use `text-danphe-text`
+- SubscribeSection: badge text uses `text-teal-200`, description `text-white/90`, input icon `text-white/60`
+- FAQSection: subtitle and accordion content use `text-danphe-text`
+- TechSection: subtitle and glass card descriptions use `text-danphe-text`, dark card `text-white/90`
+- OpenSourceSection: subtitle and card descriptions use `text-danphe-text`
+- Footer: link text `text-white/75` (was /60), contact info `text-white/75`, copyright `text-white/60` (was /40), social icons `text-white/75`
+- Preloader: loading text from `text-white/40` to `text-white/60`
+- **CRITICAL FIX**: Discovered `mesh-gradient-hero` CSS was not rendering in Tailwind v4 due to `@layer utilities` cascade conflict with `dot-pattern`'s `background-image` longhand overriding the `background` shorthand. Fixed by:
+  1. Moving ALL custom utilities OUT of `@layer utilities` into un-layered CSS (highest cascade priority)
+  2. Combining `mesh-gradient-hero` gradient + dot-pattern into a single class using longhand properties
+  3. Removing redundant `dot-pattern` class from HeroSection and SubscribeSection
+- Verified all fixes with VLM analysis on agent-browser screenshots — hero, module, features, open-source, and footer sections all pass contrast checks
+
+Stage Summary:
+- All text throughout the site now has significantly improved contrast
+- Hero section dark background now renders correctly (was invisible before)
+- Brand teal colors (teal-200, danphe-accent-light) used for key labels on dark backgrounds
+- No content was hidden or removed
+- Lint passes cleanly, dev server compiles without errors

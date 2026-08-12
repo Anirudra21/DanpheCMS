@@ -59,7 +59,7 @@ function FooterLink({ href, children }: { href: string; children: string }) {
     <li>
       <Component
         href={href}
-        className="group flex items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-danphe-accent-light hover:pl-1"
+        className="group flex items-center gap-1 text-sm text-white/75 transition-all duration-300 hover:text-danphe-accent-light hover:pl-1"
       >
         <ChevronRight className="h-3 w-3 opacity-0 -ml-3.5 transition-all duration-300 group-hover:ml-0 group-hover:opacity-100" />
         {children}
@@ -79,7 +79,7 @@ function SocialIcon({ icon: Icon, href, label }: { icon: React.ElementType; href
       whileTap={{ scale: 0.95 }}
       className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 transition-colors duration-300 hover:bg-danphe-accent"
     >
-      <Icon className="h-4 w-4 text-white/60 transition-colors duration-300 hover:!text-white" />
+      <Icon className="h-4 w-4 text-white/75 transition-colors duration-300 hover:!text-white" />
     </motion.a>
   );
 }
@@ -127,13 +127,13 @@ export default function Footer({ className }: { className?: string }) {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
-                <span className="text-sm text-white/60">
+                <span className="text-sm text-white/75">
                   Imark Digital Pvt. Ltd. Dillibazar, Kathmandu, Nepal
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
-                <span className="text-sm text-white/60">
+                <span className="text-sm text-white/75">
                   +977 9852088004, 9802310817
                 </span>
               </li>
@@ -141,14 +141,14 @@ export default function Footer({ className }: { className?: string }) {
                 <Mail className="h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
                 <a
                   href="mailto:info@danphehealth.com"
-                  className="text-sm text-white/60 transition-colors hover:text-danphe-accent-light"
+                  className="text-sm text-white/75 transition-colors hover:text-danphe-accent-light"
                 >
                   info@danphehealth.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Globe className="h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
-                <span className="text-sm text-white/60">
+                <span className="text-sm text-white/75">
                   www.danphecare.com / www.danphehealth.com
                 </span>
               </li>
@@ -159,7 +159,7 @@ export default function Footer({ className }: { className?: string }) {
         {/* Bottom bar */}
         <div className="mt-12 border-t border-white/8 pt-8">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-            <p className="text-sm text-white/40">
+            <p className="text-sm text-white/60">
               © Copyright 2024. All Rights Reserved.
             </p>
             <div className="flex items-center gap-3">

@@ -45,7 +45,7 @@ export default function ComparisonSection() {
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
             Why Healthcare Institutions Choose DANPHE
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-danphe-text-light">
+          <p className="mx-auto max-w-2xl text-base text-danphe-text">
             The only HMIS built by doctors, for doctors — with the flexibility
             of open source.
           </p>
@@ -69,7 +69,7 @@ export default function ComparisonSection() {
                 <h3 className="font-heading mb-2 text-lg font-semibold text-danphe-primary">
                   {card.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-danphe-text-light">
+                <p className="text-sm leading-relaxed text-danphe-text">
                   {card.description}
                 </p>
               </motion.div>

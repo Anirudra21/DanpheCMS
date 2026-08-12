@@ -51,7 +51,7 @@ export default function OpenSourceSection() {
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
             Why Open-Source HMIS?
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-danphe-text-light">
+          <p className="mx-auto max-w-2xl text-base text-danphe-text">
             Transparency, flexibility, and community-driven innovation — the foundation of
             trustworthy healthcare software.
           </p>
@@ -75,7 +75,7 @@ export default function OpenSourceSection() {
                 <h3 className="font-heading mb-2 text-base font-semibold text-danphe-text">
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-danphe-text-light">
+                <p className="text-sm leading-relaxed text-danphe-text">
                   {item.description}
                 </p>
               </motion.div>

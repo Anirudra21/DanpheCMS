@@ -84,7 +84,7 @@ export default function ValueSection() {
                     <div className="h-8 w-px bg-gradient-to-b from-danphe-accent/60 to-transparent" />
                   </div>
                   {/* Text */}
-                  <p className="text-sm leading-relaxed text-danphe-text pt-1">
+                  <p className="text-sm leading-relaxed text-danphe-text pt-1 font-medium">
                     {point}
                   </p>
                 </div>

@@ -88,7 +88,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative overflow-x-hidden mesh-gradient-hero dot-pattern"
+      className="relative overflow-x-hidden mesh-gradient-hero"
       aria-label="Hero"
     >
       {/* ---- Additional floating blur circles (background enhancement) ---- */}
@@ -122,7 +122,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/60 backdrop-blur-sm sm:text-sm">
+            <span className="inline-flex items-center gap-2 rounded-full border border-danphe-accent-light/30 bg-danphe-accent/10 px-4 py-1.5 text-xs font-medium tracking-wide text-teal-200 backdrop-blur-sm sm:text-sm">
               Open-Source &nbsp;•&nbsp; Enterprise-Grade &nbsp;•&nbsp; HMIS/EMR/EHR
             </span>
           </motion.div>
@@ -142,7 +142,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="mt-4 max-w-xl text-base font-semibold text-white/80 sm:text-lg md:text-xl"
+            className="mt-4 max-w-xl text-base font-semibold text-white/90 sm:text-lg md:text-xl"
           >
             Complete HIMS with Integrated EMR & EHR — Trusted by 60+ Hospitals
           </motion.p>
@@ -163,7 +163,7 @@ export default function HeroSection() {
             </Link>
             <Link
               href="/solutions"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
             >
               Explore Solutions
               <ArrowRight className="h-4 w-4" />
@@ -187,7 +187,7 @@ export default function HeroSection() {
                   {counters[idx]}
                   {stat.suffix}
                 </span>
-                <span className="text-xs text-white/50 sm:text-sm">{stat.label}</span>
+                <span className="text-xs text-white/70 sm:text-sm">{stat.label}</span>
               </div>
             ))}
           </motion.div>
@@ -213,7 +213,7 @@ export default function HeroSection() {
                   <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
                 </div>
-                <div className="ml-3 flex-1 rounded-md bg-white/5 px-3 py-1 text-xs text-white/30">
+                <div className="ml-3 flex-1 rounded-md bg-white/5 px-3 py-1 text-xs text-white/50">
                   danphehealth.com/hims/dashboard
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function HeroSection() {
                 <div className="hidden w-44 flex-shrink-0 border-r border-white/10 p-3 sm:block">
                   <div className="mb-4 flex items-center gap-2">
                     <div className="h-6 w-6 rounded-md bg-danphe-accent/80" />
-                    <div className="h-2.5 w-16 rounded bg-white/20" />
+                    <div className="h-2.5 w-16 rounded bg-white/30" />
                   </div>
                   {['Dashboard', 'Patient Admin', 'OPD', 'IPD', 'Pharmacy', 'Lab', 'Inventory', 'Reports'].map(
                     (item, i) => (
@@ -232,12 +232,12 @@ export default function HeroSection() {
                         className={`mb-1 flex items-center gap-2 rounded-md px-2.5 py-1.5 text-[10px] ${
                           i === 0
                             ? 'bg-danphe-accent/20 text-danphe-accent-light font-medium'
-                            : 'text-white/40'
+                            : 'text-white/60'
                         }`}
                       >
                         <div
                           className={`h-3 w-3 rounded-sm ${
-                            i === 0 ? 'bg-danphe-accent-light/60' : 'bg-white/10'
+                            i === 0 ? 'bg-danphe-accent-light/60' : 'bg-white/20'
                           }`}
                         />
                         {item}
@@ -256,7 +256,7 @@ export default function HeroSection() {
                       transition={{ duration: 0.5, delay: dashDelay + 0.2 }}
                       className="rounded-lg bg-danphe-accent/30 p-2.5"
                     >
-                      <div className="text-[9px] text-white/40">Patients Today</div>
+                      <div className="text-[9px] text-white/60">Patients Today</div>
                       <div className="mt-0.5 text-sm font-semibold text-white">
                         {patientsToday}
                       </div>
@@ -267,7 +267,7 @@ export default function HeroSection() {
                       transition={{ duration: 0.5, delay: dashDelay + 0.5 }}
                       className="rounded-lg bg-danphe-primary-light/30 p-2.5"
                     >
-                      <div className="text-[9px] text-white/40">Beds Occupied</div>
+                      <div className="text-[9px] text-white/60">Beds Occupied</div>
                       <div className="mt-0.5 text-sm font-semibold text-white">
                         {bedsOccupied}
                       </div>
@@ -278,7 +278,7 @@ export default function HeroSection() {
                       transition={{ duration: 0.5, delay: dashDelay + 0.8 }}
                       className="rounded-lg bg-emerald-500/20 p-2.5"
                     >
-                      <div className="text-[9px] text-white/40">Revenue</div>
+                      <div className="text-[9px] text-white/60">Revenue</div>
                       <div className="mt-0.5 text-sm font-semibold text-white">
                         NRs 1.2M
                       </div>
@@ -287,7 +287,7 @@ export default function HeroSection() {
 
                   {/* Chart placeholder — animated bars */}
                   <div className="mb-4 rounded-lg border border-white/5 bg-white/[0.03] p-3">
-                    <div className="mb-2 h-2.5 w-24 rounded bg-white/15" />
+                    <div className="mb-2 h-2.5 w-28 rounded bg-white/20" />
                     <div className="flex h-20 items-end gap-1.5">
                       {chartBarHeights.map((h, i) => (
                         <motion.div
@@ -318,7 +318,7 @@ export default function HeroSection() {
 
                   {/* Recent activity — animated rows with pulsing dots */}
                   <div className="rounded-lg border border-white/5 bg-white/[0.03] p-3">
-                    <div className="mb-2 h-2.5 w-20 rounded bg-white/15" />
+                    <div className="mb-2 h-2.5 w-24 rounded bg-white/20" />
                     {[
                       'OPD-1024 • Dr. Sharma',
                       'IPD-Bed 12 • Discharged',
@@ -326,7 +326,7 @@ export default function HeroSection() {
                     ].map((row, i) => (
                       <motion.div
                         key={row}
-                        className="mb-1.5 flex items-center gap-2 text-[10px] text-white/40"
+                        className="mb-1.5 flex items-center gap-2 text-[10px] text-white/60"
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
@@ -378,8 +378,8 @@ export default function HeroSection() {
                   <span className="text-xs">✓</span>
                 </div>
                 <div>
-                  <div className="text-[10px] text-white/40">System Status</div>
-                  <div className="text-xs font-medium text-emerald-400">All Systems Operational</div>
+                  <div className="text-[10px] text-white/60">System Status</div>
+                  <div className="text-xs font-semibold text-emerald-400">All Systems Operational</div>
                 </div>
               </div>
             </motion.div>
@@ -409,7 +409,7 @@ export default function HeroSection() {
                   <Building2 className="h-3.5 w-3.5 text-danphe-accent-light" />
                 </div>
                 <div>
-                  <div className="text-[10px] text-white/40">Active Hospitals</div>
+                  <div className="text-[10px] text-white/60">Active Hospitals</div>
                   <div className="text-xs font-medium text-white">
                     {floatingHospitals}+ Connected
                   </div>

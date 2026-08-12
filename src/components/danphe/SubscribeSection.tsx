@@ -21,7 +21,7 @@ export default function SubscribeSection() {
   return (
     <section
       ref={ref}
-      className="relative overflow-x-hidden mesh-gradient-hero dot-pattern py-24 md:py-32"
+      className="relative overflow-x-hidden mesh-gradient-hero py-24 md:py-32"
       aria-label="Subscribe"
     >
       {/* Floating decorative circles */}
@@ -57,13 +57,13 @@ export default function SubscribeSection() {
             className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 backdrop-blur-sm"
           >
             <Sparkles className="h-4 w-4 text-danphe-accent-light" />
-            <span className="text-sm font-medium text-white/70">Transform Your Healthcare Operations</span>
+            <span className="text-sm font-medium text-teal-200">Transform Your Healthcare Operations</span>
           </motion.div>
 
           <h2 className="font-heading mb-4 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
             Subscribe for a Transformative Demo of Our Cutting-Edge Solutions!
           </h2>
-          <p className="mb-8 max-w-2xl mx-auto text-base text-white/80 sm:text-lg">
+          <p className="mb-8 max-w-2xl mx-auto text-base text-white/90 sm:text-lg">
             Subscribe now for a personalized demo and unlock the future with innovative solutions tailored to enhance efficiency and elevate your overall experience.
           </p>
 
@@ -87,7 +87,7 @@ export default function SubscribeSection() {
                 <p className="text-lg font-medium">Thank you for subscribing!</p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="text-sm text-white/70 underline transition-colors hover:text-white"
+                  className="text-sm text-white/80 underline decoration-white/40 underline-offset-2 transition-colors hover:text-white"
                 >
                   Subscribe another email
                 </button>
@@ -103,7 +103,7 @@ export default function SubscribeSection() {
                 className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row"
               >
                 <div className="relative flex-1">
-                  <Mail className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-white/40" />
+                  <Mail className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-white/60" />
                   <input
                     type="email"
                     placeholder="Enter your email"
@@ -111,7 +111,7 @@ export default function SubscribeSection() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     aria-label="Email address"
-                    className="h-12 w-full rounded-xl border border-white/20 bg-white/10 pl-11 pr-4 text-sm text-white outline-none backdrop-blur-sm transition-all duration-300 placeholder:text-white/40 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:bg-white/15"
+                    className="h-12 w-full rounded-xl border border-white/25 bg-white/10 pl-11 pr-4 text-sm text-white outline-none backdrop-blur-sm transition-all duration-300 placeholder:text-white/50 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:bg-white/15"
                   />
                 </div>
                 <motion.button

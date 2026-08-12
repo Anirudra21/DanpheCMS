@@ -63,7 +63,7 @@ export default function ContactSection() {
           <h2 className="font-heading mb-3 text-3xl font-bold text-danphe-primary md:text-4xl">
             Let us know how we can help you.
           </h2>
-          <p className="text-danphe-text-light">
+          <p className="text-danphe-text">
             You can send an email to{' '}
             <a
               href="mailto:info@danphehealth.com"
@@ -85,7 +85,7 @@ export default function ContactSection() {
               <div className="flex flex-col items-center justify-center gap-4 border border-danphe-success/20 rounded-3xl bg-danphe-success/5 p-10 text-center">
                 <CheckCircle className="h-12 w-12 text-danphe-success" />
                 <h3 className="text-xl font-bold text-danphe-primary">Thank you!</h3>
-                <p className="text-danphe-text-light">
+                <p className="text-danphe-text">
                   Your message has been sent successfully. We will get back to you soon.
                 </p>
                 <button
