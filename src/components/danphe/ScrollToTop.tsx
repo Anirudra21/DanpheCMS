@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowUp } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ScrollToTop() {
@@ -10,7 +9,7 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -19,21 +18,17 @@ export default function ScrollToTop() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <motion.button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          className="fixed bottom-6 right-6 z-50"
+          transition={{ duration: 0.2 }}
+          onClick={scrollUp}
+          aria-label="Scroll to top"
+          className="fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full glass text-danphe-text shadow-lg transition-shadow hover:shadow-premium"
         >
-          <Button
-            size="icon"
-            onClick={scrollUp}
-            aria-label="Scroll to top"
-            className="h-12 w-12 rounded-full bg-danphe-primary shadow-lg hover:bg-danphe-primary-light"
-          >
-            <ArrowUp className="h-5 w-5 text-white" />
-          </Button>
-        </motion.div>
+          <ChevronUp className="h-5 w-5" />
+        </motion.button>
       )}
     </AnimatePresence>
   );

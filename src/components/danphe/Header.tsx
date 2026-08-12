@@ -1,87 +1,65 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetTitle,
+  SheetClose,
 } from '@/components/ui/sheet';
 import { NAV_ITEMS } from '@/lib/constants';
 import {
   Mail,
   Phone,
   Menu,
+  X,
   Facebook,
   Instagram,
+  Linkedin,
+  Youtube,
 } from 'lucide-react';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  const handleScroll = useCallback(() => {
+    const y = window.scrollY;
+    setScrolled(y > 20);
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      setScrollProgress((y / docHeight) * 100);
+    }
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-shadow duration-300 ${
-        scrolled ? 'shadow-lg' : ''
-      }`}
-    >
-      {/* Top utility bar */}
-      <div className="bg-danphe-dark text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 text-sm">
-          <div className="flex items-center gap-4 sm:gap-6">
-            <a
-              href="mailto:info@danphehealth.com"
-              className="flex items-center gap-1.5 transition-colors hover:text-danphe-accent-light"
-              aria-label="Email Danphe Health"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">info@danphehealth.com</span>
-            </a>
-            <a
-              href="tel:+9779852088004"
-              className="flex items-center gap-1.5 transition-colors hover:text-danphe-accent-light"
-              aria-label="Call Danphe Health"
-            >
-              <Phone className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">+977-9852088004</span>
-            </a>
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="https://www.facebook.com/DapheHealth"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-danphe-accent-light"
-              aria-label="Facebook"
-            >
-              <Facebook className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.instagram.com/danphe_health/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-danphe-accent-light"
-              aria-label="Instagram"
-            >
-              <Instagram className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
+    <header className="fixed top-0 z-50 w-full transition-all duration-500">
+      {/* Scroll progress bar */}
+      <div className="absolute top-0 left-0 z-[60] h-[2px] w-full bg-transparent">
+        <div
+          className="h-full bg-danphe-accent transition-[width] duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
       </div>
 
       {/* Main navbar */}
-      <nav className="bg-white backdrop-blur-md bg-white/95">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+      <nav
+        className={`transition-all duration-500 ${
+          scrolled
+            ? 'glass shadow-lg shadow-black/5'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
           {/* Logo */}
           <Link href="/" aria-label="Danphe Health Home">
             <Image
@@ -90,86 +68,224 @@ export default function Header() {
               width={160}
               height={44}
               unoptimized
-              className="h-10 w-auto sm:h-11"
+              className="h-10 w-auto lg:h-11"
               priority
             />
           </Link>
 
           {/* Desktop nav links */}
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-1 xl:flex">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-danphe-text transition-colors hover:bg-danphe-bg-light hover:text-danphe-primary"
+                className="group relative px-3 py-2 text-sm font-medium text-danphe-text transition-colors hover:text-danphe-accent"
               >
                 {item.label}
+                <span className="absolute bottom-0 left-3 right-3 h-0.5 origin-left scale-x-0 rounded-full bg-danphe-accent transition-transform duration-300 group-hover:scale-x-100" />
               </Link>
             ))}
           </div>
 
-          {/* Desktop CTA + Mobile menu */}
-          <div className="flex items-center gap-3">
-            <Button
-              asChild
-              className="hidden bg-danphe-primary hover:bg-danphe-primary-light lg:inline-flex"
+          {/* Desktop right section: contacts + socials + CTA */}
+          <div className="hidden items-center gap-4 lg:flex">
+            {/* Email + Phone (hidden on mobile/tablet) */}
+            <a
+              href="mailto:info@danphehealth.com"
+              className="flex items-center gap-1.5 text-sm text-danphe-text-light transition-colors hover:text-danphe-accent"
+              aria-label="Email Danphe Health"
             >
-              <Link href="/schedule-a-demo">
-                Schedule a Demo
-              </Link>
-            </Button>
+              <Mail className="h-3.5 w-3.5" />
+              <span>info@danphehealth.com</span>
+            </a>
+            <a
+              href="tel:+9779852088004"
+              className="flex items-center gap-1.5 text-sm text-danphe-text-light transition-colors hover:text-danphe-accent"
+              aria-label="Call Danphe Health"
+            >
+              <Phone className="h-3.5 w-3.5" />
+              <span>+977-9852088004</span>
+            </a>
 
-            {/* Mobile hamburger */}
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-              <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon" aria-label="Open menu">
-                  <Menu className="h-6 w-6 text-danphe-text" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-72 bg-white p-0">
-                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                <div className="flex flex-col h-full">
-                  <div className="border-b border-danphe-border p-4">
-                    <Link href="/" onClick={() => setMobileOpen(false)}>
-                      <Image
-                        src="https://danphehealth.com/frontend/img/logo.png"
-                        alt="Danphe Health Logo"
-                        width={140}
-                        height={40}
-                        unoptimized
-                        className="h-9 w-auto"
-                      />
-                    </Link>
-                  </div>
-                  <div className="flex-1 overflow-y-auto p-4">
-                    <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
-                      {NAV_ITEMS.map((item) => (
-                        <Link
-                          key={item.label}
-                          href={item.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="rounded-md px-3 py-2.5 text-sm font-medium text-danphe-text transition-colors hover:bg-danphe-bg-light hover:text-danphe-primary"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </nav>
-                  </div>
-                  <div className="border-t border-danphe-border p-4">
-                    <Button
-                      asChild
-                      className="w-full bg-danphe-primary hover:bg-danphe-primary-light"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      <Link href="/schedule-a-demo">
-                        Schedule a Demo
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+            {/* Divider */}
+            <div className="h-5 w-px bg-danphe-border" />
+
+            {/* Social icons */}
+            <div className="flex items-center gap-2">
+              <a
+                href="https://www.facebook.com/DapheHealth"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/danphe_health/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-danphe-text-light transition-colors hover:text-danphe-accent"
+                aria-label="YouTube"
+              >
+                <Youtube className="h-4 w-4" />
+              </a>
+            </div>
+
+            {/* CTA Button */}
+            <Link
+              href="/schedule-a-demo"
+              className="rounded-full bg-danphe-accent px-5 py-2.5 text-sm font-semibold text-white shadow-glow-accent transition-all hover:bg-danphe-accent-light hover:shadow-lg"
+            >
+              Schedule a Demo
+            </Link>
           </div>
+
+          {/* Mobile hamburger */}
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <button
+                aria-label="Open menu"
+                className="flex h-10 w-10 items-center justify-center rounded-lg text-danphe-text transition-colors hover:bg-white/10"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="w-80 border-none bg-danphe-dark p-0"
+            >
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              <div className="flex h-full flex-col">
+                {/* Mobile sheet header */}
+                <div className="flex items-center justify-between border-b border-white/10 p-5">
+                  <Link href="/" onClick={() => setMobileOpen(false)}>
+                    <Image
+                      src="https://danphehealth.com/frontend/img/logo.png"
+                      alt="Danphe Health Logo"
+                      width={140}
+                      height={40}
+                      unoptimized
+                      className="h-9 w-auto brightness-0 invert"
+                    />
+                  </Link>
+                  <SheetClose asChild>
+                    <button
+                      aria-label="Close menu"
+                      className="flex h-9 w-9 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                    >
+                      <X className="h-5 w-5" />
+                    </button>
+                  </SheetClose>
+                </div>
+
+                {/* Mobile nav links */}
+                <nav
+                  className="flex-1 overflow-y-auto p-5"
+                  aria-label="Mobile navigation"
+                >
+                  <div className="flex flex-col gap-1">
+                    {NAV_ITEMS.map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="rounded-lg px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </nav>
+
+                {/* Mobile sheet footer */}
+                <div className="border-t border-white/10 p-5">
+                  {/* Contact info */}
+                  <div className="mb-4 flex flex-col gap-2 text-sm text-white/60">
+                    <a
+                      href="mailto:info@danphehealth.com"
+                      className="flex items-center gap-2 transition-colors hover:text-danphe-accent-light"
+                    >
+                      <Mail className="h-4 w-4" />
+                      info@danphehealth.com
+                    </a>
+                    <a
+                      href="tel:+9779852088004"
+                      className="flex items-center gap-2 transition-colors hover:text-danphe-accent-light"
+                    >
+                      <Phone className="h-4 w-4" />
+                      +977-9852088004
+                    </a>
+                  </div>
+                  {/* Mobile social icons */}
+                  <div className="mb-4 flex items-center gap-3">
+                    <a
+                      href="https://www.facebook.com/DapheHealth"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/50 transition-colors hover:text-white"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/danphe_health/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/50 transition-colors hover:text-white"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/50 transition-colors hover:text-white"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/50 transition-colors hover:text-white"
+                      aria-label="YouTube"
+                    >
+                      <Youtube className="h-4 w-4" />
+                    </a>
+                  </div>
+                  {/* Mobile CTA */}
+                  <Link
+                    href="/schedule-a-demo"
+                    onClick={() => setMobileOpen(false)}
+                    className="block rounded-full bg-danphe-accent px-5 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-danphe-accent-light"
+                  >
+                    Schedule a Demo
+                  </Link>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </nav>
     </header>

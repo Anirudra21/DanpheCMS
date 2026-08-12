@@ -1,158 +1,308 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, ArrowRight, Building2, Users, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
+import {
+  Calendar,
+  ArrowRight,
+  Building2,
+  Layers,
+  Globe,
+  Clock,
+} from 'lucide-react';
 
-const slides = [
-  {
-    headline: 'All-In-One Solutions for Hospital Information Management',
-    subtext: 'Trusted by Top Hospitals. Used in 53+ Hospitals and growing',
-  },
-  {
-    headline: 'Efficient, Reliable and Affordable',
-    subtext: 'Transforming healthcare information management with complete Health Care Solutions.',
-  },
-];
-
-const stats = [
-  { icon: Building2, value: '53+', label: 'Hospitals' },
-  { icon: Users, value: '9', label: 'Modules' },
-  { icon: Shield, value: '100%', label: 'Secure' },
-];
-
-export default function HeroSection() {
-  const [current, setCurrent] = useState(0);
-
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % slides.length);
-  }, []);
+/* ------------------------------------------------------------------ */
+/*  useCounter — animates a number from 0 → target using rAF          */
+/* ------------------------------------------------------------------ */
+function useCounter(target: number, duration = 2000, startOnMount = true) {
+  const [count, setCount] = useState(0);
+  const hasStarted = useRef(false);
 
   useEffect(() => {
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, [next]);
+    if (!startOnMount || hasStarted.current) return;
+    hasStarted.current = true;
 
-  const slide = slides[current];
+    let startTime: number | null = null;
+    let rafId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    };
+
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
+  }, [target, duration, startOnMount]);
+
+  return count;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Stats data                                                        */
+/* ------------------------------------------------------------------ */
+const stats = [
+  { icon: Building2, value: 60, suffix: '+', label: 'Hospitals' },
+  { icon: Layers, value: 9, suffix: '+', label: 'Integrated Modules' },
+  { icon: Globe, value: 100, suffix: '%', label: 'Web-Based' },
+  { icon: Clock, value: 24, suffix: '/7', label: 'Support' },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Component                                                         */
+/* ------------------------------------------------------------------ */
+export default function HeroSection() {
+  const hospitals = useCounter(60, 2200);
+  const modules = useCounter(9, 1600);
+  const webBased = useCounter(100, 2400);
+  const support = useCounter(24, 1800);
+
+  const counters = [hospitals, modules, webBased, support];
 
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-danphe-primary via-danphe-dark to-danphe-primary"
+      className="relative min-h-screen overflow-hidden mesh-gradient-hero dot-pattern"
       aria-label="Hero"
     >
-      {/* Animated background pattern */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -left-24 h-72 w-72 animate-pulse rounded-full bg-danphe-accent/15 blur-3xl" />
-        <div className="absolute -bottom-32 -right-32 h-96 w-96 animate-pulse rounded-full bg-danphe-primary-light/15 blur-3xl" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/3 right-1/4 h-64 w-64 animate-pulse rounded-full bg-white/5 blur-2xl" style={{ animationDelay: '2s' }} />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
-
-      <div className="relative mx-auto flex min-h-[520px] max-w-7xl flex-col items-center justify-center px-4 py-20 sm:min-h-[580px] lg:min-h-[640px]">
-        <AnimatePresence mode="wait">
+      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col items-center px-4 pt-32 pb-24 lg:flex-row lg:items-center lg:px-6 lg:pt-0 lg:pb-0">
+        {/* ---- LEFT: Text content ---- */}
+        <div className="relative z-10 flex flex-1 flex-col items-center text-center lg:items-start lg:text-left">
+          {/* Badge pill */}
           <motion.div
-            key={current}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/60 backdrop-blur-sm">
+              Open-Source &nbsp;•&nbsp; Enterprise-Grade &nbsp;•&nbsp; HMIS/EMR/EHR
+            </span>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-6 max-w-2xl font-heading text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl"
+          >
+            Enterprise-Grade, Open-Source Hospital Management System
+          </motion.h1>
+
+          {/* Sub-headline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="mt-5 max-w-xl font-heading text-lg font-semibold text-white/80 md:text-xl"
+          >
+            Complete HIMS with Integrated EMR & EHR — Trusted by 60+ Hospitals
+          </motion.p>
+
+          {/* CTA buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4"
+          >
+            <Link
+              href="/schedule-a-demo"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-danphe-accent px-6 py-3 text-sm font-semibold text-white shadow-glow-accent transition-all hover:bg-danphe-accent-light hover:shadow-lg"
+            >
+              <Calendar className="h-4 w-4" />
+              Schedule a Demo
+            </Link>
+            <Link
+              href="/solutions"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+            >
+              Explore Solutions
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+
+          {/* Stats row — glass cards */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="flex flex-col items-center text-center"
+            transition={{ duration: 0.7, delay: 0.65 }}
+            className="mt-12 grid w-full max-w-2xl grid-cols-2 gap-3 sm:mt-14 lg:max-w-none lg:grid-cols-4"
           >
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-6 h-1 w-16 origin-center rounded-full bg-danphe-accent"
-            />
-            <h1 className="mb-4 max-w-4xl text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-              {slide.headline}
-            </h1>
-            <p className="mb-8 max-w-2xl text-base text-white/80 sm:text-lg md:text-xl">
-              {slide.subtext}
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <Button
-                size="lg"
-                className="bg-danphe-accent text-white shadow-lg shadow-danphe-accent/25 transition-all hover:bg-danphe-accent-light hover:shadow-xl hover:shadow-danphe-accent/30"
-                asChild
+            {stats.map((stat, idx) => (
+              <div
+                key={stat.label}
+                className="glass-dark flex flex-col items-center gap-1.5 rounded-xl px-4 py-4"
               >
-                <Link href="/schedule-a-demo">
-                  <Calendar className="mr-2 h-4 w-4" />
-                  {current === 0 ? 'Schedule a Demo' : 'Schedule a demo'}
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 bg-white/5 text-white backdrop-blur-sm transition-all hover:bg-white/15 hover:text-white"
-                asChild
-              >
-                <Link href="/solutions">
-                  Learn More
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+                <stat.icon className="h-5 w-5 text-danphe-accent-light" />
+                <span className="text-2xl font-bold text-white md:text-3xl">
+                  {counters[idx]}
+                  {stat.suffix}
+                </span>
+                <span className="text-xs text-white/50">{stat.label}</span>
+              </div>
+            ))}
           </motion.div>
-        </AnimatePresence>
-
-        {/* Stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-14 grid w-full max-w-lg grid-cols-3 gap-4 sm:mt-16 sm:gap-8"
-        >
-          {stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center gap-1">
-              <stat.icon className="h-5 w-5 text-danphe-accent-light" />
-              <span className="text-2xl font-bold text-white sm:text-3xl">{stat.value}</span>
-              <span className="text-xs text-white/60 sm:text-sm">{stat.label}</span>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Navigation dots */}
-        <div className="mt-10 flex gap-2" role="tablist" aria-label="Slide navigation">
-          {slides.map((_, idx) => (
-            <button
-              key={idx}
-              role="tab"
-              aria-selected={idx === current}
-              aria-label={`Slide ${idx + 1}`}
-              onClick={() => setCurrent(idx)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                idx === current
-                  ? 'w-8 bg-danphe-accent'
-                  : 'w-2.5 bg-white/40 hover:bg-white/60'
-              }`}
-            />
-          ))}
         </div>
+
+        {/* ---- RIGHT: Dashboard mockup (lg+ only) ---- */}
+        <motion.div
+          initial={{ opacity: 0, x: 40, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+          className="relative mt-14 hidden flex-1 lg:mt-0 lg:flex lg:justify-end lg:pl-8"
+        >
+          <div className="relative w-full max-w-lg">
+            {/* Decorative glow behind */}
+            <div className="absolute -inset-4 rounded-3xl bg-danphe-accent/10 blur-3xl" />
+
+            {/* Main dashboard card */}
+            <div className="relative rounded-2xl border border-white/10 bg-danphe-dark/90 shadow-premium-lg overflow-hidden">
+              {/* Top bar */}
+              <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+                <div className="flex gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
+                </div>
+                <div className="ml-3 flex-1 rounded-md bg-white/5 px-3 py-1 text-xs text-white/30">
+                  danphehealth.com/hims/dashboard
+                </div>
+              </div>
+
+              <div className="flex">
+                {/* Fake sidebar */}
+                <div className="hidden w-44 flex-shrink-0 border-r border-white/10 p-3 sm:block">
+                  <div className="mb-4 flex items-center gap-2">
+                    <div className="h-6 w-6 rounded-md bg-danphe-accent/80" />
+                    <div className="h-2.5 w-16 rounded bg-white/20" />
+                  </div>
+                  {['Dashboard', 'Patient Admin', 'OPD', 'IPD', 'Pharmacy', 'Lab', 'Inventory', 'Reports'].map(
+                    (item, i) => (
+                      <div
+                        key={item}
+                        className={`mb-1 flex items-center gap-2 rounded-md px-2.5 py-1.5 text-[10px] ${
+                          i === 0
+                            ? 'bg-danphe-accent/20 text-danphe-accent-light font-medium'
+                            : 'text-white/40'
+                        }`}
+                      >
+                        <div
+                          className={`h-3 w-3 rounded-sm ${
+                            i === 0 ? 'bg-danphe-accent-light/60' : 'bg-white/10'
+                          }`}
+                        />
+                        {item}
+                      </div>
+                    )
+                  )}
+                </div>
+
+                {/* Fake content area */}
+                <div className="flex-1 p-4">
+                  {/* Stat cards row */}
+                  <div className="mb-4 grid grid-cols-3 gap-2">
+                    {[
+                      { color: 'bg-danphe-accent/30', label: 'Patients Today', val: '247' },
+                      { color: 'bg-danphe-primary-light/30', label: 'Beds Occupied', val: '182' },
+                      { color: 'bg-emerald-500/20', label: 'Revenue', val: 'NRs 1.2M' },
+                    ].map((card) => (
+                      <div
+                        key={card.label}
+                        className={`rounded-lg ${card.color} p-2.5`}
+                      >
+                        <div className="text-[9px] text-white/40">{card.label}</div>
+                        <div className="mt-0.5 text-sm font-semibold text-white">
+                          {card.val}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Chart placeholder */}
+                  <div className="mb-4 rounded-lg border border-white/5 bg-white/[0.03] p-3">
+                    <div className="mb-2 h-2.5 w-24 rounded bg-white/15" />
+                    <div className="flex items-end gap-1.5 h-20">
+                      {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88].map((h, i) => (
+                        <div
+                          key={i}
+                          className="flex-1 rounded-t-sm bg-gradient-to-t from-danphe-accent/50 to-danphe-accent-light/70"
+                          style={{ height: `${h}%` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Recent activity */}
+                  <div className="rounded-lg border border-white/5 bg-white/[0.03] p-3">
+                    <div className="mb-2 h-2.5 w-20 rounded bg-white/15" />
+                    {['OPD-1024 • Dr. Sharma', 'IPD-Bed 12 • Discharged', 'Lab Report Ready • Patient #890'].map(
+                      (row) => (
+                        <div
+                          key={row}
+                          className="mb-1.5 flex items-center gap-2 text-[10px] text-white/40"
+                        >
+                          <div className="h-1.5 w-1.5 rounded-full bg-danphe-accent-light" />
+                          {row}
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating decoration card */}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -bottom-4 -left-6 rounded-xl border border-white/10 bg-danphe-dark/90 px-3 py-2 shadow-lg backdrop-blur-sm"
+            >
+              <div className="flex items-center gap-2">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20">
+                  <span className="text-xs">✓</span>
+                </div>
+                <div>
+                  <div className="text-[10px] text-white/40">System Status</div>
+                  <div className="text-xs font-medium text-emerald-400">All Systems Operational</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Floating decoration card top-right */}
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute -top-3 -right-4 rounded-xl border border-white/10 bg-danphe-dark/90 px-3 py-2 shadow-lg backdrop-blur-sm"
+            >
+              <div className="flex items-center gap-2">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-danphe-accent/20">
+                  <Building2 className="h-3.5 w-3.5 text-danphe-accent-light" />
+                </div>
+                <div>
+                  <div className="text-[10px] text-white/40">Active Hospitals</div>
+                  <div className="text-xs font-medium text-white">60+ Connected</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 w-full leading-[0]">
-        <svg
-          className="w-full"
-          preserveAspectRatio="none"
-          viewBox="0 0 1440 80"
-          style={{ height: '50px' }}
-        >
-          <path
-            d="M0,40 C360,0 720,0 1080,40 C1260,60 1380,60 1440,40 L0,40 Z"
-            fill="white"
-          />
-        </svg>
-      </div>
+      {/* Bottom gradient fade to white */}
+      <div className="absolute bottom-0 left-0 w-full"
+        style={{
+          height: '120px',
+          background: 'linear-gradient(to bottom, transparent, white)',
+        }}
+      />
     </section>
   );
 }

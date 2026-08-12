@@ -4,6 +4,8 @@ import ValueSection from '@/components/danphe/ValueSection';
 import ModuleSection from '@/components/danphe/ModuleSection';
 import OutcomesSection from '@/components/danphe/OutcomesSection';
 import FeaturesSection from '@/components/danphe/FeaturesSection';
+import OpenSourceSection from '@/components/danphe/OpenSourceSection';
+import TechSection from '@/components/danphe/TechSection';
 import TestimonialsSection from '@/components/danphe/TestimonialsSection';
 import TrustedSection from '@/components/danphe/TrustedSection';
 import ContactSection from '@/components/danphe/ContactSection';
@@ -18,12 +20,14 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
+        <TrustedSection />
         <ValueSection />
         <ModuleSection />
         <OutcomesSection />
         <FeaturesSection />
+        <OpenSourceSection />
+        <TechSection />
         <TestimonialsSection />
-        <TrustedSection />
         <ContactSection />
         <SubscribeSection />
       </main>

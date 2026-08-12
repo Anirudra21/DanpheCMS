@@ -3,14 +3,15 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { MODULES } from '@/lib/constants';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 export default function ModuleSection() {
   const [activeIdx, setActiveIdx] = useState(0);
-  const tabsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const detailRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
   const activeModule = MODULES[activeIdx];
 
   const goPrev = () =>
@@ -18,145 +19,167 @@ export default function ModuleSection() {
   const goNext = () =>
     setActiveIdx((i) => (i === MODULES.length - 1 ? 0 : i + 1));
 
-  const scrollTabIntoView = (idx: number) => {
-    const container = tabsRef.current;
-    if (!container) return;
-    const tab = container.children[idx] as HTMLElement | undefined;
-    tab?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  };
-
-  const selectTab = (idx: number) => {
+  const selectModule = (idx: number) => {
     setActiveIdx(idx);
-    scrollTabIntoView(idx);
+    // Scroll detail panel into view on mobile
+    setTimeout(() => {
+      detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
   };
 
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-24" aria-label="Modules">
-      <div className="mx-auto max-w-7xl px-4">
-        {/* Heading */}
-        <div className="mb-10 text-center">
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mx-auto mb-4 h-1 w-12 origin-center rounded-full bg-danphe-accent"
-          />
-          <h2 className="mb-3 text-2xl font-bold text-danphe-primary sm:text-3xl lg:text-4xl">
-            Discover a complete solution for HIMS with EMR
-          </h2>
-        </div>
+    <section
+      ref={sectionRef}
+      className="relative bg-danphe-bg-light py-20 md:py-28 overflow-hidden"
+      aria-label="Modules"
+    >
+      {/* Dot pattern overlay */}
+      <div className="pointer-events-none absolute inset-0 dot-pattern-light" />
 
-        {/* Module tab navigation */}
-        <div className="relative mb-8">
-          <div
-            ref={tabsRef}
-            className="scrollbar-hide flex gap-2 overflow-x-auto pb-2"
-            role="tablist"
-            aria-label="Module tabs"
-          >
-            {MODULES.map((mod, idx) => (
-              <button
-                key={mod.name}
-                role="tab"
-                aria-selected={idx === activeIdx}
-                onClick={() => selectTab(idx)}
-                className={`flex flex-shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="mb-12 text-center"
+        >
+          <h2 className="font-heading text-3xl font-bold text-danphe-primary md:text-4xl">
+            Discover a{' '}
+            <span className="gradient-text">complete</span>{' '}
+            solution for HIMS with EMR
+          </h2>
+        </motion.div>
+
+        {/* 3x3 Bento Grid */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+          {MODULES.map((mod, idx) => (
+            <motion.button
+              key={mod.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{
+                duration: 0.4,
+                ease: 'easeOut',
+                delay: idx * 0.06,
+              }}
+              onClick={() => selectModule(idx)}
+              className={`group relative flex flex-col items-center gap-2.5 rounded-2xl border p-4 md:p-5 text-left transition-all duration-300 md:items-start ${
+                idx === activeIdx
+                  ? 'ring-2 ring-danphe-accent bg-danphe-bg-alt border-danphe-accent/30 shadow-premium'
+                  : 'bg-white border-danphe-border/50 shadow-premium hover:shadow-premium-lg hover:scale-[1.02] hover:border-danphe-accent/30'
+              }`}
+              aria-label={`View ${mod.name} details`}
+            >
+              {/* Icon in colored circle */}
+              <div
+                className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors duration-300 ${
                   idx === activeIdx
-                    ? 'bg-danphe-primary text-white shadow-md'
-                    : 'bg-danphe-bg-light text-danphe-text hover:bg-danphe-border'
+                    ? 'bg-danphe-accent/15'
+                    : 'bg-danphe-primary/5 group-hover:bg-danphe-accent/10'
                 }`}
               >
                 <Image
                   src={mod.icon}
                   alt={`${mod.name} icon`}
-                  width={20}
-                  height={20}
+                  width={22}
+                  height={22}
                   unoptimized
-                  className={`h-5 w-5 ${idx === activeIdx ? 'brightness-0 invert' : ''}`}
+                  className={`h-5 w-5 object-contain transition-all duration-300 ${
+                    idx === activeIdx
+                      ? 'brightness-0 saturate-100'
+                      : ''
+                  }`}
                 />
-                <span className="whitespace-nowrap">{mod.name}</span>
-              </button>
-            ))}
-          </div>
+              </div>
+              {/* Module name */}
+              <span
+                className={`text-xs font-semibold leading-tight ${
+                  idx === activeIdx
+                    ? 'text-danphe-primary'
+                    : 'text-danphe-text group-hover:text-danphe-primary'
+                }`}
+              >
+                {mod.name}
+              </span>
+              {/* Title - truncated to 1 line */}
+              <span className="text-[11px] leading-tight text-danphe-text-light line-clamp-1">
+                {mod.title}
+              </span>
+            </motion.button>
+          ))}
         </div>
 
-        {/* Content area */}
-        <div className="relative overflow-hidden rounded-2xl border border-danphe-border bg-danphe-bg-light">
+        {/* Detail Panel */}
+        <div ref={detailRef} className="mt-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIdx}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.35, ease: 'easeInOut' }}
-              className="grid items-center gap-8 p-6 sm:p-8 lg:grid-cols-2 lg:p-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              className="glass rounded-3xl p-6 md:p-10 shadow-premium-lg"
             >
-              {/* Text side */}
-              <div>
-                <span className="mb-3 inline-block rounded-full bg-danphe-primary/10 px-3 py-1 text-xs font-medium text-danphe-primary">
-                  {activeModule.name}
-                </span>
-                <h3 className="mb-4 text-xl font-bold text-danphe-primary sm:text-2xl">
-                  {activeModule.title}
-                </h3>
-                <p className="mb-6 leading-relaxed text-danphe-text-light">
-                  {activeModule.description}
-                </p>
-                <Button
-                  variant="link"
-                  className="p-0 text-danphe-accent hover:text-danphe-accent-light"
-                  asChild
-                >
-                  <Link href={activeModule.href}>
+              <div className="grid items-center gap-8 lg:grid-cols-2">
+                {/* Left: Content */}
+                <div>
+                  <span className="mb-3 inline-block rounded-full bg-danphe-primary/10 px-4 py-1.5 text-xs font-semibold text-danphe-primary">
+                    {activeModule.name}
+                  </span>
+                  <h3 className="font-heading mb-4 text-xl font-bold text-danphe-primary sm:text-2xl md:text-3xl">
+                    {activeModule.title}
+                  </h3>
+                  <p className="mb-6 leading-relaxed text-danphe-text-light">
+                    {activeModule.description}
+                  </p>
+                  <Link
+                    href={activeModule.href}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-danphe-accent transition-colors hover:text-danphe-accent-light"
+                  >
                     View Detail
-                    <ArrowRight className="ml-1.5 h-4 w-4" />
+                    <ArrowRight className="h-4 w-4" />
                   </Link>
-                </Button>
+                </div>
+
+                {/* Right: Image */}
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-premium-lg">
+                  <Image
+                    src={activeModule.image}
+                    alt={activeModule.name}
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                </div>
               </div>
 
-              {/* Image side */}
-              <div className="relative aspect-[16/10] overflow-hidden rounded-xl shadow-lg">
-                <Image
-                  src={activeModule.image}
-                  alt={activeModule.name}
-                  fill
-                  unoptimized
-                  className="object-cover"
-                />
+              {/* Bottom nav: counter + prev/next */}
+              <div className="mt-6 flex items-center justify-end gap-3 border-t border-danphe-border/30 pt-4">
+                <span className="text-sm font-medium text-danphe-text-light">
+                  <span className="font-bold text-danphe-primary">{String(activeIdx + 1).padStart(2, '0')}</span>
+                  <span className="mx-1">/</span>
+                  {String(MODULES.length).padStart(2, '0')}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={goPrev}
+                    aria-label="Previous module"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-danphe-primary/20 bg-white/80 text-danphe-primary transition-all duration-200 hover:bg-danphe-primary hover:text-white hover:border-danphe-primary"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={goNext}
+                    aria-label="Next module"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-danphe-primary/20 bg-white/80 text-danphe-primary transition-all duration-200 hover:bg-danphe-primary hover:text-white hover:border-danphe-primary"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>
-
-          {/* Bottom controls */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between sm:bottom-6 sm:left-6 sm:right-6">
-            <span className="text-xs font-medium text-danphe-text-light sm:text-sm">
-              <span className="text-danphe-primary font-bold">{String(activeIdx + 1).padStart(2, '0')}</span>
-              {' / '}
-              {String(MODULES.length).padStart(2, '0')}
-            </span>
-
-            <div className="flex gap-2">
-              <Button
-                size="icon"
-                variant="outline"
-                className="h-10 w-10 rounded-full border-danphe-primary/30 bg-white/90 hover:bg-danphe-primary hover:text-white"
-                onClick={goPrev}
-                aria-label="Previous module"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </Button>
-              <Button
-                size="icon"
-                variant="outline"
-                className="h-10 w-10 rounded-full border-danphe-primary/30 bg-white/90 hover:bg-danphe-primary hover:text-white"
-                onClick={goNext}
-                aria-label="Next module"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </section>
