@@ -451,3 +451,63 @@ Stage Summary:
 - layout.tsx: FloatingSideNav now rendered here for every-page persistence
 - page.tsx: FloatingSideNav import removed
 - Zero lint errors, zero runtime errors
+
+---
+Task ID: 8
+Agent: main
+Task: Fix content visibility, responsiveness, layout/overflow/z-index issues, add smooth animations
+
+Work Log:
+- Diagnosed hero section issues via agent-browser:
+  - Desktop (1440x900): Bottom gradient fade (y=740) overlapped stats row (bottom y=791) by 51px
+  - Mobile (390x844): Bottom gradient fade (y=728.5) overlapped second stats row (bottom y=792.5) by 64px
+  - `overflow-hidden` on hero section was preventing vertical content flow
+- Fixed HeroSection.tsx:
+  - Changed `overflow-hidden` to `overflow-x-hidden` to allow vertical content flow
+  - Moved bottom gradient fade to z-0 (behind content at z-10) so it acts as backdrop, not overlay
+  - Added `pointer-events-none` to gradient fade
+  - Changed hero from `min-h-screen` to `min-h-[100svh]` on mobile for proper mobile viewport handling
+  - Increased bottom padding: `pb-32` (mobile) / `pb-40` (desktop) to ensure stats clear the gradient zone
+  - Reduced text sizes on mobile for better fit: `text-2xl` base heading, `text-base` sub-headline, `mt-5/mt-4` spacing
+  - Reduced stats card padding on mobile: `py-3` (vs `py-4` sm:)
+  - Reduced spacing between elements for compact mobile layout
+  - Updated dashDelay from 1.5s to 1.2s to match faster preloader
+- Fixed section-level overflow-hidden → overflow-x-hidden in 5 files:
+  - ValueSection.tsx, OutcomesSection.tsx, FeaturesSection.tsx, ModuleSection.tsx, SubscribeSection.tsx
+  - This prevents any potential vertical content clipping while still hiding horizontal decorative overflow
+- Enhanced SubscribeSection.tsx:
+  - Added animated decorative circles with motion
+  - Added icon badge above heading (Sparkles icon)
+  - Improved form/email input with focus animation
+  - Added AnimatePresence for smooth success/form transition
+  - Added spring animation on success checkmark
+  - Increased padding: `py-24 md:py-32`
+- Enhanced Footer.tsx:
+  - Extracted SocialIcon component with whileHover/whileTap motion animations
+  - Added smooth hover slide effect on footer links (hover:pl-1)
+- Enhanced Preloader.tsx:
+  - Reduced duration from 1500ms to 1200ms for faster perceived loading
+  - Added heartbeat pulse animation on logo
+  - Added gradient shimmer effect on progress bar
+  - Added loading text "Loading your healthcare solution…"
+  - Thinner progress bar (h-1 instead of h-0.5)
+- Added accessibility improvements:
+  - Skip-to-content link in layout.tsx (sr-only, appears on focus)
+  - `id="main-content"` on main element in page.tsx
+  - WCAG focus-visible styles in globals.css (2px solid danphe-accent outline)
+- Verified with agent-browser on 3 viewports:
+  - Desktop (1440x900): All hero content visible, gradient behind content (z-0 vs z-10), no overlap
+  - Mobile (iPhone 14 390x844): All content accessible in a11y tree, hero height 844px fits viewport 875px
+  - Tablet (768x1024): All content visible, proper grid layouts
+  - Floating nav: All 7 items visible on 1024px+ viewport, correct hrefs verified
+  - Zero runtime errors in dev.log
+  - Zero lint errors
+
+Stage Summary:
+- Hero content (badge, headline, sub-headline, CTAs, stats) fully visible on all screen sizes
+- Subscribe section (heading, description, form, button) fully visible with enhanced animations
+- Bottom gradient fade now renders BEHIND content (z-0) instead of overlapping it
+- All section-level overflow-hidden changed to overflow-x-hidden to prevent vertical clipping
+- FloatingSideNav persists on every page via layout.tsx with white pills + dark hamburger
+- Fast, lightweight animations added (preloader heartbeat, subscribe transitions, footer social icons, WCAG focus)
+- Preloader reduced to 1.2s for snappier load feel

@@ -12,7 +12,7 @@ export default function FeaturesSection() {
   return (
     <section
       ref={ref}
-      className="relative bg-danphe-bg-light py-20 md:py-28 overflow-hidden"
+      className="relative bg-danphe-bg-light py-20 md:py-28 overflow-x-hidden"
       aria-label="Features"
     >
       {/* Dot pattern overlay */}

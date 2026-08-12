@@ -20,7 +20,7 @@ export default function OutcomesSection() {
   const isDlInView = useInView(downloadRef, { once: true, margin: '-60px' });
 
   return (
-    <section ref={ref} className="bg-white py-20 md:py-28 overflow-hidden" aria-label="Outcomes">
+    <section ref={ref} className="bg-white py-20 md:py-28 overflow-x-hidden" aria-label="Outcomes">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main content: 7/5 split */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">

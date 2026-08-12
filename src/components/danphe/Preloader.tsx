@@ -8,7 +8,7 @@ export default function Preloader() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
+    const timer = setTimeout(() => setLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,15 +19,12 @@ export default function Preloader() {
           key="preloader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: 'easeInOut' }}
-          onAnimationComplete={() => {
-            if (!loading) return;
-          }}
+          transition={{ duration: 0.35, ease: 'easeInOut' }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-danphe-dark"
         >
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-5">
             <motion.div
-              animate={{ opacity: [0.7, 1, 0.7] }}
+              animate={{ scale: [1, 1.04, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
             >
               <Image
@@ -40,14 +37,23 @@ export default function Preloader() {
               />
             </motion.div>
 
-            <div className="h-0.5 w-48 overflow-hidden rounded-full bg-white/10">
+            {/* Progress bar with shimmer effect */}
+            <div className="h-1 w-40 overflow-hidden rounded-full bg-white/10">
               <motion.div
-                className="h-full rounded-full bg-danphe-accent"
+                className="h-full rounded-full bg-gradient-to-r from-danphe-accent via-danphe-accent-light to-danphe-accent"
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 1.5, ease: 'easeInOut' }}
+                transition={{ duration: 1.2, ease: 'easeInOut' }}
               />
             </div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0.6, 0.6] }}
+              transition={{ duration: 1.2 }}
+              className="text-xs text-white/40"
+            >
+              Loading your healthcare solution…
+            </motion.p>
           </div>
         </motion.div>
       )}

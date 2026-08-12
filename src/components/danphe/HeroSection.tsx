@@ -77,7 +77,6 @@ export default function HeroSection() {
   // Dashboard stat counters (start after 1.5s preloader delay + extra offset)
   const patientsToday = useCounter(247, 1800, true, 2000);
   const bedsOccupied = useCounter(182, 1800, true, 2300);
-  // NRs 1.2M is handled via fade-in
 
   // Floating card counter
   const floatingHospitals = useCounter(60, 1600, true, 2500);
@@ -85,36 +84,36 @@ export default function HeroSection() {
   const counters = [hospitals, modules, webBased, support];
 
   // Base delay for dashboard animations (accounts for preloader)
-  const dashDelay = 1.5;
+  const dashDelay = 1.2;
 
   return (
     <section
-      className="relative min-h-screen overflow-hidden mesh-gradient-hero dot-pattern"
+      className="relative overflow-x-hidden mesh-gradient-hero dot-pattern"
       aria-label="Hero"
     >
       {/* ---- Additional floating blur circles (background enhancement) ---- */}
       <motion.div
-        className="absolute top-20 -left-32 h-96 w-96 rounded-full bg-danphe-accent/5 blur-3xl pointer-events-none"
+        className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full bg-danphe-accent/5 blur-3xl"
         animate={{ y: [0, -20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute top-1/3 -right-20 h-80 w-80 rounded-full bg-danphe-primary/5 blur-3xl pointer-events-none"
+        className="pointer-events-none absolute -right-20 top-1/3 h-80 w-80 rounded-full bg-danphe-primary/5 blur-3xl"
         animate={{ y: [0, -15, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
       />
       <motion.div
-        className="absolute bottom-32 left-1/4 h-64 w-64 rounded-full bg-danphe-accent-light/5 blur-3xl pointer-events-none"
+        className="pointer-events-none absolute bottom-32 left-1/4 h-64 w-64 rounded-full bg-danphe-accent-light/5 blur-3xl"
         animate={{ y: [0, -18, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/3 h-72 w-72 rounded-full bg-danphe-primary-light/5 blur-3xl pointer-events-none"
+        className="pointer-events-none absolute bottom-1/4 right-1/3 h-72 w-72 rounded-full bg-danphe-primary-light/5 blur-3xl"
         animate={{ y: [0, -12, 0] }}
         transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
       />
 
-      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col items-center px-4 pt-32 pb-24 lg:flex-row lg:items-center lg:px-6 lg:pt-0 lg:pb-0">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center px-4 pt-28 pb-32 lg:min-h-screen lg:flex-row lg:items-center lg:px-6 lg:pb-40 lg:pt-0">
         {/* ---- LEFT: Text content ---- */}
         <div className="relative z-10 flex flex-1 flex-col items-center text-center lg:items-start lg:text-left">
           {/* Badge pill */}
@@ -123,7 +122,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/60 backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/60 backdrop-blur-sm sm:text-sm">
               Open-Source &nbsp;•&nbsp; Enterprise-Grade &nbsp;•&nbsp; HMIS/EMR/EHR
             </span>
           </motion.div>
@@ -133,7 +132,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 max-w-2xl font-heading text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl"
+            className="mt-5 max-w-2xl text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-[3.25rem] xl:text-6xl"
           >
             Enterprise-Grade, Open-Source Hospital Management System
           </motion.h1>
@@ -143,7 +142,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="mt-5 max-w-xl font-heading text-lg font-semibold text-white/80 md:text-xl"
+            className="mt-4 max-w-xl text-base font-semibold text-white/80 sm:text-lg md:text-xl"
           >
             Complete HIMS with Integrated EMR & EHR — Trusted by 60+ Hospitals
           </motion.p>
@@ -153,18 +152,18 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4"
+            className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4"
           >
             <Link
               href="/schedule-a-demo"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-danphe-accent px-6 py-3 text-sm font-semibold text-white shadow-glow-accent transition-all hover:bg-danphe-accent-light hover:shadow-lg"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-danphe-accent px-6 py-3 text-sm font-semibold text-white shadow-glow-accent transition-all duration-300 hover:bg-danphe-accent-light hover:shadow-lg"
             >
               <Calendar className="h-4 w-4" />
               Schedule a Demo
             </Link>
             <Link
               href="/solutions"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
             >
               Explore Solutions
               <ArrowRight className="h-4 w-4" />
@@ -176,19 +175,19 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.65 }}
-            className="mt-12 grid w-full max-w-2xl grid-cols-2 gap-3 sm:mt-14 lg:max-w-none lg:grid-cols-4"
+            className="mt-10 grid w-full max-w-2xl grid-cols-2 gap-3 sm:mt-12 lg:max-w-none lg:grid-cols-4"
           >
             {stats.map((stat, idx) => (
               <div
                 key={stat.label}
-                className="glass-dark flex flex-col items-center gap-1.5 rounded-xl px-4 py-4"
+                className="glass-dark flex flex-col items-center gap-1.5 rounded-xl px-4 py-3 sm:py-4"
               >
                 <stat.icon className="h-5 w-5 text-danphe-accent-light" />
                 <span className="text-2xl font-bold text-white md:text-3xl">
                   {counters[idx]}
                   {stat.suffix}
                 </span>
-                <span className="text-xs text-white/50">{stat.label}</span>
+                <span className="text-xs text-white/50 sm:text-sm">{stat.label}</span>
               </div>
             ))}
           </motion.div>
@@ -206,7 +205,7 @@ export default function HeroSection() {
             <div className="absolute -inset-4 rounded-3xl bg-danphe-accent/10 blur-3xl" />
 
             {/* Main dashboard card */}
-            <div className="relative rounded-2xl border border-white/10 bg-danphe-dark/90 shadow-premium-lg overflow-hidden">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-danphe-dark/90 shadow-premium-lg">
               {/* Top bar */}
               <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
                 <div className="flex gap-1.5">
@@ -289,7 +288,7 @@ export default function HeroSection() {
                   {/* Chart placeholder — animated bars */}
                   <div className="mb-4 rounded-lg border border-white/5 bg-white/[0.03] p-3">
                     <div className="mb-2 h-2.5 w-24 rounded bg-white/15" />
-                    <div className="flex items-end gap-1.5 h-20">
+                    <div className="flex h-20 items-end gap-1.5">
                       {chartBarHeights.map((h, i) => (
                         <motion.div
                           key={i}
@@ -354,15 +353,15 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Floating decoration card — System Status (enhanced glassmorphism) */}
+            {/* Floating decoration card — System Status */}
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               className="absolute -bottom-4 -left-6 rounded-xl shadow-lg"
             >
-              {/* Rotating border glow effect */}
+              {/* Rotating border glow */}
               <motion.div
-                className="absolute -inset-px rounded-xl overflow-hidden"
+                className="absolute -inset-px overflow-hidden rounded-xl"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
                 style={{ zIndex: 0 }}
@@ -385,15 +384,15 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Floating decoration card — Active Hospitals (enhanced glassmorphism + animated counter) */}
+            {/* Floating decoration card — Active Hospitals */}
             <motion.div
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
               className="absolute -top-3 -right-4 rounded-xl shadow-lg"
             >
-              {/* Rotating border glow effect */}
+              {/* Rotating border glow */}
               <motion.div
-                className="absolute -inset-px rounded-xl overflow-hidden"
+                className="absolute -inset-px overflow-hidden rounded-xl"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
                 style={{ zIndex: 0 }}
@@ -421,11 +420,12 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Bottom gradient fade to white (subtle, 160px) */}
-      <div className="absolute bottom-0 left-0 w-full"
+      {/* Bottom gradient fade to white — positioned behind content to prevent overlap */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 z-0 w-full"
         style={{
-          height: '160px',
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.3) 40%, rgba(255,255,255,0.7) 70%, white 100%)',
+          height: '200px',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.4) 35%, rgba(255,255,255,0.75) 65%, white 100%)',
         }}
       />
     </section>

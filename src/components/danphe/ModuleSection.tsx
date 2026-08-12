@@ -93,7 +93,7 @@ export default function ModuleSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-danphe-bg-light py-20 md:py-28 overflow-hidden"
+      className="relative bg-danphe-bg-light py-20 md:py-28 overflow-x-hidden"
       aria-label="Modules"
     >
       {/* Dot pattern overlay */}

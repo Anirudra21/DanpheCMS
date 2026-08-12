@@ -19,7 +19,7 @@ export default function ValueSection() {
   return (
     <section
       ref={ref}
-      className="relative bg-white py-20 md:py-28 overflow-hidden"
+      className="relative bg-white py-20 md:py-28 overflow-x-hidden"
       aria-label="Our Value Proposition"
     >
       {/* Dot pattern overlay */}
