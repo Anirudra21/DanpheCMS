@@ -16,7 +16,6 @@ import SubscribeSection from '@/components/danphe/SubscribeSection';
 import Footer from '@/components/danphe/Footer';
 import ScrollToTop from '@/components/danphe/ScrollToTop';
 import StickyContact from '@/components/danphe/StickyContact';
-import FloatingSideNav from '@/components/danphe/FloatingSideNav';
 import Preloader from '@/components/danphe/Preloader';
 
 export default function Home() {
@@ -43,7 +42,6 @@ export default function Home() {
       <Footer className="mt-auto" />
       <ScrollToTop />
       <StickyContact />
-      <FloatingSideNav />
     </div>
   );
 }

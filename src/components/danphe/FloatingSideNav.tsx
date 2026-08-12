@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Building2,
@@ -36,6 +37,7 @@ const easeOut = [0.25, 0.46, 0.45, 0.94];
 const easeIn = [0.55, 0.06, 0.68, 0.19];
 
 export default function FloatingSideNav() {
+  const pathname = usePathname();
   const [expanded, setExpanded] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -48,7 +50,13 @@ export default function FloatingSideNav() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  // Close on Escape
+  /* Close on route change */
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setExpanded(false));
+    return () => cancelAnimationFrame(id);
+  }, [pathname]);
+
+  /* Close on Escape */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setExpanded(false);
@@ -69,11 +77,12 @@ export default function FloatingSideNav() {
           role="navigation"
           aria-label="Quick navigation"
         >
-          {/* Expanded pill items */}
+          {/* ── Expanded pill items (white design) ── */}
           <AnimatePresence>
             {expanded &&
               SIDE_NAV_ITEMS.map((item, idx) => {
                 const Icon = item.icon;
+                const isActive = pathname === item.href;
                 return (
                   <motion.div
                     key={item.label}
@@ -84,7 +93,7 @@ export default function FloatingSideNav() {
                       scale: 1,
                       transition: {
                         duration: 0.3,
-                        delay: idx * 0.06,
+                        delay: idx * 0.05,
                         ease: easeOut,
                       },
                     }}
@@ -94,7 +103,7 @@ export default function FloatingSideNav() {
                       scale: 0.8,
                       transition: {
                         duration: 0.2,
-                        delay: (SIDE_NAV_ITEMS.length - 1 - idx) * 0.04,
+                        delay: (SIDE_NAV_ITEMS.length - 1 - idx) * 0.03,
                         ease: easeIn,
                       },
                     }}
@@ -102,19 +111,39 @@ export default function FloatingSideNav() {
                     <Link
                       href={item.href}
                       onClick={() => setExpanded(false)}
-                      className="group relative flex items-center gap-2.5 whitespace-nowrap rounded-full
-                        border border-cyan-500/20 bg-[#0a1628]/90 px-4 py-2.5
-                        shadow-[0_0_15px_rgba(6,182,212,0.08),inset_0_1px_0_rgba(255,255,255,0.04)]
-                        backdrop-blur-xl transition-all duration-300
-                        hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(6,182,212,0.15),0_0_50px_rgba(6,182,212,0.05)]
-                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50"
                       aria-label={item.label}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={
+                        'group relative flex items-center gap-2.5 whitespace-nowrap rounded-full px-4 py-2.5 ' +
+                        'backdrop-blur-xl transition-all duration-300 ' +
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 ' +
+                        (isActive
+                          ? 'bg-cyan-50 border border-cyan-400/40 shadow-[0_0_20px_rgba(6,182,212,0.15),0_2px_8px_rgba(0,0,0,0.06)]'
+                          : 'bg-white/95 border border-gray-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.04)] ' +
+                            'hover:border-cyan-300/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.12),0_4px_16px_rgba(0,0,0,0.08)]'
+                        )
+                      }
                     >
-                      {/* Left accent bar on hover */}
-                      <span className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 rounded-full bg-cyan-400 transition-all duration-300 group-hover:h-5" />
+                      {/* Left accent bar on hover / active */}
+                      <span className={
+                        'absolute left-0 top-1/2 w-[2.5px] -translate-y-1/2 rounded-full bg-cyan-400 transition-all duration-300 ' +
+                        (isActive ? 'h-6' : 'h-0 group-hover:h-5')
+                      } />
 
-                      <Icon className="h-4 w-4 text-cyan-400/80 transition-colors duration-300 group-hover:text-cyan-300" />
-                      <span className="text-[13px] font-medium text-white/80 transition-colors duration-300 group-hover:text-white">
+                      <Icon className={
+                        'h-4 w-4 transition-colors duration-300 ' +
+                        (isActive
+                          ? 'text-cyan-600'
+                          : 'text-cyan-500/70 group-hover:text-cyan-500'
+                        )
+                      } />
+                      <span className={
+                        'text-[13px] font-medium transition-colors duration-300 ' +
+                        (isActive
+                          ? 'text-cyan-700'
+                          : 'text-gray-700 group-hover:text-gray-900'
+                        )
+                      }>
                         {item.label}
                       </span>
                     </Link>
@@ -123,7 +152,7 @@ export default function FloatingSideNav() {
               })}
           </AnimatePresence>
 
-          {/* Circular hamburger toggle button */}
+          {/* ── Circular hamburger toggle (dark) ── */}
           <motion.button
             onClick={() => setExpanded((v) => !v)}
             whileTap={{ scale: 0.92 }}
