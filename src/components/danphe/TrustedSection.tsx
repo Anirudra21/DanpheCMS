@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { TRUSTED_HOSPITALS } from '@/lib/constants';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -32,9 +33,8 @@ export default function TrustedSection() {
 
         <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 lg:grid-cols-6">
           {TRUSTED_HOSPITALS.map((hospital, idx) => (
-            <motion.a
+            <motion.div
               key={hospital.name}
-              href="#"
               aria-label={hospital.name}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -51,7 +51,7 @@ export default function TrustedSection() {
                   className="object-contain transition-opacity group-hover:opacity-100 opacity-80"
                 />
               </div>
-            </motion.a>
+            </motion.div>
           ))}
         </div>
 
@@ -61,14 +61,10 @@ export default function TrustedSection() {
             className="text-danphe-accent hover:text-danphe-accent-light"
             asChild
           >
-            <a
-              href="https://danphehealth.com/clients"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/clients">
               View All
               <ArrowRight className="ml-1.5 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </div>
       </div>

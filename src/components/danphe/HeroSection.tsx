@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, ArrowRight, Building2, Users, Shield } from 'lucide-react';
@@ -43,11 +44,9 @@ export default function HeroSection() {
     >
       {/* Animated background pattern */}
       <div className="pointer-events-none absolute inset-0">
-        {/* Decorative gradient blur circles */}
         <div className="absolute -top-24 -left-24 h-72 w-72 animate-pulse rounded-full bg-danphe-accent/15 blur-3xl" />
         <div className="absolute -bottom-32 -right-32 h-96 w-96 animate-pulse rounded-full bg-danphe-primary-light/15 blur-3xl" style={{ animationDelay: '1s' }} />
         <div className="absolute top-1/3 right-1/4 h-64 w-64 animate-pulse rounded-full bg-white/5 blur-2xl" style={{ animationDelay: '2s' }} />
-        {/* Grid pattern overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -67,7 +66,6 @@ export default function HeroSection() {
             transition={{ duration: 0.5, ease: 'easeInOut' }}
             className="flex flex-col items-center text-center"
           >
-            {/* Accent line above heading */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -86,14 +84,10 @@ export default function HeroSection() {
                 className="bg-danphe-accent text-white shadow-lg shadow-danphe-accent/25 transition-all hover:bg-danphe-accent-light hover:shadow-xl hover:shadow-danphe-accent/30"
                 asChild
               >
-                <a
-                  href="https://danphehealth.com/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="/schedule-a-demo">
                   <Calendar className="mr-2 h-4 w-4" />
                   {current === 0 ? 'Schedule a Demo' : 'Schedule a demo'}
-                </a>
+                </Link>
               </Button>
               <Button
                 size="lg"
@@ -101,14 +95,10 @@ export default function HeroSection() {
                 className="border-white/30 bg-white/5 text-white backdrop-blur-sm transition-all hover:bg-white/15 hover:text-white"
                 asChild
               >
-                <a
-                  href="https://danphehealth.com/solutions"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="/solutions">
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
           </motion.div>

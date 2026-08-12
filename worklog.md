@@ -71,10 +71,10 @@ Stage Summary:
 ---
 
 ## Current Project Status
-- **Phase**: Initial build complete, visually polished, all features functional
+- **Phase**: Internal routing complete, all pages functional, all navigation is seamless
 - **Dev Server**: Running on port 3000, compiling successfully
 - **Lint Status**: Clean (0 errors, 0 warnings)
-- **Browser Verification**: All sections render correctly, interactive elements work
+- **Routes**: 11 routes total — / (homepage) + 10 internal pages under (internal) route group
 
 ## Completed Modifications
 1. Full site rebuild with 14 component files
@@ -91,6 +91,10 @@ Stage Summary:
 12. Contact API route (POST /api/contact)
 13. Scroll-to-top and sticky contact floating buttons
 14. Cron job configured for 15-minute webDevReview cycle
+15. **ALL navigation converted to internal routing** — no external redirects on any nav/button/link clicks
+16. **10 internal pages created**: /company, /solutions, /solution/[slug] (x9), /clients, /news-events, /careers, /danphe-community, /contact, /schedule-a-demo, /partners
+17. Shared layout with Header + Footer for all internal pages
+18. PDF downloads and social media links correctly remain external
 
 ## Verification Results
 - Hero slider: Both slides render, auto-rotate every 5s, manual dot navigation works
@@ -99,6 +103,8 @@ Stage Summary:
 - Testimonials: Auto-slides through 5 testimonials, star ratings display, manual navigation works
 - Trusted logos: All 12 hospital logos render in grid
 - Footer: All 4 columns with correct links and text, social icons present
+- **Navigation QA**: All 11 routes return 200. Homepage nav → Company loads /company. Solutions page → /solution/patient-administration loads detail. Schedule a Demo buttons navigate to /schedule-a-demo. View All → /clients. All verified via agent-browser.
+- **External link audit**: Only PDF downloads (brochure, presentation) and social media links (Facebook, Instagram) remain external. All navigation links are internal.
 
 ## Unresolved Issues / Risks
 - Some external images from danphehealth.com may fail to load if the source site is down
@@ -109,7 +115,46 @@ Stage Summary:
 ## Next Phase Recommendations
 1. Add smooth scroll-triggered animations for sections entering viewport
 2. Implement a loading skeleton for images from external domain
-3. Add a 'Partners' page section (original had a Partners link in top bar)
-4. Add more detailed hover animations on trusted hospital logos
-5. Consider adding a back-to-top progress indicator
-6. Improve mobile navigation with slide-in animation refinement
+3. Add more detailed hover animations on trusted hospital logos
+4. Consider adding a back-to-top progress indicator
+5. Improve mobile navigation with slide-in animation refinement
+6. Add 404 page for unmatched internal routes
+7. Add breadcrumbs to solution detail pages
+
+---
+
+Task ID: 3
+Agent: main
+Task: Convert all external links to fully internal routing and create all internal pages
+
+Work Log:
+- Updated /src/lib/constants.ts: Changed all NAV_ITEMS hrefs from external (https://danphehealth.com/...) to internal relative paths (/company, /solutions, /clients, /news-events, /careers, /danphe-community). Removed SITE_URL constant. Added slug, fullDescription, and features fields to MODULES array. Added SHARED_FAQS constant extracted from solution detail pages.
+- Updated /src/components/danphe/Header.tsx: Changed nav links from <a> with target=_blank to <Link> from next/link. Changed Schedule a Demo button to use Link href="/schedule-a-demo". Logo uses <Link href="/">.
+- Updated /src/components/danphe/HeroSection.tsx: Changed Schedule a Demo and Learn More from <a> with external URLs to <Link> with /schedule-a-demo and /solutions.
+- Updated /src/components/danphe/ValueSection.tsx: Changed Schedule a Demo and Learn More to <Link> with /schedule-a-demo and /solutions.
+- Updated /src/components/danphe/OutcomesSection.tsx: Changed Explore More and View Detail to <Link> with /solutions. Kept PDF download links (brochure, presentation) external with target=_blank.
+- Updated /src/components/danphe/TrustedSection.tsx: Changed View All from <a> external to <Link href="/clients">. Removed motion.a wrapper (was <motion.a>), changed to <motion.div>.
+- Updated /src/components/danphe/Footer.tsx: Removed SITE_URL import. Changed Site Menu links from <a> with target=_blank to <Link>. Updated HMIS Solutions links to use internal routes. Kept social media links (Facebook, Instagram) external with target=_blank.
+- Updated /src/components/danphe/ModuleSection.tsx: Changed View Detail from <a> with external URL to <Link> with module.href.
+- Created /src/app/(internal)/layout.tsx: Shared layout wrapping all internal pages with Header, Footer, ScrollToTop, and StickyContact. Uses min-h-screen flex flex-col with mt-auto on Footer.
+- Created /company/page.tsx: Full company page with hero banner, about section, Choose Danphe cards, stats, team members, services overview (Patient Management, Materials, Revenue, Telemedicine), support services, CTA.
+- Created /solutions/page.tsx: Solutions overview with hero, 9-module grid linking to /solution/[slug], additional modules (Radiology, Finance, HR, Emergency, Telehealth, Insurance), Basic/Advance features comparison.
+- Created /solution/[slug]/page.tsx: Dynamic route with generateStaticParams for all 9 slugs, generateMetadata for SEO. Delegates to SolutionDetailClient.
+- Created /solution/[slug]/SolutionDetailClient.tsx: Client component showing module title, icon, fullDescription, image, features grid, shared FAQ accordion section.
+- Created /clients/page.tsx: Full client listing (46 hospitals) with logos, types, and locations extracted from scrape-clients.json.
+- Created /news-events/page.tsx: News & Events page with 4 article cards from scrape-news.json.
+- Created /careers/page.tsx: Careers page with hero, company description, and 'No Open Positions Currently' message.
+- Created /danphe-community/page.tsx: Coming soon page with email subscribe form.
+- Created /contact/page.tsx: Contact page with 3 contact cards (Sales, Technical Support, Business Partner), contact details, form, and Google Maps embed.
+- Created /schedule-a-demo/page.tsx: Demo request form with First Name, Last Name, Email, Phone, Country dropdown, Address, Organization Name, Hospital Size, Hospital Type, Message. POSTs to /api/contact.
+- Created /partners/page.tsx: Partners page with benefits list and CTA.
+- Verified all 10 internal routes return HTTP 200: /company, /solutions, /solution/patient-administration, /clients, /news-events, /careers, /danphe-community, /contact, /schedule-a-demo, /partners.
+- ESLint passes clean (0 errors, 0 warnings).
+
+Stage Summary:
+- Complete conversion from external URLs to fully internal Next.js routing
+- 10 new internal pages created under (internal) route group with shared layout
+- All 7 existing components updated to use internal routes (Link component)
+- PDF downloads and social media links correctly remain external
+- All scraped content faithfully reproduced in pages
+- Shared FAQ section extracted and reused across all solution detail pages

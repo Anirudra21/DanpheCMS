@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion, useInView } from 'framer-motion';
@@ -56,14 +57,10 @@ export default function OutcomesSection() {
               </motion.li>
             </ul>
             <Button className="bg-danphe-primary hover:bg-danphe-primary-light" asChild>
-              <a
-                href="https://danphehealth.com/solutions"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href="/solutions">
                 Explore More
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+              </Link>
             </Button>
           </motion.div>
 
@@ -101,18 +98,14 @@ export default function OutcomesSection() {
             Explore more about Danphe! One solution, no software clutter – Comprehensive EHR and HIMS in a nutshell.
           </p>
           <Button variant="link" className="p-0 text-danphe-accent hover:text-danphe-accent-light" asChild>
-            <a
-              href="https://danphehealth.com/solutions"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/solutions">
               View Detail
               <ExternalLink className="ml-1.5 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </motion.div>
 
-        {/* Download cards */}
+        {/* Download cards - PDFs stay external */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

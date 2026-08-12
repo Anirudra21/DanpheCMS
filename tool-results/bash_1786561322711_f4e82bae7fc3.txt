@@ -1,0 +1,1744 @@
+=== FILE: scrape-company.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/frontend/img/image24.jpg", "https://danphehealth.com/frontend/img/svg/jigsaw.svg", "https://danphehealth.com/frontend/img/svg/mobile-friendly.svg", "https://danphehealth.com/frontend/img/svg/lock.svg", "https://danphehealth.com/frontend/img/svg/suitcase.svg", "https://danphehealth.com/frontend/img/svg/jigsaw.svg", "https://danphehealth.com/frontend/img/svg/mobile-friendly.svg", "https://danphehealth.com/frontend/img/svg/lock.svg", "https://danphehealth.com/frontend/img/svg/suitcase.svg", "https://danphehealth.com/frontend/img/svg/jigsaw.svg", "https://danphehealth.com/frontend/img/svg/mobile-friendly.svg", "https://danphehealth.com/frontend/img/svg/lock.svg", "https://danphehealth.com/frontend/img/svg/suitcase.svg", "https://danphehealth.com/storage/uploads/nc2YYOp5UgiAIZbiOMUj82uxIdG4jlNwKztoLIdn.jpg", "https://danphehealth.com/storage/uploads/oQLbkHz6vDmpHhrZodXRmQiXOv44n7S5MX6WrKbm.jpg", "https://danphehealth.com/storage/uploads/Z5p6J64WddandSwTO03HBpjeNI0dxB2T8rauXZwv.jpg", "https://danphehealth.com/storage/uploads/Ez0mPHOJJ7XkxkvkgerlblVKqiwtJcQDGHPTF73J.jpg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Transforming Healthcare with
+Innovation and Compassionate Expertise
+Incorporate decision support systems and evidence-based
+practices for enhanced clinical care.
+Empowering Healthcare Through  Customized Software
+Solutions
+Harnessing Technology to Transform Healthcare Delivery Worldwide
+Imark Digital Pvt. Ltd. in Kathmandu, Nepal, delivers tailored healthcare software
+solutions globally. With over 15 years of experience, we offer cost-effective IT
+services, leveraging advanced technical skills and a dedicated team of 130+
+professionals. Our expertise includes customizable applications, risk assessment, and
+decision analytics, ensuring clients receive innovative solutions to meet their specific
+needs.
+Join us in embracing the future of healthcare administration, where every aspect of your practice is optimized for enhanced patient care and operational excellence. With Danphe HIMS, you'll experience a transformative journey that leverages technology to its fullest potential. Explore the boundless capabilities of Danphe HIMS and embark on a new era in healthcare management.  -->
+Choose  Danphe For
+DANPHE offers a top-notch, affordable Hospital Management Information  System with
+a decade of leadership and quality commitment.
+Previous
+Feature Rich
+DANPHE is a complete HMIS/EMR solutions that encompasses over 32 modules with all the
+features required to operate a hospital ranging from small to large size.
+User Friendly
+DANPHE HMIS offers an intuitive user interface, making it easy for users of all computer
+proficiency levels. Compatible with various devices, including tablets, laptops, desktops,
+and smartphones.
+Easy To Access
+DANPHE HMIS is a fully web-based system, enabling access and management of patient data and
+organization updates from anywhere in the world.
+Professional Appearance
+DANPHE HMIS enhances patient care with professional management of hospital data. Features
+like online appointment scheduling and fully integrated EMR and HER streamline patient and
+hospital management.
+Feature Rich
+DANPHE is a complete HMIS/EMR solutions that encompasses over 32 modules with all the
+features required to operate a hospital ranging from small to large size.
+User Friendly
+DANPHE HMIS offers an intuitive user interface, making it easy for users of all computer
+proficiency levels. Compatible with various devices, including tablets, laptops, desktops,
+and smartphones.
+Easy To Access
+DANPHE HMIS is a fully web-based system, enabling access and management of patient data and
+organization updates from anywhere in the world.
+Professional Appearance
+DANPHE HMIS enhances patient care with professional management of hospital data. Features
+like online appointment scheduling and fully integrated EMR and HER streamline patient and
+hospital management.
+Feature Rich
+DANPHE is a complete HMIS/EMR solutions that encompasses over 32 modules with all the
+features required to operate a hospital ranging from small to large size.
+User Friendly
+DANPHE HMIS offers an intuitive user interface, making it easy for users of all computer
+proficiency levels. Compatible with various devices, including tablets, laptops, desktops,
+and smartphones.
+Easy To Access
+DANPHE HMIS is a fully web-based system, enabling access and management of patient data and
+organization updates from anywhere in the world.
+Professional Appearance
+DANPHE HMIS enhances patient care with professional management of hospital data. Features
+like online appointment scheduling and fully integrated EMR and HER streamline patient and
+hospital management.
+Next
+Unveiling Our Pillars of Strength
+The Core Attributes and Values that Propel Danphe. Forward in Excellence,  Innovation, and
+Client-Centric Success.
+15 +
+Years of Experience
+55 +
+Hospitals and Clinics
+130 +
+Employees
+30 +
+HIMS Modules
+Professional Team Members of  DANPHE
+Tailored Technologies for Global Healthcare Challenges  -->
+Ram P. Dhungana
+Chairman
+Dr Prabhat Adhikari, MD
+Co-Founder and  Clinical Director
+Shiv P Koirala
+Co-Founder and  Technical Director
+Dr.Binod Dhungana, MD, MBA
+Co-founder and Director
+Yubraj Parajuli
+Chief Executive Officer
+DANPHE Solutions &amp;  Services Overview
+Innovative  DANPHE  solutions streamline healthcare management  for enhanced efficiency
+and patient-centric care.
+DANPHE HMIS with EMR
+Telemedicine
+DANPHE Services
+Patient Management
+DANPHE Patient Management involves comprehensive health services to assist patient in managing their health practices like online appointment, queue management through WEB and APP management
+Patient Master Setup
+Online Appointment Scheduling
+Patient Registration
+ADT (Admission, Discharge &amp; Transfer)
+Referral Management
+Medical Records
+Queue &amp; Token Management
+Patient APP
+Materials (goods) Management
+Material management involves the process of planning and controlling material flows. It includes planning and procuring materials, supplier’s evaluation and selection, purchasing, expenditure, receipt processing, warehousing and inventory and materials distribution (sub-store).
+Procurement Management
+Inventory Management
+Assets Management
+Pharmacy Management
+Pharmacy Inventory Management
+Medical Inventory Management
+Revenue Management
+Revenue management involves financial process facilities use to manage the administrative and clinical functions associated with claims processing, payment, billings, and revenue generation.
+Patient Billing
+OP/IP Billing
+Discharge Billing
+Insurance Billing
+SSF Billing
+Core Accounting Management
+Vendor Payable
+Dr. Fraction (Sharing)
+View All
+DANPHE Telemedicine is a technology adopted for medicine, health, patients,
+organizations, and countries. It involves the use of ICT tools in the
+service of health and is a process that includes providers, users, and
+health organizations.
+Doctor Scheduling
+Appointment Booking
+Online Patient Vital Inputs
+Online Video Consultations
+Medical Records Maintenance
+Doctor prescription
+Need based CHAT features
+We at Imark Digital (DANPHE) give equal emphasis to our personnel, ensuring
+they understand what customer care and customer delight are all about.
+Therefore, the management themselves oversee all activities relating to
+customer services.
+We serve you better with:
+9 am to 9 pm call support; 10 pm to 8 am remote support.
+Emergency onsite visits available.
+Access to expert technical support.
+Remote diagnostic support with defined KPIs.
+All issues resolved within one working day.
+Prompt email service and screen sharing support.
+Regular customer feedback and satisfaction research.
+Trusted by
+Manipal College of Medical Science
+Tilganga Institute of Ophthalmology (Tilganga)
+APF (Armed Police Force) Hospital
+Siddhartha Nagar City Hospital Pvt.Ltd.
+Charak Hospital Pvt. Ltd.
+Fishtail Hospital Pvt. Ltd.
+Manakamana Hospital Pvt. Ltd.
+Maya Metro Hospital pvt. Ltd.
+Neuro Cardio Hospital
+Manmohan Hospital
+Lumbini Provincial Hospital
+SGM Hospital Pvt. Ltd
+View All
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-solutions.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/frontend/img/Group 4724.png", "https://danphehealth.com/storage/uploads/pCqJyn1pu7uF8Xe01RcdhS8Z7SUXL0H0pTgFaziI.svg", "https://danphehealth.com/storage/uploads/EpXK5EDyLENjofm1vsFABjwl9l831nRZw44NFfuc.svg", "https://danphehealth.com/storage/uploads/NZUBZq4tEOd4Y57kbvgsbE2UkZYnJGFQI5jpRdon.svg", "https://danphehealth.com/storage/uploads/60DLrOSCtJoKjQAjfLtzrLJkmwE2PwYnXSnwdmNj.svg", "https://danphehealth.com/storage/uploads/TEOZjK4GizUOcRSJNzlS57CV0JKt5mQxvJPUsKiS.svg", "https://danphehealth.com/storage/uploads/Xvqm3QartPuNThCvMEGOaXKlPYTcOgAKAJJbELsw.svg", "https://danphehealth.com/storage/uploads/ap8hzm56Nfyn3drN6WloW0nimKuACXPl0ViThHH8.svg", "https://danphehealth.com/storage/uploads/CSdzRoHePc9wwhavblw3rEj0yPSAFqL9bbIiWR2A.svg", "https://danphehealth.com/storage/uploads/X58IC6Jo47xTRG1OactLdafrZ7AMXYmNJuaYmjkw.svg", "https://danphehealth.com/storage/uploads/6P5EHyHrrpLzE0sYzOILFcxmgaBOt44Oer2lTZxB.svg", "https://danphehealth.com/storage/uploads/QcSA83qF2yOaNCctXIi6bYH1KAxQzblXgfwlyFB5.svg", "https://danphehealth.com/storage/uploads/v52PDl4opz8tneJKc78GElK6VeMGtmfUTLqhMgAu.svg", "https://danphehealth.com/storage/uploads/nv7FNYvHSKswmGzn3R663cgCQ6j9wlvjZ1HDgMKi.svg", "https://danphehealth.com/storage/uploads/hBr7q0KpWpzKbsqAhLSjrIiOHgIiN63j7nUu2CYE.svg", "https://danphehealth.com/storage/uploads/Q8nGxMEpg7ylkYCly2V4As3l8Liy5skihrtUl5WU.svg", "https://danphehealth.com/frontend/img/doctor.png"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Unleash Efficiency with
+Our HIMS Modules!
+Discover streamlined healthcare finances with our revolutionary HIMS billing modules—ensuring
+precision, efficiency, and compliance for healthcare providers.
+Schedule a Demo
+Explore our  HIMS  Module
+Precision in Healthcare Information Management
+Patient Administration
+This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others.
+OPD Management
+An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software.
+IPD Management
+The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records.
+OT Management
+The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient tracking, operation theater rosters, and notes, along with managing death and birth certificates. The purpose of OT management is to optimize the utilization of operation theaters, reduce patient wait times, and ensure timely and efficient surgical procedures.
+SSF Management
+This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports registration, billing, pharmacy, and claim management and is equipped with API integration with the SSF system.
+Pathology Software
+The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully configurable laboratory test reports that can be ordered for both outpatients and inpatients instantaneously.
+Pharmacy
+The pharmacy module encompasses both central and distributed pharmacies, incorporating several functional units such as stock tracking, ordering, and receiving medicines from vendors.
+Inventory Management
+The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other departments, regulating the complete stock movement throughout the institution.
+Queue Management
+The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient flow within the hospital. It ensures that patients are attended to promptly and efficiently, thereby reducing waiting times and enhancing patient satisfaction.
+Radiology Management
+The radiology module allows you to choose from multiple tests and promptly make the results available. It is designed to seamlessly integrate medical imaging into the complete clinical workflow, including registration, billing, test report entry, levels, interface with machines, and covers various reports such as radiology, X-ray, ultrasound, CT scan, and report printing, among others.
+Finance And Account Management
+The financial module oversees and efficiently manages the entire monetary flow, ensuring transparency and accountability to optimize financial goals.
+HR &amp; Payroll Management
+The HR &amp; Payroll Management module encompasses routine activities of HRD and tasks related to existing employees, including attendance and leave management, loan processing, TOTA registers, and onboarding of new hires, including contractual employees.
+Emergency Management
+The Emergency module assists in registering and managing emergency cases and patients. It tracks the triage of the patient, manages billing, and records the outcome of patients. The purpose of the module is to effectively manage emergency patients and their associated information, thereby enhancing emergency treatment and patient management.
+Telehealth Application
+Telehealth applications enable healthcare providers to deliver medical services remotely to patients via video conferencing or other electronic communication technologies. These applications allow healthcare providers to diagnose and treat patients who are unable to visit the clinic or hospital in person. Additionally, telehealth applications reduce the risk of infection for both patients and healthcare providers.
+Health Insurance
+DANPHE incorporates the GoVN-HIB module, seamlessly managing insurance processes to settle patient bills covered under insurance policies. It facilitates patient eligibility verification for reimbursement purposes, making tracking claim statuses hassle-free within our DANPHE application.
+Find the Platform that is  Right for You
+Align it with your audience, content, and goals for maximum impact and growth.
+Features
+Basic
+Advance
+Patient Appointment (Web Based) &amp; Registration System
+Patient Billing System (OP/IP/Discharge etc.)
+Dr. Fraction (Sharing) System- General
+Dr. Fraction (Sharing) System- Dynamic
+Patient Admision, Discharge and Transfer (ADT)
+Laboratory Management System (LAB)
+Radiology Management System
+Pharmacy Management System
+Procurement &amp; Inventory Management System
+Inventory Sub-Store Management System
+Assets Management System
+Integrated Accounting Management System
+Personal (Staff) Information Management System
+Staff Leave Management System
+Staff Payroll Management System
+Attendance Management System (Realtime Sync through Biometric Devices)
+Emergency Management System
+In-Patient Clinical Management System
+Out-Patient Clinical Management System
+Nursing Station Management System
+OT Management System
+Medical Discharge Summary Management System (ward-wise)
+Medical Record Management System (General-Manual Entry)
+Medical Record Management System (Integrated with EMR)
+Patient Queue Management System
+Patient Appointment (Mobile APP-Android)
+Managerial Reporting with DASHBOARD
+Specific ADD-ONS Integration Modules
+Government Health Insurance Integration with Real time Claim Management
+Social Security Fund (SSF) Integration
+Ex-Servicemen Contributory Health Scheme (ECHS) Integration.
+Online Payment Integration with Online Appointment System
+(Digital Wallets, Debit Cards, Credit Cards etc)
+Teleconsultation Platform
+Online Consultation Platform (Telemedicine Service) with EMR integration
+LIS &amp; PACS Integration
+LAB Machine Interfacing (Bi-Directional)
+PACS Integration with DANPHE HMIS
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-clients.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/CvegKrVeoWfcXC7sMrXLVmB6Vj5ikChWIPZEln7d.png", "https://danphehealth.com/storage/uploads/o5Zhgt2GGub5BUNAydXVUlUETvmRXeGEIvEriLYl.png", "https://danphehealth.com/storage/uploads/4IY4SO3BaLokN5TATWTijwqOSQvnAq880dX06swm.png", "https://danphehealth.com/storage/uploads/YRlPFHdotC4yL6OpPwfpJi6W0S8G0kcPNNmvL5JG.png", "https://danphehealth.com/storage/uploads/LvNtx7mQtJlbz9ycPe8pQZVoPzLBiFsuMyfRY1Pr.png", "https://danphehealth.com/storage/uploads/fUyQ04tj66mbgHu2q9oWf7BX8O7CXvP1keYHTx6r.png", "https://danphehealth.com/storage/uploads/RqdskDldRTpgBYg5sUUu0OkcmNuBw9QwFK6KKG7e.png", "https://danphehealth.com/storage/uploads/zNwWDfrw7lORANZr3TVsvRIl4TNt9okcwnV0VyJd.png", "https://danphehealth.com/storage/uploads/mrp9fZCqpE7RB9QtJPcaqCtF9D7xPuwW1PdAEYem.png", "https://danphehealth.com/storage/uploads/WJhqEGEa3RoG8kMO0vitnHKhk5L3LDixj72dxwfm.png", "https://danphehealth.com/storage/uploads/iT0rlozWMUr6cep6wMmTncN7B6RUaU6YzntOUzC7.png", "https://danphehealth.com/storage/uploads/NGs58eWiZYX8ugT3PgCYYSvIXGWDR0WuhaeYCdql.png", "https://danphehealth.com/storage/uploads/FKitStuvautdQFj0B3RhWI38ThpL4wmjDnE5oQTk.png", "https://danphehealth.com/storage/uploads/dpOuibvB4foJdzuMpROb1Xaduko2KPZ8h5sof1Nz.png", "https://danphehealth.com/storage/uploads/UY5Nl1ge0eh2V1131Jui5X3yM7p1bcMr1bL8rxh8.png", "https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg", "https://danphehealth.com/storage/uploads/rqjKdONW5AKP4sX49m4IIgKAx8zo4I6qm9pHLIdw.png"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Nephrology
+Mark International Kidney Center
+Kathmandu, Nepal
+Central Hospital
+National Trauma Center (NAMS)
+Kathmandu, Nepal
+Medical College
+Manipal College of Medical Science
+Pokhara, Nepal
+Tertiary Hospital
+Tilganga Institute of Ophthalmology (Tilganga)
+Kathmandu, Nepal
+Central Hospital
+APF (Armed Police Force) Hospital
+Kathmandu, Nepal
+Multispecialty
+Hope International College &amp; Hospital Pvt. Ltd.
+Kathmandu, Nepal
+Multispecialty
+Center for American Medical Specialists (CAMS)
+Kathmandu, Nepal
+Health Center
+Anamiwa Health &amp; Wellness Pvt. Ltd.
+Kathmandu, Nepal
+Dental
+We care Health Center Pvt. Ltd.
+Kathmandu, Nepal
+Health Center
+Buddhanilkantha Healthcare Pvt. Ltd.
+Kathmandu, Nepal
+Telehealth Center
+DanpheCare Pvt. Ltd.
+Kathmandu, Nepal
+Clinic
+J &amp; J Hospital
+Kathmandu, Nepal
+Diagnostic Center
+Path Minds Pvt. Ltd.
+Kathmandu, Nepal
+Multispecialty
+Siddhartha Nagar City Hospital Pvt.Ltd.
+Bhairahawa , Nepal
+Multispecialty
+United Hospital Pvt. Ltd.
+Kapilvastu, Lumbini, Nepal
+Multispecialty
+Charak Hospital Pvt. Ltd.
+Pokhara, Nepal
+Multispecialty
+Fishtail Hospital Pvt. Ltd.
+Pokhara, Nepal
+Multispecialty
+Medi Plus Hospital Pvt. Ltd.
+Pokhara, Nepal
+Multispecialty
+Padma Nursing Home Pvt. Ltd.
+Pokhara, Nepal
+Diagnostic Center
+Kaligandaki Diagnostic and Research Center Hospital
+Pokhara, Nepal
+Multispecialty
+Deep Hospital &amp; Research Center Pvt. Ltd.
+Pokhara, Nepal
+Multispecialty
+Manakamana Hospital Pvt. Ltd.
+Chitwan, Nepal
+Cancer
+Koshish Cancer Center Pvt. Ltd.
+Chitwan, Nepal
+Multispecialty
+National City Hospital Pvt. Ltd.
+Chitwan, Nepal
+Health Center
+Raskot Community Hospital
+Raskot, Nepal
+Multispecialty
+Bhaktapur International Hospital Pvt.Ltd.
+Bhaktapur, Nepal
+Clinic
+Clinic One
+Bhaktapur, Nepal
+Psychiatry
+Rhythm Neuropsychiatry Hospital &amp; Research Center Pvt. Ltd.
+Lalitpur, Nepal
+Multispecialty
+Maya Metro Hospital pvt. Ltd.
+Dhangadhi, Nepal
+Pharmacy
+Radiant Skin Care Pvt. Ltd.
+Kathmandu, Nepal
+Multispecialty
+Dr. Iwamura Hospital
+Bhaktapur, Nepal
+Specialit Clinic
+Dr. Priyanka's Clinic
+Jhapa, Nepal
+Multispecialty
+Tillottama Hospital
+Butwal, Nepal
+Multispecialty
+Butwal Hospital
+Butwal, Nepal
+Multispecialty
+Times Care Hospital
+Dhadhing, Nepal
+Multispecialty
+Neuro Cardio Hospital
+Biratnagar, Nepal
+Multispecialty
+Manmohan Hospital
+Chandragiri-1, Dahachowk, Kathmandu
+Telemedicine Services
+Ministry of Social Development and Health, Gandaki Province
+Pokhara, Nepal
+Tertiary (Provincial)
+Lumbini Provincial Hospital
+Butwal, Nepal
+Multispeciality
+SGM Hospital Pvt. Ltd
+Maharastra, India
+Multispeciality
+Annapurna Neuro Hospital
+Kathmandu, Nepal
+PHC
+Bhagiratha Buddhashanti Hospital
+Jhapa, Nepal
+Community
+Gorkha Kalika Hospital Pvt.Ltd.
+Gorkha, Nepal
+Multispecialty
+Star Hospital Limited
+Sanepa, Lalitpur &amp; Bidur Nuwakot
+Specialized
+Matrika Eye Center
+Kathmandu, Nepal
+Multispecialty
+Tilottama Hospital Pvt. Ltd.
+Butwal, Nepal
+Multispecialty
+Sudur Paschim International Dialysis Center
+Kailali, Nepal
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-news.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/qJC8UWbueNgrVxOUzwXyz4vAXQi9zxmNFD2dBWU9.png", "https://danphehealth.com/storage/uploads/UCplaL4d4WzJAv9ZxgqTOUIpvHGjL2ZPj6jOnDdf.jpg", "https://danphehealth.com/storage/uploads/h2HDNsv5bp2mI8WG9xv7spFXiQFhIWlr2hUMHLG5.jpg", "https://danphehealth.com/storage/uploads/an0lprVHccGkqUYrQk6A3spAlUjZWuVMB7E1gUo0.jpg", "https://danphehealth.com/storage/uploads/TxGTJmHp4LKQTw9eJLomffxWju2Ra9AC37yjrZMu.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+News &amp; Events
+Stay updated with the latest happenings and upcoming events from Danphe HIMS!
+2023 Recap of AI developments
+Posted in:
+2024-01-03
+Posted by: Digwatch
+In the swiftly evolving landscape of the artificial intelegence technology, returning to the incipit of this revolutionary invention’s precise moment of origin is complex. However, in the third decade of the 20th century, the earliest materialisation of such ideas and concepts occurred in literature. Namely, the term ‘robot’, found for the first time in Karel Čapek’s 1921 play R.U.R. (Rossum’s Universal Robots), has been representing autonomous humanoid creatures made of artificial matter, and featuring, etymologically speaking, independent and unpaid workforce (from Czech word ‘robota‘ – forced/unpaid labour).
+Read More
+Navigating the Healthcare Landscape: A Comprehensive Guide to HIPAA Compliance in Hospitals.
+Posted in:
+2024-01-08
+Posted by: Danphe Health
+In the ever-evolving realm of healthcare, safeguarding patient information is of paramount importance. The Health Insurance Portability and Accountability Act (HIPAA) plays a central role in ensuring the confidentiality, integrity, and availability of patient data. This blog provides an overview of HIPAA compliance, explores its advantages, and delves into the policies implemented in hospitals to uphold these standards.
+Read More
+How do electronic health records (EHR or EMR) make healthcare better?
+Posted in:
+2023-02-17
+Posted by: Eduhealth System
+There is a growing interest in EHRs around the world. Technology and innovations are changing the health industry, governments and organizations are focusing on providing better health services to the public.&nbsp;
+Read More
+Importance of Electronic Health Records in Nursing
+Posted in:
+2023-05-04
+Posted by: Regis College
+In 2009, only 12% of hospitals used EHRs, according to the Office of the National Coordinator for Health Information Technology. By 2021 — thanks in part to $27 billion in financial incentives from Congress — EHRs were almost universal, with 96% of hospitals adopting them.
+Read More
+स्वास्थ्य मन्त्रालयले भन्यो- कोरोनाको नयाँ सब-भेरियन्टको जोखिम बढ्यो, सतर्कता अप्नाउनु
+Posted in:
+2024-01-03
+Posted by: स्वास्थ्यखबर
+स्वास्थ्य तथा जनसंख्या मन्त्रालयले कोभिड-१९ को नयाँ सब-भेरियन्ट जेएन.१ को &nbsp;जोखिम बढेको भन्दै सतर्कता अपनाउन आग्रह गरेको छ। मन्त्रालयले बुधबार विज्ञप्ति जारी गर्दै नेपालमा अहिलेसम्म यो सब-भेरियन्ट पुष्टि नभएपनि छिमेकी देशहरुमा संक्रमण बढिरहेकाले सतर्कता अपनाउन ध्यानाकर्षण गराएको हो।
+Read More
+Search
+Categories
+Danphe Monthly Newsletter 0
+General Updates on danphe health care 0
+Events News 0
+Let us know how we
+can help you.
+You can send an email to  info@danphehealth.com
+First Name *
+Last
+Name *
+Phone Number *
+Email address *
+Message *
+Send Message
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-careers.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/frontend/img/image33.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Career opportunities
+Do your best work
+at Danphe
+Danphe Health is here to provide you a learning platform not only on technical aspects but
+also on emotional and social arenas. We invite you to be a part of our amazing success story
+through exciting growth opportunities. Our company can proudly say that we as employers feel
+employees’ as valuable assets, who are provided guidance and support in a dynamic
+environment.
+Check out our open roles below – if you don't see one that matches your talents, please
+send message on  info@danphehealth.com
+Join us in embracing the future of healthcare administration, where every aspect of your practice is optimized for enhanced patient care and operational excellence. With Danphe HIMS, you'll experience a transformative journey that leverages technology to its fullest potential. Explore the boundless capabilities of Danphe HIMS and embark on a new era in healthcare management.  -->
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-community.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+We will be live soon
+Get notified when we launch.
+Go Back To Home
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-contact.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "img/facebook.svg", "img/linkedin.svg", "img/instagram.svg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Contact Us
+-->
+Contact Us  -->
+Imark Digital Pvt. Ltd. (Danphe)
+Niketan Marg, Dillibazar, Kathmandu, Nepal
+Email: info@danphecare.com
+For Sales Enquiry
+yubraj.parajuli@danphecare.com
++977-9852088004
+For Hospital Technical Support
+support@danphecare.com
++977-9802332018
+For Business Partner / Agent
+yubraj.parajuli@danphecare.com
++977-9852088004
+Phone
++977-1-4416468,
++977-1-4444217
+Call Now
+Email Us
+info@imark.com.np,
+support@imark.com
+Message Now
+Location
+302 Paoli WoodsPaoli,
+PA 19301
+Find Me
+Follow Us
+Share Now
+-->
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-demo.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Thank you for your interest!
+We would be delighted to learn more about your practice and
+provide you with comprehensive information about Danphe.
+Schedule a demo
+Kindly complete the form, and our dedicated sales associate will contact you within the next
+24 hours
+First Name *
+Last Name *
+Email address  *
+Phone Number  *
+Country *
+--Select Country --
+Nepal  India  China  Australia  Japan  South Korea  Thailand  Malaysia  Indonesia  Vietnam  Singapore  Philippines  Pakistan  Bangladesh  Sri Lanka  Myanmar  Cambodia  Laos  Mongolia  Bhutan
+Address *
+Organization Name  *
+Health Institution Size
+1-25 Bedded
+26-50 Bedded
+51-100 Bedded
+101-200 Bedded
+Above 201 Bedded
+Hospital Type  *
+--Select a Hospital Type --
+Clinic
+Diagonist Center
+Pharmacy
+Goverment Hospital
+Private Hospital
+Medical College
+By clicking “Submit” I agree to
+the  Privacy Policy  and  Terms of
+Use.
+Request
+Now
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-patient-administration.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/B06yY9y2MQiUCBEHpIcSITBjuN4yhkH4mLGvejX0.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Patient Administration
+Enhancing Patient Care and Staff Incentives
+This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others.  The incentive module deals with calculating and managing incentives for hospital staff, including doctors, nurses, and other staff members. It involves features such as defining incentive plans, tracking performance, and calculating incentives.
+Features:
+Online/ Phone/ Physical appointments
+General information of patients
+Follow-up patient management
+Doctor/ Department management
+Referral management (third party referral)
+Referral management ( inter-departmental)
+Tests items, billing items and other services billing  management
+Health package billing management
+Membership and schemes management
+Zero price item-wise billing
+Referred by, Prescriber and Performer auto captured
+Dr. Fraction configuration
+Multi-Level Auto fraction setups and captures
+Payment management with account integration
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-opd-management.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/3BiXFrnlBFMoMRwWZkoNm4XuMbUw1kNJgDkGIYdo.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+OPD Management
+In Person OPD Management
+An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software.  The system enhances functionality with health insurance and SSF tracking, alongside the integration of ICDX codes. It boasts powerful reporting capabilities, enabling the scanning and storage of comprehensive patient demographics, including X-rays, ultrasound images, pathology reports, and other diagnostic documents.
+Features:
+OPD Appointments
+OPD Registration
+OPD Charges
+Medical Observation
+Consultant wise OPD
+Case wise/ Department wise OPD
+Procedure and clinical services requests
+LAB service request
+Pharmacy service request
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-ipd-management.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/91ujO9IGH8LC6R1nc1fwwGeEiLrNIJQMSDegvElw.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+IPD Management
+The Comprehensive Inpatient Management Solution
+The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records.  Featuring built-in ward management and nursing station management, as well as ICU and NICU availability, the IPD offers a 360-degree view of the entire admitted patient's journey from admission to discharge.
+Features:
+Wards, Floor, Room &amp; Bed Configuration
+Bed occupation status
+Admission and bed allocation (live)
+Payment receipts
+Medical observation and Nursing notes
+LAB &amp; Radiology Investigation requests
+Procedure and clinical services requests
+Patient payment and dues reports
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-ot-management.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/bBYlK3VeJuVsh9FG2yR6gS2Y11p3dUJmWPNmE7nX.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+OT Management
+Innovations in Operation Theater Management
+The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient tracking, operation theater rosters, and notes, along with managing death and birth certificates. The purpose of OT management is to optimize the utilization of operation theaters, reduce patient wait times, and ensure timely and efficient surgical procedures.
+Features:
+OT Scheduling of the patient
+Team of Doctors/ Assistance involved in the operations
+Consent forms
+OT Reporting’s
+Birth/ Death Certificates
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-ssf-management.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/qFoZIpGXbbatD2dCVlfzh7RqWhUuOx9t3Dl5pQpA.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+SSF Management
+SSF Insurance Scheme Management Module for Hospitals
+This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports registration, billing, pharmacy, and claim management and is equipped with API integration with the SSF system.
+Features:
+SSF rate list mapping with hospital item lists
+Eligibility mapping of the SSF patient via API
+Balance sync and update as per SSF
+Claim booking in SSF
+Claim submission
+Copayment management
+Integration with accounting module so as to book the sales etc.
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-pathology-software.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/PsJBHIIIEf0rhUAtYiK14G1fZx0lB76ZKIr90GS2.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Pathology Software
+Automating Processes and Enhancing Efficiency
+The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully configurable laboratory test reports that can be ordered for both outpatients and inpatients instantaneously.  The system automates the entire laboratory lifecycle, including billing, daily sample collection, monitoring, carrying out pathological tests, generating test reports, managing patient information, entering diagnostic reports, printing reports, delivering reports, monitoring user access, and more. It also provides comprehensive MIS reports on total lab earnings, total test reports, cash collection, and many other metrics.
+Features:
+Receive investigation request from OP/IP department
+Receipt printing
+Investigation sample collection
+Patient and test sticker printing
+Integration with patient billing system
+Generate investigation reports
+Warning and alerts for abnormal reports
+Report output to PDF
+Report validation before dispatch
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-pharmacy.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/toh9opS0qNh9sYaC0VLqXpjHSYnJUrfowh50Ogkh.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Pharmacy
+Optimizing Workflow and Administration
+The pharmacy module encompasses both central and distributed pharmacies, incorporating several functional units such as stock tracking, ordering, and receiving medicines from vendors.  It automates the general workflow and administrative management processes of the pharmacy, from purchase to sale, including features like expiry reports, tracking nearby expiries, re-ordering stock reports, managing drug stocks, stock valuation and analysis, and monitoring non-moving medicine stocks.
+Features:
+Purchase and orders
+Good receipt notes/ Purchase returns
+Drugs/ Medical supplies to patients and wards
+Batch and expiry management
+Fast moving/ Nonmoving drugs
+Stock transfer between sub-stores
+Stock re-order reports
+Drug stocks
+Supplies outstanding etc.
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-inventory-management.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/MQfWurB0r1HXok9nRVNTJ0B4iNaxVgI7XMhyNJ6g.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Inventory Management
+Streamlining Hospital Stock Management
+The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other departments, regulating the complete stock movement throughout the institution.  It includes features such as indent generation, quotation, purchase order, purchase register and summary, issuing to departments, pending purchase orders, material receipts, and purchase bills.
+Features:
+Purchase Indents &amp; Approval
+Quotation &amp; Follow-ups
+PO generation
+Goods receipts
+Purchase invoicing and returns
+Goods issue to different department
+Stock reorder management
+Suppliers outstanding
+Financial posting to account section
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.
+
+=== FILE: scrape-queue-management.json ===
+IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/nlWH1aOywuLS90YcmM2ZCMZrYkB7xv9eFNtulLV0.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+Danphe Health
+Contact Us
+info@danphehealth.com
++977- 9852088004
+Partners
+Contact Us
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule a Demo
+Danphe Health Menu
+Company
+Our Solution
+Our Clients
+News &amp; Events
+Career
+Danphe Community
+Schedule
+a Demo
+Queue Management
+DANPHE HIMS Queue Management Feature
+The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient flow within the hospital. It ensures that patients are attended to promptly and efficiently, thereby reducing waiting times and enhancing patient satisfaction.
+Features:
+Queue display
+Appointment scheduling with token number
+Patient tracking with status
+Patient check-in
+FAQ's
+Why DANPHE is different from other available in the market
+DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?
+As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+The database in the system is secured in several ways:
+Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+Software and module logins are effectively password protected.
+All passwords are individually generated.
+For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?
+DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?
+This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?
+In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+Still have a questions?
+If you cannot find answer to your question in our FAQ, you can
+always  contact us . We will answer to you shortly
+Subscribe for a Transformative Demo
+of Our
+Cutting-Edge Solutions!
+Subscribe now for a personalized demo and unlock the future with innovative solutions
+tailored to enhance efficiency and elevate your overall experience.
+Subscribe
+Site Menu
+Company
+Our Clients
+Career
+News &amp; Events
+Contact Us
+HMIS with EMR Solutions
+Patient Management
+Materials (goods) Management
+Revenue Management
+Hospital Employee Management (HR Management)
+Info
+FAQs
+Privacy Policy
+Terms &amp; Conditions
+Contact Us
+Imark Digital Pvt. Ltd.
+Dillibazar, Kathmandu, Nepal
++977 9852088004, 9802310817
+info@danphehealth.com
+www.danphecare.com
+/
+www.danphehealth.com
+Copyright 2024. All Rights Reserved.

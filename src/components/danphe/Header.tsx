@@ -98,15 +98,13 @@ export default function Header() {
           {/* Desktop nav links */}
           <div className="hidden items-center gap-1 lg:flex">
             {NAV_ITEMS.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="rounded-md px-3 py-2 text-sm font-medium text-danphe-text transition-colors hover:bg-danphe-bg-light hover:text-danphe-primary"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -116,13 +114,9 @@ export default function Header() {
               asChild
               className="hidden bg-danphe-primary hover:bg-danphe-primary-light lg:inline-flex"
             >
-              <a
-                href="https://danphehealth.com/contact"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href="/schedule-a-demo">
                 Schedule a Demo
-              </a>
+              </Link>
             </Button>
 
             {/* Mobile hamburger */}
@@ -136,28 +130,28 @@ export default function Header() {
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="flex flex-col h-full">
                   <div className="border-b border-danphe-border p-4">
-                    <Image
-                      src="https://danphehealth.com/frontend/img/logo.png"
-                      alt="Danphe Health Logo"
-                      width={140}
-                      height={40}
-                      unoptimized
-                      className="h-9 w-auto"
-                    />
+                    <Link href="/" onClick={() => setMobileOpen(false)}>
+                      <Image
+                        src="https://danphehealth.com/frontend/img/logo.png"
+                        alt="Danphe Health Logo"
+                        width={140}
+                        height={40}
+                        unoptimized
+                        className="h-9 w-auto"
+                      />
+                    </Link>
                   </div>
                   <div className="flex-1 overflow-y-auto p-4">
                     <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
                       {NAV_ITEMS.map((item) => (
-                        <a
+                        <Link
                           key={item.label}
                           href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           onClick={() => setMobileOpen(false)}
                           className="rounded-md px-3 py-2.5 text-sm font-medium text-danphe-text transition-colors hover:bg-danphe-bg-light hover:text-danphe-primary"
                         >
                           {item.label}
-                        </a>
+                        </Link>
                       ))}
                     </nav>
                   </div>
@@ -167,13 +161,9 @@ export default function Header() {
                       className="w-full bg-danphe-primary hover:bg-danphe-primary-light"
                       onClick={() => setMobileOpen(false)}
                     >
-                      <a
-                        href="https://danphehealth.com/contact"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <Link href="/schedule-a-demo">
                         Schedule a Demo
-                      </a>
+                      </Link>
                     </Button>
                   </div>
                 </div>

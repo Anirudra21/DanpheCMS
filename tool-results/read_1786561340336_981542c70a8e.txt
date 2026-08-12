@@ -1,0 +1,502 @@
+   700→   700→Terms &amp; Conditions
+   701→   701→Contact Us
+   702→   702→Imark Digital Pvt. Ltd.
+   703→   703→Dillibazar, Kathmandu, Nepal
+   704→   704→+977 9852088004, 9802310817
+   705→   705→info@danphehealth.com
+   706→   706→www.danphecare.com
+   707→   707→/
+   708→   708→www.danphehealth.com
+   709→   709→Copyright 2024. All Rights Reserved.
+   710→   710→
+   711→   711→=== FILE: scrape-community.json ===
+   712→   712→IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+   713→   713→Danphe Health
+   714→   714→Contact Us
+   715→   715→info@danphehealth.com
+   716→   716→+977- 9852088004
+   717→   717→Partners
+   718→   718→Contact Us
+   719→   719→Company
+   720→   720→Our Solution
+   721→   721→Our Clients
+   722→   722→News &amp; Events
+   723→   723→Career
+   724→   724→Danphe Community
+   725→   725→Schedule a Demo
+   726→   726→Danphe Health Menu
+   727→   727→Company
+   728→   728→Our Solution
+   729→   729→Our Clients
+   730→   730→News &amp; Events
+   731→   731→Career
+   732→   732→Danphe Community
+   733→   733→Schedule
+   734→   734→a Demo
+   735→   735→We will be live soon
+   736→   736→Get notified when we launch.
+   737→   737→Go Back To Home
+   738→   738→Subscribe for a Transformative Demo
+   739→   739→of Our
+   740→   740→Cutting-Edge Solutions!
+   741→   741→Subscribe now for a personalized demo and unlock the future with innovative solutions
+   742→   742→tailored to enhance efficiency and elevate your overall experience.
+   743→   743→Subscribe
+   744→   744→Site Menu
+   745→   745→Company
+   746→   746→Our Clients
+   747→   747→Career
+   748→   748→News &amp; Events
+   749→   749→Contact Us
+   750→   750→HMIS with EMR Solutions
+   751→   751→Patient Management
+   752→   752→Materials (goods) Management
+   753→   753→Revenue Management
+   754→   754→Hospital Employee Management (HR Management)
+   755→   755→Info
+   756→   756→FAQs
+   757→   757→Privacy Policy
+   758→   758→Terms &amp; Conditions
+   759→   759→Contact Us
+   760→   760→Imark Digital Pvt. Ltd.
+   761→   761→Dillibazar, Kathmandu, Nepal
+   762→   762→+977 9852088004, 9802310817
+   763→   763→info@danphehealth.com
+   764→   764→www.danphecare.com
+   765→   765→/
+   766→   766→www.danphehealth.com
+   767→   767→Copyright 2024. All Rights Reserved.
+   768→   768→
+   769→   769→=== FILE: scrape-contact.json ===
+   770→   770→IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "img/facebook.svg", "img/linkedin.svg", "img/instagram.svg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+   771→   771→Danphe Health
+   772→   772→Contact Us
+   773→   773→info@danphehealth.com
+   774→   774→+977- 9852088004
+   775→   775→Partners
+   776→   776→Contact Us
+   777→   777→Company
+   778→   778→Our Solution
+   779→   779→Our Clients
+   780→   780→News &amp; Events
+   781→   781→Career
+   782→   782→Danphe Community
+   783→   783→Schedule a Demo
+   784→   784→Danphe Health Menu
+   785→   785→Company
+   786→   786→Our Solution
+   787→   787→Our Clients
+   788→   788→News &amp; Events
+   789→   789→Career
+   790→   790→Danphe Community
+   791→   791→Schedule
+   792→   792→a Demo
+   793→   793→Contact Us
+   794→   794→-->
+   795→   795→Contact Us  -->
+   796→   796→Imark Digital Pvt. Ltd. (Danphe)
+   797→   797→Niketan Marg, Dillibazar, Kathmandu, Nepal
+   798→   798→Email: info@danphecare.com
+   799→   799→For Sales Enquiry
+   800→   800→yubraj.parajuli@danphecare.com
+   801→   801→+977-9852088004
+   802→   802→For Hospital Technical Support
+   803→   803→support@danphecare.com
+   804→   804→+977-9802332018
+   805→   805→For Business Partner / Agent
+   806→   806→yubraj.parajuli@danphecare.com
+   807→   807→+977-9852088004
+   808→   808→Phone
+   809→   809→+977-1-4416468,
+   810→   810→+977-1-4444217
+   811→   811→Call Now
+   812→   812→Email Us
+   813→   813→info@imark.com.np,
+   814→   814→support@imark.com
+   815→   815→Message Now
+   816→   816→Location
+   817→   817→302 Paoli WoodsPaoli,
+   818→   818→PA 19301
+   819→   819→Find Me
+   820→   820→Follow Us
+   821→   821→Share Now
+   822→   822→-->
+   823→   823→Subscribe for a Transformative Demo
+   824→   824→of Our
+   825→   825→Cutting-Edge Solutions!
+   826→   826→Subscribe now for a personalized demo and unlock the future with innovative solutions
+   827→   827→tailored to enhance efficiency and elevate your overall experience.
+   828→   828→Subscribe
+   829→   829→Site Menu
+   830→   830→Company
+   831→   831→Our Clients
+   832→   832→Career
+   833→   833→News &amp; Events
+   834→   834→Contact Us
+   835→   835→HMIS with EMR Solutions
+   836→   836→Patient Management
+   837→   837→Materials (goods) Management
+   838→   838→Revenue Management
+   839→   839→Hospital Employee Management (HR Management)
+   840→   840→Info
+   841→   841→FAQs
+   842→   842→Privacy Policy
+   843→   843→Terms &amp; Conditions
+   844→   844→Contact Us
+   845→   845→Imark Digital Pvt. Ltd.
+   846→   846→Dillibazar, Kathmandu, Nepal
+   847→   847→+977 9852088004, 9802310817
+   848→   848→info@danphehealth.com
+   849→   849→www.danphecare.com
+   850→   850→/
+   851→   851→www.danphehealth.com
+   852→   852→Copyright 2024. All Rights Reserved.
+   853→   853→
+   854→   854→=== FILE: scrape-demo.json ===
+   855→   855→IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+   856→   856→Danphe Health
+   857→   857→Contact Us
+   858→   858→info@danphehealth.com
+   859→   859→+977- 9852088004
+   860→   860→Partners
+   861→   861→Contact Us
+   862→   862→Company
+   863→   863→Our Solution
+   864→   864→Our Clients
+   865→   865→News &amp; Events
+   866→   866→Career
+   867→   867→Danphe Community
+   868→   868→Schedule a Demo
+   869→   869→Danphe Health Menu
+   870→   870→Company
+   871→   871→Our Solution
+   872→   872→Our Clients
+   873→   873→News &amp; Events
+   874→   874→Career
+   875→   875→Danphe Community
+   876→   876→Schedule
+   877→   877→a Demo
+   878→   878→Thank you for your interest!
+   879→   879→We would be delighted to learn more about your practice and
+   880→   880→provide you with comprehensive information about Danphe.
+   881→   881→Schedule a demo
+   882→   882→Kindly complete the form, and our dedicated sales associate will contact you within the next
+   883→   883→24 hours
+   884→   884→First Name *
+   885→   885→Last Name *
+   886→   886→Email address  *
+   887→   887→Phone Number  *
+   888→   888→Country *
+   889→   889→--Select Country --
+   890→   890→Nepal  India  China  Australia  Japan  South Korea  Thailand  Malaysia  Indonesia  Vietnam  Singapore  Philippines  Pakistan  Bangladesh  Sri Lanka  Myanmar  Cambodia  Laos  Mongolia  Bhutan
+   891→   891→Address *
+   892→   892→Organization Name  *
+   893→   893→Health Institution Size
+   894→   894→1-25 Bedded
+   895→   895→26-50 Bedded
+   896→   896→51-100 Bedded
+   897→   897→101-200 Bedded
+   898→   898→Above 201 Bedded
+   899→   899→Hospital Type  *
+   900→   900→--Select a Hospital Type --
+   901→   901→Clinic
+   902→   902→Diagonist Center
+   903→   903→Pharmacy
+   904→   904→Goverment Hospital
+   905→   905→Private Hospital
+   906→   906→Medical College
+   907→   907→By clicking “Submit” I agree to
+   908→   908→the  Privacy Policy  and  Terms of
+   909→   909→Use.
+   910→   910→Request
+   911→   911→Now
+   912→   912→Subscribe for a Transformative Demo
+   913→   913→of Our
+   914→   914→Cutting-Edge Solutions!
+   915→   915→Subscribe now for a personalized demo and unlock the future with innovative solutions
+   916→   916→tailored to enhance efficiency and elevate your overall experience.
+   917→   917→Subscribe
+   918→   918→Site Menu
+   919→   919→Company
+   920→   920→Our Clients
+   921→   921→Career
+   922→   922→News &amp; Events
+   923→   923→Contact Us
+   924→   924→HMIS with EMR Solutions
+   925→   925→Patient Management
+   926→   926→Materials (goods) Management
+   927→   927→Revenue Management
+   928→   928→Hospital Employee Management (HR Management)
+   929→   929→Info
+   930→   930→FAQs
+   931→   931→Privacy Policy
+   932→   932→Terms &amp; Conditions
+   933→   933→Contact Us
+   934→   934→Imark Digital Pvt. Ltd.
+   935→   935→Dillibazar, Kathmandu, Nepal
+   936→   936→+977 9852088004, 9802310817
+   937→   937→info@danphehealth.com
+   938→   938→www.danphecare.com
+   939→   939→/
+   940→   940→www.danphehealth.com
+   941→   941→Copyright 2024. All Rights Reserved.
+   942→   942→
+   943→   943→=== FILE: scrape-patient-administration.json ===
+   944→   944→IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/B06yY9y2MQiUCBEHpIcSITBjuN4yhkH4mLGvejX0.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+   945→   945→Danphe Health
+   946→   946→Contact Us
+   947→   947→info@danphehealth.com
+   948→   948→+977- 9852088004
+   949→   949→Partners
+   950→   950→Contact Us
+   951→   951→Company
+   952→   952→Our Solution
+   953→   953→Our Clients
+   954→   954→News &amp; Events
+   955→   955→Career
+   956→   956→Danphe Community
+   957→   957→Schedule a Demo
+   958→   958→Danphe Health Menu
+   959→   959→Company
+   960→   960→Our Solution
+   961→   961→Our Clients
+   962→   962→News &amp; Events
+   963→   963→Career
+   964→   964→Danphe Community
+   965→   965→Schedule
+   966→   966→a Demo
+   967→   967→Patient Administration
+   968→   968→Enhancing Patient Care and Staff Incentives
+   969→   969→This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others.  The incentive module deals with calculating and managing incentives for hospital staff, including doctors, nurses, and other staff members. It involves features such as defining incentive plans, tracking performance, and calculating incentives.
+   970→   970→Features:
+   971→   971→Online/ Phone/ Physical appointments
+   972→   972→General information of patients
+   973→   973→Follow-up patient management
+   974→   974→Doctor/ Department management
+   975→   975→Referral management (third party referral)
+   976→   976→Referral management ( inter-departmental)
+   977→   977→Tests items, billing items and other services billing  management
+   978→   978→Health package billing management
+   979→   979→Membership and schemes management
+   980→   980→Zero price item-wise billing
+   981→   981→Referred by, Prescriber and Performer auto captured
+   982→   982→Dr. Fraction configuration
+   983→   983→Multi-Level Auto fraction setups and captures
+   984→   984→Payment management with account integration
+   985→   985→FAQ's
+   986→   986→Why DANPHE is different from other available in the market
+   987→   987→DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+   988→   988→Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+   989→   989→What are the security aspects of DANPHE?
+   990→   990→As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+   991→   991→The database in the system is secured in several ways:
+   992→   992→Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+   993→   993→Software and module logins are effectively password protected.
+   994→   994→All passwords are individually generated.
+   995→   995→For security reasons, these passwords need to be changed at regular intervals.
+   996→   996→Is it true that extremely less time is required to implement DANPHE HMIS?
+   997→   997→DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+   998→   998→Is DANPHE HMIS suitable for all small to big healthcare institution?
+   999→   999→This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+  1000→  1000→Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+  1001→  1001→Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+  1002→  1002→Does Imark Digital offer after sales support services for DANPHE HMIS System?
+  1003→  1003→In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+  1004→  1004→Still have a questions?
+  1005→  1005→If you cannot find answer to your question in our FAQ, you can
+  1006→  1006→always  contact us . We will answer to you shortly
+  1007→  1007→Subscribe for a Transformative Demo
+  1008→  1008→of Our
+  1009→  1009→Cutting-Edge Solutions!
+  1010→  1010→Subscribe now for a personalized demo and unlock the future with innovative solutions
+  1011→  1011→tailored to enhance efficiency and elevate your overall experience.
+  1012→  1012→Subscribe
+  1013→  1013→Site Menu
+  1014→  1014→Company
+  1015→  1015→Our Clients
+  1016→  1016→Career
+  1017→  1017→News &amp; Events
+  1018→  1018→Contact Us
+  1019→  1019→HMIS with EMR Solutions
+  1020→  1020→Patient Management
+  1021→  1021→Materials (goods) Management
+  1022→  1022→Revenue Management
+  1023→  1023→Hospital Employee Management (HR Management)
+  1024→  1024→Info
+  1025→  1025→FAQs
+  1026→  1026→Privacy Policy
+  1027→  1027→Terms &amp; Conditions
+  1028→  1028→Contact Us
+  1029→  1029→Imark Digital Pvt. Ltd.
+  1030→  1030→Dillibazar, Kathmandu, Nepal
+  1031→  1031→+977 9852088004, 9802310817
+  1032→  1032→info@danphehealth.com
+  1033→  1033→www.danphecare.com
+  1034→  1034→/
+  1035→  1035→www.danphehealth.com
+  1036→  1036→Copyright 2024. All Rights Reserved.
+  1037→  1037→
+  1038→  1038→=== FILE: scrape-opd-management.json ===
+  1039→  1039→IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/3BiXFrnlBFMoMRwWZkoNm4XuMbUw1kNJgDkGIYdo.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+  1040→  1040→Danphe Health
+  1041→  1041→Contact Us
+  1042→  1042→info@danphehealth.com
+  1043→  1043→+977- 9852088004
+  1044→  1044→Partners
+  1045→  1045→Contact Us
+  1046→  1046→Company
+  1047→  1047→Our Solution
+  1048→  1048→Our Clients
+  1049→  1049→News &amp; Events
+  1050→  1050→Career
+  1051→  1051→Danphe Community
+  1052→  1052→Schedule a Demo
+  1053→  1053→Danphe Health Menu
+  1054→  1054→Company
+  1055→  1055→Our Solution
+  1056→  1056→Our Clients
+  1057→  1057→News &amp; Events
+  1058→  1058→Career
+  1059→  1059→Danphe Community
+  1060→  1060→Schedule
+  1061→  1061→a Demo
+  1062→  1062→OPD Management
+  1063→  1063→In Person OPD Management
+  1064→  1064→An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software.  The system enhances functionality with health insurance and SSF tracking, alongside the integration of ICDX codes. It boasts powerful reporting capabilities, enabling the scanning and storage of comprehensive patient demographics, including X-rays, ultrasound images, pathology reports, and other diagnostic documents.
+  1065→  1065→Features:
+  1066→  1066→OPD Appointments
+  1067→  1067→OPD Registration
+  1068→  1068→OPD Charges
+  1069→  1069→Medical Observation
+  1070→  1070→Consultant wise OPD
+  1071→  1071→Case wise/ Department wise OPD
+  1072→  1072→Procedure and clinical services requests
+  1073→  1073→LAB service request
+  1074→  1074→Pharmacy service request
+  1075→  1075→FAQ's
+  1076→  1076→Why DANPHE is different from other available in the market
+  1077→  1077→DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+  1078→  1078→Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+  1079→  1079→What are the security aspects of DANPHE?
+  1080→  1080→As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+  1081→  1081→The database in the system is secured in several ways:
+  1082→  1082→Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+  1083→  1083→Software and module logins are effectively password protected.
+  1084→  1084→All passwords are individually generated.
+  1085→  1085→For security reasons, these passwords need to be changed at regular intervals.
+  1086→  1086→Is it true that extremely less time is required to implement DANPHE HMIS?
+  1087→  1087→DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+  1088→  1088→Is DANPHE HMIS suitable for all small to big healthcare institution?
+  1089→  1089→This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+  1090→  1090→Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+  1091→  1091→Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+  1092→  1092→Does Imark Digital offer after sales support services for DANPHE HMIS System?
+  1093→  1093→In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+  1094→  1094→Still have a questions?
+  1095→  1095→If you cannot find answer to your question in our FAQ, you can
+  1096→  1096→always  contact us . We will answer to you shortly
+  1097→  1097→Subscribe for a Transformative Demo
+  1098→  1098→of Our
+  1099→  1099→Cutting-Edge Solutions!
+  1100→  1100→Subscribe now for a personalized demo and unlock the future with innovative solutions
+  1101→  1101→tailored to enhance efficiency and elevate your overall experience.
+  1102→  1102→Subscribe
+  1103→  1103→Site Menu
+  1104→  1104→Company
+  1105→  1105→Our Clients
+  1106→  1106→Career
+  1107→  1107→News &amp; Events
+  1108→  1108→Contact Us
+  1109→  1109→HMIS with EMR Solutions
+  1110→  1110→Patient Management
+  1111→  1111→Materials (goods) Management
+  1112→  1112→Revenue Management
+  1113→  1113→Hospital Employee Management (HR Management)
+  1114→  1114→Info
+  1115→  1115→FAQs
+  1116→  1116→Privacy Policy
+  1117→  1117→Terms &amp; Conditions
+  1118→  1118→Contact Us
+  1119→  1119→Imark Digital Pvt. Ltd.
+  1120→  1120→Dillibazar, Kathmandu, Nepal
+  1121→  1121→+977 9852088004, 9802310817
+  1122→  1122→info@danphehealth.com
+  1123→  1123→www.danphecare.com
+  1124→  1124→/
+  1125→  1125→www.danphehealth.com
+  1126→  1126→Copyright 2024. All Rights Reserved.
+  1127→  1127→
+  1128→  1128→=== FILE: scrape-ipd-management.json ===
+  1129→  1129→IMGS: ["https://danphehealth.com/frontend/img/svg/facebook-app-symbol.svg", "https://danphehealth.com/frontend/img/svg/instagram.svg", "https://danphehealth.com/frontend/img/logo.png", "https://danphehealth.com/storage/uploads/91ujO9IGH8LC6R1nc1fwwGeEiLrNIJQMSDegvElw.jpg", "https://danphehealth.com/frontend/img/doctor.png", "https://danphehealth.com/frontend/img/mdi_phone-classic.svg", "https://danphehealth.com/frontend/img/mdi_envelope-open.svg", "https://danphehealth.com/frontend/img/global.svg", "https://danphehealth.com/frontend/img/facebook.svg", "https://danphehealth.com/frontend/img/instagram.svg", "https://danphehealth.com/frontend/img/linkedin.svg", "https://danphehealth.com/frontend/img/youtube.svg"]
+  1130→  1130→Danphe Health
+  1131→  1131→Contact Us
+  1132→  1132→info@danphehealth.com
+  1133→  1133→+977- 9852088004
+  1134→  1134→Partners
+  1135→  1135→Contact Us
+  1136→  1136→Company
+  1137→  1137→Our Solution
+  1138→  1138→Our Clients
+  1139→  1139→News &amp; Events
+  1140→  1140→Career
+  1141→  1141→Danphe Community
+  1142→  1142→Schedule a Demo
+  1143→  1143→Danphe Health Menu
+  1144→  1144→Company
+  1145→  1145→Our Solution
+  1146→  1146→Our Clients
+  1147→  1147→News &amp; Events
+  1148→  1148→Career
+  1149→  1149→Danphe Community
+  1150→  1150→Schedule
+  1151→  1151→a Demo
+  1152→  1152→IPD Management
+  1153→  1153→The Comprehensive Inpatient Management Solution
+  1154→  1154→The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records.  Featuring built-in ward management and nursing station management, as well as ICU and NICU availability, the IPD offers a 360-degree view of the entire admitted patient's journey from admission to discharge.
+  1155→  1155→Features:
+  1156→  1156→Wards, Floor, Room &amp; Bed Configuration
+  1157→  1157→Bed occupation status
+  1158→  1158→Admission and bed allocation (live)
+  1159→  1159→Payment receipts
+  1160→  1160→Medical observation and Nursing notes
+  1161→  1161→LAB &amp; Radiology Investigation requests
+  1162→  1162→Procedure and clinical services requests
+  1163→  1163→Patient payment and dues reports
+  1164→  1164→FAQ's
+  1165→  1165→Why DANPHE is different from other available in the market
+  1166→  1166→DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust.
+  1167→  1167→Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+  1168→  1168→What are the security aspects of DANPHE?
+  1169→  1169→As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions.
+  1170→  1170→The database in the system is secured in several ways:
+  1171→  1171→Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls)
+  1172→  1172→Software and module logins are effectively password protected.
+  1173→  1173→All passwords are individually generated.
+  1174→  1174→For security reasons, these passwords need to be changed at regular intervals.
+  1175→  1175→Is it true that extremely less time is required to implement DANPHE HMIS?
+  1176→  1176→DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+  1177→  1177→Is DANPHE HMIS suitable for all small to big healthcare institution?
+  1178→  1178→This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don’t worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.
+  1179→  1179→Is it possible to transfer the entire existing data to the newly implemented DANPHE System?
+  1180→  1180→Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.
+  1181→  1181→Does Imark Digital offer after sales support services for DANPHE HMIS System?
+  1182→  1182→In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.
+  1183→  1183→Still have a questions?
+  1184→  1184→If you cannot find answer to your question in our FAQ, you can
+  1185→  1185→always  contact us . We will answer to you shortly
+  1186→  1186→Subscribe for a Transformative Demo
+  1187→  1187→of Our
+  1188→  1188→Cutting-Edge Solutions!
+  1189→  1189→Subscribe now for a personalized demo and unlock the future with innovative solutions
+  1190→  1190→tailored to enhance efficiency and elevate your overall experience.
+  1191→  1191→Subscribe
+  1192→  1192→Site Menu
+  1193→  1193→Company
+  1194→  1194→Our Clients
+  1195→  1195→Career
+  1196→  1196→News &amp; Events
+  1197→  1197→Contact Us
+  1198→  1198→HMIS with EMR Solutions
+  1199→  1199→Patient Management
+
+[showing lines 700-1199 of 1744; use offset=1200 with limit to continue reading]

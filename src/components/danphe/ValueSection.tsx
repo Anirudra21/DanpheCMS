@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
@@ -73,24 +74,16 @@ export default function ValueSection() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Button className="bg-danphe-primary hover:bg-danphe-primary-light" asChild>
-                <a
-                  href="https://danphehealth.com/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="/schedule-a-demo">
                   <Calendar className="mr-2 h-4 w-4" />
                   Schedule a Demo
-                </a>
+                </Link>
               </Button>
               <Button variant="outline" className="border-danphe-primary text-danphe-primary hover:bg-danphe-primary hover:text-white" asChild>
-                <a
-                  href="https://danphehealth.com/solutions"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="/solutions">
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
           </motion.div>

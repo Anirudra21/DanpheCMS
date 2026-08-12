@@ -2,10 +2,11 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { MODULES } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 export default function ModuleSection() {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -107,14 +108,10 @@ export default function ModuleSection() {
                   className="p-0 text-danphe-accent hover:text-danphe-accent-light"
                   asChild
                 >
-                  <a
-                    href={activeModule.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link href={activeModule.href}>
                     View Detail
-                    <ExternalLink className="ml-1.5 h-4 w-4" />
-                  </a>
+                    <ArrowRight className="ml-1.5 h-4 w-4" />
+                  </Link>
                 </Button>
               </div>
 
@@ -133,7 +130,6 @@ export default function ModuleSection() {
 
           {/* Bottom controls */}
           <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between sm:bottom-6 sm:left-6 sm:right-6">
-            {/* Module counter */}
             <span className="text-xs font-medium text-danphe-text-light sm:text-sm">
               <span className="text-danphe-primary font-bold">{String(activeIdx + 1).padStart(2, '0')}</span>
               {' / '}

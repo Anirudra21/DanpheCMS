@@ -1,6 +1,6 @@
 'use client';
 
-import { SITE_URL } from '@/lib/constants';
+import Link from 'next/link';
 import {
   Facebook,
   Instagram,
@@ -13,18 +13,18 @@ import {
 } from 'lucide-react';
 
 const siteMenu = [
-  { label: 'Company', href: `${SITE_URL}/company` },
-  { label: 'Our Clients', href: `${SITE_URL}/clients` },
-  { label: 'Career', href: `${SITE_URL}/careers` },
-  { label: 'News & Events', href: `${SITE_URL}/news-event` },
-  { label: 'Contact Us', href: `${SITE_URL}/contact` },
+  { label: 'Company', href: '/company' },
+  { label: 'Our Clients', href: '/clients' },
+  { label: 'Career', href: '/careers' },
+  { label: 'News & Events', href: '/news-events' },
+  { label: 'Contact Us', href: '/contact' },
 ];
 
 const hmisMenu = [
-  { label: 'Patient Management', href: '#' },
-  { label: 'Materials (goods) Management', href: '#' },
-  { label: 'Revenue Management', href: '#' },
-  { label: 'Hospital Employee Management (HR Management)', href: '#' },
+  { label: 'Patient Management', href: '/solution/patient-administration' },
+  { label: 'Materials (goods) Management', href: '/solution/inventory-management' },
+  { label: 'Revenue Management', href: '/solutions' },
+  { label: 'Hospital Employee Management (HR Management)', href: '/solutions' },
 ];
 
 const infoMenu = [
@@ -51,15 +51,13 @@ export default function Footer({ className }: { className?: string }) {
             <ul className="space-y-3">
               {siteMenu.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="group flex items-center gap-1.5 text-sm text-white/70 transition-colors hover:text-danphe-accent-light"
                   >
                     <span className="h-1 w-1 rounded-full bg-danphe-accent-light" />
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,13 +69,13 @@ export default function Footer({ className }: { className?: string }) {
             <ul className="space-y-3">
               {hmisMenu.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
                     className="group flex items-center gap-1.5 text-sm text-white/70 transition-colors hover:text-danphe-accent-light"
                   >
                     <span className="h-1 w-1 rounded-full bg-danphe-accent-light" />
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
