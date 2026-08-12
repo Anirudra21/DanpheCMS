@@ -1,18 +1,51 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { TESTIMONIALS } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import { Star } from 'lucide-react';
+
+const STAR_COUNT = 5;
+
+const starVariants = {
+  hidden: { opacity: 0, scale: 0.5 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: 0.15 + i * 0.08,
+      duration: 0.35,
+      ease: 'backOut' as const,
+    },
+  }),
+};
+
+const quoteFloat = {
+  animate: {
+    y: [0, -6, 0],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: 'easeInOut' as const,
+    },
+  },
+};
 
 function StarRating() {
   return (
-    <div className="flex gap-1" aria-label="4 out of 5 stars">
-      {[...Array(4)].map((_, i) => (
-        <Star key={i} className="h-4 w-4 fill-danphe-star text-danphe-star" />
+    <div className="flex gap-1.5" aria-label={`${STAR_COUNT} out of 5 stars`}>
+      {[...Array(STAR_COUNT)].map((_, i) => (
+        <motion.span
+          key={i}
+          custom={i}
+          variants={starVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <Star className="h-4.5 w-4.5 fill-danphe-star text-danphe-star drop-shadow-[0_0_6px_rgba(245,158,11,0.45)]" />
+        </motion.span>
       ))}
-      <Star className="h-4 w-4 text-gray-300" />
     </div>
   );
 }
@@ -23,71 +56,127 @@ function TestimonialCard({
   testimonial: (typeof TESTIMONIALS)[number];
 }) {
   return (
-    <div className="relative bg-white rounded-2xl border border-danphe-border/50 p-6 md:p-8 shadow-premium h-full flex flex-col">
-      {/* Decorative Quote icon */}
-      <Quote className="absolute top-6 right-6 h-8 w-8 text-danphe-accent/10" />
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ type: 'tween', duration: 0.3 }}
+      className="group h-full"
+    >
+      {/* Gradient border wrapper */}
+      <div className="relative h-full rounded-2xl bg-gradient-to-br from-danphe-accent/30 via-danphe-primary-light/20 to-danphe-accent/10 p-[1.5px]">
+        <div className="relative h-full rounded-[14px] bg-white">
+          {/* Left accent bar */}
+          <div className="absolute left-0 top-4 bottom-4 w-[3px] rounded-r-full bg-gradient-to-b from-danphe-accent to-danphe-primary-light" />
 
-      <StarRating />
+          {/* Animated decorative quote mark */}
+          <motion.span
+            className="pointer-events-none absolute -top-2 right-4 select-none font-serif text-[5rem] leading-none text-danphe-accent/[0.08] md:text-[6rem]"
+            variants={quoteFloat}
+            animate="animate"
+            aria-hidden="true"
+          >
+            {'\u201C'}
+          </motion.span>
 
-      <blockquote className="mt-4 mb-6 flex-1 text-sm leading-relaxed italic text-danphe-text">
-        &ldquo;{testimonial.quote}&rdquo;
-      </blockquote>
+          <div className="relative flex h-full flex-col px-6 pb-6 pl-8 pt-6 md:px-8 md:pb-8 md:pl-10 md:pt-8">
+            <StarRating />
 
-      <div className="border-t border-danphe-border/50 pt-4">
-        <div className="flex items-center gap-3">
-          <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-danphe-accent/20 ring-offset-2">
-            <Image
-              src={testimonial.image}
-              alt={testimonial.name}
-              fill
-              unoptimized
-              className="object-cover"
-            />
+            <blockquote className="mt-4 mb-6 flex-1 text-sm leading-relaxed italic text-danphe-text/90">
+              &ldquo;{testimonial.quote}&rdquo;
+            </blockquote>
+
+            <div className="border-t border-danphe-border/40 pt-4">
+              <div className="flex items-center gap-3">
+                <div className="relative h-12 w-12 flex-shrink-0">
+                  {/* Shadow behind avatar */}
+                  <div className="absolute inset-0 rounded-full bg-danphe-accent/20 blur-md" />
+                  <div className="relative h-12 w-12 overflow-hidden rounded-full ring-2 ring-danphe-accent/40 ring-offset-2 ring-offset-white">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      fill
+                      unoptimized
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+                <span className="text-sm font-semibold text-danphe-primary">
+                  {testimonial.name}
+                </span>
+              </div>
+            </div>
           </div>
-          <span className="text-sm font-semibold text-danphe-primary">
-            {testimonial.name}
-          </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
+  const areaRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % TESTIMONIALS.length);
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 5000);
+  }, []);
+
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, [next]);
+    startTimer();
+    return () => stopTimer();
+  }, [startTimer, stopTimer]);
+
+  const handleMouseEnter = () => stopTimer();
+  const handleMouseLeave = () => startTimer();
 
   // Compute visible indices: 1 on mobile, 3 on desktop
-  // We use CSS to show 1 on mobile, 3 on md+
   const indices = [0, 1, 2].map((i) => (current + i) % TESTIMONIALS.length);
 
   return (
     <section
-      className="relative bg-white py-20 md:py-28"
+      className="relative overflow-hidden bg-danphe-bg-light py-20 md:py-28"
       aria-label="Testimonials"
     >
-      <div className="mx-auto max-w-7xl px-4">
+      {/* Background decoration */}
+      <div className="pointer-events-none absolute inset-0 dot-pattern-light" />
+      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-danphe-accent/[0.07] blur-[100px]" />
+      <div className="pointer-events-none absolute -right-40 bottom-10 h-96 w-96 rounded-full bg-danphe-primary/[0.06] blur-[120px]" />
+
+      <div className="relative mx-auto max-w-7xl px-4">
+        {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
+          className="mb-14 text-center"
         >
           <h2 className="font-heading mb-3 text-3xl font-bold text-danphe-primary md:text-4xl">
             See what our valuable clients tell about us
           </h2>
+          <p className="mx-auto max-w-xl text-sm leading-relaxed text-danphe-text-light">
+            Trusted by leading healthcare institutions across Nepal, our clients
+            share their experiences working with Danphe Health&apos;s hospital
+            management system.
+          </p>
         </motion.div>
 
-        <div className="relative">
+        {/* Testimonial cards area */}
+        <div
+          ref={areaRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative"
+        >
           <AnimatePresence mode="popLayout">
             <motion.div
               key={indices.join('-')}
@@ -97,13 +186,14 @@ export default function TestimonialsSection() {
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               className="grid gap-6 md:grid-cols-3"
             >
+              {/* Desktop: show 3 cards */}
               {indices.map((idx) => (
                 <div key={TESTIMONIALS[idx].name} className="hidden md:block">
                   <TestimonialCard testimonial={TESTIMONIALS[idx]} />
                 </div>
               ))}
-              {/* Mobile: show only current */}
-              <div className="md:hidden">
+              {/* Mobile: show only current, centered and well-padded */}
+              <div className="mx-auto w-full max-w-md md:hidden">
                 <TestimonialCard testimonial={TESTIMONIALS[current]} />
               </div>
             </motion.div>
@@ -111,26 +201,28 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Navigation dots */}
-        <div
-          className="mt-8 flex justify-center gap-2"
+        <nav
+          className="mt-10 flex justify-center gap-2.5"
           role="tablist"
           aria-label="Testimonial navigation"
         >
           {TESTIMONIALS.map((_, idx) => (
-            <button
+            <motion.button
               key={idx}
               role="tab"
               aria-selected={idx === current}
               aria-label={`Testimonial ${idx + 1}`}
               onClick={() => setCurrent(idx)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
+              whileHover={{ scale: 1.3 }}
+              transition={{ type: 'tween', duration: 0.2 }}
+              className={`h-3 rounded-full transition-all duration-300 ${
                 idx === current
-                  ? 'w-8 bg-danphe-accent'
-                  : 'w-2.5 bg-danphe-border hover:bg-danphe-text-light'
+                  ? 'w-8 bg-danphe-accent shadow-glow-accent'
+                  : 'w-3 bg-danphe-border hover:bg-danphe-text-light'
               }`}
             />
           ))}
-        </div>
+        </nav>
       </div>
     </section>
   );

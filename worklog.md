@@ -511,3 +511,26 @@ Stage Summary:
 - FloatingSideNav persists on every page via layout.tsx with white pills + dark hamburger
 - Fast, lightweight animations added (preloader heartbeat, subscribe transitions, footer social icons, WCAG focus)
 - Preloader reduced to 1.2s for snappier load feel
+
+---
+Task ID: 10
+Agent: main
+Task: Move hero content below header with comfortable spacing on all viewports
+
+Work Log:
+- Measured header height and hero content position via agent-browser on 3 viewports
+- Found critical issue: on desktop (1440x900), badge was at y=25 — 43px BEHIND the fixed header (y=68)
+- Root cause: `lg:pt-0` with `lg:items-center` centered content vertically, placing it behind the fixed header
+- Fixed HeroSection.tsx content wrapper padding:
+  - Mobile: `pt-28` (112px, 48px gap) → `pt-32` (128px, 64px gap)
+  - Tablet: Added `md:pt-36` (144px, 80px gap)
+  - Desktop: `lg:pt-0` → `lg:pt-28` (112px, 44px gap) — content still centered but with top buffer
+  - Also increased mobile bottom padding: `pb-32` → `md:pb-36` for better balance
+- Verified spacing on all 3 viewports after fix
+- Ran lint: zero errors
+
+Stage Summary:
+- Mobile (iPhone 14): Badge 64px below header, H1 114px below header
+- Tablet (768x1024): Badge 80px below header, H1 134px below header  
+- Desktop (1440x900): Badge 44px below header, H1 98px below header
+- All content clearly visible below fixed header on every screen size

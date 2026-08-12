@@ -113,7 +113,7 @@ export default function HeroSection() {
         transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
       />
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center px-4 pt-28 pb-32 lg:min-h-screen lg:flex-row lg:items-center lg:px-6 lg:pb-40 lg:pt-0">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center px-4 pt-32 pb-32 md:pt-36 md:pb-36 lg:min-h-screen lg:flex-row lg:items-center lg:px-6 lg:pb-40 lg:pt-28">
         {/* ---- LEFT: Text content ---- */}
         <div className="relative z-10 flex flex-1 flex-col items-center text-center lg:items-start lg:text-left">
           {/* Badge pill */}
