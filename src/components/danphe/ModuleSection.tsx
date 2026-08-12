@@ -5,10 +5,52 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MODULES } from '@/lib/constants';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Check } from 'lucide-react';
+
+const CATEGORY_MAP: Record<string, string[]> = {
+  Clinical: [
+    'OPD Management',
+    'IPD Management',
+    'OT Management',
+    'Pathology Software',
+  ],
+  Administrative: [
+    'Patient Administration',
+    'SSF Management',
+    'Pharmacy',
+    'Inventory Management',
+  ],
+  Support: ['Queue Management'],
+};
+
+const CATEGORIES = ['All', 'Clinical', 'Administrative', 'Support'] as const;
+type Category = (typeof CATEGORIES)[number];
+
+function getModuleCategory(moduleName: string): Category {
+  for (const [cat, names] of Object.entries(CATEGORY_MAP)) {
+    if (names.includes(moduleName)) return cat as Category;
+  }
+  return 'Administrative';
+}
+
+const FEATURE_STAGGER = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const FEATURE_ITEM = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+};
 
 export default function ModuleSection() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [activeFilter, setActiveFilter] = useState<Category>('All');
+  const [showAllFeatures, setShowAllFeatures] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
@@ -19,13 +61,34 @@ export default function ModuleSection() {
   const goNext = () =>
     setActiveIdx((i) => (i === MODULES.length - 1 ? 0 : i + 1));
 
-  const selectModule = (idx: number) => {
+  const selectModule = (idx: number, fromFilteredClick = false) => {
     setActiveIdx(idx);
+    setShowAllFeatures(false);
+    // If clicking a dimmed (non-matching) module, reset filter to All
+    if (fromFilteredClick) {
+      setActiveFilter('All');
+    }
     // Scroll detail panel into view on mobile
     setTimeout(() => {
       detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
   };
+
+  const handleFilterChange = (cat: Category) => {
+    setActiveFilter(cat);
+    setShowAllFeatures(false);
+  };
+
+  const isModuleVisible = (moduleName: string) => {
+    if (activeFilter === 'All') return true;
+    return CATEGORY_MAP[activeFilter]?.includes(moduleName) ?? false;
+  };
+
+  const visibleFeatures = showAllFeatures
+    ? activeModule.features
+    : activeModule.features.slice(0, 4);
+
+  const hasMoreFeatures = activeModule.features.length > 4;
 
   return (
     <section
@@ -42,7 +105,7 @@ export default function ModuleSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
+          className="mb-8 text-center"
         >
           <h2 className="font-heading text-3xl font-bold text-danphe-primary md:text-4xl">
             Discover a{' '}
@@ -51,63 +114,110 @@ export default function ModuleSection() {
           </h2>
         </motion.div>
 
+        {/* Category Filter Pills */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4, delay: 0.15 }}
+          className="mb-8 flex flex-wrap items-center justify-center gap-2"
+          role="tablist"
+          aria-label="Filter modules by category"
+        >
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => handleFilterChange(cat)}
+              role="tab"
+              aria-selected={activeFilter === cat}
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
+                activeFilter === cat
+                  ? 'bg-danphe-accent text-white shadow-sm'
+                  : 'bg-white border border-danphe-border/50 text-danphe-text hover:border-danphe-accent/40 hover:text-danphe-primary'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </motion.div>
+
         {/* 3x3 Bento Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-          {MODULES.map((mod, idx) => (
-            <motion.button
-              key={mod.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.4,
-                ease: 'easeOut',
-                delay: idx * 0.06,
-              }}
-              onClick={() => selectModule(idx)}
-              className={`group relative flex flex-col items-center gap-2.5 rounded-2xl border p-4 md:p-5 text-left transition-all duration-300 md:items-start ${
-                idx === activeIdx
-                  ? 'ring-2 ring-danphe-accent bg-danphe-bg-alt border-danphe-accent/30 shadow-premium'
-                  : 'bg-white border-danphe-border/50 shadow-premium hover:shadow-premium-lg hover:scale-[1.02] hover:border-danphe-accent/30'
-              }`}
-              aria-label={`View ${mod.name} details`}
-            >
-              {/* Icon in colored circle */}
-              <div
-                className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors duration-300 ${
-                  idx === activeIdx
-                    ? 'bg-danphe-accent/15'
-                    : 'bg-danphe-primary/5 group-hover:bg-danphe-accent/10'
-                }`}
-              >
-                <Image
-                  src={mod.icon}
-                  alt={`${mod.name} icon`}
-                  width={22}
-                  height={22}
-                  unoptimized
-                  className={`h-5 w-5 object-contain transition-all duration-300 ${
-                    idx === activeIdx
-                      ? 'brightness-0 saturate-100'
-                      : ''
+          <AnimatePresence mode="popLayout">
+            {MODULES.map((mod, idx) => {
+              const visible = isModuleVisible(mod.name);
+              const isActive = idx === activeIdx;
+              return (
+                <motion.button
+                  key={mod.name}
+                  layout
+                  initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                  animate={
+                    isInView
+                      ? {
+                          opacity: visible ? 1 : 0.4,
+                          y: 0,
+                          scale: visible ? 1 : 0.98,
+                        }
+                      : {}
+                  }
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: 'easeOut',
+                    delay: idx * 0.06,
+                  }}
+                  onClick={() => selectModule(idx, !visible)}
+                  className={`group relative flex flex-col items-center gap-2.5 rounded-2xl border p-4 md:p-5 text-left transition-all duration-300 md:items-start ${
+                    isActive
+                      ? 'ring-2 ring-danphe-accent bg-danphe-bg-alt border-danphe-accent/30 shadow-premium'
+                      : 'bg-white border-danphe-border/50 shadow-premium hover:shadow-premium-lg hover:scale-[1.02] hover:border-danphe-accent/30'
                   }`}
-                />
-              </div>
-              {/* Module name */}
-              <span
-                className={`text-xs font-semibold leading-tight ${
-                  idx === activeIdx
-                    ? 'text-danphe-primary'
-                    : 'text-danphe-text group-hover:text-danphe-primary'
-                }`}
-              >
-                {mod.name}
-              </span>
-              {/* Title - truncated to 1 line */}
-              <span className="text-[11px] leading-tight text-danphe-text-light line-clamp-1">
-                {mod.title}
-              </span>
-            </motion.button>
-          ))}
+                  aria-label={`View ${mod.name} details`}
+                >
+                  {/* Feature Count Badge */}
+                  <span className="absolute top-2 right-2 z-10 rounded-full bg-danphe-accent/10 text-danphe-accent text-[10px] font-bold px-1.5 py-0.5 leading-none">
+                    {mod.features.length}
+                  </span>
+
+                  {/* Icon in colored circle */}
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors duration-300 ${
+                      isActive
+                        ? 'bg-danphe-accent/15'
+                        : 'bg-danphe-primary/5 group-hover:bg-danphe-accent/10'
+                    }`}
+                  >
+                    <Image
+                      src={mod.icon}
+                      alt={`${mod.name} icon`}
+                      width={22}
+                      height={22}
+                      unoptimized
+                      className={`h-5 w-5 object-contain transition-all duration-300 ${
+                        isActive
+                          ? 'brightness-0 saturate-100'
+                          : ''
+                      }`}
+                    />
+                  </div>
+                  {/* Module name */}
+                  <span
+                    className={`text-xs font-semibold leading-tight ${
+                      isActive
+                        ? 'text-danphe-primary'
+                        : 'text-danphe-text group-hover:text-danphe-primary'
+                    }`}
+                  >
+                    {mod.name}
+                  </span>
+                  {/* Title - truncated to 1 line */}
+                  <span className="text-[11px] leading-tight text-danphe-text-light line-clamp-1">
+                    {mod.title}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </AnimatePresence>
         </div>
 
         {/* Detail Panel */}
@@ -133,6 +243,45 @@ export default function ModuleSection() {
                   <p className="mb-6 leading-relaxed text-danphe-text-light">
                     {activeModule.description}
                   </p>
+
+                  {/* Key Features */}
+                  <div className="mb-6">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-danphe-text-light">
+                      Key Features
+                    </h4>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeIdx}
+                        variants={FEATURE_STAGGER}
+                        initial="hidden"
+                        animate="visible"
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-2"
+                      >
+                        {visibleFeatures.map((feature, fIdx) => (
+                          <motion.div
+                            key={`${activeIdx}-${fIdx}`}
+                            variants={FEATURE_ITEM}
+                            className="flex items-start gap-2"
+                          >
+                            <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-danphe-accent" />
+                            <span className="text-xs text-danphe-text-light">
+                              {feature}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {hasMoreFeatures && (
+                      <button
+                        onClick={() => setShowAllFeatures((prev) => !prev)}
+                        className="mt-3 text-xs font-semibold text-danphe-accent hover:text-danphe-primary transition-colors cursor-pointer"
+                      >
+                        {showAllFeatures ? 'Show Less' : 'Show All Features'}
+                      </button>
+                    )}
+                  </div>
+
                   <Link
                     href={activeModule.href}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-danphe-accent transition-colors hover:text-danphe-accent-light"

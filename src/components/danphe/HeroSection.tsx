@@ -15,7 +15,7 @@ import {
 /* ------------------------------------------------------------------ */
 /*  useCounter — animates a number from 0 → target using rAF          */
 /* ------------------------------------------------------------------ */
-function useCounter(target: number, duration = 2000, startOnMount = true) {
+function useCounter(target: number, duration = 2000, startOnMount = true, startDelay = 0) {
   const [count, setCount] = useState(0);
   const hasStarted = useRef(false);
 
@@ -23,25 +23,29 @@ function useCounter(target: number, duration = 2000, startOnMount = true) {
     if (!startOnMount || hasStarted.current) return;
     hasStarted.current = true;
 
-    let startTime: number | null = null;
-    let rafId: number;
+    const timeout = setTimeout(() => {
+      let startTime: number | null = null;
+      let rafId: number;
 
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) {
-        rafId = requestAnimationFrame(step);
-      } else {
-        setCount(target);
-      }
-    };
+      const step = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        // Ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setCount(Math.floor(eased * target));
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          setCount(target);
+        }
+      };
 
-    rafId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(rafId);
-  }, [target, duration, startOnMount]);
+      rafId = requestAnimationFrame(step);
+      return () => cancelAnimationFrame(rafId);
+    }, startDelay);
+
+    return () => clearTimeout(timeout);
+  }, [target, duration, startOnMount, startDelay]);
 
   return count;
 }
@@ -57,6 +61,11 @@ const stats = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Chart bar heights                                                 */
+/* ------------------------------------------------------------------ */
+const chartBarHeights = [40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88];
+
+/* ------------------------------------------------------------------ */
 /*  Component                                                         */
 /* ------------------------------------------------------------------ */
 export default function HeroSection() {
@@ -65,13 +74,46 @@ export default function HeroSection() {
   const webBased = useCounter(100, 2400);
   const support = useCounter(24, 1800);
 
+  // Dashboard stat counters (start after 1.5s preloader delay + extra offset)
+  const patientsToday = useCounter(247, 1800, true, 2000);
+  const bedsOccupied = useCounter(182, 1800, true, 2300);
+  // NRs 1.2M is handled via fade-in
+
+  // Floating card counter
+  const floatingHospitals = useCounter(60, 1600, true, 2500);
+
   const counters = [hospitals, modules, webBased, support];
+
+  // Base delay for dashboard animations (accounts for preloader)
+  const dashDelay = 1.5;
 
   return (
     <section
       className="relative min-h-screen overflow-hidden mesh-gradient-hero dot-pattern"
       aria-label="Hero"
     >
+      {/* ---- Additional floating blur circles (background enhancement) ---- */}
+      <motion.div
+        className="absolute top-20 -left-32 h-96 w-96 rounded-full bg-danphe-accent/5 blur-3xl pointer-events-none"
+        animate={{ y: [0, -20, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        className="absolute top-1/3 -right-20 h-80 w-80 rounded-full bg-danphe-primary/5 blur-3xl pointer-events-none"
+        animate={{ y: [0, -15, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+      />
+      <motion.div
+        className="absolute bottom-32 left-1/4 h-64 w-64 rounded-full bg-danphe-accent-light/5 blur-3xl pointer-events-none"
+        animate={{ y: [0, -18, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-1/3 h-72 w-72 rounded-full bg-danphe-primary-light/5 blur-3xl pointer-events-none"
+        animate={{ y: [0, -12, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+      />
+
       <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col items-center px-4 pt-32 pb-24 lg:flex-row lg:items-center lg:px-6 lg:pt-0 lg:pb-0">
         {/* ---- LEFT: Text content ---- */}
         <div className="relative z-10 flex flex-1 flex-col items-center text-center lg:items-start lg:text-left">
@@ -207,65 +249,132 @@ export default function HeroSection() {
 
                 {/* Fake content area */}
                 <div className="flex-1 p-4">
-                  {/* Stat cards row */}
+                  {/* Stat cards row — animated */}
                   <div className="mb-4 grid grid-cols-3 gap-2">
-                    {[
-                      { color: 'bg-danphe-accent/30', label: 'Patients Today', val: '247' },
-                      { color: 'bg-danphe-primary-light/30', label: 'Beds Occupied', val: '182' },
-                      { color: 'bg-emerald-500/20', label: 'Revenue', val: 'NRs 1.2M' },
-                    ].map((card) => (
-                      <div
-                        key={card.label}
-                        className={`rounded-lg ${card.color} p-2.5`}
-                      >
-                        <div className="text-[9px] text-white/40">{card.label}</div>
-                        <div className="mt-0.5 text-sm font-semibold text-white">
-                          {card.val}
-                        </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: dashDelay + 0.2 }}
+                      className="rounded-lg bg-danphe-accent/30 p-2.5"
+                    >
+                      <div className="text-[9px] text-white/40">Patients Today</div>
+                      <div className="mt-0.5 text-sm font-semibold text-white">
+                        {patientsToday}
                       </div>
-                    ))}
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: dashDelay + 0.5 }}
+                      className="rounded-lg bg-danphe-primary-light/30 p-2.5"
+                    >
+                      <div className="text-[9px] text-white/40">Beds Occupied</div>
+                      <div className="mt-0.5 text-sm font-semibold text-white">
+                        {bedsOccupied}
+                      </div>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: dashDelay + 0.8 }}
+                      className="rounded-lg bg-emerald-500/20 p-2.5"
+                    >
+                      <div className="text-[9px] text-white/40">Revenue</div>
+                      <div className="mt-0.5 text-sm font-semibold text-white">
+                        NRs 1.2M
+                      </div>
+                    </motion.div>
                   </div>
 
-                  {/* Chart placeholder */}
+                  {/* Chart placeholder — animated bars */}
                   <div className="mb-4 rounded-lg border border-white/5 bg-white/[0.03] p-3">
                     <div className="mb-2 h-2.5 w-24 rounded bg-white/15" />
                     <div className="flex items-end gap-1.5 h-20">
-                      {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88].map((h, i) => (
-                        <div
+                      {chartBarHeights.map((h, i) => (
+                        <motion.div
                           key={i}
                           className="flex-1 rounded-t-sm bg-gradient-to-t from-danphe-accent/50 to-danphe-accent-light/70"
-                          style={{ height: `${h}%` }}
-                        />
+                          initial={{ height: '0%' }}
+                          animate={{ height: `${h}%` }}
+                          transition={{
+                            duration: 0.6,
+                            delay: dashDelay + 0.3 + i * 0.08,
+                            ease: 'easeOut',
+                          }}
+                        >
+                          <motion.div
+                            className="h-full w-full rounded-t-sm bg-gradient-to-t from-danphe-accent/50 to-danphe-accent-light/70"
+                            animate={{ opacity: [0.85, 1, 0.85] }}
+                            transition={{
+                              duration: 3,
+                              repeat: Infinity,
+                              ease: 'easeInOut',
+                              delay: dashDelay + 0.3 + i * 0.08 + 0.6,
+                            }}
+                          />
+                        </motion.div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Recent activity */}
+                  {/* Recent activity — animated rows with pulsing dots */}
                   <div className="rounded-lg border border-white/5 bg-white/[0.03] p-3">
                     <div className="mb-2 h-2.5 w-20 rounded bg-white/15" />
-                    {['OPD-1024 • Dr. Sharma', 'IPD-Bed 12 • Discharged', 'Lab Report Ready • Patient #890'].map(
-                      (row) => (
-                        <div
-                          key={row}
-                          className="mb-1.5 flex items-center gap-2 text-[10px] text-white/40"
-                        >
-                          <div className="h-1.5 w-1.5 rounded-full bg-danphe-accent-light" />
-                          {row}
-                        </div>
-                      )
-                    )}
+                    {[
+                      'OPD-1024 • Dr. Sharma',
+                      'IPD-Bed 12 • Discharged',
+                      'Lab Report Ready • Patient #890',
+                    ].map((row, i) => (
+                      <motion.div
+                        key={row}
+                        className="mb-1.5 flex items-center gap-2 text-[10px] text-white/40"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay: dashDelay + 0.5 + i * 0.15,
+                          ease: 'easeOut',
+                        }}
+                      >
+                        <motion.span
+                          className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400"
+                          animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                            delay: i * 0.3,
+                          }}
+                        />
+                        {row}
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Floating decoration card */}
+            {/* Floating decoration card — System Status (enhanced glassmorphism) */}
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -bottom-4 -left-6 rounded-xl border border-white/10 bg-danphe-dark/90 px-3 py-2 shadow-lg backdrop-blur-sm"
+              className="absolute -bottom-4 -left-6 rounded-xl shadow-lg"
             >
-              <div className="flex items-center gap-2">
+              {/* Rotating border glow effect */}
+              <motion.div
+                className="absolute -inset-px rounded-xl overflow-hidden"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                style={{ zIndex: 0 }}
+              >
+                <div
+                  className="h-full w-full"
+                  style={{
+                    background: 'conic-gradient(from 0deg, transparent 0%, rgba(22, 160, 133, 0.2) 25%, transparent 50%, rgba(22, 160, 133, 0.15) 75%, transparent 100%)',
+                  }}
+                />
+              </motion.div>
+              <div className="relative z-10 flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.08] px-3 py-2 backdrop-blur-md">
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20">
                   <span className="text-xs">✓</span>
                 </div>
@@ -276,19 +385,35 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Floating decoration card top-right */}
+            {/* Floating decoration card — Active Hospitals (enhanced glassmorphism + animated counter) */}
             <motion.div
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -top-3 -right-4 rounded-xl border border-white/10 bg-danphe-dark/90 px-3 py-2 shadow-lg backdrop-blur-sm"
+              className="absolute -top-3 -right-4 rounded-xl shadow-lg"
             >
-              <div className="flex items-center gap-2">
+              {/* Rotating border glow effect */}
+              <motion.div
+                className="absolute -inset-px rounded-xl overflow-hidden"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                style={{ zIndex: 0 }}
+              >
+                <div
+                  className="h-full w-full"
+                  style={{
+                    background: 'conic-gradient(from 180deg, transparent 0%, rgba(26, 82, 118, 0.2) 25%, transparent 50%, rgba(22, 160, 133, 0.15) 75%, transparent 100%)',
+                  }}
+                />
+              </motion.div>
+              <div className="relative z-10 flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.08] px-3 py-2 backdrop-blur-md">
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-danphe-accent/20">
                   <Building2 className="h-3.5 w-3.5 text-danphe-accent-light" />
                 </div>
                 <div>
                   <div className="text-[10px] text-white/40">Active Hospitals</div>
-                  <div className="text-xs font-medium text-white">60+ Connected</div>
+                  <div className="text-xs font-medium text-white">
+                    {floatingHospitals}+ Connected
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -296,11 +421,11 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Bottom gradient fade to white */}
+      {/* Bottom gradient fade to white (subtle, 160px) */}
       <div className="absolute bottom-0 left-0 w-full"
         style={{
-          height: '120px',
-          background: 'linear-gradient(to bottom, transparent, white)',
+          height: '160px',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.3) 40%, rgba(255,255,255,0.7) 70%, white 100%)',
         }}
       />
     </section>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Building2,
@@ -12,19 +13,23 @@ import {
   X,
 } from 'lucide-react';
 
-interface NavItem {
+interface SideNavItem {
   label: string;
   icon: React.ElementType;
   href: string;
 }
 
-const NAV_ITEMS: NavItem[] = [
-  { label: 'Company', icon: Building2, href: '#company' },
-  { label: 'Our Clients', icon: Users, href: '#trusted' },
-  { label: 'Career', icon: Briefcase, href: '#career' },
-  { label: 'News & Events', icon: Newspaper, href: '#news' },
-  { label: 'Contact Us', icon: Phone, href: '#contact' },
+/* These 5 links are moved here from the top header navbar */
+const SIDE_NAV_ITEMS: SideNavItem[] = [
+  { label: 'Company', icon: Building2, href: '/company' },
+  { label: 'Our Clients', icon: Users, href: '/clients' },
+  { label: 'Career', icon: Briefcase, href: '/careers' },
+  { label: 'News & Events', icon: Newspaper, href: '/news-events' },
+  { label: 'Contact Us', icon: Phone, href: '/contact' },
 ];
+
+const easeOut = [0.25, 0.46, 0.45, 0.94];
+const easeIn = [0.55, 0.06, 0.68, 0.19];
 
 export default function FloatingSideNav() {
   const [expanded, setExpanded] = useState(false);
@@ -48,14 +53,6 @@ export default function FloatingSideNav() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const handleClick = (href: string) => {
-    setExpanded(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <AnimatePresence>
       {visible && (
@@ -63,18 +60,18 @@ export default function FloatingSideNav() {
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 60 }}
-          transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.35, ease: easeOut }}
           className="fixed right-5 top-1/2 z-40 -translate-y-1/2 hidden lg:flex flex-col items-end gap-2"
           role="navigation"
           aria-label="Quick navigation"
         >
-          {/* Expanded pill items - render above the toggle in DOM flow for proper stacking */}
+          {/* Expanded pill items */}
           <AnimatePresence>
             {expanded &&
-              NAV_ITEMS.map((item, idx) => {
+              SIDE_NAV_ITEMS.map((item, idx) => {
                 const Icon = item.icon;
                 return (
-                  <motion.button
+                  <motion.div
                     key={item.label}
                     initial={{ opacity: 0, x: 30, scale: 0.8 }}
                     animate={{
@@ -84,7 +81,7 @@ export default function FloatingSideNav() {
                       transition: {
                         duration: 0.3,
                         delay: idx * 0.06,
-                        ease: [0.25, 0.46, 0.45, 0.94],
+                        ease: easeOut,
                       },
                     }}
                     exit={{
@@ -93,27 +90,31 @@ export default function FloatingSideNav() {
                       scale: 0.8,
                       transition: {
                         duration: 0.2,
-                        delay: (NAV_ITEMS.length - 1 - idx) * 0.04,
-                        ease: [0.55, 0.06, 0.68, 0.19],
+                        delay: (SIDE_NAV_ITEMS.length - 1 - idx) * 0.04,
+                        ease: easeIn,
                       },
                     }}
-                    onClick={() => handleClick(item.href)}
-                    className="group relative flex items-center gap-2.5 whitespace-nowrap rounded-full
-                      border border-cyan-500/20 bg-[#0a1628]/90 px-4 py-2.5
-                      shadow-[0_0_15px_rgba(6,182,212,0.08),inset_0_1px_0_rgba(255,255,255,0.04)]
-                      backdrop-blur-xl transition-all duration-300
-                      hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(6,182,212,0.15),0_0_50px_rgba(6,182,212,0.05)]
-                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50"
-                    aria-label={item.label}
                   >
-                    {/* Left accent bar on hover */}
-                    <span className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 rounded-full bg-cyan-400 transition-all duration-300 group-hover:h-5" />
+                    <Link
+                      href={item.href}
+                      onClick={() => setExpanded(false)}
+                      className="group relative flex items-center gap-2.5 whitespace-nowrap rounded-full
+                        border border-cyan-500/20 bg-[#0a1628]/90 px-4 py-2.5
+                        shadow-[0_0_15px_rgba(6,182,212,0.08),inset_0_1px_0_rgba(255,255,255,0.04)]
+                        backdrop-blur-xl transition-all duration-300
+                        hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(6,182,212,0.15),0_0_50px_rgba(6,182,212,0.05)]
+                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50"
+                      aria-label={item.label}
+                    >
+                      {/* Left accent bar on hover */}
+                      <span className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 rounded-full bg-cyan-400 transition-all duration-300 group-hover:h-5" />
 
-                    <Icon className="h-4 w-4 text-cyan-400/80 transition-colors duration-300 group-hover:text-cyan-300" />
-                    <span className="text-[13px] font-medium text-white/80 transition-colors duration-300 group-hover:text-white">
-                      {item.label}
-                    </span>
-                  </motion.button>
+                      <Icon className="h-4 w-4 text-cyan-400/80 transition-colors duration-300 group-hover:text-cyan-300" />
+                      <span className="text-[13px] font-medium text-white/80 transition-colors duration-300 group-hover:text-white">
+                        {item.label}
+                      </span>
+                    </Link>
+                  </motion.div>
                 );
               })}
           </AnimatePresence>
@@ -122,7 +123,7 @@ export default function FloatingSideNav() {
           <motion.button
             onClick={() => setExpanded((v) => !v)}
             whileTap={{ scale: 0.92 }}
-            className="relative flex h-12 w-12 items-center justify-center rounded-full
+            className="group relative flex h-12 w-12 items-center justify-center rounded-full
               border border-cyan-500/30 bg-[#0a1628]/95
               shadow-[0_0_20px_rgba(6,182,212,0.12),0_4px_20px_rgba(0,0,0,0.3)]
               backdrop-blur-xl transition-all duration-300

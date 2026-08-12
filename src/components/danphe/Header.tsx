@@ -105,9 +105,9 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav links */}
+          {/* Desktop nav links — Company, Our Clients, Career, News & Events, Contact Us moved to FloatingSideNav */}
           <div className="hidden items-center gap-1 xl:flex">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.filter((item) => ['Our Solution', 'Danphe Community'].includes(item.label)).map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
