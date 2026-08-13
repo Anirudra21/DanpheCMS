@@ -1,232 +1,280 @@
-// Danphe CMS - Prisma Schema
-// SQLite backend (sandbox environment)
+// ═══════════════════════════════════════════════════════════════════════════════
+// Danphe Health — Hospital Software Marketing Website CMS
+// Prisma Schema · MySQL (utf8mb4)
+// ═══════════════════════════════════════════════════════════════════════════════
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-// ─── Auth & Users ───────────────────────────────────────────────
+// ─── Enums ─────────────────────────────────────────────────────────────────
 
-model User {
-  id            String    @id @default(cuid())
-  name          String
-  email         String    @unique
-  emailVerified DateTime?
-  password      String?
-  image         String?
-  role          Role      @default(ADMIN)
-  isActive      Boolean   @default(true)
-  lastLogin     DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  posts         Post[]
-  pages         Page[]
-  media         Media[]
-  activityLogs  ActivityLog[]
-
-  @@map("users")
+enum NavLocation {
+  HEADER
+  FOOTER_COMPANY
+  FOOTER_SOLUTIONS
+  FOOTER_INFO
 }
 
-enum Role {
-  SUPER_ADMIN
-  ADMIN
-  EDITOR
-  VIEWER
-}
-
-// ─── Blog / News Posts ──────────────────────────────────────────
-
-model Post {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String?
-  content     String   @default("")
-  coverImage  String?
-  coverImageMedia Media?  @relation("PostCoverImages", fields: [coverImage], references: [path])
-  status      PostStatus @default(DRAFT)
-  featured    Boolean  @default(false)
-  publishedAt DateTime?
-  authorId    String
-  categoryId  String?
-
-  author      User     @relation(fields: [authorId], references: [id])
-  category    Category? @relation(fields: [categoryId], references: [id])
-  tags        PostTag[]
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([slug])
-  @@index([status])
-  @@index([authorId])
-  @@map("posts")
+enum PostType {
+  NEWS_EVENT
+  COMMUNITY
 }
 
 enum PostStatus {
   DRAFT
   PUBLISHED
-  ARCHIVED
 }
 
-// ─── Categories ──────────────────────────────────────────────────
-
-model Category {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  slug        String   @unique
-  description String?
-  color       String   @default("#0d9488")
-  sortOrder   Int      @default(0)
-
-  posts       Post[]
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("categories")
+enum JobStatus {
+  OPEN
+  CLOSED
 }
 
-// ─── Tags ───────────────────────────────────────────────────────
-
-model Tag {
-  id    String    @id @default(cuid())
-  name  String    @unique
-  slug  String    @unique
-  posts PostTag[]
-
-  @@map("tags")
+enum LeadSource {
+  CONTACT
+  DEMO_REQUEST
+  NEWSLETTER
 }
 
-model PostTag {
-  postId String
-  tagId  String
-
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@id([postId, tagId])
-  @@map("post_tags")
+enum AdminRole {
+  SUPER_ADMIN
+  EDITOR
 }
 
-// ─── CMS Pages (dynamic content) ────────────────────────────────
+// ─── Site Settings (singleton — enforce one row at application level) ──────
 
-model Page {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  content     String   @default("")
-  status      PageStatus @default(DRAFT)
-  template    String   @default("default")
-  seoTitle    String?
-  seoDescription String?
-  seoImage    String?
-  authorId    String
-  publishedAt DateTime?
+model SiteSetting {
+  id            String   @id @default(cuid())
+  logo          String   @default("")
+  email         String   @default("")
+  phone         String   @default("")
+  facebookUrl   String   @default("")
+  instagramUrl  String   @default("")
+  address       String   @default("") @db.Text
+  mapEmbedUrl   String   @default("") @db.Text
+  footerText    String   @default("") @db.Text
+  copyrightText String   @default("") @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  author      User     @relation(fields: [authorId], references: [id])
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([slug])
-  @@index([status])
-  @@map("pages")
+  @@map("site_settings")
 }
 
-enum PageStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
+// ─── Navigation Items ─────────────────────────────────────────────────────
+
+model NavItem {
+  id       String      @id @default(cuid())
+  label    String
+  url      String
+  order    Int         @default(0)
+  location NavLocation
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([location, order])
+  @@map("nav_items")
 }
 
-// ─── Media Library ──────────────────────────────────────────────
+// ─── Homepage Sections (entire homepage editable) ─────────────────────────
 
-model Media {
-  id        String   @id @default(cuid())
-  filename  String
-  alt       String?
-  mimeType  String
-  size      Int
-  path      String   @unique
-  width     Int?
-  height    Int?
-
-  uploadedBy String
-
-  uploader   User     @relation(fields: [uploadedBy], references: [id])
-  posts      Post[]   @relation("PostCoverImages")
-
+model HomepageSection {
+  id         String   @id @default(cuid())
+  key        String   @unique              // e.g. "hero", "value_adds", "features_row"
+  heading    String   @default("") @db.Text
+  subheading String   @default("") @db.Text
+  body       String   @default("") @db.Text // rich-text / HTML
+  image      String   @default("")
+  ctaLabel   String   @default("")
+  ctaUrl     String   @default("")
+  order      Int      @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  @@index([mimeType])
-  @@map("media")
+  @@index([order])
+  @@map("homepage_sections")
 }
 
-// ─── Site Settings (key-value store) ────────────────────────────
+// ─── Solutions ─────────────────────────────────────────────────────────────
 
-model Setting {
-  key       String   @id
-  value     String
-  type      SettingType @default(STRING)
-  group     String   @default("general")
+model Solution {
+  id               String           @id @default(cuid())
+  title            String
+  slug             String           @unique
+  shortDescription String           @default("") @db.Text
+  body             String           @default("") @db.Text
+  iconUrl          String           @default("")
+  heroImageUrl     String           @default("")
+  order            Int              @default(0)
+  isPublished      Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  features         SolutionFeature[]
+
+  @@index([slug])
+  @@index([order])
+  @@index([isPublished, order])
+  @@map("solutions")
+}
+
+model SolutionFeature {
+  id         String   @id @default(cuid())
+  label      String
+  order      Int      @default(0)
+  solutionId String
+  solution   Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([solutionId, order])
+  @@map("solution_features")
+}
+
+// ─── Team Members ──────────────────────────────────────────────────────────
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  title       String   @default("")
+  photoUrl    String   @default("")
+  order       Int      @default(0)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([order])
+  @@index([isPublished, order])
+  @@map("team_members")
+}
+
+// ─── Stats ─────────────────────────────────────────────────────────────────
+
+model Stat {
+  id        String   @id @default(cuid())
   label     String
-  updatedAt DateTime @updatedAt
-
-  @@map("settings")
-}
-
-enum SettingType {
-  STRING
-  TEXT
-  NUMBER
-  BOOLEAN
-  JSON
-}
-
-// ─── Activity / Audit Log ───────────────────────────────────────
-
-model ActivityLog {
-  id        String   @id @default(cuid())
-  userId    String?
-  action    String
-  resource  String?
-  resourceId String?
-  details   String?
-  ipAddress String?
-
-  user      User?    @relation(fields: [userId], references: [id])
-
-  createdAt DateTime @default(now())
-
-  @@index([userId])
-  @@index([action])
-  @@index([createdAt])
-  @@map("activity_logs")
-}
-
-// ─── Contact Submissions ────────────────────────────────────────
-
-model ContactSubmission {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  phone     String?
-  subject   String?
-  message   String
-  isRead    Boolean  @default(false)
-  notes     String?
-
+  value     String
+  suffix    String   @default("")
+  order     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([isRead])
-  @@map("contact_submissions")
+  @@index([order])
+  @@map("stats")
+}
+
+// ─── Testimonials ──────────────────────────────────────────────────────────
+
+model Testimonial {
+  id         String   @id @default(cuid())
+  quote      String   @db.Text
+  authorName String
+  authorOrg  String   @default("")
+  imageUrl   String   @default("")
+  order      Int      @default(0)
+  isPublished Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([order])
+  @@index([isPublished, order])
+  @@map("testimonials")
+}
+
+// ─── Client Logos ──────────────────────────────────────────────────────────
+
+model ClientLogo {
+  id              String   @id @default(cuid())
+  name            String
+  logoUrl         String   @default("")
+  order           Int      @default(0)
+  showOnHomepage  Boolean  @default(true)
+  isPublished     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([order])
+  @@index([showOnHomepage, order])
+  @@index([isPublished])
+  @@map("client_logos")
+}
+
+// ─── Posts (News & Events / Community) ─────────────────────────────────────
+
+model Post {
+  id            String     @id @default(cuid())
+  title         String     @db.Text
+  slug          String     @unique
+  coverImageUrl String     @default("")
+  author        String     @default("")
+  publishedAt   DateTime?
+  excerpt       String     @default("") @db.Text
+  body          String     @default("") @db.Text // rich-text / Tiptap HTML
+  type          PostType
+  status        PostStatus @default(DRAFT)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([slug])
+  @@index([type, status])
+  @@index([publishedAt(sort: Desc)])
+  @@map("posts")
+}
+
+// ─── Jobs / Careers ────────────────────────────────────────────────────────
+
+model Job {
+  id             String     @id @default(cuid())
+  title          String
+  department     String     @default("")
+  location       String     @default("")
+  employmentType String     @default("")
+  description    String     @default("") @db.Text
+  requirements   String     @default("") @db.Text
+  applyEmail     String     @default("")
+  status         JobStatus  @default(OPEN)
+  postedAt       DateTime   @default(now())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([status, postedAt(sort: Desc)])
+  @@index([department])
+  @@map("jobs")
+}
+
+// ─── Leads (Contact / Demo / Newsletter) ───────────────────────────────────
+
+model Lead {
+  id        String     @id @default(cuid())
+  name      String     @default("")
+  email     String     @default("")
+  phone     String     @default("")
+  message   String     @default("") @db.Text
+  source    LeadSource
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([source])
+  @@index([createdAt(sort: Desc)])
+  @@index([email])
+  @@map("leads")
+}
+
+// ─── Admin Users ───────────────────────────────────────────────────────────
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String    @default("")
+  role         AdminRole @default(EDITOR)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("admin_users")
 }

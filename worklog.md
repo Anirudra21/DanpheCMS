@@ -666,3 +666,25 @@ Stage Summary:
 - Database seeded: 1 admin (admin@danphe.com / danphe2024), 3 categories, 5 posts, 1 page, 3 settings
 - Login credentials: admin@danphe.com / danphe2024
 - 33 new files created (10 API routes, 13 admin pages, 2 layouts, 3 components, 3 lib files, 1 schema update, 1 env update)
+---
+Task ID: 13
+Agent: main
+Task: Redesign Prisma schema for hospital-software marketing CMS (MySQL)
+
+Work Log:
+- Replaced SQLite-based generic CMS schema with purpose-built MySQL schema for Danphe Health marketing site
+- Wrote 12 models: SiteSetting, NavItem, HomepageSection, Solution, SolutionFeature, TeamMember, Stat, Testimonial, ClientLogo, Post, Job, Lead, AdminUser
+- Applied @db.Text to all long-text/richtext fields (body, heading, subheading, quote, description, requirements, excerpt, address, mapEmbedUrl, footerText, copyrightText)
+- Added 6 enums: NavLocation, PostType, PostStatus, JobStatus, LeadSource, AdminRole
+- Added composite indexes for common query patterns (isPublished+order, status+postedAt, location+order)
+- Cascading delete on Solution→SolutionFeature relation
+- Created .env.example with MySQL DATABASE_URL format + NEXTAUTH_SECRET + ADMIN credentials
+- Validated schema with `prisma validate` ✅
+- Generated Prisma client with `prisma generate` ✅
+- Note: 17 existing source files reference old models (User, Post, Page, Media, Setting, Category, Tag, etc.) and will need refactoring
+
+Stage Summary:
+- prisma/schema.prisma fully rewritten for MySQL with all 12 CMS models
+- .env.example created with MySQL connection string format
+- Schema validates and Prisma Client generates cleanly
+- Old admin pages and API routes still reference previous models — will break at runtime until refactored
