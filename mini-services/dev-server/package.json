@@ -1,0 +1,9 @@
+{
+  "name": "danphe-dev-server",
+  "scripts": {
+    "dev": "cd /home/z/my-project && next dev -p 3000"
+  },
+  "dependencies": {
+    "next": "^16.1.1"
+  }
+}
