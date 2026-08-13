@@ -54,11 +54,6 @@ const team = [
     role: 'Co-founder and Director',
     image: '/team/binod-dhungana.jpg',
   },
-  {
-    name: 'Yubraj Parajuli',
-    role: 'Chief Executive Officer',
-    image: '/team/yubraj-parajuli.jpg',
-  },
 ];
 
 const serviceCategories = [
@@ -285,7 +280,7 @@ export default function CompanyPage() {
             <h2 className="text-2xl font-bold text-danphe-primary sm:text-3xl">Professional Team Members of DANPHE</h2>
             <p className="mt-3 text-danphe-text-light">Tailored Technologies for Global Healthcare Challenges</p>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member, i) => (
               <motion.div
                 key={member.name}
