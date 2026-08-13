@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 // Danphe Health — Hospital Software Marketing Website CMS
-// Prisma Schema · MySQL (utf8mb4)
+// SQLite (sandbox) · For MySQL production: change provider to "mysql" and
+// add @db.Text on long string fields (address, body, quote, etc.) for utf8mb4.
 // ═══════════════════════════════════════════════════════════════════════════════
 
 generator client {
@@ -8,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -56,10 +57,10 @@ model SiteSetting {
   phone         String   @default("")
   facebookUrl   String   @default("")
   instagramUrl  String   @default("")
-  address       String   @default("") @db.Text
-  mapEmbedUrl   String   @default("") @db.Text
-  footerText    String   @default("") @db.Text
-  copyrightText String   @default("") @db.Text
+  address       String   @default("")
+  mapEmbedUrl   String   @default("")
+  footerText    String   @default("")
+  copyrightText String   @default("")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -86,9 +87,9 @@ model NavItem {
 model HomepageSection {
   id         String   @id @default(cuid())
   key        String   @unique              // e.g. "hero", "value_adds", "features_row"
-  heading    String   @default("") @db.Text
-  subheading String   @default("") @db.Text
-  body       String   @default("") @db.Text // rich-text / HTML
+  heading    String   @default("")
+  subheading String   @default("")
+  body       String   @default("") // rich-text / HTML
   image      String   @default("")
   ctaLabel   String   @default("")
   ctaUrl     String   @default("")
@@ -106,8 +107,8 @@ model Solution {
   id               String           @id @default(cuid())
   title            String
   slug             String           @unique
-  shortDescription String           @default("") @db.Text
-  body             String           @default("") @db.Text
+  shortDescription String           @default("")
+  body             String           @default("")
   iconUrl          String           @default("")
   heroImageUrl     String           @default("")
   order            Int              @default(0)
@@ -172,7 +173,7 @@ model Stat {
 
 model Testimonial {
   id         String   @id @default(cuid())
-  quote      String   @db.Text
+  quote      String  
   authorName String
   authorOrg  String   @default("")
   imageUrl   String   @default("")
@@ -208,13 +209,13 @@ model ClientLogo {
 
 model Post {
   id            String     @id @default(cuid())
-  title         String     @db.Text
+  title         String    
   slug          String     @unique
   coverImageUrl String     @default("")
   author        String     @default("")
   publishedAt   DateTime?
-  excerpt       String     @default("") @db.Text
-  body          String     @default("") @db.Text // rich-text / Tiptap HTML
+  excerpt       String     @default("")
+  body          String     @default("") // rich-text / Tiptap HTML
   type          PostType
   status        PostStatus @default(DRAFT)
   createdAt     DateTime   @default(now())
@@ -234,8 +235,8 @@ model Job {
   department     String     @default("")
   location       String     @default("")
   employmentType String     @default("")
-  description    String     @default("") @db.Text
-  requirements   String     @default("") @db.Text
+  description    String     @default("")
+  requirements   String     @default("")
   applyEmail     String     @default("")
   status         JobStatus  @default(OPEN)
   postedAt       DateTime   @default(now())
@@ -254,7 +255,7 @@ model Lead {
   name      String     @default("")
   email     String     @default("")
   phone     String     @default("")
-  message   String     @default("") @db.Text
+  message   String     @default("")
   source    LeadSource
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt

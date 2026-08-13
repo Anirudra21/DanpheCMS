@@ -6,14 +6,13 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod/v4';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ShieldCheck, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/cms-utils';
-import { useToast } from '@/hooks/use-toast';
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email address'),
@@ -24,8 +23,8 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState('');
   const router = useRouter();
-  const { toast } = useToast();
 
   const {
     register,
@@ -36,6 +35,7 @@ export default function LoginPage() {
   });
 
   async function onSubmit(data: LoginForm) {
+    setAuthError('');
     setIsLoading(true);
     try {
       const result = await signIn('credentials', {
@@ -45,21 +45,13 @@ export default function LoginPage() {
       });
 
       if (result?.error) {
-        toast({
-          title: 'Authentication failed',
-          description: 'Invalid email or password. Please try again.',
-          variant: 'destructive',
-        });
+        setAuthError('Invalid email or password. Please try again.');
       } else {
         router.push('/admin/dashboard');
         router.refresh();
       }
     } catch {
-      toast({
-        title: 'Error',
-        description: 'An unexpected error occurred. Please try again.',
-        variant: 'destructive',
-      });
+      setAuthError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -96,42 +88,63 @@ export default function LoginPage() {
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className="relative z-10 w-full max-w-md px-4"
       >
-        <Card className="border-white/10 bg-white/95 shadow-premium-lg backdrop-blur-xl">
-          <CardHeader className="pb-2 text-center pt-8">
-            <h1 className="text-2xl font-bold tracking-tight text-danphe-dark">
-              Danphe{' '}
-              <span className="text-danphe-accent">CMS</span>
-            </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Sign in to your dashboard
-            </p>
-          </CardHeader>
-          <CardContent className="pt-4 pb-8 px-8">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <Card className="border-white/10 bg-white/95 shadow-2xl backdrop-blur-xl">
+          <CardContent className="pt-8 pb-8 px-8">
+            {/* Header */}
+            <div className="mb-8 text-center">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-danphe-primary/10">
+                <ShieldCheck className="h-7 w-7 text-danphe-accent" />
+              </div>
+              <h1 className="text-2xl font-bold tracking-tight text-danphe-dark">
+                Danphe{' '}
+                <span className="text-danphe-accent">CMS</span>
+              </h1>
+              <p className="mt-1.5 text-sm text-muted-foreground">
+                Sign in to your dashboard
+              </p>
+            </div>
+
+            {/* Auth error banner */}
+            {authError && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-5 flex items-center gap-2.5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+              >
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                {authError}
+              </motion.div>
+            )}
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">
-                  Email
+                <Label htmlFor="email" className="text-sm font-medium text-danphe-text">
+                  Email address
                 </Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@danphe.com"
+                  placeholder="admin@danphehealth.com"
                   autoComplete="email"
+                  autoFocus
                   className={cn(
-                    'bg-white border-danphe-border focus:border-danphe-accent',
-                    errors.email && 'border-red-400 focus:border-red-400'
+                    'h-11 bg-white border-danphe-border text-danphe-text placeholder:text-muted-foreground/60 focus:border-danphe-accent focus:ring-danphe-accent/20',
+                    errors.email && 'border-red-400 focus:border-red-400 focus:ring-red-400/20',
                   )}
                   {...register('email')}
                 />
                 {errors.email && (
-                  <p className="text-xs text-red-500 mt-1">
+                  <p className="text-xs text-red-500 mt-1.5 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.email.message}
                   </p>
                 )}
               </div>
 
+              {/* Password */}
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium">
+                <Label htmlFor="password" className="text-sm font-medium text-danphe-text">
                   Password
                 </Label>
                 <Input
@@ -140,33 +153,40 @@ export default function LoginPage() {
                   placeholder="Enter your password"
                   autoComplete="current-password"
                   className={cn(
-                    'bg-white border-danphe-border focus:border-danphe-accent',
-                    errors.password && 'border-red-400 focus:border-red-400'
+                    'h-11 bg-white border-danphe-border text-danphe-text placeholder:text-muted-foreground/60 focus:border-danphe-accent focus:ring-danphe-accent/20',
+                    errors.password && 'border-red-400 focus:border-red-400 focus:ring-red-400/20',
                   )}
                   {...register('password')}
                 />
                 {errors.password && (
-                  <p className="text-xs text-red-500 mt-1">
+                  <p className="text-xs text-red-500 mt-1.5 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.password.message}
                   </p>
                 )}
               </div>
 
+              {/* Submit */}
               <Button
                 type="submit"
-                className="w-full bg-danphe-primary hover:bg-danphe-primary-light text-white font-medium mt-2"
+                className="h-11 w-full bg-danphe-primary hover:bg-danphe-primary/90 text-white font-medium mt-1 transition-colors"
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Signing in...
+                    Signing in…
                   </>
                 ) : (
                   'Sign in to Dashboard'
                 )}
               </Button>
             </form>
+
+            {/* Footer note */}
+            <p className="mt-6 text-center text-xs text-muted-foreground">
+              Admin accounts are seeded via the CLI. No public registration.
+            </p>
           </CardContent>
         </Card>
       </motion.div>
