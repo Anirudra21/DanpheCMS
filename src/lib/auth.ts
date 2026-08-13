@@ -16,31 +16,24 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const user = await db.user.findUnique({
+        const adminUser = await db.adminUser.findUnique({
           where: { email: credentials.email },
         });
 
-        if (!user || !user.password || !user.isActive) {
+        if (!adminUser) {
           return null;
         }
 
-        const isValid = await compare(credentials.password, user.password);
+        const isValid = await compare(credentials.password, adminUser.passwordHash);
         if (!isValid) {
           return null;
         }
 
-        // Update last login
-        await db.user.update({
-          where: { id: user.id },
-          data: { lastLogin: new Date() },
-        });
-
         return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          image: user.image,
-          role: user.role,
+          id: adminUser.id,
+          name: adminUser.name,
+          email: adminUser.email,
+          role: adminUser.role,
         };
       },
     }),

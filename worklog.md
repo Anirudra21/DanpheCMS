@@ -688,3 +688,23 @@ Stage Summary:
 - .env.example created with MySQL connection string format
 - Schema validates and Prisma Client generates cleanly
 - Old admin pages and API routes still reference previous models — will break at runtime until refactored
+---
+Task ID: 14
+Agent: main
+Task: Delete/refactor all files referencing old Prisma models after MySQL schema migration
+
+Work Log:
+- Audited all 23 files flagged by grep; identified 3 false positives (local type aliases, UI strings)
+- Deleted 19 files: 7 API routes + 12 admin CRUD pages that used removed models (User, Page, Media, Setting, Category, Tag, PostTag, ContactSubmission, ActivityLog)
+- Removed empty directory trees: api/posts, api/pages, admin/posts, admin/pages
+- Refactored src/lib/auth.ts: db.user → db.adminUser, user.password → user.passwordHash, removed isActive/image/lastLogin
+- Refactored src/lib/auth-guard.ts: 4-tier Role → 2-tier AdminRole (SUPER_ADMIN, EDITOR only)
+- Refactored src/app/api/seed/route.ts: complete rewrite seeding AdminUser, SiteSetting, NavItem (16 items), HomepageSection (10), Solution+SolutionFeature (3+18), TeamMember (4), Stat (4), Testimonial (3), ClientLogo (6), Post (2), Job (2)
+- Refactored src/app/(admin)/admin/layout.tsx: updated sidebar nav from old links (Posts/Pages/Media/Activity) to new CMS structure (Homepage/Solutions/Team/Stats/Testimonials/ClientLogos/News&Events/Jobs/Leads/Settings); removed AvatarImage (no image field on AdminUser)
+- ESLint passes clean: zero errors
+
+Stage Summary:
+- 19 files deleted, 4 files refactored, 3 false positives left unchanged
+- All old model references eliminated from codebase
+- Admin sidebar now points to 11 new CMS management sections
+- Seed script bootstraps full dataset for all 12 new models

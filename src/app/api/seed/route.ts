@@ -1,141 +1,368 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { db } from "@/lib/db";
-import { slugify } from "@/lib/cms-utils";
 
+/**
+ * POST /api/seed
+ * Idempotent — skips if admin user already exists.
+ * Seeds all CMS models with realistic Danphe Health data.
+ */
 export async function POST(request: NextRequest) {
   try {
-    // Check if admin already exists (idempotent)
-    const existingAdmin = await db.user.findUnique({
-      where: { email: "admin@danphe.com" },
-    });
-
+    // Check idempotency
+    const existingAdmin = await db.adminUser.findFirst();
     if (existingAdmin) {
       return NextResponse.json(
         { success: true, message: "Seed data already exists. Skipping." },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
-    // 1. Create default admin user
-    const hashedPassword = await hash("danphe2024", 10);
-    const admin = await db.user.create({
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@danphehealth.com";
+    const adminPassword = process.env.ADMIN_PASSWORD || "changeme-immediately";
+    const hashedPassword = await hash(adminPassword, 10);
+
+    // ── 1. Admin User ──────────────────────────────────────────────
+    const admin = await db.adminUser.create({
       data: {
+        email: adminEmail,
+        passwordHash: hashedPassword,
         name: "Danphe Admin",
-        email: "admin@danphe.com",
-        password: hashedPassword,
         role: "SUPER_ADMIN",
-        isActive: true,
       },
     });
 
-    // 2. Create categories
-    const categoriesData = [
-      { name: "News", description: "Latest news and updates", color: "#3B82F6", sortOrder: 1 },
-      { name: "Technology", description: "Technology insights and innovations", color: "#10B981", sortOrder: 2 },
-      { name: "Healthcare", description: "Healthcare industry news and trends", color: "#F59E0B", sortOrder: 3 },
-    ];
-
-    const categories = await Promise.all(
-      categoriesData.map((cat) =>
-        db.category.create({
-          data: {
-            ...cat,
-            slug: slugify(cat.name),
-          },
-        })
-      )
-    );
-
-    // 3. Create sample posts
-    const postsData = [
-      {
-        title: "Welcome to Danphe Health CMS",
-        slug: slugify("Welcome to Danphe Health CMS"),
-        excerpt: "An introduction to the Danphe Health Content Management System and its enterprise-grade features.",
-        content: "<h2>Welcome to Danphe Health</h2><p>Danphe Health CMS is an enterprise-grade Hospital Management Information System designed to streamline healthcare operations.</p><p>With our comprehensive suite of tools, healthcare providers can manage content, track patient information, and deliver better care.</p>",
-        status: "PUBLISHED" as const,
-        featured: true,
-        publishedAt: new Date("2024-01-15"),
-        categoryId: categories[0].id,
-      },
-      {
-        title: "Latest Technology Trends in Healthcare",
-        slug: slugify("Latest Technology Trends in Healthcare"),
-        excerpt: "Exploring how AI and machine learning are transforming the healthcare industry.",
-        content: "<h2>Technology in Healthcare</h2><p>Artificial intelligence and machine learning are revolutionizing how healthcare providers diagnose and treat patients.</p><p>From predictive analytics to automated imaging analysis, the future of healthcare is here.</p>",
-        status: "PUBLISHED" as const,
-        featured: false,
-        publishedAt: new Date("2024-02-10"),
-        categoryId: categories[1].id,
-      },
-      {
-        title: "Understanding Patient Data Security",
-        slug: slugify("Understanding Patient Data Security"),
-        excerpt: "A comprehensive guide to maintaining HIPAA compliance and protecting patient information.",
-        content: "<h2>Data Security in Healthcare</h2><p>Protecting patient data is not just a legal requirement—it's a moral imperative.</p><p>This guide covers best practices for data encryption, access control, and audit logging.</p>",
-        status: "DRAFT" as const,
-        featured: false,
-        categoryId: categories[2].id,
-      },
-      {
-        title: "Upcoming Features in Danphe CMS v2.0",
-        slug: slugify("Upcoming Features in Danphe CMS v2.0"),
-        excerpt: "A sneak peek at the exciting new features coming in the next major release.",
-        content: "<h2>What's Coming in v2.0</h2><p>We're excited to announce several major improvements including enhanced analytics, improved workflow automation, and a redesigned user interface.</p>",
-        status: "DRAFT" as const,
-        featured: false,
-        categoryId: categories[1].id,
-      },
-      {
-        title: "Year in Review: 2023 Healthcare Achievements",
-        slug: slugify("Year in Review 2023 Healthcare Achievements"),
-        excerpt: "Looking back at the major milestones and breakthroughs in healthcare over the past year.",
-        content: "<h2>2023 Year in Review</h2><p>2023 was a remarkable year for healthcare innovation, with breakthroughs in gene therapy, telemedicine expansion, and AI-assisted diagnostics.</p>",
-        status: "ARCHIVED" as const,
-        featured: false,
-        categoryId: categories[0].id,
-      },
-    ];
-
-    await Promise.all(
-      postsData.map((post) =>
-        db.post.create({
-          data: {
-            ...post,
-            authorId: admin.id,
-          },
-        })
-      )
-    );
-
-    // 4. Create sample page
-    await db.page.create({
+    // ── 2. Site Setting (singleton) ───────────────────────────────
+    await db.siteSetting.create({
       data: {
-        title: "About Danphe Health",
-        slug: slugify("About Danphe Health"),
-        content: "<h2>About Us</h2><p>Danphe Health is a leading provider of enterprise-grade Hospital Management Information Systems. Our mission is to empower healthcare organizations with cutting-edge technology that improves patient outcomes and operational efficiency.</p><p>Founded with a vision to transform healthcare delivery, we serve hospitals, clinics, and healthcare networks across the globe.</p>",
-        status: "PUBLISHED",
-        template: "default",
-        seoTitle: "About Danphe Health - Enterprise HMIS Solutions",
-        seoDescription: "Learn about Danphe Health's mission to transform healthcare delivery with enterprise-grade HMIS solutions.",
-        authorId: admin.id,
-        publishedAt: new Date("2024-01-01"),
+        logo: "/logo.svg",
+        email: "info@danphehealth.com",
+        phone: "+977-1-4262323",
+        facebookUrl: "https://facebook.com/danphehealth",
+        instagramUrl: "https://instagram.com/danphehealth",
+        address: "Dillibazar, Kathmandu, Nepal",
+        mapEmbedUrl:
+          '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.123!2d85.324!3d27.712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe>',
+        footerText:
+          "Danphe Health is a leading provider of enterprise-grade Hospital Management Information Systems (HMIS) designed to streamline healthcare operations across the globe.",
+        copyrightText: `© ${new Date().getFullYear()} Danphe Health. All rights reserved.`,
       },
     });
 
-    // 5. Create default settings
-    const settingsData = [
-      { key: "site_title", value: "Danphe Health", type: "STRING", group: "general", label: "Site Title" },
-      { key: "site_description", value: "Enterprise-Grade HMIS", type: "STRING", group: "general", label: "Site Description" },
-      { key: "posts_per_page", value: "10", type: "NUMBER", group: "general", label: "Posts Per Page" },
+    // ── 3. Nav Items ──────────────────────────────────────────────
+    const navItems = [
+      // Header navigation
+      { label: "Solutions", url: "/solutions", order: 1, location: "HEADER" as const },
+      { label: "Company", url: "/company", order: 2, location: "HEADER" as const },
+      { label: "Clients", url: "/clients", order: 3, location: "HEADER" as const },
+      { label: "Careers", url: "/careers", order: 4, location: "HEADER" as const },
+      { label: "News & Events", url: "/news-events", order: 5, location: "HEADER" as const },
+      { label: "Contact", url: "/contact", order: 6, location: "HEADER" as const },
+      // Footer — Company
+      { label: "About Us", url: "/company", order: 1, location: "FOOTER_COMPANY" as const },
+      { label: "Our Team", url: "/company#team", order: 2, location: "FOOTER_COMPANY" as const },
+      { label: "Careers", url: "/careers", order: 3, location: "FOOTER_COMPANY" as const },
+      // Footer — Solutions
+      { label: "OPD Management", url: "/solution/opd-management", order: 1, location: "FOOTER_SOLUTIONS" as const },
+      { label: "IPD Management", url: "/solution/ipd-management", order: 2, location: "FOOTER_SOLUTIONS" as const },
+      { label: "Pharmacy", url: "/solution/pharmacy", order: 3, location: "FOOTER_SOLUTIONS" as const },
+      { label: "Lab & Pathology", url: "/solution/pathology-software", order: 4, location: "FOOTER_SOLUTIONS" as const },
+      // Footer — Info
+      { label: "News & Events", url: "/news-events", order: 1, location: "FOOTER_INFO" as const },
+      { label: "Danphe Community", url: "/danphe-community", order: 2, location: "FOOTER_INFO" as const },
+      { label: "Partners", url: "/partners", order: 3, location: "FOOTER_INFO" as const },
+    ];
+    await db.navItem.createMany({ data: navItems });
+
+    // ── 4. Homepage Sections ───────────────────────────────────────
+    const homepageSections = [
+      {
+        key: "hero",
+        heading: "Enterprise-Grade Hospital Management Information System",
+        subheading: "Trusted by 700+ healthcare facilities across 10+ countries",
+        body: "",
+        image: "/hero-bg.jpg",
+        ctaLabel: "Schedule a Demo",
+        ctaUrl: "/schedule-a-demo",
+        order: 1,
+      },
+      {
+        key: "value_adds",
+        heading: "What values DANPHE can ADD",
+        subheading: "",
+        body: "",
+        image: "/about-img.png",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 2,
+      },
+      {
+        key: "modules",
+        heading: "Discover a complete solution for HIMS with EMR",
+        subheading: "",
+        body: "",
+        image: "",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 3,
+      },
+      {
+        key: "features",
+        heading: "Why Choose Danphe HMIS?",
+        subheading: "Built for modern healthcare with unmatched flexibility",
+        body: "",
+        image: "",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 4,
+      },
+      {
+        key: "outcomes",
+        heading: "Proven Results Across Healthcare Facilities",
+        subheading: "",
+        body: "",
+        image: "/about-img.png",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 5,
+      },
+      {
+        key: "testimonials",
+        heading: "What Our Clients Say",
+        subheading: "",
+        body: "",
+        image: "",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 6,
+      },
+      {
+        key: "trusted",
+        heading: "Trusted by Leading Healthcare Institutions",
+        subheading: "",
+        body: "",
+        image: "",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 7,
+      },
+      {
+        key: "open_source",
+        heading: "Open Source & Community Driven",
+        subheading: "",
+        body: "",
+        image: "",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 8,
+      },
+      {
+        key: "tech_stack",
+        heading: "Built on Modern Technology",
+        subheading: "",
+        body: "",
+        image: "",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 9,
+      },
+      {
+        key: "contact",
+        heading: "Get in Touch",
+        subheading: "Ready to transform your healthcare operations?",
+        body: "",
+        image: "",
+        ctaLabel: "",
+        ctaUrl: "",
+        order: 10,
+      },
+    ];
+    await db.homepageSection.createMany({ data: homepageSections });
+
+    // ── 5. Solutions + Features ───────────────────────────────────
+    const solutions = [
+      {
+        title: "OPD Management",
+        slug: "opd-management",
+        shortDescription:
+          "Comprehensive outpatient department management with queue handling, token systems, and electronic medical records.",
+        body: "",
+        iconUrl: "",
+        heroImageUrl: "",
+        order: 1,
+        isPublished: true,
+        features: [
+          "Token & Queue Management",
+          "Doctor Consultation Notes",
+          "Prescription Management",
+          "Lab & Radiology Orders",
+          "Vital Signs Recording",
+          "Follow-up Scheduling",
+        ],
+      },
+      {
+        title: "IPD Management",
+        slug: "ipd-management",
+        shortDescription:
+          "End-to-end inpatient management from admission to discharge with bed tracking, billing, and clinical workflows.",
+        body: "",
+        iconUrl: "",
+        heroImageUrl: "",
+        order: 2,
+        isPublished: true,
+        features: [
+          "Bed Management & Allocation",
+          "Admission & Discharge Workflow",
+          "Inpatient Billing",
+          "Nurse Station Dashboard",
+          "Ward Round Management",
+          "Transfer & Referral Tracking",
+        ],
+      },
+      {
+        title: "Pharmacy",
+        slug: "pharmacy",
+        shortDescription:
+          "Full-featured pharmacy management covering inventory control, dispensing, and procurement workflows.",
+        body: "",
+        iconUrl: "",
+        heroImageUrl: "",
+        order: 3,
+        isPublished: true,
+        features: [
+          "Medicine Inventory",
+          "Prescription Dispensing",
+          "Stock Reorder Alerts",
+          "Batch & Expiry Tracking",
+          "Purchase Order Management",
+          "Pharmacy Billing",
+        ],
+      },
     ];
 
-    await Promise.all(
-      settingsData.map((setting) =>
-        db.setting.create({ data: setting })
-      )
-    );
+    for (const sol of solutions) {
+      const { features, ...solData } = sol;
+      const created = await db.solution.create({ data: solData });
+      await db.solutionFeature.createMany({
+        data: features.map((label, idx) => ({
+          label,
+          order: idx + 1,
+          solutionId: created.id,
+        })),
+      });
+    }
+
+    // ── 6. Team Members ───────────────────────────────────────────
+    const teamMembers = [
+      { name: "Ram Dhungana", title: "Chairman", photoUrl: "/team/ram-dhungana.jpg", order: 1, isPublished: true },
+      { name: "Prabhat Adhikari", title: "Co-Founder and Clinical Director", photoUrl: "/team/prabhat-adhikari.jpg", order: 2, isPublished: true },
+      { name: "Shiv Koirala", title: "Co-Founder and Technical Director", photoUrl: "/team/shiv-koirala.jpg", order: 3, isPublished: true },
+      { name: "Binod Dhungana", title: "Co-founder and Director", photoUrl: "/team/binod-dhungana.jpg", order: 4, isPublished: true },
+    ];
+    await db.teamMember.createMany({ data: teamMembers });
+
+    // ── 7. Stats ──────────────────────────────────────────────────
+    const stats = [
+      { label: "Healthcare Facilities", value: "700", suffix: "+", order: 1 },
+      { label: "Countries", value: "10", suffix: "+", order: 2 },
+      { label: "Years of Experience", value: "15", suffix: "+", order: 3 },
+      { label: "Active Users", value: "50", suffix: "K+", order: 4 },
+    ];
+    await db.stat.createMany({ data: stats });
+
+    // ── 8. Testimonials ───────────────────────────────────────────
+    const testimonials = [
+      {
+        quote: "Danphe HMIS has transformed the way we manage our hospital operations. The system is intuitive, reliable, and has significantly improved our efficiency.",
+        authorName: "Dr. Suresh Sharma",
+        authorOrg: "Nepal Medical College",
+        imageUrl: "",
+        order: 1,
+        isPublished: true,
+      },
+      {
+        quote: "The OPD and IPD modules have streamlined our patient workflows. Our staff adapted quickly thanks to the user-friendly interface.",
+        authorName: "Dr. Anita Gurung",
+        authorOrg: "Kathmandu Hospital",
+        imageUrl: "",
+        order: 2,
+        isPublished: true,
+      },
+      {
+        quote: "Being open-source gave us the flexibility to customize the system to our specific needs. The support team is exceptional.",
+        authorName: "Rajesh Thapa",
+        authorOrg: "Pokhara Healthcare",
+        imageUrl: "",
+        order: 3,
+        isPublished: true,
+      },
+    ];
+    await db.testimonial.createMany({ data: testimonials });
+
+    // ── 9. Client Logos ───────────────────────────────────────────
+    const clientLogos = [
+      { name: "Nepal Medical College", logoUrl: "", order: 1, showOnHomepage: true, isPublished: true },
+      { name: "Kathmandu Hospital", logoUrl: "", order: 2, showOnHomepage: true, isPublished: true },
+      { name: "Patan Hospital", logoUrl: "", order: 3, showOnHomepage: true, isPublished: true },
+      { name: "Bheri Hospital", logoUrl: "", order: 4, showOnHomepage: true, isPublished: true },
+      { name: "Gandaki Hospital", logoUrl: "", order: 5, showOnHomepage: true, isPublished: true },
+      { name: "Pokhara Academy", logoUrl: "", order: 6, showOnHomepage: true, isPublished: true },
+    ];
+    await db.clientLogo.createMany({ data: clientLogos });
+
+    // ── 10. Sample Posts ──────────────────────────────────────────
+    const posts = [
+      {
+        title: "Danphe HMIS v2.0 Released with Enhanced Analytics",
+        slug: "danphe-hmis-v2-released",
+        coverImageUrl: "",
+        author: "Danphe Health Team",
+        publishedAt: new Date("2024-06-15"),
+        excerpt: "We are excited to announce the release of Danphe HMIS v2.0, featuring a completely redesigned analytics dashboard and improved workflow automation.",
+        body: "<h2>What's New in v2.0</h2><p>Danphe HMIS v2.0 brings a host of new features designed to make healthcare management even more efficient.</p><h3>Enhanced Analytics Dashboard</h3><p>Get real-time insights into hospital operations with our new interactive analytics dashboard.</p>",
+        type: "NEWS_EVENT" as const,
+        status: "PUBLISHED" as const,
+      },
+      {
+        title: "Danphe Community Meetup 2024",
+        slug: "danphe-community-meetup-2024",
+        coverImageUrl: "",
+        author: "Danphe Health Team",
+        publishedAt: new Date("2024-05-20"),
+        excerpt: "Join us for the annual Danphe Community Meetup where healthcare professionals and developers come together to share experiences.",
+        body: "<h2>Community Meetup 2024</h2><p>We're hosting our annual community meetup in Kathmandu. Come connect with other healthcare IT professionals.</p>",
+        type: "COMMUNITY" as const,
+        status: "PUBLISHED" as const,
+      },
+    ];
+    await db.post.createMany({ data: posts });
+
+    // ── 11. Sample Jobs ───────────────────────────────────────────
+    const jobs = [
+      {
+        title: "Senior React Developer",
+        department: "Engineering",
+        location: "Kathmandu, Nepal",
+        employmentType: "Full-time",
+        description: "<p>We are looking for an experienced React developer to join our frontend team working on Danphe HMIS.</p>",
+        requirements: "<ul><li>5+ years of React experience</li><li>TypeScript proficiency</li><li>Healthcare IT experience is a plus</li></ul>",
+        applyEmail: "careers@danphehealth.com",
+        status: "OPEN" as const,
+        postedAt: new Date(),
+      },
+      {
+        title: "QA Engineer",
+        department: "Quality Assurance",
+        location: "Kathmandu, Nepal",
+        employmentType: "Full-time",
+        description: "<p>Join our QA team to ensure the highest quality of our hospital management software.</p>",
+        requirements: "<ul><li>3+ years in software testing</li><li>Experience with automated testing tools</li><li>Knowledge of healthcare workflows</li></ul>",
+        applyEmail: "careers@danphehealth.com",
+        status: "OPEN" as const,
+        postedAt: new Date(),
+      },
+    ];
+    await db.job.createMany({ data: jobs });
 
     return NextResponse.json(
       {
@@ -143,18 +370,21 @@ export async function POST(request: NextRequest) {
         message: "Seed data created successfully",
         data: {
           admin: { id: admin.id, email: admin.email, role: admin.role },
-          categoriesCreated: categories.length,
-          postsCreated: postsData.length,
-          settingsCreated: settingsData.length,
+          navItems: navItems.length,
+          homepageSections: homepageSections.length,
+          solutions: solutions.length,
+          teamMembers: teamMembers.length,
+          stats: stats.length,
+          testimonials: testimonials.length,
+          clientLogos: clientLogos.length,
+          posts: posts.length,
+          jobs: jobs.length,
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "An unexpected error occurred";
-    return NextResponse.json(
-      { success: false, error: message },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

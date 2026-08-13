@@ -6,15 +6,19 @@ import { useSession, signOut } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
-  FileText,
-  FileStack,
-  Image,
-  Settings,
+  Newspaper,
+  Briefcase,
+  Layout,
+  Puzzle,
   Users,
-  Activity,
+  BarChart3,
+  MessageSquareQuote,
+  Building2,
+  Settings,
   LogOut,
   Menu,
   ChevronLeft,
+  Megaphone,
 } from 'lucide-react';
 import { cn } from '@/lib/cms-utils';
 import { Button } from '@/components/ui/button';
@@ -26,11 +30,15 @@ import { getInitials, getAvatarColor } from '@/lib/cms-utils';
 
 const navLinks = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/posts', label: 'Posts', icon: FileText },
-  { href: '/admin/pages', label: 'Pages', icon: FileStack },
-  { href: '/admin/media', label: 'Media', icon: Image },
-  { href: '/admin/users', label: 'Users', icon: Users },
-  { href: '/admin/activity', label: 'Activity', icon: Activity },
+  { href: '/admin/homepage', label: 'Homepage', icon: Layout },
+  { href: '/admin/solutions', label: 'Solutions', icon: Puzzle },
+  { href: '/admin/team', label: 'Team', icon: Users },
+  { href: '/admin/stats', label: 'Stats', icon: BarChart3 },
+  { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquareQuote },
+  { href: '/admin/client-logos', label: 'Client Logos', icon: Building2 },
+  { href: '/admin/posts', label: 'News & Events', icon: Newspaper },
+  { href: '/admin/jobs', label: 'Jobs', icon: Briefcase },
+  { href: '/admin/leads', label: 'Leads', icon: Megaphone },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
@@ -73,7 +81,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                   'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                   isActive
                     ? 'bg-danphe-accent text-white'
-                    : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                    : 'text-slate-300 hover:bg-white/10 hover:text-white',
                 )}
               >
                 <link.icon className="h-4.5 w-4.5" />
@@ -90,7 +98,6 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       <div className="shrink-0 p-4">
         <div className="flex items-center gap-3 mb-3">
           <Avatar className="h-9 w-9">
-            <AvatarImage src={user?.image ?? ''} alt={userName} />
             <AvatarFallback
               className={cn('text-xs font-medium text-white', getAvatarColor(userName))}
             >
@@ -100,7 +107,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate">{userName}</p>
             <p className="text-xs text-slate-400 truncate">
-              {userRole ?? 'Viewer'}
+              {userRole ?? 'Editor'}
             </p>
           </div>
         </div>
@@ -128,9 +135,9 @@ export default function AdminLayout({
   const { status } = useSession();
   const router = useRouter();
 
-  const pageTitle = navLinks.find((l) =>
-    pathname === l.href || pathname.startsWith(l.href + '/')
-  )?.label ?? 'Admin';
+  const pageTitle =
+    navLinks.find((l) => pathname === l.href || pathname.startsWith(l.href + '/'))?.label ??
+    'Admin';
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -178,7 +185,7 @@ export default function AdminLayout({
                 size="sm"
                 className={cn(
                   'h-8 w-8 p-0 text-slate-400 hover:bg-white/10 hover:text-white',
-                  collapsed && 'hidden'
+                  collapsed && 'hidden',
                 )}
                 onClick={() => setCollapsed(!collapsed)}
               >
@@ -204,7 +211,7 @@ export default function AdminLayout({
                         collapsed && 'justify-center px-0',
                         isActive
                           ? 'bg-danphe-accent text-white'
-                          : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                          : 'text-slate-300 hover:bg-white/10 hover:text-white',
                       )}
                     >
                       <link.icon className="h-4.5 w-4.5 shrink-0" />
@@ -227,7 +234,7 @@ export default function AdminLayout({
                 variant="ghost"
                 className={cn(
                   'gap-2 text-slate-300 hover:bg-white/10 hover:text-white',
-                  collapsed ? 'w-full justify-center px-0' : 'w-full justify-start'
+                  collapsed ? 'w-full justify-center px-0' : 'w-full justify-start',
                 )}
                 onClick={() => signOut({ callbackUrl: '/admin/login' })}
                 title={collapsed ? 'Sign Out' : undefined}
@@ -289,7 +296,6 @@ function UserAvatar({ collapsed }: { collapsed?: boolean }) {
   const userName = user?.name ?? 'Admin';
   return (
     <Avatar className="h-8 w-8">
-      <AvatarImage src={user?.image ?? ''} alt={userName} />
       <AvatarFallback className={cn('text-xs font-medium text-white', getAvatarColor(userName))}>
         {getInitials(userName)}
       </AvatarFallback>
@@ -309,7 +315,7 @@ function UserInfo() {
   return (
     <div className="flex-1 min-w-0">
       <p className="text-sm font-medium truncate">{userName}</p>
-      <p className="text-xs text-slate-400 truncate">{userRole ?? 'Viewer'}</p>
+      <p className="text-xs text-slate-400 truncate">{userRole ?? 'Editor'}</p>
     </div>
   );
 }
