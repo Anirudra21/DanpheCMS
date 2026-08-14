@@ -708,3 +708,32 @@ Stage Summary:
 - All old model references eliminated from codebase
 - Admin sidebar now points to 11 new CMS management sections
 - Seed script bootstraps full dataset for all 12 new models
+
+---
+Task ID: 16
+Agent: main
+Task: Build /admin/homepage editor for HomepageSection model
+
+Work Log:
+- Updated seed route: replaced 10 generic homepage section keys with 6 purposeful keys (hero, value_adds, solutions_intro, features_row, testimonial_intro, newsletter_cta) with realistic heading/subheading/body/CTA defaults
+- Created /api/homepage-sections/route.ts — GET (list ordered by `order`), PUT (bulk reorder via transaction)
+- Created /api/homepage-sections/[id]/route.ts — GET (single section), PUT (update heading, subheading, body, image, ctaLabel, ctaUrl)
+- Built /admin/homepage/page.tsx — single-page accordion editor with:
+  - Color-coded key badges (hero=blue, value_adds=emerald, solutions_intro=violet, features_row=amber, testimonial_intro=rose, newsletter_cta=teal)
+  - Human-readable labels and descriptions for each section key
+  - Drag-to-reorder via @dnd-kit with optimistic UI
+  - Click-to-expand inline editing for each section
+  - Fields: heading (text), subheading (text), body (TipTap rich text), image (upload with preview), ctaLabel (text), ctaUrl (text)
+  - Dirty state tracking with amber dot indicator
+  - Per-section save with loading/error states
+  - AnimatePresence expand/collapse animations
+  - Key-based remount to reset draft after save
+- Fixed ESLint issues: removed Unicode em-dash characters from JSX comments (caused parser errors), refactored useEffect setState to key-based remount pattern to satisfy react-hooks/set-state-in-effect and react-hooks/refs rules
+- Lint passes clean (0 errors, 0 warnings)
+
+Stage Summary:
+- 3 new files: 2 API routes + 1 admin page
+- 1 modified file: seed route (homepage sections data)
+- Homepage editor fully functional: list, drag reorder, expand/edit, save per section
+- Each of the 6 section keys has a descriptive label, description, and color
+- Image upload reuses existing /api/upload endpoint with 'homepage' folder
