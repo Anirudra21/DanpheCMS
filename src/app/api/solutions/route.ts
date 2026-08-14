@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { slugify } from '@/lib/cms-utils';
-import { Prisma } from '@prisma/client';
 
 /**
  * GET /api/solutions — list all solutions ordered by `order`
@@ -29,8 +28,8 @@ export async function GET() {
  */
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { title, slug, shortDescription, body, iconUrl, heroImageUrl, order, isPublished, features } = body;
+    const data = await request.json();
+    const { title, slug, shortDescription, body, iconUrl, heroImageUrl, order, isPublished, features } = data;
 
     if (!title?.trim()) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
