@@ -57,7 +57,7 @@ const navSections = [
       { href: '/admin/team', label: 'Team Members', icon: Users },
       { href: '/admin/stats', label: 'Stats', icon: BarChart3 },
       { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquareQuote },
-      { href: '/admin/client-logos', label: 'Client Logos', icon: Building2 },
+      { href: '/admin/clients', label: 'Client Logos', icon: Building2 },
     ],
   },
   {

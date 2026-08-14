@@ -324,6 +324,32 @@ export async function POST(request: NextRequest) {
     ];
     await db.job.createMany({ data: jobs });
 
+    // ── 12. Sample Leads ──────────────────────────────────────────
+    const leads = [
+      {
+        name: "Suman Karki",
+        email: "suman@hospital.com.np",
+        phone: "+977-9841234567",
+        message: "We are interested in deploying Danphe HMIS for our 200-bed hospital in Pokhara.",
+        source: "DEMO_REQUEST" as const,
+      },
+      {
+        name: "Dr. Maya Sharma",
+        email: "maya.sharma@clinic.com",
+        phone: "",
+        message: "Looking for a pharmacy management solution for our chain of 5 pharmacies.",
+        source: "CONTACT" as const,
+      },
+      {
+        name: "",
+        email: "newsletter@subscriber.com",
+        phone: "",
+        message: "",
+        source: "NEWSLETTER" as const,
+      },
+    ];
+    await db.lead.createMany({ data: leads });
+
     return NextResponse.json(
       {
         success: true,
@@ -339,6 +365,7 @@ export async function POST(request: NextRequest) {
           clientLogos: clientLogos.length,
           posts: posts.length,
           jobs: jobs.length,
+          leads: leads.length,
         },
       },
       { status: 201 },
