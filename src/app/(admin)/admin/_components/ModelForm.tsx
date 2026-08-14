@@ -132,9 +132,9 @@ function ArrayFieldRow({
 
 // ─── Main ModelForm Component ────────────────────────────────────────────
 
-export function ModelForm({ config }: { config: ModelFormConfig }) {
+export function ModelForm(props: ModelFormConfig) {
   const router = useRouter();
-  const { title, fields, apiBase, listHref, id, arrayFields = [] } = config;
+  const { title, fields, apiBase, listHref, id, arrayFields = [] } = props;
   const isEditing = !!id;
 
   const [loading, setLoading] = useState(false);

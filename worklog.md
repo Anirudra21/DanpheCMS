@@ -737,3 +737,28 @@ Stage Summary:
 - Homepage editor fully functional: list, drag reorder, expand/edit, save per section
 - Each of the 6 section keys has a descriptive label, description, and color
 - Image upload reuses existing /api/upload endpoint with 'homepage' folder
+---
+Task ID: 5
+Agent: main (3 parallel subagents)
+Task: Build 6 admin CRUD screens (Team Members, Stats, Testimonials, Client Logos, Navigation, Site Settings)
+
+Work Log:
+- Read all existing CRUD pattern files: DataTable.tsx, ModelForm.tsx, Solution API routes, Solution admin pages
+- Launched 3 parallel subagents to build all 31 new files simultaneously
+- Agent 1: Built Team Members (API + 3 pages) + Stats (API + 3 pages) = 10 files
+- Agent 2: Built Testimonials (API + 3 pages) + Client Logos (API + 3 pages) = 10 files
+- Agent 3: Built Navigation (API + 3 pages, grouped by location) + Site Settings (singleton API + custom form page) = 8 files
+- Agent 2 also refactored ModelForm.tsx signature from `{ config: ModelFormConfig }` to `(props: ModelFormConfig)` (backwards-compatible)
+- Verified all 31 files exist with correct paths
+- Ran `bun run lint` — zero errors, zero warnings
+- Checked dev.log — all 200s, no runtime errors
+- Spot-checked key files: navigation/page.tsx (grouped by 4 locations), settings/page.tsx (singleton form with 4 card sections)
+
+Stage Summary:
+- 31 new files created across 6 admin screens
+- All screens follow the established DataTable + ModelForm CRUD pattern
+- Navigation screen is unique: groups items by NavLocation (HEADER, FOOTER_COMPANY, FOOTER_SOLUTIONS, FOOTER_INFO) with per-group reorder
+- Site Settings is unique: singleton pattern with custom form (4 sections: Branding, Contact Info, Social Links, Footer)
+- Client Logos page has custom columns: logo thumbnail (CSS bg-image), Homepage badge (Shown/Hidden), PublishedBadge
+- Team Members page has photo thumbnail (CSS bg-image, rounded-full), name+title combined column
+- All API routes follow standard pattern: GET (list), POST (create), PUT (bulk reorder), GET/PUT/DELETE (single)
