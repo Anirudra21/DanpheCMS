@@ -1321,3 +1321,47 @@ Stage Summary:
 - All 3 public forms now persist to Lead table with correct source values
 - Admin leads page has source tabs + date range + CSV export
 - Email notification stub ready for Resend/Nodemailer integration
+---
+Task ID: db-migration-rewire
+Agent: main
+Task: Migrate all hardcoded content to database and rewire public pages to use Prisma queries
+
+
+Work Log:
+- Confirmed database is SQLite (MySQL unavailable — no root access in sandbox)
+- Created comprehensive seed script (prisma/seed-content.ts) with idempotent upsert pattern
+- Seeded all content: 1 SiteSetting, 19 NavItems (7 HEADER + 5 FOOTER_COMPANY + 4 FOOTER_SOLUTIONS + 3 FOOTER_INFO), 9 Solutions with 74 SolutionFeatures, 8 Stats, 4 TeamMembers, 5 Testimonials, 47 ClientLogos, 5 Posts (NEWS_EVENT), 13 HomepageSections
+- Created src/lib/queries.ts with server-side Prisma query functions + ISR helpers
+- Created /api/public-data endpoint (aggregated public data, 5min ISR revalidation)
+- Rewired src/app/page.tsx: converted to server component, fetches 6 data sources in parallel, parses structured HomepageSection body fields (pipe-separated, newline-separated), passes parsed data as props to 15 section components
+- Rewired Header.tsx: fetches from /api/public-data, replaces NAV_ITEMS, email, phone, social URLs, logo with DB values
+- Rewired Footer.tsx: fetches from /api/public-data, replaces 3 menu arrays, social links, contact info, copyright with DB values
+- Rewired 10 homepage section components (HeroSection, TrustedSection, ValueSection, ModuleSection, OutcomesSection, FeaturesSection, ComparisonSection, OpenSourceSection, TechSection, InternationalSection, TestimonialsSection, FAQSection, ContactSection, SubscribeSection) — all now accept data as props
+- Rewired solutions/page.tsx: server component, fetches Solutions from DB, created SolutionsContent.tsx client wrapper
+- Rewired solution/[slug]/page.tsx: uses getSolutionBySlug + generateStaticParams from DB
+- Rewired clients/page.tsx: server component, fetches ClientLogos, created ClientsContent.tsx client wrapper
+- Rewired company/page.tsx: server component, fetches Stats (slice 4-7) + TeamMembers, created CompanyContent.tsx
+- Rewired news-events/page.tsx: server component, fetches Posts (NEWS_EVENT, PUBLISHED), created NewsEventsContent.tsx
+- Rewired careers/page.tsx: server component, fetches Jobs (OPEN), renders job listing or empty state, created CareersContent.tsx
+- Rewired contact/page.tsx: server component, fetches SiteSettings for contact info/map, form posts to /api/leads with source=CONTACT, created ContactContent.tsx
+- Fixed empty heading fallback pattern (heading || subheading) for sections with pipe-separated data in DB
+- Lint: only 2 pre-existing errors in admin/login (unrelated)
+
+Verification (agent-browser):
+- Homepage: all 12 h2 headings render from DB data, 9 solution modules from DB with tabs, 5 testimonials, 12 trusted logos, 6 FAQs, stats, team members all from database
+- Solutions page: 9 DB modules + 6 hardcoded additional modules + basic/advance feature lists
+- News & Events: 4 articles from DB (2023-2024 dates, correct authors)
+- Company page: 4 team members from DB, 4 stats (15+, 55+, 130+, 30+), service items remain hardcoded
+- Careers page: renders from Job model (currently 0 OPEN jobs → shows empty state)
+- Header: nav items, email, phone, social links, logo all from SiteSetting+NavItem
+- Footer: 3 menu columns from NavItem, contact info/social/copyright from SiteSetting
+- All admin CRUD pages (solutions, team, stats, testimonials, clients, etc.) show the seeded data
+
+Stage Summary:
+- Database: SQLite (provider=sqlite in schema.prisma). Prisma code is database-agnostic — switching to MySQL only requires changing provider + DATABASE_URL.
+- Files created: prisma/seed-content.ts, src/lib/queries.ts, src/app/api/public-data/route.ts
+- Files modified: src/app/page.tsx, src/components/danphe/Header.tsx, Footer.tsx, HeroSection.tsx, ModuleSection.tsx, TrustedSection.tsx, ValueSection.tsx, OutcomesSection.tsx, FeaturesSection.tsx, ComparisonSection.tsx, OpenSourceSection.tsx, TechSection.tsx, InternationalSection.tsx, TestimonialsSection.tsx, FAQSection.tsx, ContactSection.tsx, SubscribeSection.tsx
+- New client wrappers: SolutionsContent.tsx, ClientsContent.tsx, CompanyContent.tsx, NewsEventsContent.tsx, CareersContent.tsx, ContactContent.tsx
+- Modified server pages: solutions/page.tsx, solution/[slug]/page.tsx, clients/page.tsx, company/page.tsx, news-events/page.tsx, careers/page.tsx, contact/page.tsx
+- Contact page form now posts to /api/leads with source=CONTACT (was /api/contact)
+- All visual design, layout, colors, animations, framer-motion preserved exactly as before

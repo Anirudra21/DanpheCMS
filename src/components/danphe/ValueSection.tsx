@@ -6,13 +6,15 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Calendar, ArrowRight } from 'lucide-react';
 
-const valuePoints = [
-  'Helping our customer to take lead in their business using Information Technology',
-  'Time tested products to increase customer operational efficiency immediately',
-  "Availability of information's in right product will help in right decision making",
-];
+interface ValueSectionProps {
+  heading: string;
+  valuePoints: string[];
+  image: string;
+  ctaLabel: string;
+  ctaUrl: string;
+}
 
-export default function ValueSection() {
+export default function ValueSection({ heading, valuePoints, image, ctaLabel, ctaUrl }: ValueSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
@@ -36,7 +38,7 @@ export default function ValueSection() {
           >
             <div className="relative overflow-hidden rounded-3xl shadow-premium-lg border-l-4 border-danphe-accent">
               <Image
-                src="https://danphehealth.com/frontend/img/about-img.png"
+                src={image}
                 alt="Danphe Health about"
                 width={800}
                 height={600}
@@ -55,7 +57,7 @@ export default function ValueSection() {
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
             >
               <h2 className="font-heading mb-3 text-3xl font-bold leading-snug text-danphe-primary md:text-4xl">
-                What values DANPHE can ADD to your business
+                {heading}
               </h2>
               {/* Gradient underline bar */}
               <div className="mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-danphe-accent to-danphe-primary-light" />
@@ -99,11 +101,11 @@ export default function ValueSection() {
               className="mt-2 flex flex-col gap-3 sm:flex-row sm:gap-4"
             >
               <Link
-                href="/schedule-a-demo"
+                href={ctaUrl}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-danphe-accent px-6 py-3 text-sm font-semibold text-white shadow-premium transition-all duration-300 hover:shadow-glow-accent hover:bg-danphe-accent-light"
               >
                 <Calendar className="h-4 w-4" />
-                Schedule a Demo
+                {ctaLabel}
               </Link>
               <Link
                 href="/solutions"

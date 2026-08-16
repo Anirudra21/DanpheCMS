@@ -2,9 +2,23 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
-import { TESTIMONIALS } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star } from 'lucide-react';
+
+/* ------------------------------------------------------------------ */
+/*  Types                                                              */
+/* ------------------------------------------------------------------ */
+interface Testimonial {
+  name: string;
+  quote: string;
+  image: string;
+}
+
+interface TestimonialsSectionProps {
+  heading: string;
+  subheading: string;
+  testimonials: Testimonial[];
+}
 
 const STAR_COUNT = 5;
 
@@ -50,11 +64,7 @@ function StarRating() {
   );
 }
 
-function TestimonialCard({
-  testimonial,
-}: {
-  testimonial: (typeof TESTIMONIALS)[number];
-}) {
+function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <motion.div
       whileHover={{ y: -4 }}
@@ -111,7 +121,7 @@ function TestimonialCard({
   );
 }
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ heading, subheading, testimonials }: TestimonialsSectionProps) {
   const [current, setCurrent] = useState(0);
   const areaRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -119,9 +129,9 @@ export default function TestimonialsSection() {
   const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % TESTIMONIALS.length);
+      setCurrent((prev) => (prev + 1) % testimonials.length);
     }, 5000);
-  }, []);
+  }, [testimonials.length]);
 
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
@@ -139,7 +149,7 @@ export default function TestimonialsSection() {
   const handleMouseLeave = () => startTimer();
 
   // Compute visible indices: 1 on mobile, 3 on desktop
-  const indices = [0, 1, 2].map((i) => (current + i) % TESTIMONIALS.length);
+  const indices = [0, 1, 2].map((i) => (current + i) % testimonials.length);
 
   return (
     <section
@@ -161,12 +171,10 @@ export default function TestimonialsSection() {
           className="mb-14 text-center"
         >
           <h2 className="font-heading mb-3 text-3xl font-bold text-danphe-primary md:text-4xl">
-            See what our valuable clients tell about us
+            {heading}
           </h2>
           <p className="mx-auto max-w-xl text-sm leading-relaxed text-danphe-text">
-            Trusted by leading healthcare institutions across Nepal, our clients
-            share their experiences working with Danphe Health&apos;s hospital
-            management system.
+            {subheading}
           </p>
         </motion.div>
 
@@ -188,13 +196,13 @@ export default function TestimonialsSection() {
             >
               {/* Desktop: show 3 cards */}
               {indices.map((idx) => (
-                <div key={TESTIMONIALS[idx].name} className="hidden md:block">
-                  <TestimonialCard testimonial={TESTIMONIALS[idx]} />
+                <div key={testimonials[idx].name} className="hidden md:block">
+                  <TestimonialCard testimonial={testimonials[idx]} />
                 </div>
               ))}
               {/* Mobile: show only current, centered and well-padded */}
               <div className="mx-auto w-full max-w-md md:hidden">
-                <TestimonialCard testimonial={TESTIMONIALS[current]} />
+                <TestimonialCard testimonial={testimonials[current]} />
               </div>
             </motion.div>
           </AnimatePresence>
@@ -206,7 +214,7 @@ export default function TestimonialsSection() {
           role="tablist"
           aria-label="Testimonial navigation"
         >
-          {TESTIMONIALS.map((_, idx) => (
+          {testimonials.map((_, idx) => (
             <motion.button
               key={idx}
               role="tab"

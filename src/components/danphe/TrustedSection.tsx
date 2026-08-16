@@ -2,12 +2,21 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { TRUSTED_HOSPITALS } from '@/lib/constants';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 
-export default function TrustedSection() {
+interface Client {
+  name: string;
+  logo: string;
+}
+
+interface TrustedSectionProps {
+  heading: string;
+  clients: Client[];
+}
+
+export default function TrustedSection({ heading, clients }: TrustedSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
@@ -26,14 +35,14 @@ export default function TrustedSection() {
           className="mb-12 text-center"
         >
           <h2 className="font-heading mb-3 text-3xl font-bold text-danphe-primary md:text-4xl">
-            Trusted by Leading Healthcare Institutions
+            {heading}
           </h2>
         </motion.div>
 
         {/* Row 1 - scrolls left */}
         <div className="overflow-hidden">
           <div className="flex animate-marquee">
-            {[...TRUSTED_HOSPITALS, ...TRUSTED_HOSPITALS].map((hospital, idx) => (
+            {[...clients, ...clients].map((hospital, idx) => (
               <div
                 key={`r1-${idx}`}
                 className="mx-2 flex-shrink-0 bg-white rounded-xl border border-danphe-border/30 px-6 py-4 transition-shadow hover:shadow-md"
@@ -55,7 +64,7 @@ export default function TrustedSection() {
         {/* Row 2 - scrolls right (reverse) */}
         <div className="mt-4 overflow-hidden">
           <div className="flex animate-marquee" style={{ animationDirection: 'reverse' }}>
-            {[...TRUSTED_HOSPITALS, ...TRUSTED_HOSPITALS].map((hospital, idx) => (
+            {[...clients, ...clients].map((hospital, idx) => (
               <div
                 key={`r2-${idx}`}
                 className="mx-2 flex-shrink-0 bg-white rounded-xl border border-danphe-border/30 px-6 py-4 transition-shadow hover:shadow-md"

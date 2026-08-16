@@ -3,9 +3,23 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MODULES } from '@/lib/constants';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight, Check } from 'lucide-react';
+
+interface Module {
+  name: string;
+  slug: string;
+  href: string;
+  icon: string;
+  title: string;
+  description: string;
+  features: string[];
+  image: string;
+}
+
+interface ModuleSectionProps {
+  modules: Module[];
+}
 
 const CATEGORY_MAP: Record<string, string[]> = {
   Clinical: [
@@ -47,19 +61,19 @@ const FEATURE_ITEM = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-export default function ModuleSection() {
+export default function ModuleSection({ modules }: ModuleSectionProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [activeFilter, setActiveFilter] = useState<Category>('All');
   const [showAllFeatures, setShowAllFeatures] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
-  const activeModule = MODULES[activeIdx];
+  const activeModule = modules[activeIdx];
 
   const goPrev = () =>
-    setActiveIdx((i) => (i === 0 ? MODULES.length - 1 : i - 1));
+    setActiveIdx((i) => (i === 0 ? modules.length - 1 : i - 1));
   const goNext = () =>
-    setActiveIdx((i) => (i === MODULES.length - 1 ? 0 : i + 1));
+    setActiveIdx((i) => (i === modules.length - 1 ? 0 : i + 1));
 
   const selectModule = (idx: number, fromFilteredClick = false) => {
     setActiveIdx(idx);
@@ -143,7 +157,7 @@ export default function ModuleSection() {
         {/* 3x3 Bento Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
-            {MODULES.map((mod, idx) => {
+            {modules.map((mod, idx) => {
               const visible = isModuleVisible(mod.name);
               const isActive = idx === activeIdx;
               return (
@@ -308,7 +322,7 @@ export default function ModuleSection() {
                 <span className="text-sm font-medium text-danphe-text">
                   <span className="font-bold text-danphe-primary">{String(activeIdx + 1).padStart(2, '0')}</span>
                   <span className="mx-1">/</span>
-                  {String(MODULES.length).padStart(2, '0')}
+                  {String(modules.length).padStart(2, '0')}
                 </span>
                 <div className="flex gap-2">
                   <button

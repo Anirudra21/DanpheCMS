@@ -11,6 +11,29 @@ import {
   Globe,
   Clock,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
+/* ------------------------------------------------------------------ */
+/*  Types                                                              */
+/* ------------------------------------------------------------------ */
+interface HeroStat {
+  label: string;
+  value: number;
+  suffix: string;
+}
+
+interface HeroSectionProps {
+  heading: string;
+  subheading: string;
+  ctaLabel: string;
+  ctaUrl: string;
+  stats: HeroStat[];
+}
+
+/* ------------------------------------------------------------------ */
+/*  Icon mapping (kept local — icons are React components)            */
+/* ------------------------------------------------------------------ */
+const ICONS: LucideIcon[] = [Building2, Layers, Globe, Clock];
 
 /* ------------------------------------------------------------------ */
 /*  useCounter — animates a number from 0 → target using rAF          */
@@ -51,16 +74,6 @@ function useCounter(target: number, duration = 2000, startOnMount = true, startD
 }
 
 /* ------------------------------------------------------------------ */
-/*  Stats data                                                        */
-/* ------------------------------------------------------------------ */
-const stats = [
-  { icon: Building2, value: 60, suffix: '+', label: 'Hospitals' },
-  { icon: Layers, value: 9, suffix: '+', label: 'Integrated Modules' },
-  { icon: Globe, value: 100, suffix: '%', label: 'Web-Based' },
-  { icon: Clock, value: 24, suffix: '/7', label: 'Support' },
-];
-
-/* ------------------------------------------------------------------ */
 /*  Chart bar heights                                                 */
 /* ------------------------------------------------------------------ */
 const chartBarHeights = [40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88];
@@ -68,20 +81,20 @@ const chartBarHeights = [40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88];
 /* ------------------------------------------------------------------ */
 /*  Component                                                         */
 /* ------------------------------------------------------------------ */
-export default function HeroSection() {
-  const hospitals = useCounter(60, 2200);
-  const modules = useCounter(9, 1600);
-  const webBased = useCounter(100, 2400);
-  const support = useCounter(24, 1800);
+export default function HeroSection({ heading, subheading, ctaLabel, ctaUrl, stats }: HeroSectionProps) {
+  const durations = [2200, 1600, 2400, 1800];
+  const counter0 = useCounter(stats[0]?.value || 0, durations[0]);
+  const counter1 = useCounter(stats[1]?.value || 0, durations[1]);
+  const counter2 = useCounter(stats[2]?.value || 0, durations[2]);
+  const counter3 = useCounter(stats[3]?.value || 0, durations[3]);
+  const counters = [counter0, counter1, counter2, counter3];
 
   // Dashboard stat counters (start after 1.5s preloader delay + extra offset)
   const patientsToday = useCounter(247, 1800, true, 2000);
   const bedsOccupied = useCounter(182, 1800, true, 2300);
 
   // Floating card counter
-  const floatingHospitals = useCounter(60, 1600, true, 2500);
-
-  const counters = [hospitals, modules, webBased, support];
+  const floatingHospitals = useCounter(stats[0]?.value || 60, 1600, true, 2500);
 
   // Base delay for dashboard animations (accounts for preloader)
   const dashDelay = 1.2;
@@ -134,7 +147,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-5 max-w-2xl text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-[3.25rem] xl:text-6xl"
           >
-            Enterprise-Grade, Open-Source Hospital Management System
+            {heading}
           </motion.h1>
 
           {/* Sub-headline */}
@@ -144,7 +157,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.35 }}
             className="mt-4 max-w-xl text-base font-semibold text-white/90 sm:text-lg md:text-xl"
           >
-            Complete HIMS with Integrated EMR & EHR — Trusted by 60+ Hospitals
+            {subheading}
           </motion.p>
 
           {/* CTA buttons */}
@@ -155,11 +168,11 @@ export default function HeroSection() {
             className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4"
           >
             <Link
-              href="/schedule-a-demo"
+              href={ctaUrl}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-danphe-accent px-6 py-3 text-sm font-semibold text-white shadow-glow-accent transition-all duration-300 hover:bg-danphe-accent-light hover:shadow-lg"
             >
               <Calendar className="h-4 w-4" />
-              Schedule a Demo
+              {ctaLabel}
             </Link>
             <Link
               href="/solutions"
@@ -177,19 +190,22 @@ export default function HeroSection() {
             transition={{ duration: 0.7, delay: 0.65 }}
             className="mt-10 grid w-full max-w-2xl grid-cols-2 gap-3 sm:mt-12 lg:max-w-none lg:grid-cols-4"
           >
-            {stats.map((stat, idx) => (
-              <div
-                key={stat.label}
-                className="glass-dark flex flex-col items-center gap-1.5 rounded-xl px-4 py-3 sm:py-4"
-              >
-                <stat.icon className="h-5 w-5 text-danphe-accent-light" />
-                <span className="text-2xl font-bold text-white md:text-3xl">
-                  {counters[idx]}
-                  {stat.suffix}
-                </span>
-                <span className="text-xs text-white/70 sm:text-sm">{stat.label}</span>
-              </div>
-            ))}
+            {stats.map((stat, idx) => {
+              const StatIcon = ICONS[idx] || Building2;
+              return (
+                <div
+                  key={stat.label}
+                  className="glass-dark flex flex-col items-center gap-1.5 rounded-xl px-4 py-3 sm:py-4"
+                >
+                  <StatIcon className="h-5 w-5 text-danphe-accent-light" />
+                  <span className="text-2xl font-bold text-white md:text-3xl">
+                    {counters[idx]}
+                    {stat.suffix}
+                  </span>
+                  <span className="text-xs text-white/70 sm:text-sm">{stat.label}</span>
+                </div>
+              );
+            })}
           </motion.div>
         </div>
 

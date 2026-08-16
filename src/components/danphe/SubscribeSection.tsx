@@ -4,7 +4,12 @@ import { useState, useRef } from 'react';
 import { Mail, CheckCircle, Sparkles, Loader2 } from 'lucide-react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
-export default function SubscribeSection() {
+interface SubscribeSectionProps {
+  heading: string;
+  subheading: string;
+}
+
+export default function SubscribeSection({ heading, subheading }: SubscribeSectionProps) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -80,10 +85,10 @@ export default function SubscribeSection() {
           </motion.div>
 
           <h2 className="font-heading mb-4 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
-            Subscribe for a Transformative Demo of Our Cutting-Edge Solutions!
+            {heading}
           </h2>
           <p className="mb-8 max-w-2xl mx-auto text-base text-white/90 sm:text-lg">
-            Subscribe now for a personalized demo and unlock the future with innovative solutions tailored to enhance efficiency and elevate your overall experience.
+            {subheading}
           </p>
 
           <AnimatePresence mode="wait">

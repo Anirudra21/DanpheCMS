@@ -3,35 +3,25 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Eye, Unlock, Users, TrendingDown } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-const benefits = [
-  {
-    icon: Eye,
-    title: 'Full Transparency',
-    description:
-      'Review, audit, and verify every line of code. Complete visibility into how your patient data is handled.',
-  },
-  {
-    icon: Unlock,
-    title: 'No Vendor Lock-in',
-    description:
-      'Own your data and infrastructure. Migrate, customize, and extend without restrictions.',
-  },
-  {
-    icon: Users,
-    title: 'Community Driven',
-    description:
-      'Benefit from contributions, bug fixes, and feature requests from a global community of healthcare technology professionals.',
-  },
-  {
-    icon: TrendingDown,
-    title: 'Cost Effective',
-    description:
-      'Eliminate expensive licensing fees. Invest your budget in what matters — patient care and hospital operations.',
-  },
-] as const;
+/* ------------------------------------------------------------------ */
+/*  Icon mapping (kept local — icons are React components)            */
+/* ------------------------------------------------------------------ */
+const ICONS: LucideIcon[] = [Eye, Unlock, Users, TrendingDown];
 
-export default function OpenSourceSection() {
+interface OpenSourceBenefit {
+  title: string;
+  description: string;
+}
+
+interface OpenSourceSectionProps {
+  heading: string;
+  subheading: string;
+  benefits: OpenSourceBenefit[];
+}
+
+export default function OpenSourceSection({ heading, subheading, benefits }: OpenSourceSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
@@ -49,17 +39,16 @@ export default function OpenSourceSection() {
           className="mb-12 text-center"
         >
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
-            Why Open-Source HMIS?
+            {heading}
           </h2>
           <p className="mx-auto max-w-2xl text-base text-danphe-text">
-            Transparency, flexibility, and community-driven innovation — the foundation of
-            trustworthy healthcare software.
+            {subheading}
           </p>
         </motion.div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {benefits.map((item, idx) => {
-            const Icon = item.icon;
+            const Icon = ICONS[idx] || Eye;
             return (
               <motion.div
                 key={item.title}

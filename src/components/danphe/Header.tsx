@@ -10,7 +10,6 @@ import {
   SheetTitle,
   SheetClose,
 } from '@/components/ui/sheet';
-import { NAV_ITEMS } from '@/lib/constants';
 import {
   Mail,
   Phone,
@@ -22,6 +21,29 @@ import {
   Youtube,
 } from 'lucide-react';
 
+interface NavItem {
+  label: string;
+  url: string;
+  location: string;
+}
+
+interface SiteSetting {
+  logo: string;
+  email: string;
+  phone: string;
+  facebookUrl: string;
+  instagramUrl: string;
+  address: string;
+  mapEmbedUrl: string;
+  footerText: string;
+  copyrightText: string;
+}
+
+interface PublicData {
+  siteSettings: SiteSetting | null;
+  navByLocation: Record<string, NavItem[]>;
+}
+
 /* Hero section is ~682px. While over hero, use light text on dark bg.
    After scrolling past, switch to dark text on glass bg. */
 const HERO_BREAKPOINT = 500;
@@ -31,6 +53,14 @@ export default function Header() {
   const [overHero, setOverHero] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [siteData, setSiteData] = useState<PublicData | null>(null);
+
+  useEffect(() => {
+    fetch('/api/public-data')
+      .then((res) => res.json())
+      .then((data) => setSiteData(data))
+      .catch(() => {});
+  }, []);
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -46,6 +76,16 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  if (!siteData) return null;
+
+  const settings = siteData.siteSettings;
+  const headerNav = siteData.navByLocation.HEADER ?? [];
+  const logoUrl = settings?.logo || 'https://danphehealth.com/frontend/img/logo.png';
+  const email = settings?.email || '';
+  const phone = settings?.phone || '';
+  const facebookUrl = settings?.facebookUrl || '';
+  const instagramUrl = settings?.instagramUrl || '';
 
   /* Dynamic text/border colors based on position */
   const contactTextColor = overHero && !scrolled
@@ -89,7 +129,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" aria-label="Danphe Health Home">
             <Image
-              src="https://danphehealth.com/frontend/img/logo.png"
+              src={logoUrl}
               alt="Danphe Health Logo"
               width={160}
               height={44}
@@ -105,21 +145,21 @@ export default function Header() {
           <div className="hidden items-center gap-4 lg:flex">
             {/* Email */}
             <a
-              href="mailto:info@danphehealth.com"
+              href={`mailto:${email}`}
               className={`flex items-center gap-1.5 text-sm transition-colors ${contactTextColor} ${contactHoverColor}`}
               aria-label="Email Danphe Health"
             >
               <Mail className="h-3.5 w-3.5" />
-              <span>info@danphehealth.com</span>
+              <span>{email}</span>
             </a>
             {/* Phone */}
             <a
-              href="tel:+9779852088004"
+              href={`tel:${phone}`}
               className={`flex items-center gap-1.5 text-sm transition-colors ${contactTextColor} ${contactHoverColor}`}
               aria-label="Call Danphe Health"
             >
               <Phone className="h-3.5 w-3.5" />
-              <span>+977-9852088004</span>
+              <span>{phone}</span>
             </a>
 
             {/* Divider */}
@@ -128,8 +168,8 @@ export default function Header() {
             {/* Social icons */}
             <div className="flex items-center gap-2">
               {[
-                { icon: Facebook, href: 'https://www.facebook.com/DapheHealth', label: 'Facebook' },
-                { icon: Instagram, href: 'https://www.instagram.com/danphe_health/', label: 'Instagram' },
+                { icon: Facebook, href: facebookUrl, label: 'Facebook' },
+                { icon: Instagram, href: instagramUrl, label: 'Instagram' },
                 { icon: Linkedin, href: '#', label: 'LinkedIn' },
                 { icon: Youtube, href: '#', label: 'YouTube' },
               ].map((s) => (
@@ -175,7 +215,7 @@ export default function Header() {
                 <div className="flex items-center justify-between border-b border-white/10 p-5">
                   <Link href="/" onClick={() => setMobileOpen(false)}>
                     <Image
-                      src="https://danphehealth.com/frontend/img/logo.png"
+                      src={logoUrl}
                       alt="Danphe Health Logo"
                       width={140}
                       height={40}
@@ -199,10 +239,10 @@ export default function Header() {
                   aria-label="Mobile navigation"
                 >
                   <div className="flex flex-col gap-1">
-                    {NAV_ITEMS.map((item, idx) => (
+                    {headerNav.map((item, idx) => (
                       <Link
                         key={item.label}
-                        href={item.href}
+                        href={item.url}
                         onClick={() => setMobileOpen(false)}
                         className="rounded-lg px-4 py-3 text-sm font-medium text-white/80 transition-all hover:bg-white/10 hover:text-white hover:pl-5"
                         style={{ transitionDelay: `${idx * 30}ms` }}
@@ -217,24 +257,24 @@ export default function Header() {
                 <div className="border-t border-white/10 p-5">
                   <div className="mb-4 flex flex-col gap-2 text-sm text-white/60">
                     <a
-                      href="mailto:info@danphehealth.com"
+                      href={`mailto:${email}`}
                       className="flex items-center gap-2 transition-colors hover:text-danphe-accent-light"
                     >
                       <Mail className="h-4 w-4" />
-                      info@danphehealth.com
+                      {email}
                     </a>
                     <a
-                      href="tel:+9779852088004"
+                      href={`tel:${phone}`}
                       className="flex items-center gap-2 transition-colors hover:text-danphe-accent-light"
                     >
                       <Phone className="h-4 w-4" />
-                      +977-9852088004
+                      {phone}
                     </a>
                   </div>
                   <div className="mb-4 flex items-center gap-3">
                     {[
-                      { icon: Facebook, href: 'https://www.facebook.com/DapheHealth', label: 'Facebook' },
-                      { icon: Instagram, href: 'https://www.instagram.com/danphe_health/', label: 'Instagram' },
+                      { icon: Facebook, href: facebookUrl, label: 'Facebook' },
+                      { icon: Instagram, href: instagramUrl, label: 'Instagram' },
                       { icon: Linkedin, href: '#', label: 'LinkedIn' },
                       { icon: Youtube, href: '#', label: 'YouTube' },
                     ].map((s) => (

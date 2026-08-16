@@ -14,7 +14,13 @@ type ContactFormData = {
   message: string;
 };
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  heading: string;
+  subheading: string;
+  email: string;
+}
+
+export default function ContactSection({ heading, subheading, email }: ContactSectionProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const ref = useRef(null);
@@ -61,15 +67,15 @@ export default function ContactSection() {
           className="mb-12 text-center"
         >
           <h2 className="font-heading mb-3 text-3xl font-bold text-danphe-primary md:text-4xl">
-            Let us know how we can help you.
+            {heading}
           </h2>
           <p className="text-danphe-text">
-            You can send an email to{' '}
+            {subheading}{' '}
             <a
-              href="mailto:info@danphehealth.com"
+              href={`mailto:${email}`}
               className="font-medium text-danphe-accent hover:underline"
             >
-              info@danphehealth.com
+              {email}
             </a>
           </p>
         </motion.div>

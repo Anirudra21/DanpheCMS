@@ -3,32 +3,26 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Globe, Server, ShieldCheck } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-const features = [
-  {
-    icon: Globe,
-    title: '100% Web-Based',
-    description:
-      'Access your hospital management system from any device with a modern web browser. No installations, no compatibility issues — just seamless access from anywhere.',
-    span: 2,
-  },
-  {
-    icon: Server,
-    title: 'Scalable Architecture',
-    description:
-      'From small clinics to large multi-specialty hospitals, Danphe scales with your organization. Handle increasing patient volumes and complex workflows effortlessly.',
-    span: 1,
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Secure by Design',
-    description:
-      'Role-based access controls, password-protected modules, and centralized database security ensure your sensitive healthcare data remains protected.',
-    span: 1,
-  },
-] as const;
+/* ------------------------------------------------------------------ */
+/*  Icon mapping (kept local — icons are React components)            */
+/* ------------------------------------------------------------------ */
+const ICONS: LucideIcon[] = [Globe, Server, ShieldCheck];
 
-export default function TechSection() {
+interface TechFeature {
+  title: string;
+  description: string;
+  span: number;
+}
+
+interface TechSectionProps {
+  heading: string;
+  subheading: string;
+  features: TechFeature[];
+}
+
+export default function TechSection({ heading, subheading, features }: TechSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
@@ -46,17 +40,16 @@ export default function TechSection() {
           className="mb-12 text-center"
         >
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
-            Built on Modern Technology
+            {heading}
           </h2>
           <p className="mx-auto max-w-2xl text-base text-danphe-text">
-            Designed for reliability, scalability, and performance in mission-critical healthcare
-            environments.
+            {subheading}
           </p>
         </motion.div>
 
         <div className="grid gap-6 lg:grid-cols-3">
           {features.map((item, idx) => {
-            const Icon = item.icon;
+            const Icon = ICONS[idx] || Globe;
             const isFirst = idx === 0;
             return (
               <motion.div

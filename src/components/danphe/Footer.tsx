@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -14,33 +15,28 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
-const siteMenu = [
-  { label: 'Company', href: '/company' },
-  { label: 'Our Clients', href: '/clients' },
-  { label: 'Career', href: '/careers' },
-  { label: 'News & Events', href: '/news-events' },
-  { label: 'Contact Us', href: '/contact' },
-];
+interface NavItem {
+  label: string;
+  url: string;
+  location: string;
+}
 
-const hmisMenu = [
-  { label: 'Patient Management', href: '/solution/patient-administration' },
-  { label: 'Materials (goods) Management', href: '/solution/inventory-management' },
-  { label: 'Revenue Management', href: '/solutions' },
-  { label: 'Hospital Employee Management (HR Management)', href: '/solutions' },
-];
+interface SiteSetting {
+  logo: string;
+  email: string;
+  phone: string;
+  facebookUrl: string;
+  instagramUrl: string;
+  address: string;
+  mapEmbedUrl: string;
+  footerText: string;
+  copyrightText: string;
+}
 
-const infoMenu = [
-  { label: 'FAQs', href: '#' },
-  { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms & Conditions', href: '#' },
-];
-
-const socialLinks = [
-  { icon: Facebook, href: 'https://www.facebook.com/DapheHealth', label: 'Facebook' },
-  { icon: Instagram, href: 'https://www.instagram.com/danphe_health/', label: 'Instagram' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Youtube, href: '#', label: 'YouTube' },
-];
+interface PublicData {
+  siteSettings: SiteSetting | null;
+  navByLocation: Record<string, NavItem[]>;
+}
 
 function FooterColumn({ heading, children }: { heading: string; children: React.ReactNode }) {
   return (
@@ -85,6 +81,36 @@ function SocialIcon({ icon: Icon, href, label }: { icon: React.ElementType; href
 }
 
 export default function Footer({ className }: { className?: string }) {
+  const [siteData, setSiteData] = useState<PublicData | null>(null);
+
+  useEffect(() => {
+    fetch('/api/public-data')
+      .then((res) => res.json())
+      .then((data) => setSiteData(data))
+      .catch(() => {});
+  }, []);
+
+  if (!siteData) return null;
+
+  const settings = siteData.siteSettings;
+  const siteMenu = siteData.navByLocation.FOOTER_COMPANY ?? [];
+  const hmisMenu = siteData.navByLocation.FOOTER_SOLUTIONS ?? [];
+  const infoMenu = siteData.navByLocation.FOOTER_INFO ?? [];
+  const facebookUrl = settings?.facebookUrl || '';
+  const instagramUrl = settings?.instagramUrl || '';
+  const address = settings?.address || '';
+  const phone = settings?.phone || '';
+  const email = settings?.email || '';
+  const footerText = settings?.footerText || '';
+  const copyrightText = settings?.copyrightText || '© Copyright 2024. All Rights Reserved.';
+
+  const socialLinks = [
+    { icon: Facebook, href: facebookUrl, label: 'Facebook' },
+    { icon: Instagram, href: instagramUrl, label: 'Instagram' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Youtube, href: '#', label: 'YouTube' },
+  ];
+
   return (
     <footer className={`bg-danphe-dark text-white ${className ?? ''}`} aria-label="Site footer">
       <div className="mx-auto max-w-7xl px-4 py-16 md:py-20">
@@ -93,7 +119,7 @@ export default function Footer({ className }: { className?: string }) {
           <FooterColumn heading="Site Menu">
             <ul className="space-y-3">
               {siteMenu.map((item) => (
-                <FooterLink key={item.label} href={item.href}>
+                <FooterLink key={item.label} href={item.url}>
                   {item.label}
                 </FooterLink>
               ))}
@@ -104,7 +130,7 @@ export default function Footer({ className }: { className?: string }) {
           <FooterColumn heading="HMIS with EMR Solutions">
             <ul className="space-y-3">
               {hmisMenu.map((item) => (
-                <FooterLink key={item.label} href={item.href}>
+                <FooterLink key={item.label} href={item.url}>
                   {item.label}
                 </FooterLink>
               ))}
@@ -115,7 +141,7 @@ export default function Footer({ className }: { className?: string }) {
           <FooterColumn heading="Info">
             <ul className="space-y-3">
               {infoMenu.map((item) => (
-                <FooterLink key={item.label} href={item.href}>
+                <FooterLink key={item.label} href={item.url}>
                   {item.label}
                 </FooterLink>
               ))}
@@ -128,28 +154,28 @@ export default function Footer({ className }: { className?: string }) {
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
                 <span className="text-sm text-white/75">
-                  Imark Digital Pvt. Ltd. Dillibazar, Kathmandu, Nepal
+                  {address}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
                 <span className="text-sm text-white/75">
-                  +977 9852088004, 9802310817
+                  {phone}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
                 <a
-                  href="mailto:info@danphehealth.com"
+                  href={`mailto:${email}`}
                   className="text-sm text-white/75 transition-colors hover:text-danphe-accent-light"
                 >
-                  info@danphehealth.com
+                  {email}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Globe className="h-4 w-4 flex-shrink-0 text-danphe-accent-light" />
                 <span className="text-sm text-white/75">
-                  www.danphecare.com / www.danphehealth.com
+                  {footerText}
                 </span>
               </li>
             </ul>
@@ -160,7 +186,7 @@ export default function Footer({ className }: { className?: string }) {
         <div className="mt-12 border-t border-white/8 pt-8">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
             <p className="text-sm text-white/60">
-              © Copyright 2024. All Rights Reserved.
+              {copyrightText}
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((link) => (

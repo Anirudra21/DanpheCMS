@@ -1,11 +1,22 @@
 'use client';
 
 import Image from 'next/image';
-import { FEATURE_CARDS } from '@/lib/constants';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
-export default function FeaturesSection() {
+interface FeatureCard {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface FeaturesSectionProps {
+  heading: string;
+  subheading: string;
+  featureCards: FeatureCard[];
+}
+
+export default function FeaturesSection({ heading, subheading, featureCards }: FeaturesSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
@@ -27,10 +38,10 @@ export default function FeaturesSection() {
           className="mb-12 text-center"
         >
           <h2 className="font-heading text-3xl font-bold text-danphe-primary md:text-4xl">
-            We Provide Trusted and Best Software
+            {heading}
           </h2>
           <p className="mt-3 text-danphe-text">
-            All-in-one hospital management solution for seamless operations
+            {subheading}
           </p>
           {/* Decorative gradient bar */}
           <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-danphe-accent to-danphe-primary-light" />
@@ -38,7 +49,7 @@ export default function FeaturesSection() {
 
         {/* Asymmetric bento grid: first card spans 2 cols, second & third in a row */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURE_CARDS.map((card, idx) => {
+          {featureCards.map((card, idx) => {
             const isFirst = idx === 0;
 
             return (

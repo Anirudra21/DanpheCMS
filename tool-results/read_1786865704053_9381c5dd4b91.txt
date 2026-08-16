@@ -1,0 +1,1857 @@
+     1→▲ Next.js 16.1.3 (Turbopack)
+     2→- Local:         http://localhost:3000
+     3→- Network:       http://21.0.20.194:3000
+     4→- Environments: .env
+     5→
+     6→✓ Starting...
+     7→⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+     8→✓ Ready in 1167ms
+     9→○ Compiling / ...
+    10→ GET / 200 in 4.2s (compile: 3.8s, render: 394ms)
+    11→ GET / 200 in 253ms (compile: 12ms, render: 241ms)
+    12→ GET /admin/login 200 in 1701ms (compile: 1224ms, render: 477ms)
+    13→⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+    14→Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+    15→ GET /api/auth/session 200 in 1059ms (compile: 969ms, render: 91ms)
+    16→ GET /admin/login 200 in 47ms (compile: 15ms, render: 32ms)
+    17→ GET /admin/login 200 in 629ms (compile: 13ms, render: 616ms)
+    18→ GET /api/auth/session 200 in 80ms (compile: 66ms, render: 14ms)
+    19→ GET /admin/login 200 in 38ms (compile: 4ms, render: 34ms)
+    20→ GET /admin/login 200 in 275ms (compile: 8ms, render: 267ms)
+    21→ GET /api/auth/session 200 in 141ms (compile: 51ms, render: 90ms)
+    22→ GET /admin/login 200 in 150ms (compile: 19ms, render: 131ms)
+    23→ GET /api/auth/providers 200 in 52ms (compile: 41ms, render: 11ms)
+    24→ GET /api/auth/csrf 200 in 14ms (compile: 5ms, render: 9ms)
+    25→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+    26→ POST /api/auth/callback/credentials 200 in 188ms (compile: 3ms, render: 185ms)
+    27→ GET /api/auth/session 200 in 16ms (compile: 2ms, render: 14ms)
+    28→ GET /admin/dashboard 200 in 196ms (compile: 99ms, proxy.ts: 76ms, render: 21ms)
+    29→ GET /admin/dashboard 200 in 172ms (compile: 16ms, proxy.ts: 44ms, render: 111ms)
+    30→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`solutions`.`id` FROM `main`.`solutions` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+    31→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`posts`.`id` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+    32→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`jobs`.`id` FROM `main`.`jobs` WHERE `main`.`jobs`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+    33→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE `main`.`leads`.`createdAt` >= ? LIMIT ? OFFSET ?) AS `sub`
+    34→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`source`, `main`.`leads`.`createdAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+    35→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+    36→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`team_members`.`id` FROM `main`.`team_members` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+    37→prisma:query SELECT COUNT(`main`.`leads`.`id`) AS `_count$id`, `main`.`leads`.`source` FROM `main`.`leads` WHERE 1=1 GROUP BY `main`.`leads`.`source` LIMIT ? OFFSET ?
+    38→prisma:query SELECT COUNT(`main`.`posts`.`id`) AS `_count$id`, `main`.`posts`.`type` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? GROUP BY `main`.`posts`.`type` LIMIT ? OFFSET ?
+    39→ GET /api/admin/dashboard 200 in 177ms (compile: 104ms, render: 73ms)
+    40→ GET /admin/posts 200 in 467ms (compile: 398ms, proxy.ts: 13ms, render: 56ms)
+    41→ GET /api/auth/session 200 in 92ms (compile: 73ms, render: 19ms)
+    42→prisma:query SELECT `main`.`posts`.`id`, `main`.`posts`.`title`, `main`.`posts`.`slug`, `main`.`posts`.`coverImageUrl`, `main`.`posts`.`author`, `main`.`posts`.`publishedAt`, `main`.`posts`.`excerpt`, `main`.`posts`.`body`, `main`.`posts`.`type`, `main`.`posts`.`status`, `main`.`posts`.`createdAt`, `main`.`posts`.`updatedAt` FROM `main`.`posts` WHERE `main`.`posts`.`type` = ? ORDER BY CASE WHEN `main`.`posts`.`publishedAt` IS NULL THEN 1 ELSE 0 END, `main`.`posts`.`publishedAt` DESC, `main`.`posts`.`createdAt` DESC LIMIT ? OFFSET ?
+    43→ GET /api/posts?type=NEWS_EVENT 200 in 242ms (compile: 224ms, render: 18ms)
+    44→ GET /admin/community 200 in 195ms (compile: 127ms, proxy.ts: 13ms, render: 55ms)
+    45→ GET /api/auth/session 200 in 104ms (compile: 55ms, render: 49ms)
+    46→ GET /api/posts?type=COMMUNITY 200 in 57ms (compile: 32ms, render: 25ms)
+    47→prisma:query SELECT 1
+    48→prisma:query SELECT `main`.`posts`.`id`, `main`.`posts`.`title`, `main`.`posts`.`slug`, `main`.`posts`.`coverImageUrl`, `main`.`posts`.`author`, `main`.`posts`.`publishedAt`, `main`.`posts`.`excerpt`, `main`.`posts`.`body`, `main`.`posts`.`type`, `main`.`posts`.`status`, `main`.`posts`.`createdAt`, `main`.`posts`.`updatedAt` FROM `main`.`posts` WHERE `main`.`posts`.`type` = ? ORDER BY CASE WHEN `main`.`posts`.`publishedAt` IS NULL THEN 1 ELSE 0 END, `main`.`posts`.`publishedAt` DESC, `main`.`posts`.`createdAt` DESC LIMIT ? OFFSET ?
+    49→ GET /admin/careers 200 in 209ms (compile: 67ms, proxy.ts: 13ms, render: 128ms)
+    50→ GET /api/auth/session 200 in 102ms (compile: 74ms, render: 28ms)
+    51→prisma:query SELECT `main`.`jobs`.`id`, `main`.`jobs`.`title`, `main`.`jobs`.`department`, `main`.`jobs`.`location`, `main`.`jobs`.`employmentType`, `main`.`jobs`.`description`, `main`.`jobs`.`requirements`, `main`.`jobs`.`applyEmail`, `main`.`jobs`.`status`, `main`.`jobs`.`order`, `main`.`jobs`.`postedAt`, `main`.`jobs`.`createdAt`, `main`.`jobs`.`updatedAt` FROM `main`.`jobs` WHERE 1=1 ORDER BY `main`.`jobs`.`postedAt` DESC LIMIT ? OFFSET ?
+    52→ GET /api/jobs 200 in 121ms (compile: 49ms, render: 72ms)
+    53→○ Compiling /admin/posts/new ...
+    54→ GET /admin/posts/new 200 in 4.1s (compile: 3.7s, proxy.ts: 8ms, render: 384ms)
+    55→ GET /api/auth/session 200 in 105ms (compile: 78ms, render: 27ms)
+    56→ GET /admin/careers/new 200 in 1550ms (compile: 1163ms, proxy.ts: 7ms, render: 380ms)
+    57→ GET /api/auth/session 200 in 161ms (compile: 72ms, render: 88ms)
+    58→ GET /admin/posts 200 in 81ms (compile: 7ms, proxy.ts: 7ms, render: 68ms)
+    59→ GET /api/auth/session 200 in 92ms (compile: 58ms, render: 34ms)
+    60→prisma:query SELECT 1
+    61→prisma:query SELECT `main`.`posts`.`id`, `main`.`posts`.`title`, `main`.`posts`.`slug`, `main`.`posts`.`coverImageUrl`, `main`.`posts`.`author`, `main`.`posts`.`publishedAt`, `main`.`posts`.`excerpt`, `main`.`posts`.`body`, `main`.`posts`.`type`, `main`.`posts`.`status`, `main`.`posts`.`createdAt`, `main`.`posts`.`updatedAt` FROM `main`.`posts` WHERE `main`.`posts`.`type` = ? ORDER BY CASE WHEN `main`.`posts`.`publishedAt` IS NULL THEN 1 ELSE 0 END, `main`.`posts`.`publishedAt` DESC, `main`.`posts`.`createdAt` DESC LIMIT ? OFFSET ?
+    62→ GET /api/posts?type=NEWS_EVENT 200 in 38ms (compile: 4ms, render: 34ms)
+    63→ GET /admin/posts 200 in 70ms (compile: 4ms, proxy.ts: 14ms, render: 52ms)
+    64→ GET /api/auth/session 200 in 128ms (compile: 98ms, render: 29ms)
+    65→ GET /api/posts?type=NEWS_EVENT 200 in 26ms (compile: 2ms, render: 23ms)
+    66→prisma:query SELECT `main`.`posts`.`id`, `main`.`posts`.`title`, `main`.`posts`.`slug`, `main`.`posts`.`coverImageUrl`, `main`.`posts`.`author`, `main`.`posts`.`publishedAt`, `main`.`posts`.`excerpt`, `main`.`posts`.`body`, `main`.`posts`.`type`, `main`.`posts`.`status`, `main`.`posts`.`createdAt`, `main`.`posts`.`updatedAt` FROM `main`.`posts` WHERE `main`.`posts`.`type` = ? ORDER BY CASE WHEN `main`.`posts`.`publishedAt` IS NULL THEN 1 ELSE 0 END, `main`.`posts`.`publishedAt` DESC, `main`.`posts`.`createdAt` DESC LIMIT ? OFFSET ?
+    67→ GET /admin/careers 200 in 65ms (compile: 5ms, proxy.ts: 10ms, render: 49ms)
+    68→ GET /api/auth/session 200 in 118ms (compile: 100ms, render: 18ms)
+    69→ GET /api/jobs 200 in 16ms (compile: 3ms, render: 13ms)
+    70→prisma:query SELECT 1
+    71→prisma:query SELECT `main`.`jobs`.`id`, `main`.`jobs`.`title`, `main`.`jobs`.`department`, `main`.`jobs`.`location`, `main`.`jobs`.`employmentType`, `main`.`jobs`.`description`, `main`.`jobs`.`requirements`, `main`.`jobs`.`applyEmail`, `main`.`jobs`.`status`, `main`.`jobs`.`order`, `main`.`jobs`.`postedAt`, `main`.`jobs`.`createdAt`, `main`.`jobs`.`updatedAt` FROM `main`.`jobs` WHERE 1=1 ORDER BY `main`.`jobs`.`postedAt` DESC LIMIT ? OFFSET ?
+    72→prisma:query SELECT `main`.`jobs`.`id`, `main`.`jobs`.`title`, `main`.`jobs`.`department`, `main`.`jobs`.`location`, `main`.`jobs`.`employmentType`, `main`.`jobs`.`description`, `main`.`jobs`.`requirements`, `main`.`jobs`.`applyEmail`, `main`.`jobs`.`status`, `main`.`jobs`.`order`, `main`.`jobs`.`postedAt`, `main`.`jobs`.`createdAt`, `main`.`jobs`.`updatedAt` FROM `main`.`jobs` WHERE `main`.`jobs`.`status` = ? ORDER BY `main`.`jobs`.`postedAt` DESC LIMIT ? OFFSET ?
+    73→ GET /api/jobs?status=CLOSED 200 in 12ms (compile: 5ms, render: 8ms)
+    74→ GET /admin/posts/new 200 in 204ms (compile: 5ms, proxy.ts: 16ms, render: 183ms)
+    75→ GET /api/auth/session 200 in 162ms (compile: 106ms, render: 56ms)
+    76→prisma:query SELECT 1
+    77→prisma:query SELECT `main`.`posts`.`id`, `main`.`posts`.`title`, `main`.`posts`.`slug`, `main`.`posts`.`coverImageUrl`, `main`.`posts`.`author`, `main`.`posts`.`publishedAt`, `main`.`posts`.`excerpt`, `main`.`posts`.`body`, `main`.`posts`.`type`, `main`.`posts`.`status`, `main`.`posts`.`createdAt`, `main`.`posts`.`updatedAt` FROM `main`.`posts` WHERE (`main`.`posts`.`slug` = ? AND 1=1) LIMIT ? OFFSET ?
+    78→ POST /api/posts 201 in 24ms (compile: 5ms, render: 19ms)
+    79→prisma:query INSERT INTO `main`.`posts` (`id`, `title`, `slug`, `coverImageUrl`, `author`, `publishedAt`, `excerpt`, `body`, `type`, `status`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `title` AS `title`, `slug` AS `slug`, `coverImageUrl` AS `coverImageUrl`, `author` AS `author`, `publishedAt` AS `publishedAt`, `excerpt` AS `excerpt`, `body` AS `body`, `type` AS `type`, `status` AS `status`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+    80→ GET /admin/posts 200 in 61ms (compile: 9ms, proxy.ts: 28ms, render: 25ms)
+    81→ GET /admin/posts 200 in 83ms (compile: 9ms, proxy.ts: 12ms, render: 62ms)
+    82→prisma:query SELECT `main`.`posts`.`id`, `main`.`posts`.`title`, `main`.`posts`.`slug`, `main`.`posts`.`coverImageUrl`, `main`.`posts`.`author`, `main`.`posts`.`publishedAt`, `main`.`posts`.`excerpt`, `main`.`posts`.`body`, `main`.`posts`.`type`, `main`.`posts`.`status`, `main`.`posts`.`createdAt`, `main`.`posts`.`updatedAt` FROM `main`.`posts` WHERE `main`.`posts`.`type` = ? ORDER BY CASE WHEN `main`.`posts`.`publishedAt` IS NULL THEN 1 ELSE 0 END, `main`.`posts`.`publishedAt` DESC, `main`.`posts`.`createdAt` DESC LIMIT ? OFFSET ?
+    83→ GET /api/posts?type=NEWS_EVENT 200 in 11ms (compile: 3ms, render: 8ms)
+    84→ GET / 200 in 168ms (compile: 4ms, render: 163ms)
+    85→ GET / 200 in 131ms (compile: 4ms, render: 127ms)
+    86→ GET / 200 in 119ms (compile: 5ms, render: 114ms)
+    87→ GET /admin/login 200 in 46ms (compile: 6ms, render: 40ms)
+    88→ GET /api/auth/session 200 in 59ms (compile: 46ms, render: 13ms)
+    89→ GET /admin/login 200 in 18ms (compile: 4ms, render: 14ms)
+    90→✓ Compiled in 1147ms
+    91→ GET /admin/login 200 in 253ms (compile: 72ms, render: 181ms)
+    92→ GET /api/auth/session 200 in 95ms (compile: 76ms, render: 19ms)
+    93→ GET /admin/login 200 in 47ms (compile: 5ms, render: 43ms)
+    94→ GET /api/auth/providers 200 in 143ms (compile: 104ms, render: 39ms)
+    95→ GET /api/auth/csrf 200 in 61ms (compile: 49ms, render: 12ms)
+    96→prisma:query SELECT 1
+    97→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+    98→ POST /api/auth/callback/credentials 200 in 214ms (compile: 3ms, render: 211ms)
+    99→ GET /api/auth/session 200 in 54ms (compile: 32ms, render: 22ms)
+   100→ GET /admin/dashboard 200 in 46ms (compile: 15ms, proxy.ts: 8ms, render: 23ms)
+   101→ GET /admin/dashboard 200 in 113ms (compile: 6ms, proxy.ts: 23ms, render: 84ms)
+   102→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`solutions`.`id` FROM `main`.`solutions` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+   103→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`posts`.`id` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+   104→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`source`, `main`.`leads`.`createdAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+   105→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`jobs`.`id` FROM `main`.`jobs` WHERE `main`.`jobs`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+   106→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+   107→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE `main`.`leads`.`createdAt` >= ? LIMIT ? OFFSET ?) AS `sub`
+   108→prisma:query SELECT 1
+   109→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`team_members`.`id` FROM `main`.`team_members` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+   110→prisma:query SELECT COUNT(`main`.`leads`.`id`) AS `_count$id`, `main`.`leads`.`source` FROM `main`.`leads` WHERE 1=1 GROUP BY `main`.`leads`.`source` LIMIT ? OFFSET ?
+   111→prisma:query SELECT COUNT(`main`.`posts`.`id`) AS `_count$id`, `main`.`posts`.`type` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? GROUP BY `main`.`posts`.`type` LIMIT ? OFFSET ?
+   112→ GET /api/admin/dashboard 200 in 28ms (compile: 3ms, render: 24ms)
+   113→ GET /api/auth/signout 200 in 68ms (compile: 48ms, render: 20ms)
+   114→ POST /api/auth/signout 302 in 65ms (compile: 49ms, render: 15ms)
+   115→ GET /admin/login 200 in 379ms (compile: 11ms, render: 368ms)
+   116→ GET /api/auth/session 200 in 138ms (compile: 98ms, render: 40ms)
+   117→ GET /admin/login 200 in 276ms (compile: 39ms, render: 238ms)
+   118→ GET /api/auth/providers 200 in 192ms (compile: 164ms, render: 28ms)
+   119→ GET /api/auth/csrf 200 in 41ms (compile: 3ms, render: 38ms)
+   120→prisma:query SELECT 1
+   121→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+   122→ POST /api/auth/callback/credentials 401 in 19ms (compile: 4ms, render: 15ms)
+   123→ GET /admin/login 200 in 144ms (compile: 15ms, render: 129ms)
+   124→ GET /api/auth/session 200 in 115ms (compile: 98ms, render: 16ms)
+   125→ GET /admin/login 200 in 64ms (compile: 6ms, render: 57ms)
+   126→⚠ Cross origin request detected from preview-chat-3272d5af-5b42-49c9-8d5e-6321367b97a3.space-z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+   127→Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+   128→✓ Compiled in 280ms
+   129→✓ Compiled in 306ms
+   130→ GET /admin/login 200 in 597ms (compile: 117ms, render: 481ms)
+   131→ GET /api/auth/session 200 in 143ms (compile: 100ms, render: 43ms)
+   132→ GET /admin/login 200 in 113ms (compile: 14ms, render: 99ms)
+   133→ GET /api/auth/providers 200 in 123ms (compile: 105ms, render: 18ms)
+   134→ GET /api/auth/csrf 200 in 17ms (compile: 4ms, render: 13ms)
+   135→prisma:query SELECT 1
+   136→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+   137→ POST /api/auth/callback/credentials 401 in 64ms (compile: 4ms, render: 60ms)
+   138→ GET /admin/login 200 in 113ms (compile: 6ms, render: 107ms)
+   139→ GET /api/auth/session 200 in 142ms (compile: 126ms, render: 16ms)
+   140→ GET /admin/login 200 in 100ms (compile: 8ms, render: 92ms)
+   141→ GET / 200 in 152ms (compile: 4ms, render: 147ms)
+   142→ GET / 200 in 99ms (compile: 3ms, render: 96ms)
+   143→✓ Compiled in 307ms
+   144→✓ Compiled in 419ms
+   145→ GET /admin/login 200 in 577ms (compile: 317ms, render: 260ms)
+   146→ GET /api/auth/session 200 in 111ms (compile: 80ms, render: 32ms)
+   147→ GET /admin/login 200 in 152ms (compile: 29ms, render: 123ms)
+   148→ GET /admin/login 200 in 193ms (compile: 4ms, render: 190ms)
+   149→ GET /api/auth/session 200 in 71ms (compile: 52ms, render: 20ms)
+   150→ GET /admin/login 200 in 105ms (compile: 4ms, render: 101ms)
+   151→ GET /api/auth/providers 200 in 139ms (compile: 101ms, render: 38ms)
+   152→ GET /api/auth/csrf 200 in 32ms (compile: 7ms, render: 25ms)
+   153→prisma:query SELECT 1
+   154→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+   155→ POST /api/auth/callback/credentials 200 in 308ms (compile: 10ms, render: 298ms)
+   156→ GET /api/auth/session 200 in 54ms (compile: 36ms, render: 18ms)
+   157→ GET /admin/dashboard 200 in 55ms (compile: 17ms, proxy.ts: 7ms, render: 31ms)
+   158→ GET /admin/dashboard 200 in 41ms (compile: 6ms, proxy.ts: 9ms, render: 25ms)
+   159→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`solutions`.`id` FROM `main`.`solutions` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+   160→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`posts`.`id` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+   161→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+   162→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`jobs`.`id` FROM `main`.`jobs` WHERE `main`.`jobs`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+   163→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`team_members`.`id` FROM `main`.`team_members` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+   164→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE `main`.`leads`.`createdAt` >= ? LIMIT ? OFFSET ?) AS `sub`
+   165→prisma:query SELECT COUNT(`main`.`leads`.`id`) AS `_count$id`, `main`.`leads`.`source` FROM `main`.`leads` WHERE 1=1 GROUP BY `main`.`leads`.`source` LIMIT ? OFFSET ?
+   166→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`source`, `main`.`leads`.`createdAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+   167→prisma:query SELECT 1
+   168→prisma:query SELECT COUNT(`main`.`posts`.`id`) AS `_count$id`, `main`.`posts`.`type` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? GROUP BY `main`.`posts`.`type` LIMIT ? OFFSET ?
+   169→ GET /api/admin/dashboard 200 in 51ms (compile: 27ms, render: 23ms)
+   170→ GET /api/auth/signout 200 in 79ms (compile: 65ms, render: 14ms)
+   171→ GET /api/auth/signout 200 in 55ms (compile: 43ms, render: 12ms)
+   172→ POST /api/auth/signout 302 in 77ms (compile: 60ms, render: 16ms)
+   173→ GET /admin/login 200 in 169ms (compile: 3ms, render: 166ms)
+   174→ GET /api/auth/session 200 in 56ms (compile: 6ms, render: 50ms)
+   175→ GET /admin/login 200 in 52ms (compile: 11ms, render: 41ms)
+   176→ GET /api/auth/providers 200 in 97ms (compile: 84ms, render: 12ms)
+   177→ GET /api/auth/csrf 200 in 46ms (compile: 14ms, render: 32ms)
+   178→prisma:query SELECT 1
+   179→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+   180→ POST /api/auth/callback/credentials 401 in 73ms (compile: 11ms, render: 61ms)
+   181→ GET /admin/login 200 in 166ms (compile: 3ms, render: 163ms)
+   182→ GET /api/auth/session 200 in 167ms (compile: 110ms, render: 58ms)
+   183→ GET /admin/login 200 in 109ms (compile: 11ms, render: 98ms)
+   184→✓ Compiled in 283ms
+   185→ GET /admin/login 200 in 939ms (compile: 121ms, render: 819ms)
+   186→ GET /api/auth/session 200 in 100ms (compile: 77ms, render: 23ms)
+   187→ GET /admin/login 200 in 71ms (compile: 7ms, render: 64ms)
+   188→ GET /admin/login 200 in 138ms (compile: 4ms, render: 134ms)
+   189→ GET /api/auth/session 200 in 130ms (compile: 101ms, render: 29ms)
+   190→ GET /admin/login 200 in 83ms (compile: 4ms, render: 79ms)
+   191→✓ Compiled in 303ms
+   192→ GET / 200 in 182ms (compile: 4ms, render: 178ms)
+   193→ GET / 200 in 147ms (compile: 3ms, render: 144ms)
+   194→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   195→Module not found: Can't resolve './_components/AutumnScene'
+   196→[0m [90m 2 |[39m
+   197→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   198→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   199→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   200→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   201→ [90m 6 |[39m
+   202→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   203→
+   204→
+   205→
+   206→Import traces:
+   207→  Client Component Browser:
+   208→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   209→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   210→
+   211→  Client Component SSR:
+   212→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   213→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   214→
+   215→https://nextjs.org/docs/messages/module-not-found
+   216→
+   217→
+   218→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   219→Module not found: Can't resolve './_components/AutumnScene'
+   220→[0m [90m 2 |[39m
+   221→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   222→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   223→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   224→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   225→ [90m 6 |[39m
+   226→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   227→
+   228→
+   229→
+   230→Import traces:
+   231→  Client Component Browser:
+   232→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   233→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   234→
+   235→  Client Component SSR:
+   236→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   237→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   238→
+   239→https://nextjs.org/docs/messages/module-not-found
+   240→
+   241→
+   242→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   243→Module not found: Can't resolve './_components/AutumnScene'
+   244→[0m [90m 2 |[39m
+   245→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   246→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   247→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   248→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   249→ [90m 6 |[39m
+   250→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   251→
+   252→
+   253→
+   254→Import traces:
+   255→  Client Component Browser:
+   256→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   257→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   258→
+   259→  Client Component SSR:
+   260→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   261→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   262→
+   263→https://nextjs.org/docs/messages/module-not-found
+   264→
+   265→
+   266→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   267→Module not found: Can't resolve './_components/AutumnScene'
+   268→[0m [90m 2 |[39m
+   269→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   270→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   271→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   272→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   273→ [90m 6 |[39m
+   274→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   275→
+   276→
+   277→
+   278→Import traces:
+   279→  Client Component Browser:
+   280→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   281→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   282→
+   283→  Client Component SSR:
+   284→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   285→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   286→
+   287→https://nextjs.org/docs/messages/module-not-found
+   288→
+   289→
+   290→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   291→Module not found: Can't resolve './_components/LoginCard'
+   292→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   293→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   294→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   295→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   296→ [90m 6 |[39m
+   297→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   298→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   299→
+   300→
+   301→
+   302→Import traces:
+   303→  Client Component Browser:
+   304→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   305→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   306→
+   307→  Client Component SSR:
+   308→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   309→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   310→
+   311→https://nextjs.org/docs/messages/module-not-found
+   312→
+   313→
+   314→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   315→Module not found: Can't resolve './_components/LoginCard'
+   316→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   317→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   318→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   319→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   320→ [90m 6 |[39m
+   321→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   322→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   323→
+   324→
+   325→
+   326→Import traces:
+   327→  Client Component Browser:
+   328→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   329→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   330→
+   331→  Client Component SSR:
+   332→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   333→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   334→
+   335→https://nextjs.org/docs/messages/module-not-found
+   336→
+   337→
+   338→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   339→Module not found: Can't resolve './_components/LoginCard'
+   340→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   341→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   342→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   343→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   344→ [90m 6 |[39m
+   345→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   346→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   347→
+   348→
+   349→
+   350→Import traces:
+   351→  Client Component Browser:
+   352→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   353→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   354→
+   355→  Client Component SSR:
+   356→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   357→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   358→
+   359→https://nextjs.org/docs/messages/module-not-found
+   360→
+   361→
+   362→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   363→Module not found: Can't resolve './_components/LoginCard'
+   364→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   365→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   366→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   367→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   368→ [90m 6 |[39m
+   369→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   370→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   371→
+   372→
+   373→
+   374→Import traces:
+   375→  Client Component Browser:
+   376→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   377→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   378→
+   379→  Client Component SSR:
+   380→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   381→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   382→
+   383→https://nextjs.org/docs/messages/module-not-found
+   384→
+   385→
+   386→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   387→Module not found: Can't resolve './_components/AutumnScene'
+   388→[0m [90m 2 |[39m
+   389→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   390→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   391→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   392→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   393→ [90m 6 |[39m
+   394→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   395→
+   396→
+   397→
+   398→Import traces:
+   399→  Client Component Browser:
+   400→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   401→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   402→
+   403→  Client Component SSR:
+   404→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   405→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   406→
+   407→https://nextjs.org/docs/messages/module-not-found
+   408→
+   409→
+   410→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   411→Module not found: Can't resolve './_components/AutumnScene'
+   412→[0m [90m 2 |[39m
+   413→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   414→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   415→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   416→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   417→ [90m 6 |[39m
+   418→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   419→
+   420→
+   421→
+   422→Import traces:
+   423→  Client Component Browser:
+   424→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   425→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   426→
+   427→  Client Component SSR:
+   428→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   429→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   430→
+   431→https://nextjs.org/docs/messages/module-not-found
+   432→
+   433→
+   434→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   435→Module not found: Can't resolve './_components/AutumnScene'
+   436→[0m [90m 2 |[39m
+   437→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   438→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   439→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   440→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   441→ [90m 6 |[39m
+   442→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   443→
+   444→
+   445→
+   446→Import traces:
+   447→  Client Component Browser:
+   448→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   449→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   450→
+   451→  Client Component SSR:
+   452→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   453→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   454→
+   455→https://nextjs.org/docs/messages/module-not-found
+   456→
+   457→
+   458→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   459→Module not found: Can't resolve './_components/AutumnScene'
+   460→[0m [90m 2 |[39m
+   461→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   462→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   463→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   464→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   465→ [90m 6 |[39m
+   466→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   467→
+   468→
+   469→
+   470→Import traces:
+   471→  Client Component Browser:
+   472→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   473→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   474→
+   475→  Client Component SSR:
+   476→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   477→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   478→
+   479→https://nextjs.org/docs/messages/module-not-found
+   480→
+   481→
+   482→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   483→Module not found: Can't resolve './_components/LoginCard'
+   484→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   485→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   486→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   487→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   488→ [90m 6 |[39m
+   489→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   490→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   491→
+   492→
+   493→
+   494→Import traces:
+   495→  Client Component Browser:
+   496→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   497→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   498→
+   499→  Client Component SSR:
+   500→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   501→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   502→
+   503→https://nextjs.org/docs/messages/module-not-found
+   504→
+   505→
+   506→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   507→Module not found: Can't resolve './_components/LoginCard'
+   508→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   509→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   510→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   511→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   512→ [90m 6 |[39m
+   513→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   514→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   515→
+   516→
+   517→
+   518→Import traces:
+   519→  Client Component Browser:
+   520→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   521→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   522→
+   523→  Client Component SSR:
+   524→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   525→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   526→
+   527→https://nextjs.org/docs/messages/module-not-found
+   528→
+   529→
+   530→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   531→Module not found: Can't resolve './_components/LoginCard'
+   532→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   533→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   534→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   535→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   536→ [90m 6 |[39m
+   537→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   538→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   539→
+   540→
+   541→
+   542→Import traces:
+   543→  Client Component Browser:
+   544→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   545→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   546→
+   547→  Client Component SSR:
+   548→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   549→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   550→
+   551→https://nextjs.org/docs/messages/module-not-found
+   552→
+   553→
+   554→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   555→Module not found: Can't resolve './_components/LoginCard'
+   556→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   557→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   558→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   559→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   560→ [90m 6 |[39m
+   561→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   562→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   563→
+   564→
+   565→
+   566→Import traces:
+   567→  Client Component Browser:
+   568→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   569→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   570→
+   571→  Client Component SSR:
+   572→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   573→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   574→
+   575→https://nextjs.org/docs/messages/module-not-found
+   576→
+   577→
+   578→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   579→Module not found: Can't resolve './_components/AutumnScene'
+   580→[0m [90m 2 |[39m
+   581→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   582→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   583→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   584→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   585→ [90m 6 |[39m
+   586→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   587→
+   588→
+   589→
+   590→Import traces:
+   591→  Client Component Browser:
+   592→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   593→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   594→
+   595→  Client Component SSR:
+   596→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   597→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   598→
+   599→https://nextjs.org/docs/messages/module-not-found
+   600→
+   601→
+   602→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   603→Module not found: Can't resolve './_components/AutumnScene'
+   604→[0m [90m 2 |[39m
+   605→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   606→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   607→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   608→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   609→ [90m 6 |[39m
+   610→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   611→
+   612→
+   613→
+   614→Import traces:
+   615→  Client Component Browser:
+   616→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   617→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   618→
+   619→  Client Component SSR:
+   620→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   621→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   622→
+   623→https://nextjs.org/docs/messages/module-not-found
+   624→
+   625→
+   626→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   627→Module not found: Can't resolve './_components/AutumnScene'
+   628→[0m [90m 2 |[39m
+   629→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   630→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   631→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   632→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   633→ [90m 6 |[39m
+   634→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   635→
+   636→
+   637→
+   638→Import traces:
+   639→  Client Component Browser:
+   640→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   641→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   642→
+   643→  Client Component SSR:
+   644→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   645→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   646→
+   647→https://nextjs.org/docs/messages/module-not-found
+   648→
+   649→
+   650→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   651→Module not found: Can't resolve './_components/AutumnScene'
+   652→[0m [90m 2 |[39m
+   653→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   654→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   655→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   656→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   657→ [90m 6 |[39m
+   658→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   659→
+   660→
+   661→
+   662→Import traces:
+   663→  Client Component Browser:
+   664→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   665→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   666→
+   667→  Client Component SSR:
+   668→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   669→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   670→
+   671→https://nextjs.org/docs/messages/module-not-found
+   672→
+   673→
+   674→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   675→Module not found: Can't resolve './_components/LoginCard'
+   676→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   677→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   678→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   679→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   680→ [90m 6 |[39m
+   681→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   682→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   683→
+   684→
+   685→
+   686→Import traces:
+   687→  Client Component Browser:
+   688→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   689→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   690→
+   691→  Client Component SSR:
+   692→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   693→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   694→
+   695→https://nextjs.org/docs/messages/module-not-found
+   696→
+   697→
+   698→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   699→Module not found: Can't resolve './_components/LoginCard'
+   700→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   701→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   702→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   703→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   704→ [90m 6 |[39m
+   705→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   706→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   707→
+   708→
+   709→
+   710→Import traces:
+   711→  Client Component Browser:
+   712→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   713→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   714→
+   715→  Client Component SSR:
+   716→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   717→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   718→
+   719→https://nextjs.org/docs/messages/module-not-found
+   720→
+   721→
+   722→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   723→Module not found: Can't resolve './_components/LoginCard'
+   724→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   725→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   726→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   727→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   728→ [90m 6 |[39m
+   729→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   730→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   731→
+   732→
+   733→
+   734→Import traces:
+   735→  Client Component Browser:
+   736→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   737→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   738→
+   739→  Client Component SSR:
+   740→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   741→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   742→
+   743→https://nextjs.org/docs/messages/module-not-found
+   744→
+   745→
+   746→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   747→Module not found: Can't resolve './_components/LoginCard'
+   748→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   749→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   750→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   751→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   752→ [90m 6 |[39m
+   753→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   754→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   755→
+   756→
+   757→
+   758→Import traces:
+   759→  Client Component Browser:
+   760→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   761→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   762→
+   763→  Client Component SSR:
+   764→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   765→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   766→
+   767→https://nextjs.org/docs/messages/module-not-found
+   768→
+   769→
+   770→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   771→Module not found: Can't resolve './_components/AutumnScene'
+   772→[0m [90m 2 |[39m
+   773→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   774→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   775→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   776→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   777→ [90m 6 |[39m
+   778→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   779→
+   780→
+   781→
+   782→Import traces:
+   783→  Client Component Browser:
+   784→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   785→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   786→
+   787→  Client Component SSR:
+   788→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   789→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   790→
+   791→https://nextjs.org/docs/messages/module-not-found
+   792→
+   793→
+   794→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   795→Module not found: Can't resolve './_components/AutumnScene'
+   796→[0m [90m 2 |[39m
+   797→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   798→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   799→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   800→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   801→ [90m 6 |[39m
+   802→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   803→
+   804→
+   805→
+   806→Import traces:
+   807→  Client Component Browser:
+   808→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   809→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   810→
+   811→  Client Component SSR:
+   812→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   813→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   814→
+   815→https://nextjs.org/docs/messages/module-not-found
+   816→
+   817→
+   818→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   819→Module not found: Can't resolve './_components/AutumnScene'
+   820→[0m [90m 2 |[39m
+   821→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   822→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   823→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   824→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   825→ [90m 6 |[39m
+   826→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   827→
+   828→
+   829→
+   830→Import traces:
+   831→  Client Component Browser:
+   832→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   833→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   834→
+   835→  Client Component SSR:
+   836→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   837→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   838→
+   839→https://nextjs.org/docs/messages/module-not-found
+   840→
+   841→
+   842→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   843→Module not found: Can't resolve './_components/AutumnScene'
+   844→[0m [90m 2 |[39m
+   845→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   846→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   847→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   848→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   849→ [90m 6 |[39m
+   850→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   851→
+   852→
+   853→
+   854→Import traces:
+   855→  Client Component Browser:
+   856→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   857→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   858→
+   859→  Client Component SSR:
+   860→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   861→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   862→
+   863→https://nextjs.org/docs/messages/module-not-found
+   864→
+   865→
+   866→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   867→Module not found: Can't resolve './_components/LoginCard'
+   868→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   869→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   870→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   871→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   872→ [90m 6 |[39m
+   873→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   874→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   875→
+   876→
+   877→
+   878→Import traces:
+   879→  Client Component Browser:
+   880→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   881→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   882→
+   883→  Client Component SSR:
+   884→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   885→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   886→
+   887→https://nextjs.org/docs/messages/module-not-found
+   888→
+   889→
+   890→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   891→Module not found: Can't resolve './_components/LoginCard'
+   892→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   893→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   894→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   895→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   896→ [90m 6 |[39m
+   897→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   898→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   899→
+   900→
+   901→
+   902→Import traces:
+   903→  Client Component Browser:
+   904→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   905→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   906→
+   907→  Client Component SSR:
+   908→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   909→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   910→
+   911→https://nextjs.org/docs/messages/module-not-found
+   912→
+   913→
+   914→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   915→Module not found: Can't resolve './_components/LoginCard'
+   916→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   917→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   918→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   919→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   920→ [90m 6 |[39m
+   921→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   922→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   923→
+   924→
+   925→
+   926→Import traces:
+   927→  Client Component Browser:
+   928→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   929→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   930→
+   931→  Client Component SSR:
+   932→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   933→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   934→
+   935→https://nextjs.org/docs/messages/module-not-found
+   936→
+   937→
+   938→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+   939→Module not found: Can't resolve './_components/LoginCard'
+   940→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   941→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   942→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   943→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   944→ [90m 6 |[39m
+   945→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+   946→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+   947→
+   948→
+   949→
+   950→Import traces:
+   951→  Client Component Browser:
+   952→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   953→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   954→
+   955→  Client Component SSR:
+   956→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   957→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   958→
+   959→https://nextjs.org/docs/messages/module-not-found
+   960→
+   961→
+   962→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   963→Module not found: Can't resolve './_components/AutumnScene'
+   964→[0m [90m 2 |[39m
+   965→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   966→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   967→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   968→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   969→ [90m 6 |[39m
+   970→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   971→
+   972→
+   973→
+   974→Import traces:
+   975→  Client Component Browser:
+   976→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+   977→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   978→
+   979→  Client Component SSR:
+   980→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+   981→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+   982→
+   983→https://nextjs.org/docs/messages/module-not-found
+   984→
+   985→
+   986→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+   987→Module not found: Can't resolve './_components/AutumnScene'
+   988→[0m [90m 2 |[39m
+   989→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+   990→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+   991→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   992→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+   993→ [90m 6 |[39m
+   994→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+   995→
+   996→
+   997→
+   998→Import traces:
+   999→  Client Component Browser:
+  1000→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+  1001→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1002→
+  1003→  Client Component SSR:
+  1004→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+  1005→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1006→
+  1007→https://nextjs.org/docs/messages/module-not-found
+  1008→
+  1009→
+  1010→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+  1011→Module not found: Can't resolve './_components/AutumnScene'
+  1012→[0m [90m 2 |[39m
+  1013→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+  1014→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+  1015→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1016→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+  1017→ [90m 6 |[39m
+  1018→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+  1019→
+  1020→
+  1021→
+  1022→Import traces:
+  1023→  Client Component Browser:
+  1024→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+  1025→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1026→
+  1027→  Client Component SSR:
+  1028→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+  1029→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1030→
+  1031→https://nextjs.org/docs/messages/module-not-found
+  1032→
+  1033→
+  1034→⨯ ./src/app/(admin)/admin/login/page.tsx:4:1
+  1035→Module not found: Can't resolve './_components/AutumnScene'
+  1036→[0m [90m 2 |[39m
+  1037→ [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+  1038→[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+  1039→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1040→ [90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+  1041→ [90m 6 |[39m
+  1042→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {[0m
+  1043→
+  1044→
+  1045→
+  1046→Import traces:
+  1047→  Client Component Browser:
+  1048→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+  1049→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1050→
+  1051→  Client Component SSR:
+  1052→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+  1053→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1054→
+  1055→https://nextjs.org/docs/messages/module-not-found
+  1056→
+  1057→
+  1058→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+  1059→Module not found: Can't resolve './_components/LoginCard'
+  1060→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+  1061→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+  1062→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+  1063→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1064→ [90m 6 |[39m
+  1065→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+  1066→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+  1067→
+  1068→
+  1069→
+  1070→Import traces:
+  1071→  Client Component Browser:
+  1072→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+  1073→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1074→
+  1075→  Client Component SSR:
+  1076→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+  1077→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1078→
+  1079→https://nextjs.org/docs/messages/module-not-found
+  1080→
+  1081→
+  1082→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+  1083→Module not found: Can't resolve './_components/LoginCard'
+  1084→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+  1085→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+  1086→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+  1087→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1088→ [90m 6 |[39m
+  1089→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+  1090→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+  1091→
+  1092→
+  1093→
+  1094→Import traces:
+  1095→  Client Component Browser:
+  1096→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+  1097→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1098→
+  1099→  Client Component SSR:
+  1100→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+  1101→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1102→
+  1103→https://nextjs.org/docs/messages/module-not-found
+  1104→
+  1105→
+  1106→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+  1107→Module not found: Can't resolve './_components/LoginCard'
+  1108→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+  1109→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+  1110→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+  1111→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1112→ [90m 6 |[39m
+  1113→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+  1114→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+  1115→
+  1116→
+  1117→
+  1118→Import traces:
+  1119→  Client Component Browser:
+  1120→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+  1121→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1122→
+  1123→  Client Component SSR:
+  1124→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+  1125→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1126→
+  1127→https://nextjs.org/docs/messages/module-not-found
+  1128→
+  1129→
+  1130→⨯ ./src/app/(admin)/admin/login/page.tsx:5:1
+  1131→Module not found: Can't resolve './_components/LoginCard'
+  1132→[0m [90m 3 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m'react'[39m[33m;[39m
+  1133→ [90m 4 |[39m [36mimport[39m [33mAutumnScene[39m [36mfrom[39m [32m'./_components/AutumnScene'[39m[33m;[39m
+  1134→[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mLoginCard[39m [36mfrom[39m [32m'./_components/LoginCard'[39m[33m;[39m
+  1135→ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1136→ [90m 6 |[39m
+  1137→ [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLoginPage[39m() {
+  1138→ [90m 8 |[39m   [36mconst[39m [sceneReady[33m,[39m setSceneReady] [33m=[39m useState([36mfalse[39m)[33m;[39m[0m
+  1139→
+  1140→
+  1141→
+  1142→Import traces:
+  1143→  Client Component Browser:
+  1144→    ./src/app/(admin)/admin/login/page.tsx [Client Component Browser]
+  1145→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1146→
+  1147→  Client Component SSR:
+  1148→    ./src/app/(admin)/admin/login/page.tsx [Client Component SSR]
+  1149→    ./src/app/(admin)/admin/login/page.tsx [Server Component]
+  1150→
+  1151→https://nextjs.org/docs/messages/module-not-found
+  1152→
+  1153→
+  1154→✓ Compiled in 376ms
+  1155→✓ Compiled in 583ms
+  1156→ GET /admin/login 200 in 38ms (compile: 18ms, render: 19ms)
+  1157→ GET / 200 in 40ms (compile: 4ms, render: 36ms)
+  1158→ GET /admin/login 200 in 382ms (compile: 55ms, render: 327ms)
+  1159→ GET /api/auth/session 200 in 59ms (compile: 50ms, render: 9ms)
+  1160→ GET /admin/login 200 in 18ms (compile: 3ms, render: 15ms)
+  1161→ GET /admin/login 200 in 449ms (compile: 7ms, render: 442ms)
+  1162→ GET /api/auth/session 200 in 96ms (compile: 52ms, render: 45ms)
+  1163→ GET /admin/login 200 in 98ms (compile: 7ms, render: 91ms)
+  1164→ GET /api/auth/providers 200 in 139ms (compile: 92ms, render: 46ms)
+  1165→ GET /api/auth/csrf 200 in 19ms (compile: 4ms, render: 15ms)
+  1166→prisma:query SELECT 1
+  1167→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+  1168→ POST /api/auth/callback/credentials 200 in 238ms (compile: 5ms, render: 234ms)
+  1169→ GET /api/auth/session 200 in 22ms (compile: 5ms, render: 17ms)
+  1170→ GET /admin/dashboard 200 in 138ms (compile: 22ms, proxy.ts: 28ms, render: 89ms)
+  1171→ GET /admin/dashboard 200 in 49ms (compile: 8ms, proxy.ts: 7ms, render: 34ms)
+  1172→prisma:query SELECT 1
+  1173→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE `main`.`leads`.`createdAt` >= ? LIMIT ? OFFSET ?) AS `sub`
+  1174→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`posts`.`id` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+  1175→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`source`, `main`.`leads`.`createdAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1176→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`jobs`.`id` FROM `main`.`jobs` WHERE `main`.`jobs`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+  1177→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1178→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`team_members`.`id` FROM `main`.`team_members` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1179→prisma:query SELECT COUNT(`main`.`posts`.`id`) AS `_count$id`, `main`.`posts`.`type` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? GROUP BY `main`.`posts`.`type` LIMIT ? OFFSET ?
+  1180→prisma:query SELECT COUNT(`main`.`leads`.`id`) AS `_count$id`, `main`.`leads`.`source` FROM `main`.`leads` WHERE 1=1 GROUP BY `main`.`leads`.`source` LIMIT ? OFFSET ?
+  1181→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`solutions`.`id` FROM `main`.`solutions` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1182→ GET /api/admin/dashboard 200 in 49ms (compile: 31ms, render: 19ms)
+  1183→ GET /api/auth/signout 200 in 86ms (compile: 52ms, render: 34ms)
+  1184→ GET /api/auth/signout 200 in 60ms (compile: 52ms, render: 8ms)
+  1185→ POST /api/auth/signout 302 in 75ms (compile: 60ms, render: 16ms)
+  1186→ GET /admin/login 200 in 214ms (compile: 10ms, render: 204ms)
+  1187→ GET /api/auth/session 200 in 46ms (compile: 5ms, render: 41ms)
+  1188→ GET /admin/login 200 in 67ms (compile: 8ms, render: 60ms)
+  1189→ GET /admin/login 200 in 63ms (compile: 4ms, render: 59ms)
+  1190→ GET /api/auth/session 200 in 158ms (compile: 148ms, render: 10ms)
+  1191→ GET /admin/login 200 in 78ms (compile: 5ms, render: 73ms)
+  1192→ GET /api/auth/providers 200 in 139ms (compile: 117ms, render: 22ms)
+  1193→ GET /api/auth/csrf 200 in 32ms (compile: 14ms, render: 18ms)
+  1194→prisma:query SELECT 1
+  1195→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+  1196→ POST /api/auth/callback/credentials 401 in 19ms (compile: 2ms, render: 16ms)
+  1197→ GET /admin/login 200 in 101ms (compile: 22ms, render: 79ms)
+  1198→ GET /api/auth/session 200 in 150ms (compile: 132ms, render: 18ms)
+  1199→ GET /admin/login 200 in 44ms (compile: 7ms, render: 37ms)
+  1200→ GET / 200 in 136ms (compile: 8ms, render: 129ms)
+  1201→ GET / 200 in 141ms (compile: 7ms, render: 134ms)
+  1202→ GET /admin/login 200 in 77ms (compile: 5ms, render: 72ms)
+  1203→ GET /api/auth/session 200 in 83ms (compile: 74ms, render: 10ms)
+  1204→ GET /admin/login 200 in 36ms (compile: 4ms, render: 32ms)
+  1205→✓ Compiled in 181ms
+  1206→✓ Compiled in 619ms
+  1207→✓ Compiled in 255ms
+  1208→📧 [STUB] Admin notification email would be sent:
+  1209→{
+  1210→  to: 'info@danphehealth.com',
+  1211→  subject: '[NEWSLETTER] New lead from test@example.com',
+  1212→  body: {
+  1213→    name: '—',
+  1214→    email: 'test@example.com',
+  1215→    phone: '—',
+  1216→    source: 'NEWSLETTER',
+  1217→    organizationName: undefined,
+  1218→    country: undefined,
+  1219→    hospitalType: undefined,
+  1220→    message: '—',
+  1221→    receivedAt: '2026-08-16T06:21:04.012Z'
+  1222→  }
+  1223→}
+  1224→ POST /api/leads 201 in 1033ms (compile: 1019ms, render: 14ms)
+  1225→prisma:query SELECT 1
+  1226→prisma:query INSERT INTO `main`.`leads` (`id`, `name`, `email`, `phone`, `message`, `source`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `name` AS `name`, `email` AS `email`, `phone` AS `phone`, `message` AS `message`, `source` AS `source`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+  1227→prisma:query INSERT INTO `main`.`leads` (`id`, `name`, `email`, `phone`, `message`, `source`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `name` AS `name`, `email` AS `email`, `phone` AS `phone`, `message` AS `message`, `source` AS `source`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+  1228→📧 [STUB] Admin notification email would be sent:
+  1229→{
+  1230→  to: 'info@danphehealth.com',
+  1231→  subject: '[CONTACT] New lead from John Doe',
+  1232→  body: {
+  1233→    name: 'John Doe',
+  1234→    email: 'john@test.com',
+  1235→    phone: '12345',
+  1236→    source: 'CONTACT',
+  1237→    organizationName: undefined,
+  1238→    country: undefined,
+  1239→    hospitalType: undefined,
+  1240→    message: 'Hello world',
+  1241→    receivedAt: '2026-08-16T06:21:09.884Z'
+  1242→  }
+  1243→}
+  1244→ POST /api/leads 201 in 10ms (compile: 3ms, render: 7ms)
+  1245→📧 [STUB] Admin notification email would be sent:
+  1246→{
+  1247→  to: 'info@danphehealth.com',
+  1248→  subject: '[DEMO_REQUEST] New lead from Jane Smith',
+  1249→  body: {
+  1250→    name: 'Jane Smith',
+  1251→    email: 'jane@test.com',
+  1252→    phone: '67890',
+  1253→    source: 'DEMO_REQUEST',
+  1254→    organizationName: 'Danphe Hospital',
+  1255→    country: 'Nepal',
+  1256→    hospitalType: 'Private Hospital',
+  1257→    message: 'Organization: Danphe Hospital\n' +
+  1258→      'Type: Private Hospital\n' +
+  1259→      'Size: 101-200 Bedded\n' +
+  1260→      'Country: Nepal\n' +
+  1261→      'Address: Kathmandu\n' +
+  1262→      '\n' +
+  1263→      'Message: Need demo',
+  1264→    receivedAt: '2026-08-16T06:21:16.199Z'
+  1265→  }
+  1266→}
+  1267→ POST /api/leads 201 in 15ms (compile: 4ms, render: 10ms)
+  1268→prisma:query INSERT INTO `main`.`leads` (`id`, `name`, `email`, `phone`, `message`, `source`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `name` AS `name`, `email` AS `email`, `phone` AS `phone`, `message` AS `message`, `source` AS `source`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+  1269→ POST /api/leads 422 in 9ms (compile: 3ms, render: 6ms)
+  1270→prisma:query SELECT 1
+  1271→ GET /api/leads?source=CONTACT 200 in 7ms (compile: 2ms, render: 5ms)
+  1272→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE `main`.`leads`.`source` = ? ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1273→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE (`main`.`leads`.`createdAt` >= ? AND `main`.`leads`.`createdAt` <= ?) ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1274→ GET /api/leads?from=2026-01-01&to=2026-08-16 200 in 6ms (compile: 1667µs, render: 4ms)
+  1275→ GET /admin/login 200 in 480ms (compile: 4ms, render: 476ms)
+  1276→ GET /api/auth/session 200 in 110ms (compile: 91ms, render: 19ms)
+  1277→ GET /admin/login 200 in 83ms (compile: 6ms, render: 77ms)
+  1278→ GET /api/auth/providers 200 in 105ms (compile: 71ms, render: 34ms)
+  1279→ GET /api/auth/csrf 200 in 83ms (compile: 13ms, render: 70ms)
+  1280→ POST /api/auth/callback/credentials 401 in 59ms (compile: 9ms, render: 50ms)
+  1281→prisma:query SELECT 1
+  1282→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+  1283→ GET /api/auth/providers 200 in 137ms (compile: 94ms, render: 43ms)
+  1284→ GET /api/auth/csrf 200 in 18ms (compile: 5ms, render: 12ms)
+  1285→prisma:query SELECT 1
+  1286→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+  1287→ POST /api/auth/callback/credentials 200 in 166ms (compile: 1817µs, render: 164ms)
+  1288→ GET /api/auth/session 200 in 17ms (compile: 7ms, render: 11ms)
+  1289→ GET /admin/dashboard 200 in 46ms (compile: 15ms, proxy.ts: 6ms, render: 25ms)
+  1290→ GET /admin/dashboard 200 in 96ms (compile: 18ms, proxy.ts: 7ms, render: 71ms)
+  1291→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`solutions`.`id` FROM `main`.`solutions` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1292→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`posts`.`id` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+  1293→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`jobs`.`id` FROM `main`.`jobs` WHERE `main`.`jobs`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+  1294→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`team_members`.`id` FROM `main`.`team_members` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1295→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE `main`.`leads`.`createdAt` >= ? LIMIT ? OFFSET ?) AS `sub`
+  1296→prisma:query SELECT COUNT(`main`.`leads`.`id`) AS `_count$id`, `main`.`leads`.`source` FROM `main`.`leads` WHERE 1=1 GROUP BY `main`.`leads`.`source` LIMIT ? OFFSET ?
+  1297→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`source`, `main`.`leads`.`createdAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1298→ GET /api/admin/dashboard 200 in 10ms (compile: 2ms, render: 8ms)
+  1299→prisma:query SELECT COUNT(`main`.`posts`.`id`) AS `_count$id`, `main`.`posts`.`type` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? GROUP BY `main`.`posts`.`type` LIMIT ? OFFSET ?
+  1300→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1301→ GET /admin/leads 200 in 523ms (compile: 388ms, proxy.ts: 7ms, render: 127ms)
+  1302→ GET /api/auth/session 200 in 142ms (compile: 129ms, render: 13ms)
+  1303→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1304→ GET /api/leads 200 in 51ms (compile: 3ms, render: 48ms)
+  1305→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1306→ GET /api/leads 200 in 20ms (compile: 4ms, render: 16ms)
+  1307→prisma:query SELECT 1
+  1308→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE `main`.`leads`.`source` = ? ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1309→ GET /api/leads?source=DEMO_REQUEST 200 in 39ms (compile: 21ms, render: 17ms)
+  1310→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1311→ GET /api/leads 200 in 21ms (compile: 6ms, render: 15ms)
+  1312→ GET /admin/login 200 in 71ms (compile: 5ms, render: 66ms)
+  1313→ GET /api/auth/session 200 in 67ms (compile: 54ms, render: 14ms)
+  1314→ GET /admin/login 200 in 35ms (compile: 8ms, render: 27ms)
+  1315→ GET / 200 in 559ms (compile: 64ms, render: 495ms)
+  1316→ GET /api/auth/providers 200 in 323ms (compile: 221ms, render: 102ms)
+  1317→ GET /api/auth/csrf 200 in 49ms (compile: 5ms, render: 44ms)
+  1318→prisma:query SELECT 1
+  1319→prisma:query SELECT `main`.`admin_users`.`id`, `main`.`admin_users`.`email`, `main`.`admin_users`.`passwordHash`, `main`.`admin_users`.`name`, `main`.`admin_users`.`role`, `main`.`admin_users`.`createdAt`, `main`.`admin_users`.`updatedAt` FROM `main`.`admin_users` WHERE (`main`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+  1320→ POST /api/auth/callback/credentials 200 in 248ms (compile: 8ms, render: 240ms)
+  1321→ GET /api/auth/session 200 in 82ms (compile: 66ms, render: 16ms)
+  1322→ GET /admin/dashboard 200 in 50ms (compile: 8ms, proxy.ts: 13ms, render: 29ms)
+  1323→ GET /admin/dashboard 200 in 60ms (compile: 9ms, proxy.ts: 12ms, render: 39ms)
+  1324→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`solutions`.`id` FROM `main`.`solutions` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1325→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`posts`.`id` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+  1326→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`jobs`.`id` FROM `main`.`jobs` WHERE `main`.`jobs`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+  1327→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE `main`.`leads`.`createdAt` >= ? LIMIT ? OFFSET ?) AS `sub`
+  1328→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`source`, `main`.`leads`.`createdAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1329→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`leads`.`id` FROM `main`.`leads` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1330→prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `main`.`team_members`.`id` FROM `main`.`team_members` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+  1331→prisma:query SELECT COUNT(`main`.`leads`.`id`) AS `_count$id`, `main`.`leads`.`source` FROM `main`.`leads` WHERE 1=1 GROUP BY `main`.`leads`.`source` LIMIT ? OFFSET ?
+  1332→prisma:query SELECT COUNT(`main`.`posts`.`id`) AS `_count$id`, `main`.`posts`.`type` FROM `main`.`posts` WHERE `main`.`posts`.`status` = ? GROUP BY `main`.`posts`.`type` LIMIT ? OFFSET ?
+  1333→ GET /api/admin/dashboard 200 in 20ms (compile: 4ms, render: 17ms)
+  1334→ GET /admin/login?callbackUrl=%2Fadmin%2Fdashboard 200 in 77ms (compile: 7ms, render: 69ms)
+  1335→ GET /api/auth/session 200 in 107ms (compile: 74ms, render: 33ms)
+  1336→ GET /api/auth/session 200 in 33ms (compile: 11ms, render: 22ms)
+  1337→ GET / 200 in 199ms (compile: 5ms, render: 194ms)
+  1338→ GET /api/auth/session 200 in 196ms (compile: 133ms, render: 63ms)
+  1339→prisma:query SELECT 1
+  1340→prisma:query INSERT INTO `main`.`leads` (`id`, `name`, `email`, `phone`, `message`, `source`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `name` AS `name`, `email` AS `email`, `phone` AS `phone`, `message` AS `message`, `source` AS `source`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+  1341→📧 [STUB] Admin notification email would be sent:
+  1342→{
+  1343→  to: 'info@danphehealth.com',
+  1344→  subject: '[NEWSLETTER] New lead from newsubscriber@test.com',
+  1345→  body: {
+  1346→    name: '—',
+  1347→    email: 'newsubscriber@test.com',
+  1348→    phone: '—',
+  1349→    source: 'NEWSLETTER',
+  1350→    organizationName: undefined,
+  1351→    country: undefined,
+  1352→    hospitalType: undefined,
+  1353→    message: '—',
+  1354→    receivedAt: '2026-08-16T06:25:30.096Z'
+  1355→  }
+  1356→}
+  1357→ POST /api/leads 201 in 37ms (compile: 4ms, render: 33ms)
+  1358→ GET /api/auth/session 200 in 106ms (compile: 75ms, render: 32ms)
+  1359→ GET /admin/navigation 200 in 304ms (compile: 173ms, proxy.ts: 6ms, render: 124ms)
+  1360→ GET /api/auth/session 200 in 100ms (compile: 58ms, render: 42ms)
+  1361→prisma:query SELECT 1
+  1362→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1363→ GET /api/nav-items 200 in 173ms (compile: 100ms, render: 73ms)
+  1364→📧 [STUB] Admin notification email would be sent:
+  1365→{
+  1366→  to: 'info@danphehealth.com',
+  1367→  subject: '[CONTACT] New lead from Browser User',
+  1368→  body: {
+  1369→    name: 'Browser User',
+  1370→    email: 'browser@test.com',
+  1371→    phone: '12345',
+  1372→    source: 'CONTACT',
+  1373→    organizationName: undefined,
+  1374→    country: undefined,
+  1375→    hospitalType: undefined,
+  1376→    message: 'Test message from browser',
+  1377→    receivedAt: '2026-08-16T06:26:15.893Z'
+  1378→  }
+  1379→}
+  1380→ POST /api/leads 201 in 56ms (compile: 27ms, render: 29ms)
+  1381→prisma:query INSERT INTO `main`.`leads` (`id`, `name`, `email`, `phone`, `message`, `source`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `name` AS `name`, `email` AS `email`, `phone` AS `phone`, `message` AS `message`, `source` AS `source`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+  1382→ GET /admin/navigation/new?location=HEADER 200 in 615ms (compile: 560ms, proxy.ts: 7ms, render: 48ms)
+  1383→ GET /admin/navigation 200 in 150ms (compile: 35ms, proxy.ts: 47ms, render: 68ms)
+  1384→ GET /admin/leads 200 in 305ms (compile: 7ms, proxy.ts: 5ms, render: 293ms)
+  1385→prisma:query SELECT 1
+  1386→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1387→ GET /api/nav-items 200 in 13ms (compile: 3ms, render: 9ms)
+  1388→ GET /api/auth/session 200 in 207ms (compile: 159ms, render: 48ms)
+  1389→ GET /api/leads 200 in 21ms (compile: 4ms, render: 17ms)
+  1390→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1391→ GET /api/leads 200 in 20ms (compile: 8ms, render: 12ms)
+  1392→prisma:query SELECT `main`.`leads`.`id`, `main`.`leads`.`name`, `main`.`leads`.`email`, `main`.`leads`.`phone`, `main`.`leads`.`message`, `main`.`leads`.`source`, `main`.`leads`.`createdAt`, `main`.`leads`.`updatedAt` FROM `main`.`leads` WHERE 1=1 ORDER BY `main`.`leads`.`createdAt` DESC LIMIT ? OFFSET ?
+  1393→ POST /api/leads 422 in 7ms (compile: 3ms, render: 4ms)
+  1394→ GET / 200 in 141ms (compile: 3ms, render: 138ms)
+  1395→ GET / 200 in 117ms (compile: 6ms, render: 112ms)
+  1396→ GET /api/auth/session 200 in 62ms (compile: 54ms, render: 9ms)
+  1397→ GET /api/auth/session 200 in 67ms (compile: 57ms, render: 10ms)
+  1398→ GET /api/auth/session 200 in 70ms (compile: 58ms, render: 12ms)
+  1399→ GET /api/auth/session 200 in 71ms (compile: 52ms, render: 20ms)
+  1400→ GET /api/auth/session 200 in 76ms (compile: 66ms, render: 11ms)
+  1401→ GET /api/auth/session 200 in 70ms (compile: 57ms, render: 13ms)
+  1402→ GET /api/auth/session 200 in 66ms (compile: 56ms, render: 10ms)
+  1403→ GET /api/auth/session 200 in 64ms (compile: 53ms, render: 10ms)
+  1404→ GET /api/auth/session 200 in 64ms (compile: 54ms, render: 10ms)
+  1405→ GET /api/auth/session 200 in 60ms (compile: 52ms, render: 8ms)
+  1406→ GET /api/auth/session 200 in 65ms (compile: 53ms, render: 12ms)
+  1407→ GET /api/auth/session 200 in 69ms (compile: 57ms, render: 12ms)
+  1408→ GET / 200 in 119ms (compile: 3ms, render: 116ms)
+  1409→ GET / 200 in 113ms (compile: 49ms, render: 64ms)
+  1410→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1411→ GET / 200 in 21ms (compile: 3ms, render: 17ms)
+  1412→ GET / 200 in 24ms (compile: 4ms, render: 20ms)
+  1413→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1414→ GET / 200 in 24ms (compile: 3ms, render: 22ms)
+  1415→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1416→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1417→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1418→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1419→ GET / 200 in 26ms (compile: 3ms, render: 22ms)
+  1420→ GET / 200 in 22ms (compile: 4ms, render: 18ms)
+  1421→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1422→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1423→ GET / 200 in 21ms (compile: 4ms, render: 17ms)
+  1424→ GET / 200 in 27ms (compile: 3ms, render: 23ms)
+  1425→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1426→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1427→ GET / 200 in 25ms (compile: 5ms, render: 20ms)
+  1428→ GET / 200 in 25ms (compile: 3ms, render: 22ms)
+  1429→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1430→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1431→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1432→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1433→ GET / 200 in 25ms (compile: 3ms, render: 22ms)
+  1434→ GET / 200 in 32ms (compile: 5ms, render: 27ms)
+  1435→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1436→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1437→ GET / 200 in 44ms (compile: 4ms, render: 41ms)
+  1438→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1439→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1440→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1441→ GET / 200 in 18ms (compile: 3ms, render: 14ms)
+  1442→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1443→ GET / 200 in 22ms (compile: 3ms, render: 18ms)
+  1444→ GET / 200 in 21ms (compile: 4ms, render: 17ms)
+  1445→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1446→ GET / 200 in 20ms (compile: 4ms, render: 16ms)
+  1447→ GET / 200 in 31ms (compile: 3ms, render: 27ms)
+  1448→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1449→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1450→ GET / 200 in 22ms (compile: 3ms, render: 19ms)
+  1451→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+  1452→ GET / 200 in 22ms (compile: 3ms, render: 18ms)
+  1453→ GET / 200 in 21ms (compile: 3ms, render: 17ms)
+  1454→ GET / 200 in 24ms (compile: 4ms, render: 20ms)
+  1455→ GET / 200 in 25ms (compile: 5ms, render: 20ms)
+  1456→ GET / 200 in 50ms (compile: 3ms, render: 47ms)
+  1457→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1458→ GET / 200 in 36ms (compile: 20ms, render: 16ms)
+  1459→ GET / 200 in 38ms (compile: 4ms, render: 34ms)
+  1460→ GET / 200 in 37ms (compile: 3ms, render: 34ms)
+  1461→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1462→ GET / 200 in 38ms (compile: 4ms, render: 34ms)
+  1463→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1464→ GET / 200 in 49ms (compile: 4ms, render: 45ms)
+  1465→ GET / 200 in 32ms (compile: 3ms, render: 29ms)
+  1466→ GET / 200 in 35ms (compile: 4ms, render: 32ms)
+  1467→ GET / 200 in 35ms (compile: 19ms, render: 16ms)
+  1468→ GET / 200 in 40ms (compile: 4ms, render: 36ms)
+  1469→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1470→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1471→ GET / 200 in 18ms (compile: 4ms, render: 15ms)
+  1472→ GET / 200 in 19ms (compile: 4ms, render: 15ms)
+  1473→ GET / 200 in 22ms (compile: 7ms, render: 15ms)
+  1474→ GET / 200 in 32ms (compile: 3ms, render: 29ms)
+  1475→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1476→ GET / 200 in 37ms (compile: 3ms, render: 34ms)
+  1477→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1478→ GET / 200 in 34ms (compile: 3ms, render: 31ms)
+  1479→ GET / 200 in 34ms (compile: 18ms, render: 17ms)
+  1480→ GET / 200 in 37ms (compile: 3ms, render: 34ms)
+  1481→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1482→ GET / 200 in 34ms (compile: 3ms, render: 31ms)
+  1483→ GET / 200 in 34ms (compile: 18ms, render: 16ms)
+  1484→ GET / 200 in 37ms (compile: 3ms, render: 34ms)
+  1485→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1486→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1487→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1488→ GET / 200 in 42ms (compile: 4ms, render: 39ms)
+  1489→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+  1490→ GET / 200 in 38ms (compile: 3ms, render: 34ms)
+  1491→ GET / 200 in 20ms (compile: 2ms, render: 18ms)
+  1492→ GET / 200 in 53ms (compile: 3ms, render: 50ms)
+  1493→ GET / 200 in 36ms (compile: 2ms, render: 34ms)
+  1494→ GET / 200 in 36ms (compile: 3ms, render: 33ms)
+  1495→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1496→ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+  1497→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1498→ GET / 200 in 33ms (compile: 3ms, render: 30ms)
+  1499→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+  1500→ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+  1501→ GET / 200 in 35ms (compile: 18ms, render: 17ms)
+  1502→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1503→ GET / 200 in 22ms (compile: 3ms, render: 18ms)
+  1504→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1505→ GET / 200 in 20ms (compile: 4ms, render: 17ms)
+  1506→ GET / 200 in 23ms (compile: 3ms, render: 19ms)
+  1507→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1508→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1509→ GET / 200 in 23ms (compile: 4ms, render: 19ms)
+  1510→ GET / 200 in 43ms (compile: 3ms, render: 40ms)
+  1511→ GET / 200 in 24ms (compile: 3ms, render: 21ms)
+  1512→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1513→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1514→ GET / 200 in 27ms (compile: 10ms, render: 18ms)
+  1515→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1516→ GET / 200 in 24ms (compile: 4ms, render: 21ms)
+  1517→ GET / 200 in 24ms (compile: 5ms, render: 19ms)
+  1518→ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+  1519→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1520→ GET / 200 in 25ms (compile: 3ms, render: 22ms)
+  1521→ GET / 200 in 23ms (compile: 5ms, render: 18ms)
+  1522→ GET / 200 in 22ms (compile: 4ms, render: 18ms)
+  1523→ GET / 200 in 22ms (compile: 4ms, render: 19ms)
+  1524→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1525→ GET / 200 in 46ms (compile: 3ms, render: 43ms)
+  1526→ GET / 200 in 27ms (compile: 10ms, render: 17ms)
+  1527→ GET / 200 in 61ms (compile: 3ms, render: 58ms)
+  1528→ GET / 200 in 43ms (compile: 2ms, render: 41ms)
+  1529→ GET / 200 in 37ms (compile: 4ms, render: 33ms)
+  1530→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1531→ GET / 200 in 59ms (compile: 5ms, render: 54ms)
+  1532→ GET / 200 in 32ms (compile: 4ms, render: 28ms)
+  1533→ GET / 200 in 42ms (compile: 4ms, render: 39ms)
+  1534→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+  1535→ GET / 200 in 58ms (compile: 6ms, render: 52ms)
+  1536→ GET / 200 in 32ms (compile: 4ms, render: 28ms)
+  1537→ GET / 200 in 37ms (compile: 3ms, render: 34ms)
+  1538→ GET / 200 in 19ms (compile: 2ms, render: 17ms)
+  1539→ GET / 200 in 49ms (compile: 5ms, render: 44ms)
+  1540→ GET / 200 in 48ms (compile: 19ms, render: 30ms)
+  1541→ GET / 200 in 39ms (compile: 3ms, render: 36ms)
+  1542→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+  1543→ GET / 200 in 34ms (compile: 3ms, render: 31ms)
+  1544→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+  1545→ GET / 200 in 71ms (compile: 3ms, render: 67ms)
+  1546→ GET / 200 in 51ms (compile: 3ms, render: 48ms)
+  1547→ GET / 200 in 39ms (compile: 4ms, render: 35ms)
+  1548→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1549→ GET / 200 in 41ms (compile: 4ms, render: 36ms)
+  1550→ GET / 200 in 23ms (compile: 6ms, render: 17ms)
+  1551→ GET / 200 in 36ms (compile: 3ms, render: 32ms)
+  1552→ GET / 200 in 36ms (compile: 19ms, render: 17ms)
+  1553→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1554→ GET / 200 in 20ms (compile: 5ms, render: 15ms)
+  1555→ GET / 200 in 37ms (compile: 3ms, render: 34ms)
+  1556→ GET / 200 in 20ms (compile: 4ms, render: 17ms)
+  1557→ GET / 200 in 19ms (compile: 4ms, render: 15ms)
+  1558→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+  1559→ GET / 200 in 36ms (compile: 4ms, render: 32ms)
+  1560→ GET / 200 in 20ms (compile: 4ms, render: 16ms)
+  1561→ GET / 200 in 37ms (compile: 3ms, render: 33ms)
+  1562→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1563→ GET / 200 in 59ms (compile: 4ms, render: 55ms)
+  1564→ GET / 200 in 41ms (compile: 3ms, render: 38ms)
+  1565→ GET / 200 in 20ms (compile: 3ms, render: 16ms)
+  1566→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+  1567→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1568→ GET / 200 in 19ms (compile: 4ms, render: 15ms)
+  1569→ GET / 200 in 23ms (compile: 3ms, render: 19ms)
+  1570→ GET / 200 in 19ms (compile: 4ms, render: 15ms)
+  1571→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1572→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1573→ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+  1574→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1575→ GET / 200 in 36ms (compile: 3ms, render: 33ms)
+  1576→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1577→ GET / 200 in 44ms (compile: 4ms, render: 40ms)
+  1578→ GET / 200 in 44ms (compile: 23ms, render: 21ms)
+  1579→ GET / 200 in 49ms (compile: 4ms, render: 45ms)
+  1580→ GET / 200 in 22ms (compile: 4ms, render: 18ms)
+  1581→ GET / 200 in 56ms (compile: 4ms, render: 53ms)
+  1582→ GET / 200 in 56ms (compile: 19ms, render: 38ms)
+  1583→ GET / 200 in 52ms (compile: 5ms, render: 47ms)
+  1584→ GET / 200 in 22ms (compile: 4ms, render: 18ms)
+  1585→ GET / 200 in 47ms (compile: 4ms, render: 42ms)
+  1586→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1587→ GET / 200 in 47ms (compile: 3ms, render: 44ms)
+  1588→ GET / 200 in 29ms (compile: 4ms, render: 26ms)
+  1589→ GET / 200 in 59ms (compile: 6ms, render: 53ms)
+  1590→ GET / 200 in 30ms (compile: 4ms, render: 26ms)
+  1591→ GET / 200 in 61ms (compile: 5ms, render: 55ms)
+  1592→ GET / 200 in 30ms (compile: 4ms, render: 26ms)
+  1593→ GET / 200 in 34ms (compile: 4ms, render: 30ms)
+  1594→ GET / 200 in 34ms (compile: 18ms, render: 16ms)
+  1595→ GET / 200 in 40ms (compile: 4ms, render: 35ms)
+  1596→ GET / 200 in 21ms (compile: 5ms, render: 16ms)
+  1597→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1598→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+  1599→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1600→ GET / 200 in 47ms (compile: 3ms, render: 44ms)
+  1601→ GET / 200 in 20ms (compile: 3ms, render: 16ms)
+  1602→ GET / 200 in 20ms (compile: 4ms, render: 17ms)
+  1603→ GET / 200 in 20ms (compile: 3ms, render: 16ms)
+  1604→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1605→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1606→ GET / 200 in 19ms (compile: 4ms, render: 16ms)
+  1607→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1608→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1609→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1610→ GET / 200 in 21ms (compile: 4ms, render: 17ms)
+  1611→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1612→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+  1613→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1614→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+  1615→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1616→ GET / 200 in 16ms (compile: 2ms, render: 13ms)
+  1617→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1618→ GET / 200 in 47ms (compile: 3ms, render: 44ms)
+  1619→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1620→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+  1621→ GET / 200 in 27ms (compile: 5ms, render: 22ms)
+  1622→ GET / 200 in 22ms (compile: 3ms, render: 19ms)
+  1623→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1624→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1625→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1626→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1627→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+  1628→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1629→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1630→ GET / 200 in 21ms (compile: 3ms, render: 17ms)
+  1631→ GET / 200 in 19ms (compile: 4ms, render: 15ms)
+  1632→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1633→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+  1634→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1635→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+  1636→ GET / 200 in 44ms (compile: 3ms, render: 40ms)
+  1637→ GET / 200 in 19ms (compile: 4ms, render: 16ms)
+  1638→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1639→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1640→ GET / 200 in 31ms (compile: 4ms, render: 27ms)
+  1641→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1642→ GET / 200 in 38ms (compile: 4ms, render: 34ms)
+  1643→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+  1644→ GET / 200 in 37ms (compile: 4ms, render: 33ms)
+  1645→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1646→ GET / 200 in 55ms (compile: 6ms, render: 49ms)
+  1647→ GET / 200 in 30ms (compile: 4ms, render: 26ms)
+  1648→ GET / 200 in 35ms (compile: 4ms, render: 31ms)
+  1649→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+  1650→ GET / 200 in 36ms (compile: 4ms, render: 33ms)
+  1651→ GET / 200 in 36ms (compile: 20ms, render: 16ms)
+  1652→ GET / 200 in 36ms (compile: 3ms, render: 32ms)
+  1653→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1654→ GET / 200 in 62ms (compile: 3ms, render: 59ms)
+  1655→ GET / 200 in 22ms (compile: 4ms, render: 18ms)
+  1656→ GET / 200 in 41ms (compile: 3ms, render: 38ms)
+  1657→ GET / 200 in 21ms (compile: 3ms, render: 17ms)
+  1658→ GET / 200 in 36ms (compile: 4ms, render: 33ms)
+  1659→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1660→ GET / 200 in 41ms (compile: 4ms, render: 37ms)
+  1661→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1662→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1663→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1664→ GET / 200 in 42ms (compile: 4ms, render: 38ms)
+  1665→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+  1666→ GET / 200 in 35ms (compile: 4ms, render: 31ms)
+  1667→ GET / 200 in 35ms (compile: 18ms, render: 17ms)
+  1668→ GET / 200 in 37ms (compile: 6ms, render: 31ms)
+  1669→ GET / 200 in 36ms (compile: 19ms, render: 17ms)
+  1670→ GET / 200 in 38ms (compile: 4ms, render: 34ms)
+  1671→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1672→ GET / 200 in 64ms (compile: 3ms, render: 61ms)
+  1673→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1674→ GET / 200 in 46ms (compile: 8ms, render: 37ms)
+  1675→ GET / 200 in 27ms (compile: 3ms, render: 25ms)
+  1676→ GET / 200 in 89ms (compile: 7ms, render: 82ms)
+  1677→ GET / 200 in 69ms (compile: 32ms, render: 37ms)
+  1678→ GET / 200 in 64ms (compile: 4ms, render: 60ms)
+  1679→ GET / 200 in 33ms (compile: 7ms, render: 26ms)
+  1680→ GET / 200 in 34ms (compile: 4ms, render: 31ms)
+  1681→ GET / 200 in 34ms (compile: 19ms, render: 15ms)
+  1682→ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+  1683→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1684→ GET / 200 in 36ms (compile: 3ms, render: 33ms)
+  1685→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1686→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1687→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+  1688→ GET / 200 in 78ms (compile: 3ms, render: 74ms)
+  1689→ GET / 200 in 60ms (compile: 3ms, render: 57ms)
+  1690→ GET / 200 in 296ms (compile: 4ms, render: 292ms)
+  1691→ GET / 200 in 28ms (compile: 4ms, render: 24ms)
+  1692→ GET / 200 in 35ms (compile: 4ms, render: 32ms)
+  1693→ GET / 200 in 35ms (compile: 19ms, render: 16ms)
+  1694→ GET / 200 in 37ms (compile: 3ms, render: 34ms)
+  1695→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1696→ GET / 200 in 38ms (compile: 4ms, render: 33ms)
+  1697→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1698→ GET / 200 in 36ms (compile: 3ms, render: 33ms)
+  1699→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1700→ GET / 200 in 34ms (compile: 3ms, render: 31ms)
+  1701→ GET / 200 in 34ms (compile: 18ms, render: 16ms)
+  1702→ GET / 200 in 38ms (compile: 5ms, render: 33ms)
+  1703→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1704→ GET / 200 in 36ms (compile: 3ms, render: 32ms)
+  1705→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1706→ GET / 200 in 56ms (compile: 14ms, render: 43ms)
+  1707→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1708→ GET / 200 in 33ms (compile: 4ms, render: 29ms)
+  1709→ GET / 200 in 16ms (compile: 2ms, render: 13ms)
+  1710→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+  1711→ GET / 200 in 36ms (compile: 4ms, render: 33ms)
+  1712→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1713→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1714→ GET / 200 in 36ms (compile: 3ms, render: 33ms)
+  1715→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1716→ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+  1717→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1718→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+  1719→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1720→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1721→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+  1722→ GET / 200 in 16ms (compile: 3ms, render: 14ms)
+  1723→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+  1724→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+  1725→✓ Compiled in 281ms
+  1726→prisma:query SELECT 1
+  1727→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1728→prisma:query SELECT 1
+  1729→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1730→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1731→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1732→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1733→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1734→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1735→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1736→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1737→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1738→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1739→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1740→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1741→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1742→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1743→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1744→ GET /api/public-data 200 in 122ms (compile: 98ms, render: 24ms)
+  1745→ GET /api/public-data 200 in 237ms (compile: 221ms, render: 16ms)
+  1746→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1747→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1748→✓ Compiled in 191ms
+  1749→prisma:query SELECT 1
+  1750→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1751→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1752→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1753→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1754→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1755→prisma:query SELECT 1
+  1756→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1757→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1758→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1759→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1760→ GET /api/public-data 200 in 16ms (compile: 3ms, render: 13ms)
+  1761→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1762→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1763→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1764→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1765→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1766→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1767→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1768→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1769→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1770→ GET /api/public-data 200 in 12ms (compile: 1946µs, render: 10ms)
+  1771→ GET / 200 in 388ms (compile: 61ms, render: 327ms)
+  1772→prisma:query SELECT 1
+  1773→prisma:query SELECT 1
+  1774→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1775→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1776→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1777→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1778→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1779→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1780→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1781→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1782→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1783→ GET /api/public-data 200 in 17ms (compile: 4ms, render: 14ms)
+  1784→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1785→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1786→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1787→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1788→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1789→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1790→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1791→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1792→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1793→ GET /api/public-data 200 in 16ms (compile: 3ms, render: 13ms)
+  1794→✓ Compiled in 930ms
+  1795→prisma:query SELECT 1
+  1796→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1797→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1798→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE `main`.`client_logos`.`showOnHomepage` = ? ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1799→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1800→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1801→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1802→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1803→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1804→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1805→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1806→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1807→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1808→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1809→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE `main`.`client_logos`.`showOnHomepage` = ? ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1810→ GET / 200 in 166ms (compile: 72ms, render: 94ms)
+  1811→ GET / 200 in 170ms (compile: 137ms, render: 33ms)
+  1812→✓ Compiled in 197ms
+  1813→✓ Compiled in 187ms
+  1814→✓ Compiled in 188ms
+  1815→✓ Compiled in 195ms
+  1816→✓ Compiled in 152ms
+  1817→✓ Compiled in 201ms
+  1818→✓ Compiled in 153ms
+  1819→✓ Compiled in 194ms
+  1820→✓ Compiled in 187ms
+  1821→prisma:query SELECT 1
+  1822→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1823→prisma:query SELECT 1
+  1824→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1825→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1826→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1827→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1828→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE `main`.`client_logos`.`showOnHomepage` = ? ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1829→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1830→ GET / 200 in 761ms (compile: 56ms, render: 705ms)
+  1831→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1832→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1833→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1834→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1835→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1836→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1837→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1838→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1839→ GET /api/public-data 200 in 15ms (compile: 4ms, render: 11ms)
+  1840→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1841→prisma:query SELECT `main`.`site_settings`.`id`, `main`.`site_settings`.`logo`, `main`.`site_settings`.`email`, `main`.`site_settings`.`phone`, `main`.`site_settings`.`facebookUrl`, `main`.`site_settings`.`instagramUrl`, `main`.`site_settings`.`address`, `main`.`site_settings`.`mapEmbedUrl`, `main`.`site_settings`.`footerText`, `main`.`site_settings`.`copyrightText`, `main`.`site_settings`.`createdAt`, `main`.`site_settings`.`updatedAt` FROM `main`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+  1842→prisma:query SELECT `main`.`nav_items`.`id`, `main`.`nav_items`.`label`, `main`.`nav_items`.`url`, `main`.`nav_items`.`order`, `main`.`nav_items`.`location`, `main`.`nav_items`.`createdAt`, `main`.`nav_items`.`updatedAt` FROM `main`.`nav_items` WHERE 1=1 ORDER BY `main`.`nav_items`.`location` ASC, `main`.`nav_items`.`order` ASC LIMIT ? OFFSET ?
+  1843→prisma:query SELECT `main`.`homepage_sections`.`id`, `main`.`homepage_sections`.`key`, `main`.`homepage_sections`.`heading`, `main`.`homepage_sections`.`subheading`, `main`.`homepage_sections`.`body`, `main`.`homepage_sections`.`image`, `main`.`homepage_sections`.`ctaLabel`, `main`.`homepage_sections`.`ctaUrl`, `main`.`homepage_sections`.`order`, `main`.`homepage_sections`.`createdAt`, `main`.`homepage_sections`.`updatedAt` FROM `main`.`homepage_sections` WHERE 1=1 ORDER BY `main`.`homepage_sections`.`order` ASC LIMIT ? OFFSET ?
+  1844→prisma:query SELECT `main`.`stats`.`id`, `main`.`stats`.`label`, `main`.`stats`.`value`, `main`.`stats`.`suffix`, `main`.`stats`.`order`, `main`.`stats`.`createdAt`, `main`.`stats`.`updatedAt` FROM `main`.`stats` WHERE 1=1 ORDER BY `main`.`stats`.`order` ASC LIMIT ? OFFSET ?
+  1845→prisma:query SELECT `main`.`solutions`.`id`, `main`.`solutions`.`title`, `main`.`solutions`.`slug`, `main`.`solutions`.`shortDescription`, `main`.`solutions`.`body`, `main`.`solutions`.`iconUrl`, `main`.`solutions`.`heroImageUrl`, `main`.`solutions`.`order`, `main`.`solutions`.`isPublished`, `main`.`solutions`.`createdAt`, `main`.`solutions`.`updatedAt` FROM `main`.`solutions` WHERE `main`.`solutions`.`isPublished` = ? ORDER BY `main`.`solutions`.`order` ASC LIMIT ? OFFSET ?
+  1846→prisma:query SELECT `main`.`solution_features`.`id`, `main`.`solution_features`.`label`, `main`.`solution_features`.`order`, `main`.`solution_features`.`solutionId`, `main`.`solution_features`.`createdAt`, `main`.`solution_features`.`updatedAt` FROM `main`.`solution_features` WHERE `main`.`solution_features`.`solutionId` IN (?,?,?,?,?,?,?,?,?) ORDER BY `main`.`solution_features`.`order` ASC LIMIT ? OFFSET ?
+  1847→prisma:query SELECT `main`.`team_members`.`id`, `main`.`team_members`.`name`, `main`.`team_members`.`title`, `main`.`team_members`.`photoUrl`, `main`.`team_members`.`order`, `main`.`team_members`.`isPublished`, `main`.`team_members`.`createdAt`, `main`.`team_members`.`updatedAt` FROM `main`.`team_members` WHERE `main`.`team_members`.`isPublished` = ? ORDER BY `main`.`team_members`.`order` ASC LIMIT ? OFFSET ?
+  1848→prisma:query SELECT `main`.`testimonials`.`id`, `main`.`testimonials`.`quote`, `main`.`testimonials`.`authorName`, `main`.`testimonials`.`authorOrg`, `main`.`testimonials`.`imageUrl`, `main`.`testimonials`.`order`, `main`.`testimonials`.`isPublished`, `main`.`testimonials`.`createdAt`, `main`.`testimonials`.`updatedAt` FROM `main`.`testimonials` WHERE `main`.`testimonials`.`isPublished` = ? ORDER BY `main`.`testimonials`.`order` ASC LIMIT ? OFFSET ?
+  1849→ GET /api/public-data 200 in 13ms (compile: 3ms, render: 10ms)
+  1850→prisma:query SELECT `main`.`client_logos`.`id`, `main`.`client_logos`.`name`, `main`.`client_logos`.`logoUrl`, `main`.`client_logos`.`order`, `main`.`client_logos`.`showOnHomepage`, `main`.`client_logos`.`isPublished`, `main`.`client_logos`.`createdAt`, `main`.`client_logos`.`updatedAt` FROM `main`.`client_logos` WHERE (`main`.`client_logos`.`isPublished` = ? AND `main`.`client_logos`.`showOnHomepage` = ?) ORDER BY `main`.`client_logos`.`order` ASC LIMIT ? OFFSET ?
+  1851→✓ Compiled in 175ms
+  1852→✓ Compiled in 221ms
+  1853→✓ Compiled in 167ms
+  1854→✓ Compiled in 174ms
+  1855→✓ Compiled in 181ms
+  1856→✓ Compiled in 166ms
+  1857→

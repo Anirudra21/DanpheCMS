@@ -9,9 +9,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { SHARED_FAQS } from '@/lib/constants';
 
-export default function FAQSection() {
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface FAQSectionProps {
+  heading: string;
+  subheading: string;
+  faqs: FAQ[];
+}
+
+export default function FAQSection({ heading, subheading, faqs }: FAQSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
@@ -29,16 +39,16 @@ export default function FAQSection() {
           className="mb-12 text-center"
         >
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
-            Frequently Asked Questions
+            {heading}
           </h2>
           <p className="mx-auto max-w-2xl text-base text-danphe-text">
-            Everything you need to know about DANPHE HMIS
+            {subheading}
           </p>
         </motion.div>
 
         <div className="mx-auto max-w-3xl">
           <Accordion type="single" collapsible className="w-full">
-            {SHARED_FAQS.map((faq, idx) => (
+            {faqs.map((faq, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}

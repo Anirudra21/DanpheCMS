@@ -6,12 +6,15 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, ExternalLink, FileText, Download, CheckCircle } from 'lucide-react';
 
-const outcomePoints = [
-  'Improve your patient experience by improving your process with DANPHE HMIS Software',
-  'Significant reduction in time and effort required to manage your Health Institution',
-];
+interface OutcomesSectionProps {
+  heading: string;
+  outcomePoints: string[];
+  image: string;
+  ctaLabel: string;
+  ctaUrl: string;
+}
 
-export default function OutcomesSection() {
+export default function OutcomesSection({ heading, outcomePoints, image, ctaLabel, ctaUrl }: OutcomesSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
   const efficiencyRef = useRef(null);
@@ -32,7 +35,7 @@ export default function OutcomesSection() {
               transition={{ duration: 0.6, ease: 'easeOut' }}
             >
               <h2 className="font-heading mb-8 text-3xl font-bold leading-snug text-danphe-primary md:text-4xl">
-                Delivering better outcomes by working together to build smart system solutions for you
+                {heading}
               </h2>
             </motion.div>
 
@@ -63,10 +66,10 @@ export default function OutcomesSection() {
               className="mt-8"
             >
               <Link
-                href="/solutions"
+                href={ctaUrl}
                 className="inline-flex items-center gap-2 rounded-full bg-danphe-accent px-6 py-3 text-sm font-semibold text-white shadow-premium transition-all duration-300 hover:shadow-glow-accent hover:bg-danphe-accent-light"
               >
-                Explore More
+                {ctaLabel}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </motion.div>
@@ -83,7 +86,7 @@ export default function OutcomesSection() {
             <div className="absolute -top-6 -right-6 -bottom-4 -left-4 rounded-2xl bg-danphe-accent/10 -rotate-3" />
             <div className="relative overflow-hidden rounded-3xl shadow-premium-lg">
               <Image
-                src="https://danphehealth.com/frontend/img/doctor.png"
+                src={image}
                 alt="Doctor using Danphe HMIS"
                 width={600}
                 height={700}

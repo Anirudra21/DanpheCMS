@@ -4,6 +4,11 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { MapPin, Globe } from 'lucide-react';
 
+interface InternationalSectionProps {
+  heading: string;
+  subheading: string;
+}
+
 const mapDots = [
   { name: 'Kathmandu, Nepal', top: '48%', left: '68%', primary: true },
   { name: 'Pokhara', top: '52%', left: '62%', primary: false },
@@ -17,7 +22,7 @@ const connectionLines = [
   { x1: '68%', y1: '48%', x2: '60%', y2: '56%' },
 ];
 
-export default function InternationalSection() {
+export default function InternationalSection({ heading, subheading }: InternationalSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
@@ -35,12 +40,10 @@ export default function InternationalSection() {
           className="mb-12 text-center"
         >
           <h2 className="font-heading mb-4 text-3xl font-bold text-danphe-primary md:text-4xl">
-            Trusted Across Borders
+            {heading}
           </h2>
           <p className="mx-auto max-w-2xl text-base text-danphe-text">
-            From urban hospitals in Kathmandu to healthcare institutions across
-            regions, DANPHE powers critical hospital operations wherever they
-            are needed.
+            {subheading}
           </p>
         </motion.div>
 
