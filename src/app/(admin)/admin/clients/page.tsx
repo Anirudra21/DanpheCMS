@@ -3,8 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { DataTable, PublishedBadge, type ColumnDef } from '../_components/DataTable';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/cms-utils';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,6 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { Switch } from '@/components/ui/switch';
 
 // ─── Types ────────────────────────────────────────────────────────────────
 
@@ -25,8 +24,6 @@ type ClientLogo = {
   order: number;
   showOnHomepage: boolean;
   isPublished: boolean;
-  createdAt: string;
-  updatedAt: string;
 };
 
 // ─── Animation ────────────────────────────────────────────────────────────
@@ -40,68 +37,14 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-// ─── Columns ─────────────────────────────────────────────────────────────
+// ─── Page ────────────────────────────────────────────────────────────────
 
-const columns: ColumnDef<ClientLogo>[] = [
-  {
-    key: 'logoUrl',
-    label: 'Logo',
-    className: 'w-16',
-    render: (cl) => (
-      cl.logoUrl ? (
-        <div
-          className="h-6 w-[60px] rounded bg-contain bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${cl.logoUrl})` }}
-        />
-      ) : (
-        <div className="h-6 w-[60px] rounded bg-slate-100 flex items-center justify-center">
-          <span className="text-[10px] font-medium text-slate-400">
-            {cl.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()}
-          </span>
-        </div>
-      )
-    ),
-  },
-  {
-    key: 'name',
-    label: 'Name',
-    render: (cl) => (
-      <p className="font-medium text-slate-900 text-sm">{cl.name}</p>
-    ),
-  },
-  {
-    key: 'showOnHomepage',
-    label: 'Homepage',
-    className: 'w-24',
-    render: (cl) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          'text-[11px] font-medium border-0',
-          cl.showOnHomepage
-            ? 'bg-emerald-50 text-emerald-700'
-            : 'bg-slate-100 text-slate-500',
-        )}
-      >
-        {cl.showOnHomepage ? 'Shown' : 'Hidden'}
-      </Badge>
-    ),
-  },
-  {
-    key: 'isPublished',
-    label: 'Status',
-    className: 'w-28',
-    render: (cl) => <PublishedBadge published={cl.isPublished} />,
-  },
-];
-
-// ─── Page ───────────────────────────────────────────────────────────────
-
-export default function ClientsListPage() {
+export default function ClientLogosListPage() {
   const [logos, setLogos] = useState<ClientLogo[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteTarget, setDeleteTarget] = useState<ClientLogo | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
 
   const fetchLogos = useCallback(async () => {
     try {
@@ -138,17 +81,83 @@ export default function ClientsListPage() {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        items: reordered.map((cl, idx) => ({ id: cl.id, order: idx })),
+        items: reordered.map((l, idx) => ({ id: l.id, order: idx })),
       }),
     });
   };
+
+  const handleToggleHomepage = async (logo: ClientLogo) => {
+    const newValue = !logo.showOnHomepage;
+    setTogglingId(logo.id);
+    try {
+      const res = await fetch(`/api/client-logos/${logo.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ showOnHomepage: newValue }),
+      });
+      if (!res.ok) throw new Error();
+      setLogos((prev) =>
+        prev.map((l) => (l.id === logo.id ? { ...l, showOnHomepage: newValue } : l)),
+      );
+    } catch {
+      // revert on error
+    } finally {
+      setTogglingId(null);
+    }
+  };
+
+  // ─── Columns ──────────────────────────────────────────────────────────────
+
+  const columns: ColumnDef<ClientLogo>[] = [
+    {
+      key: 'logoUrl',
+      label: 'Logo',
+      className: 'w-20',
+      render: (l) => (
+        <div
+          className="h-6 w-auto max-w-[48px] min-w-[32px] bg-contain bg-center bg-no-repeat"
+          style={
+            l.logoUrl
+              ? { backgroundImage: `url(${l.logoUrl})` }
+              : undefined
+          }
+        />
+      ),
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      render: (l) => (
+        <p className="font-medium text-slate-900 text-sm">{l.name}</p>
+      ),
+    },
+    {
+      key: 'showOnHomepage',
+      label: 'Homepage',
+      className: 'w-28',
+      render: (l) => (
+        <Switch
+          checked={l.showOnHomepage}
+          disabled={togglingId === l.id}
+          onCheckedChange={() => handleToggleHomepage(l)}
+          className="data-[state=checked]:bg-emerald-600"
+        />
+      ),
+    },
+    {
+      key: 'isPublished',
+      label: 'Status',
+      className: 'w-28',
+      render: (l) => <PublishedBadge published={l.isPublished} />,
+    },
+  ];
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
       <motion.div variants={item}>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Client Logos</h1>
         <p className="text-sm text-slate-500 mt-1">
-          Manage client logos and their display order on the homepage.
+          Manage client logos displayed on the website.
         </p>
       </motion.div>
 
@@ -157,16 +166,16 @@ export default function ClientsListPage() {
           columns={columns}
           data={logos}
           isLoading={loading}
-          emptyMessage="No client logos yet. Add your first client logo."
+          emptyMessage="No client logos yet. Add your first logo."
           newHref="/admin/clients/new"
-          newLabel="New Logo"
+          newLabel="New Client Logo"
           editable
-          editHref={(cl) => `/admin/clients/${cl.id}/edit`}
+          editHref={(l) => `/admin/clients/${l.id}/edit`}
           deletable
           onDelete={setDeleteTarget}
           draggable
           onReorder={handleReorder}
-          title={`${logos.length} ${logos.length === 1 ? 'logo' : 'logos'}`}
+          title={`${logos.length} logos`}
         />
       </motion.div>
 

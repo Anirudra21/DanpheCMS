@@ -5,14 +5,23 @@ const fields: FieldConfig[] = [
     name: 'name',
     label: 'Name',
     type: 'text',
-    placeholder: 'e.g. Kathmandu Medical College',
+    placeholder: 'e.g. Apollo Hospitals',
     required: true,
   },
   {
     name: 'logoUrl',
-    label: 'Logo',
+    label: 'Logo Image',
     type: 'image',
     folder: 'clients',
+    description: 'Client logo image.',
+  },
+  {
+    name: 'order',
+    label: 'Display Order',
+    type: 'number',
+    defaultValue: 0,
+    min: 0,
+    description: 'Lower numbers appear first.',
   },
   {
     name: 'showOnHomepage',
@@ -25,14 +34,6 @@ const fields: FieldConfig[] = [
     label: 'Published',
     type: 'checkbox',
     defaultValue: false,
-  },
-  {
-    name: 'order',
-    label: 'Display Order',
-    type: 'number',
-    defaultValue: 0,
-    min: 0,
-    description: 'Lower numbers appear first.',
   },
 ];
 

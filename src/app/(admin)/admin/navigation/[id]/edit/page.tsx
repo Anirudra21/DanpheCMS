@@ -4,7 +4,7 @@ const locationOptions = [
   { label: 'Header', value: 'HEADER' },
   { label: 'Footer — Company', value: 'FOOTER_COMPANY' },
   { label: 'Footer — Solutions', value: 'FOOTER_SOLUTIONS' },
-  { label: 'Footer — Information', value: 'FOOTER_INFO' },
+  { label: 'Footer — Info', value: 'FOOTER_INFO' },
 ];
 
 const fields: FieldConfig[] = [
@@ -19,7 +19,7 @@ export default function EditNavigationPage({ params }: { params: Promise<{ id: s
     <ModelForm
       title="Nav Item"
       fields={fields}
-      apiBase="/api/navigation"
+      apiBase="/api/nav-items"
       listHref="/admin/navigation"
       id={params.then((p) => p.id)}
     />

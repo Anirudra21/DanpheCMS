@@ -5,7 +5,7 @@ const fields: FieldConfig[] = [
     name: 'quote',
     label: 'Quote',
     type: 'textarea',
-    placeholder: 'What did they say about us?',
+    placeholder: 'e.g. Danphe has transformed our hospital operations…',
     required: true,
     rows: 3,
   },
@@ -18,15 +18,16 @@ const fields: FieldConfig[] = [
   },
   {
     name: 'authorOrg',
-    label: 'Author Organization',
+    label: 'Organization',
     type: 'text',
-    placeholder: 'e.g. Kathmandu Medical College',
+    placeholder: 'e.g. Apollo Hospitals',
   },
   {
     name: 'imageUrl',
     label: 'Author Photo',
     type: 'image',
     folder: 'testimonials',
+    description: 'Circular photo shown beside the testimonial.',
   },
   {
     name: 'order',

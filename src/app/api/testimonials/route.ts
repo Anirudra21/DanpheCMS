@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
         quote: quote.trim(),
         authorName: authorName.trim(),
         authorOrg: authorOrg?.trim() ?? '',
-        imageUrl: imageUrl?.trim() ?? '',
+        imageUrl: imageUrl ?? '',
         order: typeof order === 'number' ? order : 0,
         isPublished: isPublished === true,
       },

@@ -154,11 +154,19 @@ export function ModelForm(props: ModelFormConfig) {
     setArrayValues(init);
   }, [arrayFields.map((a) => a.name).join(',')]);
 
+  // Build initial defaults from field configs (for new items)
+  const initialDefaults = fields.reduce<Record<string, unknown>>((acc, field) => {
+    if (field.defaultValue !== undefined) {
+      acc[field.name] = field.defaultValue;
+    }
+    return acc;
+  }, {});
+
   const schema = buildSchema(fields);
 
   const form = useForm({
     resolver: zodResolver(schema),
-    defaultValues: formDefaults,
+    defaultValues: Object.keys(formDefaults).length > 0 ? formDefaults : initialDefaults,
   });
   const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = form;
 

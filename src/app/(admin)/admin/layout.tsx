@@ -24,6 +24,7 @@ import {
   X,
 } from 'lucide-react';
 import { cn } from '@/lib/cms-utils';
+import { Toaster } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
@@ -400,6 +401,7 @@ export default function AdminLayout({
 
       {/* Mobile Sidebar */}
       <MobileSidebar open={mobileOpen} onOpenChange={setMobileOpen} />
+      <Toaster position="top-right" richColors closeButton />
     </div>
   );
 }

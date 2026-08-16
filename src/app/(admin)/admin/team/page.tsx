@@ -13,6 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { getInitials, getAvatarColor } from '@/lib/cms-utils';
 
 // ─── Types ────────────────────────────────────────────────────────────────
 
@@ -46,12 +47,18 @@ const columns: ColumnDef<TeamMember>[] = [
     label: 'Photo',
     className: 'w-14',
     render: (tm) => (
-      <div
-        className="h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat ring-1 ring-slate-200"
-        style={{
-          backgroundImage: tm.photoUrl ? `url(${tm.photoUrl})` : undefined,
-        }}
-      />
+      tm.photoUrl ? (
+        <div
+          className="h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat ring-1 ring-slate-200"
+          style={{ backgroundImage: `url(${tm.photoUrl})` }}
+        />
+      ) : (
+        <div
+          className={`h-10 w-10 rounded-full flex items-center justify-center text-white text-xs font-semibold ring-1 ring-slate-200 ${getAvatarColor(tm.name)}`}
+        >
+          {getInitials(tm.name)}
+        </div>
+      )
     ),
   },
   {
@@ -62,6 +69,16 @@ const columns: ColumnDef<TeamMember>[] = [
         <p className="font-medium text-slate-900 text-sm">{tm.name}</p>
         {tm.title && <p className="text-xs text-slate-400 mt-0.5">{tm.title}</p>}
       </div>
+    ),
+  },
+  {
+    key: 'order',
+    label: 'Order',
+    className: 'w-20 text-center',
+    render: (tm) => (
+      <span className="inline-flex items-center justify-center h-6 min-w-[24px] rounded-full bg-slate-100 px-2 text-[11px] font-medium text-slate-600">
+        {tm.order}
+      </span>
     ),
   },
   {

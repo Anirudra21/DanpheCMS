@@ -59,6 +59,16 @@ const columns: ColumnDef<Stat>[] = [
       </div>
     ),
   },
+  {
+    key: 'order',
+    label: 'Order',
+    className: 'w-20 text-center',
+    render: (stat) => (
+      <span className="inline-flex items-center justify-center h-6 min-w-[24px] rounded-full bg-slate-100 px-2 text-[11px] font-medium text-slate-600">
+        {stat.order}
+      </span>
+    ),
+  },
 ];
 
 // ─── Page ───────────────────────────────────────────────────────────────

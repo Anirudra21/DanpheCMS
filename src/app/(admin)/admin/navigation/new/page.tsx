@@ -8,10 +8,10 @@ const locationOptions = [
   { label: 'Header', value: 'HEADER' },
   { label: 'Footer — Company', value: 'FOOTER_COMPANY' },
   { label: 'Footer — Solutions', value: 'FOOTER_SOLUTIONS' },
-  { label: 'Footer — Information', value: 'FOOTER_INFO' },
+  { label: 'Footer — Info', value: 'FOOTER_INFO' },
 ];
 
-const fields: FieldConfig[] = [
+const baseFields: FieldConfig[] = [
   { name: 'label', label: 'Label', type: 'text', placeholder: 'e.g. About Us', required: true },
   { name: 'url', label: 'URL', type: 'text', placeholder: 'e.g. /about', required: true },
   { name: 'location', label: 'Location', type: 'select', required: true, options: locationOptions },
@@ -21,14 +21,14 @@ const fields: FieldConfig[] = [
 function NewNavForm() {
   const searchParams = useSearchParams();
   const location = searchParams.get('location') || 'HEADER';
-  const formFields = fields.map((f) =>
+  const formFields = baseFields.map((f) =>
     f.name === 'location' ? { ...f, defaultValue: location } : f,
   );
   return (
     <ModelForm
       title="Nav Item"
       fields={formFields}
-      apiBase="/api/navigation"
+      apiBase="/api/nav-items"
       listHref="/admin/navigation"
     />
   );

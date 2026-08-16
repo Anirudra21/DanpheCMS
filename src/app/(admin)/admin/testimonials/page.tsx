@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { DataTable, PublishedBadge, type ColumnDef } from '../_components/DataTable';
 import {
@@ -13,6 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { truncate } from '@/lib/cms-utils';
 
 // ─── Types ────────────────────────────────────────────────────────────────
 
@@ -24,8 +26,6 @@ type Testimonial = {
   imageUrl: string;
   order: number;
   isPublished: boolean;
-  createdAt: string;
-  updatedAt: string;
 };
 
 // ─── Animation ────────────────────────────────────────────────────────────
@@ -39,14 +39,40 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-// ─── Columns ─────────────────────────────────────────────────────────────
+// ─── Helper: get initials ─────────────────────────────────────────────────
+
+function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((w) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+}
+
+// ─── Columns ──────────────────────────────────────────────────────────────
 
 const columns: ColumnDef<Testimonial>[] = [
   {
-    key: 'quote',
-    label: 'Quote',
+    key: 'imageUrl',
+    label: 'Photo',
+    className: 'w-14',
     render: (t) => (
-      <p className="text-sm text-slate-700 line-clamp-2 max-w-[300px]">{t.quote}</p>
+      <div
+        className="h-10 w-10 rounded-full bg-cover bg-center bg-slate-200 shrink-0"
+        style={
+          t.imageUrl
+            ? { backgroundImage: `url(${t.imageUrl})` }
+            : undefined
+        }
+      >
+        {!t.imageUrl && (
+          <div className="h-full w-full rounded-full flex items-center justify-center bg-slate-100 text-xs font-medium text-slate-500">
+            {getInitials(t.authorName)}
+          </div>
+        )}
+      </div>
     ),
   },
   {
@@ -62,6 +88,16 @@ const columns: ColumnDef<Testimonial>[] = [
     ),
   },
   {
+    key: 'quote',
+    label: 'Quote',
+    className: 'max-w-[300px]',
+    render: (t) => (
+      <p className="text-sm text-slate-500 line-clamp-2">
+        {truncate(t.quote, 80)}
+      </p>
+    ),
+  },
+  {
     key: 'isPublished',
     label: 'Status',
     className: 'w-28',
@@ -69,9 +105,10 @@ const columns: ColumnDef<Testimonial>[] = [
   },
 ];
 
-// ─── Page ───────────────────────────────────────────────────────────────
+// ─── Page ────────────────────────────────────────────────────────────────
 
 export default function TestimonialsListPage() {
+  const router = useRouter();
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteTarget, setDeleteTarget] = useState<Testimonial | null>(null);
@@ -122,7 +159,7 @@ export default function TestimonialsListPage() {
       <motion.div variants={item}>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Testimonials</h1>
         <p className="text-sm text-slate-500 mt-1">
-          Manage client testimonials and their display order.
+          Manage client testimonials displayed on the website.
         </p>
       </motion.div>
 
@@ -131,7 +168,7 @@ export default function TestimonialsListPage() {
           columns={columns}
           data={testimonials}
           isLoading={loading}
-          emptyMessage="No testimonials yet. Add your first client testimonial."
+          emptyMessage="No testimonials yet. Create your first testimonial."
           newHref="/admin/testimonials/new"
           newLabel="New Testimonial"
           editable
@@ -140,7 +177,7 @@ export default function TestimonialsListPage() {
           onDelete={setDeleteTarget}
           draggable
           onReorder={handleReorder}
-          title={`${testimonials.length} ${testimonials.length === 1 ? 'testimonial' : 'testimonials'}`}
+          title={`${testimonials.length} testimonials`}
         />
       </motion.div>
 

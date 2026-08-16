@@ -11,7 +11,7 @@ export async function GET() {
     });
     return NextResponse.json(logos);
   } catch (error) {
-    console.error('ClientLogos list error:', error);
+    console.error('Client logos list error:', error);
     return NextResponse.json({ error: 'Failed to load client logos' }, { status: 500 });
   }
 }
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     const logo = await db.clientLogo.create({
       data: {
         name: name.trim(),
-        logoUrl: logoUrl?.trim() ?? '',
+        logoUrl: logoUrl ?? '',
         order: typeof order === 'number' ? order : 0,
         showOnHomepage: showOnHomepage !== false,
         isPublished: isPublished === true,
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(logo, { status: 201 });
   } catch (error) {
-    console.error('ClientLogo create error:', error);
+    console.error('Client logo create error:', error);
     return NextResponse.json({ error: 'Failed to create client logo' }, { status: 500 });
   }
 }
@@ -68,7 +68,7 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('ClientLogo reorder error:', error);
+    console.error('Client logo reorder error:', error);
     return NextResponse.json({ error: 'Failed to reorder client logos' }, { status: 500 });
   }
 }

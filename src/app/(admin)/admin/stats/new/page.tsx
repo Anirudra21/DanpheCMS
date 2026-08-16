@@ -19,7 +19,7 @@ const fields: FieldConfig[] = [
     name: 'suffix',
     label: 'Suffix',
     type: 'text',
-    placeholder: 'e.g. Hospitals',
+    placeholder: '+',
   },
   {
     name: 'order',

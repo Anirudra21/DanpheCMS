@@ -10,7 +10,9 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const testimonial = await db.testimonial.findUnique({ where: { id } });
+    const testimonial = await db.testimonial.findUnique({
+      where: { id },
+    });
 
     if (!testimonial) {
       return NextResponse.json({ error: 'Testimonial not found' }, { status: 404 });
@@ -46,7 +48,7 @@ export async function PUT(
         ...(quote !== undefined && { quote: quote.trim() }),
         ...(authorName !== undefined && { authorName: authorName.trim() }),
         ...(authorOrg !== undefined && { authorOrg: authorOrg?.trim() ?? '' }),
-        ...(imageUrl !== undefined && { imageUrl: imageUrl?.trim() ?? '' }),
+        ...(imageUrl !== undefined && { imageUrl: imageUrl ?? '' }),
         ...(order !== undefined && { order: typeof order === 'number' ? order : existing.order }),
         ...(isPublished !== undefined && { isPublished: isPublished === true }),
       },

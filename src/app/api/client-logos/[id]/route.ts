@@ -10,7 +10,9 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const logo = await db.clientLogo.findUnique({ where: { id } });
+    const logo = await db.clientLogo.findUnique({
+      where: { id },
+    });
 
     if (!logo) {
       return NextResponse.json({ error: 'Client logo not found' }, { status: 404 });
@@ -18,7 +20,7 @@ export async function GET(
 
     return NextResponse.json(logo);
   } catch (error) {
-    console.error('ClientLogo get error:', error);
+    console.error('Client logo get error:', error);
     return NextResponse.json({ error: 'Failed to load client logo' }, { status: 500 });
   }
 }
@@ -44,7 +46,7 @@ export async function PUT(
       where: { id },
       data: {
         ...(name !== undefined && { name: name.trim() }),
-        ...(logoUrl !== undefined && { logoUrl: logoUrl?.trim() ?? '' }),
+        ...(logoUrl !== undefined && { logoUrl: logoUrl ?? '' }),
         ...(order !== undefined && { order: typeof order === 'number' ? order : existing.order }),
         ...(showOnHomepage !== undefined && { showOnHomepage: showOnHomepage === true }),
         ...(isPublished !== undefined && { isPublished: isPublished === true }),
@@ -53,7 +55,7 @@ export async function PUT(
 
     return NextResponse.json(logo);
   } catch (error) {
-    console.error('ClientLogo update error:', error);
+    console.error('Client logo update error:', error);
     return NextResponse.json({ error: 'Failed to update client logo' }, { status: 500 });
   }
 }
@@ -77,7 +79,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('ClientLogo delete error:', error);
+    console.error('Client logo delete error:', error);
     return NextResponse.json({ error: 'Failed to delete client logo' }, { status: 500 });
   }
 }

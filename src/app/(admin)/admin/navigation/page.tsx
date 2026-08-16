@@ -3,9 +3,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Plus } from 'lucide-react';
+import { Navigation, Building2, Lightbulb, Info } from 'lucide-react';
 import { DataTable, type ColumnDef } from '../_components/DataTable';
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,13 +25,12 @@ type NavItem = {
   url: string;
   order: number;
   location: string;
-  createdAt: string;
-  updatedAt: string;
 };
 
 type NavGroup = {
   key: string;
   label: string;
+  icon: React.ReactNode;
   newHref: string;
   items: NavItem[];
 };
@@ -47,16 +46,16 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-// ─── Location Labels ──────────────────────────────────────────────────────
-
-const locationLabels: Record<string, string> = {
-  HEADER: 'Header Navigation',
-  FOOTER_COMPANY: 'Footer — Company',
-  FOOTER_SOLUTIONS: 'Footer — Solutions',
-  FOOTER_INFO: 'Footer — Information',
-};
+// ─── Group Configuration ────────────────────────────────────────────────
 
 const locationOrder = ['HEADER', 'FOOTER_COMPANY', 'FOOTER_SOLUTIONS', 'FOOTER_INFO'];
+
+const groupConfig: Record<string, { label: string; icon: React.ReactNode }> = {
+  HEADER: { label: 'Header Navigation', icon: <Navigation className="h-4 w-4" /> },
+  FOOTER_COMPANY: { label: 'Footer — Company', icon: <Building2 className="h-4 w-4" /> },
+  FOOTER_SOLUTIONS: { label: 'Footer — Solutions', icon: <Lightbulb className="h-4 w-4" /> },
+  FOOTER_INFO: { label: 'Footer — Info', icon: <Info className="h-4 w-4" /> },
+};
 
 // ─── Columns ─────────────────────────────────────────────────────────────
 
@@ -72,7 +71,9 @@ const columns: ColumnDef<NavItem>[] = [
     key: 'url',
     label: 'URL',
     render: (n) => (
-      <p className="text-sm text-slate-500 line-clamp-1 max-w-[200px]">{n.url}</p>
+      <span className="text-xs text-slate-500 font-mono bg-slate-50 px-1.5 py-0.5 rounded">
+        {n.url}
+      </span>
     ),
   },
 ];
@@ -87,7 +88,7 @@ export default function NavigationListPage() {
 
   const fetchNavItems = useCallback(async () => {
     try {
-      const res = await fetch('/api/navigation');
+      const res = await fetch('/api/nav-items');
       if (!res.ok) throw new Error();
       const data = await res.json();
       setAllItems(data);
@@ -102,7 +103,8 @@ export default function NavigationListPage() {
 
   const groups: NavGroup[] = locationOrder.map((loc) => ({
     key: loc,
-    label: locationLabels[loc],
+    label: groupConfig[loc].label,
+    icon: groupConfig[loc].icon,
     newHref: `/admin/navigation/new?location=${loc}`,
     items: allItems.filter((i) => i.location === loc),
   }));
@@ -111,7 +113,7 @@ export default function NavigationListPage() {
     if (!deleteTarget) return;
     setDeleting(true);
     try {
-      const res = await fetch(`/api/navigation/${deleteTarget.id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/nav-items/${deleteTarget.id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error();
       setDeleteTarget(null);
       fetchNavItems();
@@ -122,8 +124,8 @@ export default function NavigationListPage() {
     }
   };
 
-  const handleReorder = async (reordered: NavItem[], groupKey: string) => {
-    await fetch('/api/navigation', {
+  const handleReorder = async (reordered: NavItem[]) => {
+    await fetch('/api/nav-items', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -134,6 +136,7 @@ export default function NavigationListPage() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
+      {/* Page header */}
       <motion.div variants={item}>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Navigation</h1>
         <p className="text-sm text-slate-500 mt-1">
@@ -141,30 +144,43 @@ export default function NavigationListPage() {
         </p>
       </motion.div>
 
-      <div className="space-y-8">
+      {/* Grouped sections */}
+      <div className="space-y-6">
         {groups.map((group) => (
-          <motion.div key={group.key} variants={item} className="space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-slate-700">{group.label}</h3>
-              <Link href={group.newHref}>
-                <Button size="sm" variant="outline" className="h-7 gap-1.5 text-xs">
-                  <Plus className="h-3 w-3" />
-                  Add Item
-                </Button>
-              </Link>
+          <motion.div key={group.key} variants={item}>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3">
+              {/* Group header */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                    {group.icon}
+                    {group.label}
+                  </h3>
+                  <Badge
+                    variant="secondary"
+                    className="text-[11px] font-medium border-0 bg-slate-100 text-slate-500"
+                  >
+                    {group.items.length}
+                  </Badge>
+                </div>
+              </div>
+
+              {/* DataTable for this group */}
+              <DataTable<NavItem>
+                columns={columns}
+                data={group.items}
+                isLoading={loading}
+                emptyMessage="No items yet."
+                newHref={group.newHref}
+                newLabel="New Nav Item"
+                editable
+                editHref={(n) => `/admin/navigation/${n.id}/edit`}
+                deletable
+                onDelete={setDeleteTarget}
+                draggable
+                onReorder={handleReorder}
+              />
             </div>
-            <DataTable<NavItem>
-              columns={columns}
-              data={group.items}
-              isLoading={loading}
-              emptyMessage="No items yet."
-              editable
-              editHref={(n) => `/admin/navigation/${n.id}/edit`}
-              deletable
-              onDelete={setDeleteTarget}
-              draggable
-              onReorder={(reordered) => handleReorder(reordered, group.key)}
-            />
           </motion.div>
         ))}
       </div>
