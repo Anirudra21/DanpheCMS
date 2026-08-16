@@ -1252,3 +1252,30 @@ Stage Summary:
 - 30 SVG elements, 22 falling leaves, 58 scene children rendering
 - No console errors, all auth flows verified
 - Color palette: #FFF8F0 (sky) → #FFECD2 → #FFD4A8, #F97316 (orange), #E56B6F (coral), #F4B942 (golden), #C0392B (red), #079E96 (teal), #083F5C (navy)
+---
+Task ID: login-clean-redesign
+Agent: main
+Task: Redesign admin login as clean, minimal, premium experience with Danphe Health branding
+
+Work Log:
+- Removed old AutumnScene.tsx and LoginCard.tsx components from _components directory
+- Deleted entire _components directory under admin/login
+- Created single clean login page with official Danphe Health logo (https://danphehealth.com/frontend/img/logo.png via next/image)
+- Subtle ambient background: light gradient (#f8fafb → #f0f9ff → #e8f4f8), canvas particle network (teal, ~40 particles with faint connections), radial teal glows
+- Canvas animation respects prefers-reduced-motion (static particles, no movement)
+- Login card: white, rounded-2xl, subtle border and shadow, max-w-400px
+- Staggered entrance animation (~600-900ms): logo → shield → heading → subtitle → email → password → button → private panel
+- Shield/checkmark SVG with path drawing animation + one-time teal glow ring
+- Form: Administrator email (Mail icon) + Password (Lock icon, eye/eye-off toggle)
+- Button: 'Sign in to Admin Portal', hover lift + shadow + light sweep, press compression
+- Loading: 'Signing in...' with spinner; Success: 'Access granted ✓' + success overlay
+- Error: card shake 3px, red error panel with 'Unable to sign in. Please check your credentials and try again.'
+- Private access panel: Shield icon, description, monospace '$ danphe admin provision'
+- No signup, no forgot password, no registration, no social login
+- Verified: logo loads, login succeeds, error displays, mobile responsive, no console errors
+
+Stage Summary:
+- Files removed: src/app/(admin)/admin/login/_components/AutumnScene.tsx, LoginCard.tsx
+- File rewritten: src/app/(admin)/admin/login/page.tsx (single self-contained file, ~340 lines)
+- This is now the ONLY active admin login page
+- All auth flows verified via agent-browser
