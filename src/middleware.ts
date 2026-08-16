@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
 
   if (isRestricted && payload.role !== 'SUPER_ADMIN') {
     const unauthorizedUrl = new URL('/admin/unauthorized', request.url);
-    return NextResponse.redirect(unauthorized);
+    return NextResponse.redirect(unauthorizedUrl);
   }
 
   return NextResponse.next();

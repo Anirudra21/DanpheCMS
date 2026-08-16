@@ -1469,3 +1469,27 @@ Stage Summary:
 - All headings match production copy ✅
 - All content remains CMS-driven (admin-editable via homepage sections CRUD) ✅
 - Verified desktop and mobile via agent-browser ✅
+---
+Task ID: fix-header-footer-issues
+Agent: main
+Task: Fix Header/Footer not displaying, server stability, and verify all sections render
+
+Work Log:
+- Diagnosed Header/Footer invisibility: both components returned `null` when `/api/public-data` fetch hadn't completed or failed (silent `.catch(() => {})`)
+- Created `/src/hooks/usePublicData.ts` shared hook with DEFAULT_DATA fallback so components always have data to render
+- Rewrote `Header.tsx` to use `usePublicData()` hook — never returns null, always renders with fallback data
+- Rewrote `Footer.tsx` to use `usePublicData()` hook — never returns null, always renders with fallback data
+- Fixed middleware bug: line 66 referenced `unauthorized` (undefined) instead of `unauthorizedUrl`
+- Disabled Prisma query logging (`log: ['query']` → `log: ['error', 'warn']`) to reduce memory usage
+- Diagnosed server OOM kills: Next.js 16 Turbopack uses ~3GB during initial compilation on a 4GB VM
+- Server startup requires `-H ::` (IPv6+IPv4) for Caddy proxy compatibility
+- Verified all 14 homepage sections render correctly: Hero, Trusted, Value, Modules, Outcomes, Features, Comparison (Why Danphe), OpenSource, Technology, International, Testimonials, FAQ (6 items), Contact, Subscribe
+- Verified Header and Footer present in SSR HTML output
+- All internal pages (FAQs, Terms, Privacy) confirmed working with (internal) layout that includes Header/Footer
+
+Stage Summary:
+- Root cause of Header/Footer invisibility: client components returning null before API data loads
+- Solution: shared `usePublicData` hook with sensible defaults ensures immediate rendering
+- Server must be started with `npx next dev -p 3000 -H ::` for Caddy gateway compatibility
+- Memory constraint (4GB VM) means initial compilation is tight; server stable after first compile
+- Produced artifacts: usePublicData.ts hook, updated Header.tsx, Footer.tsx, db.ts, middleware.ts

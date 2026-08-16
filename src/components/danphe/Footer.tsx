@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { usePublicData } from '@/hooks/usePublicData';
 import {
   Facebook,
   Instagram,
@@ -14,29 +14,6 @@ import {
   Globe,
   ChevronRight,
 } from 'lucide-react';
-
-interface NavItem {
-  label: string;
-  url: string;
-  location: string;
-}
-
-interface SiteSetting {
-  logo: string;
-  email: string;
-  phone: string;
-  facebookUrl: string;
-  instagramUrl: string;
-  address: string;
-  mapEmbedUrl: string;
-  footerText: string;
-  copyrightText: string;
-}
-
-interface PublicData {
-  siteSettings: SiteSetting | null;
-  navByLocation: Record<string, NavItem[]>;
-}
 
 function FooterColumn({ heading, children }: { heading: string; children: React.ReactNode }) {
   return (
@@ -81,28 +58,20 @@ function SocialIcon({ icon: Icon, href, label }: { icon: React.ElementType; href
 }
 
 export default function Footer({ className }: { className?: string }) {
-  const [siteData, setSiteData] = useState<PublicData | null>(null);
+  const { data: siteData } = usePublicData();
 
-  useEffect(() => {
-    fetch('/api/public-data')
-      .then((res) => res.json())
-      .then((data) => setSiteData(data))
-      .catch(() => {});
-  }, []);
-
-  if (!siteData) return null;
-
+  // Always render – never return null
   const settings = siteData.siteSettings;
   const siteMenu = siteData.navByLocation.FOOTER_COMPANY ?? [];
   const hmisMenu = siteData.navByLocation.FOOTER_SOLUTIONS ?? [];
   const infoMenu = siteData.navByLocation.FOOTER_INFO ?? [];
   const facebookUrl = settings?.facebookUrl || '';
   const instagramUrl = settings?.instagramUrl || '';
-  const address = settings?.address || '';
-  const phone = settings?.phone || '';
-  const email = settings?.email || '';
-  const footerText = settings?.footerText || '';
-  const copyrightText = settings?.copyrightText || '© Copyright 2024. All Rights Reserved.';
+  const address = settings?.address || 'Kathmandu, Nepal';
+  const phone = settings?.phone || '+977-9852088004';
+  const email = settings?.email || 'info@danphehealth.com';
+  const footerText = settings?.footerText || 'danphehealth.com';
+  const copyrightText = settings?.copyrightText || '© Copyright 2024 Danphe Health. All Rights Reserved.';
 
   const socialLinks = [
     { icon: Facebook, href: facebookUrl, label: 'Facebook' },

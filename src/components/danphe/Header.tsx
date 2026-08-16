@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePublicData } from '@/hooks/usePublicData';
 import {
   Sheet,
   SheetContent,
@@ -21,46 +22,16 @@ import {
   Youtube,
 } from 'lucide-react';
 
-interface NavItem {
-  label: string;
-  url: string;
-  location: string;
-}
-
-interface SiteSetting {
-  logo: string;
-  email: string;
-  phone: string;
-  facebookUrl: string;
-  instagramUrl: string;
-  address: string;
-  mapEmbedUrl: string;
-  footerText: string;
-  copyrightText: string;
-}
-
-interface PublicData {
-  siteSettings: SiteSetting | null;
-  navByLocation: Record<string, NavItem[]>;
-}
-
 /* Hero section is ~682px. While over hero, use light text on dark bg.
    After scrolling past, switch to dark text on glass bg. */
 const HERO_BREAKPOINT = 500;
 
 export default function Header() {
+  const { data: siteData } = usePublicData();
   const [scrolled, setScrolled] = useState(false);
   const [overHero, setOverHero] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [siteData, setSiteData] = useState<PublicData | null>(null);
-
-  useEffect(() => {
-    fetch('/api/public-data')
-      .then((res) => res.json())
-      .then((data) => setSiteData(data))
-      .catch(() => {});
-  }, []);
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -77,13 +48,12 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  if (!siteData) return null;
-
+  // Always render – never return null
   const settings = siteData.siteSettings;
   const headerNav = siteData.navByLocation.HEADER ?? [];
   const logoUrl = settings?.logo || 'https://danphehealth.com/frontend/img/logo.png';
-  const email = settings?.email || '';
-  const phone = settings?.phone || '';
+  const email = settings?.email || 'info@danphehealth.com';
+  const phone = settings?.phone || '+977-9852088004';
   const facebookUrl = settings?.facebookUrl || '';
   const instagramUrl = settings?.instagramUrl || '';
 
@@ -138,8 +108,6 @@ export default function Header() {
               priority
             />
           </Link>
-
-          {/* All nav links moved to FloatingSideNav */}
 
           {/* Desktop right section: contacts + socials + CTA */}
           <div className="hidden items-center gap-4 lg:flex">

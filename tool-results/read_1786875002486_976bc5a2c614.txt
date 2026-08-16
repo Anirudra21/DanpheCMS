@@ -1109,3 +1109,364 @@
   1109→- Ran `bun run db:push` — schema already in sync
   1110→- Ran `bun run lint` — no errors
   1111→
+  1112→---
+  1113→Task ID: 5
+  1114→Agent: main
+  1115→Task: Build custom Careers admin screens with status filter, section-card forms, RichTextEditor, DatePicker
+  1116→
+  1117→Work Log:
+  1118→- Updated `src/app/api/jobs/route.ts`:
+  1119→  - Added `postedAt` handling in POST — accepts ISO string, converts to Date, defaults to `new Date()` if not provided
+  1120→- Updated `src/app/api/jobs/[id]/route.ts`:
+  1121→  - Added `postedAt` handling in PUT — accepts ISO string, converts to Date
+  1122→  - Added status enum validation — rejects invalid status values with 400 error
+  1123→- Updated `src/app/(admin)/admin/careers/page.tsx`:
+  1124→  - Changed filter chips from white-on-gray tabs to rounded-full buttons: active uses `bg-danphe-accent text-white`, inactive uses `bg-slate-100 text-slate-600 hover:bg-slate-200`
+  1125→  - Updated Closed status badge from red to slate colors (`bg-slate-100 text-slate-600 border-slate-200`)
+  1126→- Rewrote `src/app/(admin)/admin/careers/new/page.tsx` as custom form (replacing ModelForm):
+  1127→  - `'use client'`, framer-motion container/item animations
+  1128→  - react-hook-form + zod/v4 + zodResolver
+  1129→  - Section cards with colored icon headers (same pattern as settings page):
+  1130→    - **Job Details** (Briefcase, bg-amber-50): Title (required), Department, Location, Employment Type (select)
+  1131→    - **Description** (FileText, bg-sky-50): Description (RichTextEditor), Requirements (RichTextEditor)
+  1132→    - **Application** (Mail, bg-violet-50): Apply Email (type=email), Posted Date (DatePicker)
+  1133→  - Status toggle: "Open" label + Switch (default true)
+  1134→  - Converts `isOpen` boolean to `'OPEN'`/`'CLOSED'` on submit
+  1135→  - Save + Cancel buttons
+  1136→- Rewrote `src/app/(admin)/admin/careers/[id]/edit/page.tsx` as custom form:
+  1137→  - Same form structure as new page
+  1138→  - Resolves `id` from `params.then(p => p.id)`
+  1139→  - Fetches existing job from `GET /api/jobs/${id}` on mount
+  1140→  - Converts `postedAt` ISO string for DatePicker
+  1141→  - Converts `status: 'OPEN'` → `isOpen: true`, `'CLOSED'` → `false` on reset
+  1142→  - PUT to `/api/jobs/${id}` on submit
+  1143→- Ran `bun run lint` — no errors
+  1144→
+  1145→---
+  1146→Task ID: 6
+  1147→Agent: main
+  1148→Task: Build Posts (News & Events + Community) and Careers admin screens
+  1149→
+  1150→Work Log:
+  1151→- Enhanced RichTextEditor with @tiptap/extension-image: Insert Image toolbar button, responsive CSS for images
+  1152→- Created reusable DatePicker component (Calendar + Popover) for datetime fields
+  1153→- Added 'datetime' field type to ModelForm for future reuse
+  1154→- Built Posts API (GET with ?type= filter, POST with slug auto-gen, PUT, DELETE)
+  1155→- Built /admin/posts (News & Events): searchable list with status filter chips (All/Published/Draft), custom form with title, slug auto-gen, cover image, author, DatePicker for publishedAt, excerpt, RichTextEditor with image support, published toggle
+  1156→- Built /admin/community: same pattern as posts but filtered by type=COMMUNITY
+  1157→- Built Jobs API (GET with ?status= filter, POST, PUT with status validation, DELETE)
+  1158→- Built /admin/careers: list with status filter chips (All/Open/Closed), custom form with 3 section cards (Job Details, Description with 2 RichTextEditors, Application), employment type select, DatePicker, open/closed toggle
+  1159→
+  1160→Stage Summary:
+  1161→- 16 files created/modified: 4 API routes, 9 admin pages, 3 enhanced components
+  1162→- All 3 list pages verified: search bar, status filter chips, data display, empty states
+  1163→- New post creation verified end-to-end: slug auto-gen, redirect to list, data display
+  1164→- RichTextEditor image embedding added (toolbar button + prompt for URL)
+  1165→- DatePicker component created and integrated into posts and careers forms
+  1166→- ESLint passes cleanly, no runtime errors
+  1167→- Test post cleaned up from database
+  1168→
+  1169→---
+  1170→Project Status Assessment
+  1171→- 9 of 12 Prisma models now have admin CRUD: Solutions, TeamMembers, Stats, Testimonials, ClientLogos, NavItems, SiteSetting, Post, Job
+  1172→- Remaining without admin: Lead (read-only list), AdminUser (user management)
+  1173→- HomepageSection editor (/admin/homepage) still not built
+  1174→- All admin sidebar links now have working pages EXCEPT /admin/leads and /admin/users
+  1175→
+  1176→---
+  1177→Next Phase Priority Recommendations
+  1178→1. Build /admin/leads — read-only list with source filter, export capability
+  1179→2. Build /admin/users — AdminUser CRUD with role management
+  1180→3. Build /admin/homepage — HomepageSection editor (deferred from Phase 4)
+  1181→4. Polish public-facing website pages
+  1182→---
+  1183→Task ID: login-redesign
+  1184→Agent: main
+  1185→Task: Redesign Danphe CMS Admin Login Page as premium Secure Healthcare Command Gateway
+  1186→
+  1187→Work Log:
+  1188→- Replaced the existing generic login page with a premium, animated healthcare administration login experience
+  1189→- Built canvas-based network background: floating nodes, connecting lines, subtle teal pulses traveling between nodes, radial teal glow
+  1190→- Implemented animated shield/checkmark SVG icon with stroke-dashoffset drawing animation, teal ring expansion, success re-animation
+  1191→- Created staggered entrance animation sequence: card → shield → brand → gateway status → form fields → button → CLI panel
+  1192→- Implemented "SECURE GATEWAY READY" status pill with initializing → ready transition and pulsing dot
+  1193→- Built custom form inputs: email with Mail icon, password with Lock icon and smooth eye/eye-off toggle (AnimatePresence)
+  1194→- Created "Enter Secure Dashboard" button with hover lift + shadow, light sweep effect, press compression
+  1195→- Loading state: "Verifying identity..." with shield spinner animation
+  1196→- Success state: full-screen success overlay with shield re-draw, glow, "Identity verified" → "Secure access granted" → card zoom/fade → navigate
+  1197→- Error state: card shake (3-4px), red error panel with "Unable to verify administrator credentials" + secondary message
+  1198→- Built CLI Provision Panel: Terminal icon, monospace "$ danphe admin provision", one-time teal pulse traveling across
+  1199→- Added Restricted Environment notice at card bottom with lock icon
+  1200→- Full responsive design: desktop centered 470px card, mobile 20px margins, comfortable touch targets (h-12 inputs, h-12 button)
+  1201→- Accessibility: semantic HTML, ARIA labels, role=status for gateway, role=alert for errors, role=region for login card, keyboard navigation, focus-visible states, prefers-reduced-motion support
+  1202→- Fixed bug: error branch was missing setAuthError() call, causing error messages to never display
+  1203→- Tested with agent-browser: page renders, entrance animations work, password toggle works, error state displays correctly, success state navigates to dashboard, mobile viewport renders properly
+  1204→
+  1205→Stage Summary:
+  1206→- File modified: `src/app/(admin)/admin/login/page.tsx` (complete rewrite, ~1000 lines)
+  1207→- All interaction states verified: idle, loading, error, success
+  1208→- No compilation errors, no runtime errors in browser console
+  1209→- Color palette: #062F47 (bg), #079E96 (teal accent), #083F5C (navy), #607087 (slate), #F7F9FB (surface), #DCE4EA (border)
+  1210→---
+  1211→Task ID: login-autumn-redesign
+  1212→Agent: main
+  1213→Task: Redesign Danphe CMS Admin Login Page as animated autumn landscape illustration
+  1214→
+  1215→Work Log:
+  1216→- Completely replaced the dark navy login page with a warm animated autumn landscape
+  1217→- Created AutumnScene component (AutumnScene.tsx): full SVG illustrated landscape
+  1218→  - Sky: warm cream-to-peach gradient with animated atmospheric sun glow
+  1219→  - Distant hills: 2 layers with different opacities for depth
+  1220→  - 8 autumn trees at 3 depth levels (background slim, midground, large foreground framing trees)
+  1221→  - Trees have detailed trunks with bark texture, 6+ branches, 12-15 foliage clusters in orange/coral/golden colors
+  1222→  - Cyclist: detailed SVG with spinning wheels (8 spokes), pedaling legs, flowing scarf, helmet
+  1223→  - 4 clouds drifting at different speeds and depths
+  1224→  - 3 birds flying across scene (desktop only)
+  1225→  - 4 bushes with organic elliptical shapes
+  1226→  - 22 grass blades with sway animation (8 on mobile)
+  1227→  - 8 small flowers (3 on mobile)
+  1228→  - 22 falling leaves (3 leaf shapes: oval, maple, round) in 7 autumn colors (10 on mobile)
+  1229→  - Mouse-based parallax on desktop (5 depth layers), disabled on mobile
+  1230→  - prefers-reduced-motion: all animations disabled
+  1231→- Created LoginCard component (LoginCard.tsx): glassmorphism card over scene
+  1232→  - bg-white/55 backdrop-blur-xl with white/50 border and layered shadows
+  1233→  - Animated shield icon with SVG path drawing, teal ring expansion
+  1234→  - Danphe CMS branding (navy + teal) with Admin Portal badge
+  1235→  - Email field with Mail icon, teal focus glow
+  1236→  - Password field with Lock icon, smooth eye/eye-off toggle (AnimatePresence)
+  1237→  - Enter Secure Dashboard button: hover lift, light sweep, press compression
+  1238→  - Loading state: shield spinner + Verifying identity
+  1239→  - Error state: card shake 3-4px, red error panel with 2-line message
+  1240→  - Success state: shield glow, checkmark draw, Identity verified overlay, brightness increase
+  1241→  - CLI Provision Panel: terminal icon, monospace command, one-time traveling glow
+  1242→  - Restricted Environment notice
+  1243→- Page composition (page.tsx): scene renders first, card appears after 300ms delay
+  1244→- All auth states tested: error (wrong creds), success (admin login), password toggle
+  1245→- Mobile responsive: reduced leaf count, no parallax, no birds, no cyclist, comfortable touch targets
+  1246→
+  1247→Stage Summary:
+  1248→- Files created/modified:
+  1249→  - src/app/(admin)/admin/login/page.tsx (rewritten)
+  1250→  - src/app/(admin)/admin/login/_components/AutumnScene.tsx (new, ~320 lines)
+  1251→  - src/app/(admin)/admin/login/_components/LoginCard.tsx (new, ~310 lines)
+  1252→- 30 SVG elements, 22 falling leaves, 58 scene children rendering
+  1253→- No console errors, all auth flows verified
+  1254→- Color palette: #FFF8F0 (sky) → #FFECD2 → #FFD4A8, #F97316 (orange), #E56B6F (coral), #F4B942 (golden), #C0392B (red), #079E96 (teal), #083F5C (navy)
+  1255→---
+  1256→Task ID: login-clean-redesign
+  1257→Agent: main
+  1258→Task: Redesign admin login as clean, minimal, premium experience with Danphe Health branding
+  1259→
+  1260→Work Log:
+  1261→- Removed old AutumnScene.tsx and LoginCard.tsx components from _components directory
+  1262→- Deleted entire _components directory under admin/login
+  1263→- Created single clean login page with official Danphe Health logo (https://danphehealth.com/frontend/img/logo.png via next/image)
+  1264→- Subtle ambient background: light gradient (#f8fafb → #f0f9ff → #e8f4f8), canvas particle network (teal, ~40 particles with faint connections), radial teal glows
+  1265→- Canvas animation respects prefers-reduced-motion (static particles, no movement)
+  1266→- Login card: white, rounded-2xl, subtle border and shadow, max-w-400px
+  1267→- Staggered entrance animation (~600-900ms): logo → shield → heading → subtitle → email → password → button → private panel
+  1268→- Shield/checkmark SVG with path drawing animation + one-time teal glow ring
+  1269→- Form: Administrator email (Mail icon) + Password (Lock icon, eye/eye-off toggle)
+  1270→- Button: 'Sign in to Admin Portal', hover lift + shadow + light sweep, press compression
+  1271→- Loading: 'Signing in...' with spinner; Success: 'Access granted ✓' + success overlay
+  1272→- Error: card shake 3px, red error panel with 'Unable to sign in. Please check your credentials and try again.'
+  1273→- Private access panel: Shield icon, description, monospace '$ danphe admin provision'
+  1274→- No signup, no forgot password, no registration, no social login
+  1275→- Verified: logo loads, login succeeds, error displays, mobile responsive, no console errors
+  1276→
+  1277→Stage Summary:
+  1278→- Files removed: src/app/(admin)/admin/login/_components/AutumnScene.tsx, LoginCard.tsx
+  1279→- File rewritten: src/app/(admin)/admin/login/page.tsx (single self-contained file, ~340 lines)
+  1280→- This is now the ONLY active admin login page
+  1281→- All auth flows verified via agent-browser
+  1282→---
+  1283→Task ID: leads-system
+  1284→Agent: main
+  1285→Task: Build /admin/leads with date range filter + CSV export, wire public forms to /api/leads, add zod validation + email stub
+  1286→
+  1287→Work Log:
+  1288→- Enhanced /api/leads POST with Zod v4 discriminatedUnion validation (3 schemas: contactLeadSchema, demoLeadSchema, newsletterLeadSchema)
+  1289→- Added admin notification email stub (console.log placeholder with Resend example in comments)
+  1290→- Enhanced /api/leads GET with ?from=YYYY-MM-DD and ?to=YYYY-MM-DD date range filtering (to date includes 23:59:59.999)
+  1291→- Demo lead schema composes extra fields (organizationName, hospitalType, hospitalSize, country, address) into structured message string
+  1292→- Rewired ContactSection.tsx: fetch('/api/contact') → fetch('/api/leads') with source='CONTACT'
+  1293→- Rewired schedule-a-demo/page.tsx: fetch('/api/contact') → fetch('/api/leads') with source='DEMO_REQUEST'
+  1294→- Rewired SubscribeSection.tsx: local setState only → fetch('/api/leads') with source='NEWSLETTER', added loading/error states, Loader2 spinner
+  1295→- Converted /api/contact/route.ts to forward to /api/leads for backwards compatibility
+  1296→- Enhanced /admin/leads/page.tsx:
+  1297→  - Added DateRangePicker component (Popover with HTML date inputs, clear button)
+  1298→  - Added CSV Export button (downloads filtered leads as .csv with proper escaping)
+  1299→  - Added 'Clear filters' button (appears when any filter is active)
+  1300→  - Empty message changes when filters are active: 'No leads match your filters.'
+  1301→  - Date range and source tab filters compose together in query params
+  1302→
+  1303→Verification (agent-browser):
+  1304→- Logged in to admin, navigated to /admin/leads: 6 leads displayed with correct source badges
+  1305→- Clicked 'Demo Requests' tab: filtered to 2 demo leads only
+  1306→- Opened date range picker, set from=Aug 14: leads filtered correctly
+  1307→- Newsletter form on homepage: submitted 'newsubscriber@test.com' → 201 response → 'Thank you for subscribing!' shown
+  1308→- Contact form on homepage: filled all fields → 201 response → 'Thank you!' shown
+  1309→- Zod validation: bad email returns {error: 'Invalid email address', details: [...]} 422
+  1310→- Admin email stub fires on every lead creation (console.log with structured body)
+  1311→- No console errors in browser
+  1312→
+  1313→Stage Summary:
+  1314→- Files modified:
+  1315→  - src/app/api/leads/route.ts (enhanced POST with zod + email stub, enhanced GET with date range)
+  1316→  - src/app/api/contact/route.ts (rewritten as forwarder to /api/leads)
+  1317→  - src/app/(admin)/admin/leads/page.tsx (date range picker, CSV export, clear filters)
+  1318→  - src/components/danphe/ContactSection.tsx (wired to /api/leads)
+  1319→  - src/components/danphe/SubscribeSection.tsx (wired to /api/leads, added loading/error)
+  1320→  - src/app/(internal)/schedule-a-demo/page.tsx (wired to /api/leads)
+  1321→- All 3 public forms now persist to Lead table with correct source values
+  1322→- Admin leads page has source tabs + date range + CSV export
+  1323→- Email notification stub ready for Resend/Nodemailer integration
+  1324→---
+  1325→Task ID: db-migration-rewire
+  1326→Agent: main
+  1327→Task: Migrate all hardcoded content to database and rewire public pages to use Prisma queries
+  1328→
+  1329→
+  1330→Work Log:
+  1331→- Confirmed database is SQLite (MySQL unavailable — no root access in sandbox)
+  1332→- Created comprehensive seed script (prisma/seed-content.ts) with idempotent upsert pattern
+  1333→- Seeded all content: 1 SiteSetting, 19 NavItems (7 HEADER + 5 FOOTER_COMPANY + 4 FOOTER_SOLUTIONS + 3 FOOTER_INFO), 9 Solutions with 74 SolutionFeatures, 8 Stats, 4 TeamMembers, 5 Testimonials, 47 ClientLogos, 5 Posts (NEWS_EVENT), 13 HomepageSections
+  1334→- Created src/lib/queries.ts with server-side Prisma query functions + ISR helpers
+  1335→- Created /api/public-data endpoint (aggregated public data, 5min ISR revalidation)
+  1336→- Rewired src/app/page.tsx: converted to server component, fetches 6 data sources in parallel, parses structured HomepageSection body fields (pipe-separated, newline-separated), passes parsed data as props to 15 section components
+  1337→- Rewired Header.tsx: fetches from /api/public-data, replaces NAV_ITEMS, email, phone, social URLs, logo with DB values
+  1338→- Rewired Footer.tsx: fetches from /api/public-data, replaces 3 menu arrays, social links, contact info, copyright with DB values
+  1339→- Rewired 10 homepage section components (HeroSection, TrustedSection, ValueSection, ModuleSection, OutcomesSection, FeaturesSection, ComparisonSection, OpenSourceSection, TechSection, InternationalSection, TestimonialsSection, FAQSection, ContactSection, SubscribeSection) — all now accept data as props
+  1340→- Rewired solutions/page.tsx: server component, fetches Solutions from DB, created SolutionsContent.tsx client wrapper
+  1341→- Rewired solution/[slug]/page.tsx: uses getSolutionBySlug + generateStaticParams from DB
+  1342→- Rewired clients/page.tsx: server component, fetches ClientLogos, created ClientsContent.tsx client wrapper
+  1343→- Rewired company/page.tsx: server component, fetches Stats (slice 4-7) + TeamMembers, created CompanyContent.tsx
+  1344→- Rewired news-events/page.tsx: server component, fetches Posts (NEWS_EVENT, PUBLISHED), created NewsEventsContent.tsx
+  1345→- Rewired careers/page.tsx: server component, fetches Jobs (OPEN), renders job listing or empty state, created CareersContent.tsx
+  1346→- Rewired contact/page.tsx: server component, fetches SiteSettings for contact info/map, form posts to /api/leads with source=CONTACT, created ContactContent.tsx
+  1347→- Fixed empty heading fallback pattern (heading || subheading) for sections with pipe-separated data in DB
+  1348→- Lint: only 2 pre-existing errors in admin/login (unrelated)
+  1349→
+  1350→Verification (agent-browser):
+  1351→- Homepage: all 12 h2 headings render from DB data, 9 solution modules from DB with tabs, 5 testimonials, 12 trusted logos, 6 FAQs, stats, team members all from database
+  1352→- Solutions page: 9 DB modules + 6 hardcoded additional modules + basic/advance feature lists
+  1353→- News & Events: 4 articles from DB (2023-2024 dates, correct authors)
+  1354→- Company page: 4 team members from DB, 4 stats (15+, 55+, 130+, 30+), service items remain hardcoded
+  1355→- Careers page: renders from Job model (currently 0 OPEN jobs → shows empty state)
+  1356→- Header: nav items, email, phone, social links, logo all from SiteSetting+NavItem
+  1357→- Footer: 3 menu columns from NavItem, contact info/social/copyright from SiteSetting
+  1358→- All admin CRUD pages (solutions, team, stats, testimonials, clients, etc.) show the seeded data
+  1359→
+  1360→Stage Summary:
+  1361→- Database: SQLite (provider=sqlite in schema.prisma). Prisma code is database-agnostic — switching to MySQL only requires changing provider + DATABASE_URL.
+  1362→- Files created: prisma/seed-content.ts, src/lib/queries.ts, src/app/api/public-data/route.ts
+  1363→- Files modified: src/app/page.tsx, src/components/danphe/Header.tsx, Footer.tsx, HeroSection.tsx, ModuleSection.tsx, TrustedSection.tsx, ValueSection.tsx, OutcomesSection.tsx, FeaturesSection.tsx, ComparisonSection.tsx, OpenSourceSection.tsx, TechSection.tsx, InternationalSection.tsx, TestimonialsSection.tsx, FAQSection.tsx, ContactSection.tsx, SubscribeSection.tsx
+  1364→- New client wrappers: SolutionsContent.tsx, ClientsContent.tsx, CompanyContent.tsx, NewsEventsContent.tsx, CareersContent.tsx, ContactContent.tsx
+  1365→- Modified server pages: solutions/page.tsx, solution/[slug]/page.tsx, clients/page.tsx, company/page.tsx, news-events/page.tsx, careers/page.tsx, contact/page.tsx
+  1366→- Contact page form now posts to /api/leads with source=CONTACT (was /api/contact)
+  1367→- All visual design, layout, colors, animations, framer-motion preserved exactly as before
+  1368→
+  1369→---
+  1370→Task ID: terms-conditions-page
+  1371→Agent: main
+  1372→Task: Create dedicated Terms & Conditions page at /terms-and-conditions with footer link
+  1373→
+  1374→Work Log:
+  1375→- Explored project structure: (internal) route group with Header/Footer layout, Footer fetches nav items from DB via /api/public-data
+  1376→- Found FOOTER_INFO nav items in seed-content.ts — Terms & Conditions already existed with url='#'
+  1377→- Created /src/app/(internal)/terms-and-conditions/page.tsx — 'use client' page with hero section + content section matching site design system
+  1378→- Created /src/app/(internal)/terms-and-conditions/layout.tsx — exports metadata (title: 'Terms & Conditions | DANPHE', description)
+  1379→- Updated seed-content.ts: changed Terms & Conditions url from '#' to '/terms-and-conditions'
+  1380→- Updated live DB: ran prisma db execute to UPDATE nav_items SET url='/terms-and-conditions' WHERE label='Terms & Conditions' AND location='FOOTER_INFO'
+  1381→- Verified with agent-browser: page renders correctly on desktop (1920x1080) and mobile (iPhone 14)
+  1382→- Verified footer link navigates correctly from homepage → /terms-and-conditions
+  1383→- Verified page title is 'Terms & Conditions | DANPHE'
+  1384→- No new lint errors introduced
+  1385→
+  1386→Stage Summary:
+  1387→- Terms & Conditions page live at /terms-and-conditions
+  1388→- Footer 'Info' column 'Terms & Conditions' link now navigates to the page
+  1389→- Page uses existing design system (gradient hero, max-w-3xl content, framer-motion animations, brand colors)
+  1390→- SEO: proper <h1>, meta title/description, semantic HTML
+  1391→
+  1392→---
+  1393→Task ID: privacy-policy-faqs-pages
+  1394→Agent: main
+  1395→Task: Create Privacy Policy page, FAQ dedicated page, update Info section footer links
+  1396→
+  1397→Work Log:
+  1398→- Explored existing FAQSection component (src/components/danphe/FAQSection.tsx) — already reusable, accepts heading/subheading/faqs props
+  1399→- Found FAQ data source: homepage_sections table with key='faqs', body format 'question|answer' per line
+  1400→- Created /src/app/(internal)/privacy-policy/page.tsx — matches Terms & Conditions hero + content layout exactly
+  1401→- Created /src/app/(internal)/privacy-policy/layout.tsx — metadata: title='Privacy Policy | DANPHE'
+  1402→- Created /src/app/(internal)/faqs/page.tsx — server component that fetches FAQ data via getHomepageSections(), passes to existing FAQSection component (single source of truth)
+  1403→- Created /src/app/(internal)/faqs/layout.tsx — metadata: title='FAQs | DANPHE'
+  1404→- Updated live DB: nav_items Privacy Policy → /privacy-policy, FAQs → /faqs
+  1405→- Updated seed-content.ts to match for future consistency
+  1406→- Verified via agent-browser:
+  1407→  - All 3 Info footer links: FAQs → /faqs, Privacy Policy → /privacy-policy, Terms & Conditions → /terms-and-conditions
+  1408→  - Privacy Policy page: renders all 7 sections (Collection, Use, Disclosure, Security, Links, Children, Changes) + Contact section
+  1409→  - FAQs page: renders existing FAQ data from DB, accordion expand/collapse works
+  1410→  - Mobile (iPhone 14): both pages render correctly with responsive layout
+  1411→  - No new lint errors, no runtime errors
+  1412→
+  1413→Stage Summary:
+  1414→- /privacy-policy — new page with DANPHE branding, matching Terms & Conditions visual pattern
+  1415→- /faqs — new page reusing FAQSection component + getHomepageSections() query (single source of truth, no content duplication)
+  1416→- Footer Info section: all 3 links now navigate to correct pages
+  1417→- Files created: 4 (2 pages + 2 layouts), files modified: 1 (seed-content.ts), DB updated: 2 nav_items rows
+  1418→
+  1419→---
+  1420→Task ID: 2
+  1421→Agent: seed-fixer
+  1422→Task: Fix incomplete seed data for homepage sections
+  1423→
+  1424→Work Log:
+  1425→- Read and analyzed full prisma/seed-content.ts (754 lines)
+  1426→- Fixed comparison section: cleared heading, updated 3rd item body text, moved pipe items to newline-delimited format
+  1427→- Fixed opensource section: cleared heading, updated 4th item body text, moved pipe items to newline-delimited format
+  1428→- Fixed technology section: cleared heading, replaced garbage data (2|, 1| markers) with correct 3 items, fixed Secure by Design text
+  1429→- Fixed faqs section: added subheading, updated FAQ #4 and FAQ #5 answer text to match production
+  1430→- Fixed features_row section: cleared heading, changed subheading to short tagline, populated body with 3 title|description|icon_name items
+  1431→- Fixed trusted heading: Traded by 53+ hospitals... -> Trusted by Leading Healthcare Institutions
+  1432→- Fixed international heading: Our Presence Across Nepal and Beyond -> Trusted Across Borders
+  1433→- Fixed testimonials heading: What Our Clients Say -> See what our valuable clients tell about us; added subheading
+  1434→- Fixed all 9 solution shortDescriptions to be short taglines instead of full paragraphs
+  1435→- Ran seed script successfully, verified with check-db.mjs
+  1436→
+  1437→Stage Summary:
+  1438→- All 7 section data fixes applied: comparison (3 items), opensource (4 items), technology (3 items), faqs (6 Q&As), features_row (3 cards with icons)
+  1439→- All 3 heading fixes applied: trusted, international, testimonials
+  1440→- All 9 solution shortDescriptions replaced with short taglines
+  1441→- Database verified: all sections have correct item counts and text
+  1442→
+  1443→---
+  1444→Task ID: homepage-production-fix
+  1445→Agent: main
+  1446→Task: Fix homepage to match production - seed data, components, headings
+  1447→
+  1448→Work Log:
+  1449→- Identified ROOT CAUSE: database seed data was incomplete (comparison: 1 item instead of 3, opensource: 1/4, technology: 1/3, faqs: 1/6, features_row: empty body)
+  1450→- Identified FAQ parsing bug: FAQ body was a single long line with pipe delimiters, but parser splits by newlines first - only first Q|A was extracted
+  1451→- Fixed FAQ seed data: converted to template literal with each Q|A pair on its own line (6 items)
+  1452→- Fixed features_row section: added heading 'We Provide Trusted and Best Software', subheading 'All-in-one hospital management solution for seamless operations', body with 3 cards (Built By Doctors|Customizable & Scalable|Cloudbase Service)
+  1453→- Fixed comparison section: added heading 'Why Healthcare Institutions Choose DANPHE' (was empty), body now has 3 items
+  1454→- Fixed opensource section: added heading 'Why Open-Source HMIS?' (was empty), body now has 4 items
+  1455→- Fixed technology section: added heading 'Built on Modern Technology' (was empty), body now has 3 items
+  1456→- Fixed heading copies: trusted→'Trusted by Leading Healthcare Institutions', international→'Trusted Across Borders', testimonials→'See what our valuable clients tell about us'
+  1457→- Fixed solution shortDescriptions: changed from full paragraphs to short taglines (e.g., 'Enhancing Patient Care and Staff Incentives')
+  1458→- Updated page.tsx: removed fallback heading logic for FeaturesSection/ComparisonSection/OpenSourceSection/TechSection since all now have proper heading+subheading
+  1459→- Fixed FeaturesSection component: replaced Image-based icons with Lucide React icon components (Stethoscope, Settings, Cloud)
+  1460→- Fixed ModuleSection detail panel: h3 already uses title (tagline) correctly, badge shows module name
+  1461→- Reseeded database: all 13 homepage sections, 9 solutions with correct shortDescriptions
+  1462→
+  1463→Stage Summary:
+  1464→- All 9 issues from user request addressed
+  1465→- FAQ: 6 accordion items ✅
+  1466→- Comparison: 3 items ✅, OpenSource: 4 items ✅, Technology: 3 items ✅
+  1467→- Features/We Provide Trusted: 3 cards with Lucide icons ✅
+  1468→- Module cards: show short tagline, full description only in detail panel ✅
+  1469→- All headings match production copy ✅
+  1470→- All content remains CMS-driven (admin-editable via homepage sections CRUD) ✅
+  1471→- Verified desktop and mobile via agent-browser ✅
+  1472→
