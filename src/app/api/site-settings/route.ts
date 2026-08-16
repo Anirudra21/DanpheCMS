@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { requireAdmin } from '@/lib/admin-auth';
 
 /**
  * GET /api/site-settings — fetch the singleton site settings.
@@ -24,6 +25,8 @@ export async function GET() {
  */
 export async function PUT(request: NextRequest) {
   try {
+    const err = requireAdmin(request);
+    if (err) return err;
     const body = await request.json();
 
     let settings = await db.siteSetting.findFirst();
