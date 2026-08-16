@@ -1,20 +1,39 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Mail, CheckCircle, Sparkles } from 'lucide-react';
+import { Mail, CheckCircle, Sparkles, Loader2 } from 'lucide-react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
 export default function SubscribeSection() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubmitted(true);
-      setEmail('');
+    if (!email.trim()) return;
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source: 'NEWSLETTER', email: email.trim() }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        setEmail('');
+      } else {
+        const data = await res.json().catch(() => null);
+        setError(data?.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -108,7 +127,7 @@ export default function SubscribeSection() {
                     type="email"
                     placeholder="Enter your email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => { setEmail(e.target.value); setError(''); }}
                     required
                     aria-label="Email address"
                     className="h-12 w-full rounded-xl border border-white/25 bg-white/10 pl-11 pr-4 text-sm text-white outline-none backdrop-blur-sm transition-all duration-300 placeholder:text-white/50 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:bg-white/15"
@@ -116,13 +135,24 @@ export default function SubscribeSection() {
                 </div>
                 <motion.button
                   type="submit"
+                  disabled={loading}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="h-12 rounded-xl bg-white px-8 text-sm font-semibold text-danphe-primary shadow-lg transition-all duration-300 hover:bg-white/90 hover:shadow-xl"
+                  className="h-12 rounded-xl bg-white px-8 text-sm font-semibold text-danphe-primary shadow-lg transition-all duration-300 hover:bg-white/90 hover:shadow-xl disabled:opacity-60"
                 >
-                  Subscribe
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Subscribe'}
                 </motion.button>
               </motion.form>
+            )}
+            {error && (
+              <motion.p
+                key="error"
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-3 text-sm text-red-300"
+              >
+                {error}
+              </motion.p>
             )}
           </AnimatePresence>
         </motion.div>

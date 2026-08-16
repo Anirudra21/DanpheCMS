@@ -1279,3 +1279,45 @@ Stage Summary:
 - File rewritten: src/app/(admin)/admin/login/page.tsx (single self-contained file, ~340 lines)
 - This is now the ONLY active admin login page
 - All auth flows verified via agent-browser
+---
+Task ID: leads-system
+Agent: main
+Task: Build /admin/leads with date range filter + CSV export, wire public forms to /api/leads, add zod validation + email stub
+
+Work Log:
+- Enhanced /api/leads POST with Zod v4 discriminatedUnion validation (3 schemas: contactLeadSchema, demoLeadSchema, newsletterLeadSchema)
+- Added admin notification email stub (console.log placeholder with Resend example in comments)
+- Enhanced /api/leads GET with ?from=YYYY-MM-DD and ?to=YYYY-MM-DD date range filtering (to date includes 23:59:59.999)
+- Demo lead schema composes extra fields (organizationName, hospitalType, hospitalSize, country, address) into structured message string
+- Rewired ContactSection.tsx: fetch('/api/contact') → fetch('/api/leads') with source='CONTACT'
+- Rewired schedule-a-demo/page.tsx: fetch('/api/contact') → fetch('/api/leads') with source='DEMO_REQUEST'
+- Rewired SubscribeSection.tsx: local setState only → fetch('/api/leads') with source='NEWSLETTER', added loading/error states, Loader2 spinner
+- Converted /api/contact/route.ts to forward to /api/leads for backwards compatibility
+- Enhanced /admin/leads/page.tsx:
+  - Added DateRangePicker component (Popover with HTML date inputs, clear button)
+  - Added CSV Export button (downloads filtered leads as .csv with proper escaping)
+  - Added 'Clear filters' button (appears when any filter is active)
+  - Empty message changes when filters are active: 'No leads match your filters.'
+  - Date range and source tab filters compose together in query params
+
+Verification (agent-browser):
+- Logged in to admin, navigated to /admin/leads: 6 leads displayed with correct source badges
+- Clicked 'Demo Requests' tab: filtered to 2 demo leads only
+- Opened date range picker, set from=Aug 14: leads filtered correctly
+- Newsletter form on homepage: submitted 'newsubscriber@test.com' → 201 response → 'Thank you for subscribing!' shown
+- Contact form on homepage: filled all fields → 201 response → 'Thank you!' shown
+- Zod validation: bad email returns {error: 'Invalid email address', details: [...]} 422
+- Admin email stub fires on every lead creation (console.log with structured body)
+- No console errors in browser
+
+Stage Summary:
+- Files modified:
+  - src/app/api/leads/route.ts (enhanced POST with zod + email stub, enhanced GET with date range)
+  - src/app/api/contact/route.ts (rewritten as forwarder to /api/leads)
+  - src/app/(admin)/admin/leads/page.tsx (date range picker, CSV export, clear filters)
+  - src/components/danphe/ContactSection.tsx (wired to /api/leads)
+  - src/components/danphe/SubscribeSection.tsx (wired to /api/leads, added loading/error)
+  - src/app/(internal)/schedule-a-demo/page.tsx (wired to /api/leads)
+- All 3 public forms now persist to Lead table with correct source values
+- Admin leads page has source tabs + date range + CSV export
+- Email notification stub ready for Resend/Nodemailer integration

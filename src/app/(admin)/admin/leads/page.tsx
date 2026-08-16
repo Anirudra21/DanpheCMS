@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { DataTable, type ColumnDef } from '../_components/DataTable';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { cn, formatDate, truncate } from '@/lib/cms-utils';
-import { Briefcase, Users, Mail } from 'lucide-react';
+import { Briefcase, Users, Mail, Download, CalendarDays, X, RotateCcw } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,6 +17,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 // ─── Types ────────────────────────────────────────────────────────────────
 
@@ -143,6 +149,108 @@ function StatsCard({ label, value, icon, color }: { label: string; value: number
   );
 }
 
+// ─── CSV Export Helper ────────────────────────────────────────────────────
+
+function downloadCSV(leads: Lead[], filename: string) {
+  if (!leads.length) return;
+
+  const header = 'Name,Email,Phone,Source,Message,Created At';
+  const escape = (str: string) =>
+    `"${(str || '').replace(/"/g, '""')}"`;
+  const sourceLabel = (s: string) =>
+    s === 'CONTACT' ? 'Contact' : s === 'DEMO_REQUEST' ? 'Demo Request' : 'Newsletter';
+
+  const rows = leads.map((l) =>
+    [escape(l.name), escape(l.email), escape(l.phone), sourceLabel(l.source), escape(l.message), escape(formatDate(l.createdAt))].join(',')
+  );
+
+  const csv = [header, ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ─── Date Input (plain HTML to avoid shadcn DatePicker complexity) ─────────
+
+function DateRangePicker({
+  from,
+  to,
+  onFromChange,
+  onToChange,
+  onClear,
+}: {
+  from: string;
+  to: string;
+  onFromChange: (v: string) => void;
+  onToChange: (v: string) => void;
+  onClear: () => void;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 gap-1.5 text-xs font-normal text-slate-600"
+          >
+            <CalendarDays className="h-3.5 w-3.5" />
+            {from && to
+              ? `${from} → ${to}`
+              : from
+                ? `From ${from}`
+                : to
+                  ? `Until ${to}`
+                  : 'Date range'}
+            {(from || to) && (
+              <span
+                role="button"
+                tabIndex={0}
+                aria-label="Clear date range"
+                className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600"
+                onClick={(e) => { e.stopPropagation(); onClear(); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); onClear(); } }}
+              >
+                <X className="h-2.5 w-2.5" />
+              </span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent align="start" className="w-auto p-3">
+          <div className="space-y-2">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-slate-500">From</label>
+              <input
+                type="date"
+                value={from}
+                max={to || undefined}
+                onChange={(e) => onFromChange(e.target.value)}
+                className="h-8 w-full rounded-md border border-slate-200 bg-white px-2 text-xs text-slate-700 outline-none focus:ring-2 focus:ring-danphe-accent/30 focus:border-danphe-accent/50"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-slate-500">To</label>
+              <input
+                type="date"
+                value={to}
+                min={from || undefined}
+                onChange={(e) => onToChange(e.target.value)}
+                className="h-8 w-full rounded-md border border-slate-200 bg-white px-2 text-xs text-slate-700 outline-none focus:ring-2 focus:ring-danphe-accent/30 focus:border-danphe-accent/50"
+              />
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+
 // ─── Page ───────────────────────────────────────────────────────────────
 
 export default function LeadsListPage() {
@@ -152,8 +260,20 @@ export default function LeadsListPage() {
   const [activeTab, setActiveTab] = useState<FilterTab>('ALL');
   const [deleteTarget, setDeleteTarget] = useState<Lead | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
+  const [exporting, setExporting] = useState(false);
 
-  // Fetch all leads for stats
+  // Build query params from active filters
+  const queryParams = useMemo(() => {
+    const params = new URLSearchParams();
+    if (activeTab !== 'ALL') params.set('source', activeTab);
+    if (dateFrom) params.set('from', dateFrom);
+    if (dateTo) params.set('to', dateTo);
+    return params.toString();
+  }, [activeTab, dateFrom, dateTo]);
+
+  // Fetch all leads for stats (unfiltered)
   const fetchAllLeads = useCallback(async () => {
     try {
       const res = await fetch('/api/leads');
@@ -167,8 +287,9 @@ export default function LeadsListPage() {
 
   // Fetch filtered leads
   const fetchLeads = useCallback(async () => {
+    setLoading(true);
     try {
-      const query = activeTab === 'ALL' ? '' : `?source=${activeTab}`;
+      const query = queryParams ? `?${queryParams}` : '';
       const res = await fetch(`/api/leads${query}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
@@ -178,9 +299,15 @@ export default function LeadsListPage() {
     } finally {
       setLoading(false);
     }
-  }, [activeTab]);
+  }, [queryParams]);
 
-  useEffect(() => { fetchAllLeads(); fetchLeads(); }, [fetchAllLeads, fetchLeads]);
+  useEffect(() => {
+    fetchAllLeads();
+  }, [fetchAllLeads]);
+
+  useEffect(() => {
+    fetchLeads();
+  }, [fetchLeads]);
 
   const handleDelete = async () => {
     if (!deleteTarget) return;
@@ -197,6 +324,33 @@ export default function LeadsListPage() {
       setDeleting(false);
     }
   };
+
+  // CSV export
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      // Re-fetch current filtered set to ensure latest data
+      const query = queryParams ? `?${queryParams}` : '';
+      const res = await fetch(`/api/leads${query}`);
+      if (!res.ok) throw new Error();
+      const data: Lead[] = await res.json();
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const sourceStr = activeTab === 'ALL' ? 'all' : activeTab.toLowerCase();
+      downloadCSV(data, `danphe-leads-${sourceStr}-${dateStr}.csv`);
+    } catch {
+      // silent
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  const clearFilters = () => {
+    setActiveTab('ALL');
+    setDateFrom('');
+    setDateTo('');
+  };
+
+  const hasActiveFilters = activeTab !== 'ALL' || !!dateFrom || !!dateTo;
 
   // Stats
   const totalLeads = allLeads.length;
@@ -236,24 +390,63 @@ export default function LeadsListPage() {
         </div>
       </motion.div>
 
-      {/* Filter Tabs */}
+      {/* Filter bar: tabs + date range + export */}
       <motion.div variants={item}>
-        <div className="flex items-center gap-1 rounded-lg bg-slate-100 p-1 w-fit">
-          {filterTabs.map((tab) => (
-            <button
-              key={tab.value}
-              type="button"
-              onClick={() => setActiveTab(tab.value)}
-              className={cn(
-                'px-3 py-1.5 text-sm font-medium rounded-md transition-colors',
-                activeTab === tab.value
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700',
-              )}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Source tabs */}
+            <div className="flex items-center gap-1 rounded-lg bg-slate-100 p-1">
+              {filterTabs.map((tab) => (
+                <button
+                  key={tab.value}
+                  type="button"
+                  onClick={() => setActiveTab(tab.value)}
+                  className={cn(
+                    'px-3 py-1.5 text-sm font-medium rounded-md transition-colors',
+                    activeTab === tab.value
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700',
+                  )}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Date range picker */}
+            <DateRangePicker
+              from={dateFrom}
+              to={dateTo}
+              onFromChange={setDateFrom}
+              onToChange={setDateTo}
+              onClear={() => { setDateFrom(''); setDateTo(''); }}
+            />
+
+            {/* Clear all filters */}
+            {hasActiveFilters && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 gap-1.5 text-xs text-slate-500 hover:text-slate-700"
+                onClick={clearFilters}
+              >
+                <RotateCcw className="h-3 w-3" />
+                Clear filters
+              </Button>
+            )}
+          </div>
+
+          {/* CSV Export */}
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 gap-1.5 text-xs"
+            disabled={exporting || !leads.length}
+            onClick={handleExport}
+          >
+            <Download className="h-3.5 w-3.5" />
+            {exporting ? 'Exporting…' : 'Export CSV'}
+          </Button>
         </div>
       </motion.div>
 
@@ -262,7 +455,7 @@ export default function LeadsListPage() {
           columns={columns}
           data={leads}
           isLoading={loading}
-          emptyMessage="No leads yet."
+          emptyMessage={hasActiveFilters ? 'No leads match your filters.' : 'No leads yet.'}
           editable={false}
           deletable
           onDelete={setDeleteTarget}
