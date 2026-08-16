@@ -1,8 +1,14 @@
 'use client';
 
-import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Stethoscope, Settings, Cloud } from 'lucide-react';
+
+const iconMap: Record<string, React.ElementType> = {
+  Stethoscope,
+  Settings,
+  Cloud,
+};
 
 interface FeatureCard {
   title: string;
@@ -51,6 +57,7 @@ export default function FeaturesSection({ heading, subheading, featureCards }: F
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featureCards.map((card, idx) => {
             const isFirst = idx === 0;
+            const IconComponent = iconMap[card.icon];
 
             return (
               <motion.div
@@ -70,28 +77,13 @@ export default function FeaturesSection({ heading, subheading, featureCards }: F
                     whileHover={{ scale: 1.01 }}
                     className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-danphe-primary to-danphe-primary-light p-8 md:p-10 text-white shadow-premium-lg h-full"
                   >
-                    {/* Large faded icon in background */}
-                    <div className="pointer-events-none absolute -right-8 -bottom-8 opacity-[0.07]">
-                      <Image
-                        src={card.icon}
-                        alt=""
-                        width={240}
-                        height={240}
-                        unoptimized
-                        className="h-60 w-60 rotate-12 object-contain brightness-0 invert"
-                      />
-                    </div>
-
                     <div className="relative">
                       <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
-                        <Image
-                          src={card.icon}
-                          alt={card.title}
-                          width={32}
-                          height={32}
-                          unoptimized
-                          className="h-8 w-8 object-contain brightness-0 invert"
-                        />
+                        {IconComponent ? (
+                          <IconComponent className="h-8 w-8 text-white" />
+                        ) : (
+                          <Stethoscope className="h-8 w-8 text-white" />
+                        )}
                       </div>
                       <h3 className="font-heading mb-3 text-xl font-bold md:text-2xl">
                         {card.title}
@@ -108,14 +100,11 @@ export default function FeaturesSection({ heading, subheading, featureCards }: F
                     className="group glass rounded-2xl p-6 md:p-8 shadow-premium transition-shadow duration-300 hover:shadow-premium-lg h-full"
                   >
                     <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-danphe-accent/10">
-                      <Image
-                        src={card.icon}
-                        alt={card.title}
-                        width={32}
-                        height={32}
-                        unoptimized
-                        className="h-8 w-8 object-contain"
-                      />
+                      {IconComponent ? (
+                        <IconComponent className="h-8 w-8 text-danphe-accent" />
+                      ) : (
+                        <Settings className="h-8 w-8 text-danphe-accent" />
+                      )}
                     </div>
                     <h3 className="font-heading mb-3 text-lg font-bold text-danphe-primary">
                       {card.title}

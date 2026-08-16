@@ -1415,3 +1415,57 @@ Stage Summary:
 - /faqs — new page reusing FAQSection component + getHomepageSections() query (single source of truth, no content duplication)
 - Footer Info section: all 3 links now navigate to correct pages
 - Files created: 4 (2 pages + 2 layouts), files modified: 1 (seed-content.ts), DB updated: 2 nav_items rows
+
+---
+Task ID: 2
+Agent: seed-fixer
+Task: Fix incomplete seed data for homepage sections
+
+Work Log:
+- Read and analyzed full prisma/seed-content.ts (754 lines)
+- Fixed comparison section: cleared heading, updated 3rd item body text, moved pipe items to newline-delimited format
+- Fixed opensource section: cleared heading, updated 4th item body text, moved pipe items to newline-delimited format
+- Fixed technology section: cleared heading, replaced garbage data (2|, 1| markers) with correct 3 items, fixed Secure by Design text
+- Fixed faqs section: added subheading, updated FAQ #4 and FAQ #5 answer text to match production
+- Fixed features_row section: cleared heading, changed subheading to short tagline, populated body with 3 title|description|icon_name items
+- Fixed trusted heading: Traded by 53+ hospitals... -> Trusted by Leading Healthcare Institutions
+- Fixed international heading: Our Presence Across Nepal and Beyond -> Trusted Across Borders
+- Fixed testimonials heading: What Our Clients Say -> See what our valuable clients tell about us; added subheading
+- Fixed all 9 solution shortDescriptions to be short taglines instead of full paragraphs
+- Ran seed script successfully, verified with check-db.mjs
+
+Stage Summary:
+- All 7 section data fixes applied: comparison (3 items), opensource (4 items), technology (3 items), faqs (6 Q&As), features_row (3 cards with icons)
+- All 3 heading fixes applied: trusted, international, testimonials
+- All 9 solution shortDescriptions replaced with short taglines
+- Database verified: all sections have correct item counts and text
+
+---
+Task ID: homepage-production-fix
+Agent: main
+Task: Fix homepage to match production - seed data, components, headings
+
+Work Log:
+- Identified ROOT CAUSE: database seed data was incomplete (comparison: 1 item instead of 3, opensource: 1/4, technology: 1/3, faqs: 1/6, features_row: empty body)
+- Identified FAQ parsing bug: FAQ body was a single long line with pipe delimiters, but parser splits by newlines first - only first Q|A was extracted
+- Fixed FAQ seed data: converted to template literal with each Q|A pair on its own line (6 items)
+- Fixed features_row section: added heading 'We Provide Trusted and Best Software', subheading 'All-in-one hospital management solution for seamless operations', body with 3 cards (Built By Doctors|Customizable & Scalable|Cloudbase Service)
+- Fixed comparison section: added heading 'Why Healthcare Institutions Choose DANPHE' (was empty), body now has 3 items
+- Fixed opensource section: added heading 'Why Open-Source HMIS?' (was empty), body now has 4 items
+- Fixed technology section: added heading 'Built on Modern Technology' (was empty), body now has 3 items
+- Fixed heading copies: trusted→'Trusted by Leading Healthcare Institutions', international→'Trusted Across Borders', testimonials→'See what our valuable clients tell about us'
+- Fixed solution shortDescriptions: changed from full paragraphs to short taglines (e.g., 'Enhancing Patient Care and Staff Incentives')
+- Updated page.tsx: removed fallback heading logic for FeaturesSection/ComparisonSection/OpenSourceSection/TechSection since all now have proper heading+subheading
+- Fixed FeaturesSection component: replaced Image-based icons with Lucide React icon components (Stethoscope, Settings, Cloud)
+- Fixed ModuleSection detail panel: h3 already uses title (tagline) correctly, badge shows module name
+- Reseeded database: all 13 homepage sections, 9 solutions with correct shortDescriptions
+
+Stage Summary:
+- All 9 issues from user request addressed
+- FAQ: 6 accordion items ✅
+- Comparison: 3 items ✅, OpenSource: 4 items ✅, Technology: 3 items ✅
+- Features/We Provide Trusted: 3 cards with Lucide icons ✅
+- Module cards: show short tagline, full description only in detail panel ✅
+- All headings match production copy ✅
+- All content remains CMS-driven (admin-editable via homepage sections CRUD) ✅
+- Verified desktop and mobile via agent-browser ✅

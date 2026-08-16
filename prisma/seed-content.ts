@@ -118,7 +118,7 @@ async function main() {
       title: 'Patient Administration',
       slug: 'patient-administration',
       shortDescription:
-        'This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others.',
+        'Enhancing Patient Care and Staff Incentives',
       body: 'This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others. The incentive module deals with calculating and managing incentives for hospital staff, including doctors, nurses, and other staff members. It involves features such as defining incentive plans, tracking performance, and calculating incentives.',
       iconUrl: 'https://danphehealth.com/storage/uploads/o8LhlIHosonN1ss1Xbnx4BuPQIH2j5kTJLsqkWUF.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/B06yY9y2MQiUCBEHpIcSITBjuN4yhkH4mLGvejX0.jpg',
@@ -145,7 +145,7 @@ async function main() {
       title: 'OPD Management',
       slug: 'opd-management',
       shortDescription:
-        'An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software.',
+        'In Person OPD Management',
       body: 'An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software. The system enhances functionality with health insurance and SSF tracking, alongside the integration of ICDX codes. It boasts powerful reporting capabilities, enabling the scanning and storage of comprehensive patient demographics, including X-rays, ultrasound images, pathology reports, and other diagnostic documents.',
       iconUrl: 'https://danphehealth.com/storage/uploads/1FLzrtg52EKgMbKXaPPcngIBl8ThbVT5f93VKn5U.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/3BiXFrnlBFMoMRwWZkoNm4XuMbUw1kNJgDkGIYdo.jpg',
@@ -167,7 +167,7 @@ async function main() {
       title: 'IPD Management',
       slug: 'ipd-management',
       shortDescription:
-        'The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records.',
+        'The Comprehensive Inpatient Management Solution',
       body: "The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records. Featuring built-in ward management and nursing station management, as well as ICU and NICU availability, the IPD offers a 360-degree view of the entire admitted patient's journey from admission to discharge.",
       iconUrl: 'https://danphehealth.com/storage/uploads/JZb6vJSIzCQZjvPUKBy1ds3KmAL8FMlvVL1XhtV7.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/91ujO9IGH8LC6R1nc1fwwGeEiLrNIJQMSDegvElw.jpg',
@@ -188,7 +188,7 @@ async function main() {
       title: 'OT Management',
       slug: 'ot-management',
       shortDescription:
-        'The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient tracking, operation theater rosters, and notes, along with managing death and birth certificates. The purpose of OT management is to optimize the utilization of operation theaters, reduce patient wait times, and ensure timely and efficient surgical procedures.',
+        'Innovations in Operation Theater Management',
       body: 'The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient tracking, operation theater rosters, and notes, along with managing death and birth certificates. The purpose of OT management is to optimize the utilization of operation theaters, reduce patient wait times, and ensure timely and efficient surgical procedures.',
       iconUrl: 'https://danphehealth.com/storage/uploads/CACHu7gc6zeiiyuUvDBzfZIn2tBT51gzsKA0wpLj.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/bBYlK3VeJuVsh9FG2yR6gS2Y11p3dUJmWPNmE7nX.jpg',
@@ -206,7 +206,7 @@ async function main() {
       title: 'SSF Management',
       slug: 'ssf-management',
       shortDescription:
-        'This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports registration, billing, pharmacy, and claim management and is equipped with API integration with the SSF system.',
+        'SSF Insurance Scheme Management Module for Hospitals',
       body: 'This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports registration, billing, pharmacy, and claim management and is equipped with API integration with the SSF system.',
       iconUrl: 'https://danphehealth.com/storage/uploads/aSIoLyT5ERWOjXCnvgrP9PKL5797LBQc2MQY0lim.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/qFoZIpGXbbatD2dCVlfzh7RqWhUuOx9t3Dl5pQpA.jpg',
@@ -226,7 +226,7 @@ async function main() {
       title: 'Pathology Software',
       slug: 'pathology-software',
       shortDescription:
-        'The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully configurable laboratory test reports that can be ordered for both outpatients and inpatients instantaneously.',
+        'Automating Processes and Enhancing Efficiency',
       body: 'The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully configurable laboratory test reports that can be ordered for both outpatients and inpatients instantaneously.',
       iconUrl: 'https://danphehealth.com/storage/uploads/KFsFp99lsTgyXnVKJbiUi7gCRmRp2NR1umxVb19S.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/PsJBHIIIEf0rhUAtYiK14G1fZx0lB76ZKIr90GS2.jpg',
@@ -248,7 +248,7 @@ async function main() {
       title: 'Pharmacy',
       slug: 'pharmacy',
       shortDescription:
-        'The pharmacy module encompasses both central and distributed pharmacies, incorporating several functional units such as stock tracking, ordering, and receiving medicines from vendors.',
+        'Optimizing Workflow and Administration',
       body: 'The pharmacy module encompasses both central and distributed pharmacies, incorporating several functional units such as stock tracking, ordering, and receiving medicines from vendors.',
       iconUrl: 'https://danphehealth.com/storage/uploads/lBnFUPj2tIcbTR3o0nL771yPqyvn9iy538SOfRrH.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/toh9opS0qNh9sYaC0VLqXpjHSYnJUrfowh50Ogkh.jpg',
@@ -270,7 +270,7 @@ async function main() {
       title: 'Inventory Management',
       slug: 'inventory-management',
       shortDescription:
-        'The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other departments, regulating the complete stock movement throughout the institution.',
+        'Streamlined Inventory Control',
       body: 'The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other departments, regulating the complete stock movement throughout the institution.',
       iconUrl: 'https://danphehealth.com/storage/uploads/Yn3oJlVoSPd36iYdBg85CBZADxQrdi5TjpDPepKe.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/MQfWurB0r1HXok9nRVNTJ0B4iNaxVgI7XMhyNJ6g.jpg',
@@ -292,7 +292,7 @@ async function main() {
       title: 'Queue Management',
       slug: 'queue-management',
       shortDescription:
-        'The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient flow within the hospital. It ensures that patients are attended to promptly and efficiently, thereby reducing waiting times and enhancing patient satisfaction.',
+        'Efficient Patient Flow Management',
       body: 'The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient flow within the hospital. It ensures that patients are attended to promptly and efficiently, thereby reducing waiting times and enhancing patient satisfaction.',
       iconUrl: 'https://danphehealth.com/storage/uploads/3ifn90GrhvLTmH9h79XwY4ebCxajfC8ivC1JHe3L.svg',
       heroImageUrl: 'https://danphehealth.com/storage/uploads/nlWH1aOywuLS90YcmM2ZCMZrYkB7xv9eFNtulLV0.jpg',
@@ -613,7 +613,7 @@ async function main() {
     },
     {
       key: 'trusted',
-      heading: 'Trusted by 53+ hospitals and healthcare institutions across Nepal and beyond',
+      heading: 'Trusted by Leading Healthcare Institutions',
       subheading: '',
       body: '',
       image: '',
@@ -643,9 +643,9 @@ async function main() {
     },
     {
       key: 'features_row',
-      heading: 'Built By Doctors For Doctors|Customizable & Scalable|Cloudbase Service',
-      subheading: "We have your efficiency and ease in mind, so we have developed an user-friendly solution.|We built it from the bottom up, so we can customize to your needs. Also, as your business grows, Danphe can scale to meet your demands|We offer both on premises and cloud based services catering to your needs.",
-      body: '',
+      heading: 'We Provide Trusted and Best Software',
+      subheading: 'All-in-one hospital management solution for seamless operations',
+      body: 'Built By Doctors For Doctors|We have your efficiency and ease in mind, so we have developed an user-friendly solution.|Stethoscope\nCustomizable & Scalable|We built it from the bottom up, so we can customize to your needs. Also, as your business grows, Danphe can scale to meet your demands|Settings\nCloudbase Service|We offer both on premises and cloud based services catering to your needs.|Cloud',
       image: '',
       ctaLabel: '',
       ctaUrl: '',
@@ -655,7 +655,7 @@ async function main() {
       key: 'comparison',
       heading: 'Why Healthcare Institutions Choose DANPHE',
       subheading: 'The only HMIS built by doctors, for doctors — with the flexibility of open source.',
-      body: 'Built by Healthcare Professionals|Developed with deep domain expertise from doctors and hospital administrators who understand real clinical workflows.|Proven in Production|Battle-tested across 60+ hospitals handling millions of patient records, billing cycles, and clinical workflows daily.|Open-Source Freedom|Full access to source code. No vendor lock-in. Customize, extend, and integrate with your existing systems.',
+      body: 'Built by Healthcare Professionals|Developed with deep domain expertise from doctors and hospital administrators who understand real clinical workflows.\nProven in Production|Battle-tested across 60+ hospitals handling millions of patient records, billing cycles, and clinical workflows daily.\nOpen-Source Freedom|Full access to source code. No vendor lock-in. Customize, extend, and integrate DANPHE to fit your exact hospital requirements.',
       image: '',
       ctaLabel: '',
       ctaUrl: '',
@@ -665,7 +665,7 @@ async function main() {
       key: 'opensource',
       heading: 'Why Open-Source HMIS?',
       subheading: 'Transparency, flexibility, and community-driven innovation — the foundation of trustworthy healthcare software.',
-      body: 'Full Transparency|Review, audit, and verify every line of code. Complete visibility into how your patient data is handled.|No Vendor Lock-in|Own your data and infrastructure. Migrate, customize, and extend without restrictions.|Community Driven|Benefit from contributions, bug fixes, and feature requests from a global community of healthcare technology professionals.|Cost Effective|Eliminate expensive licensing fees. Invest your budget in what matters — patient care and hospital operations.',
+      body: 'Full Transparency|Review, audit, and verify every line of code. Complete visibility into how your patient data is handled.\nNo Vendor Lock-in|Own your data and infrastructure. Migrate, customize, and extend without restrictions.\nCommunity Driven|Benefit from contributions, bug fixes, and feature requests from a global community of healthcare technology professionals.\nCost Effective|Eliminate expensive licensing fees. Open-source means lower total cost of ownership with enterprise-grade capabilities.',
       image: '',
       ctaLabel: '',
       ctaUrl: '',
@@ -675,7 +675,7 @@ async function main() {
       key: 'technology',
       heading: 'Built on Modern Technology',
       subheading: 'Designed for reliability, scalability, and performance in mission-critical healthcare environments.',
-      body: '100% Web-Based|Access your hospital management system from any device with a modern web browser. No installations, no compatibility issues — just seamless access from anywhere.|2|Scalable Architecture|1|From small clinics to large multi-specialty hospitals, Danphe scales with your organization. Handle increasing patient volumes and complex workflows effortlessly.|1|Secure by Design|1|Role-based access controls, password-protected modules, and centralized database security ensure your sensitive healthcare data remains protected.',
+      body: '100% Web-Based|Access your hospital management system from any device with a modern web browser. No installations, no compatibility issues — just seamless access from anywhere.\nScalable Architecture|From small clinics to large multi-specialty hospitals, Danphe scales with your organization. Handle increasing patient volumes and complex workflows effortlessly.\nSecure by Design|Built with security best practices including role-based access, audit trails, and data encryption to protect sensitive patient information.',
       image: '',
       ctaLabel: '',
       ctaUrl: '',
@@ -683,7 +683,7 @@ async function main() {
     },
     {
       key: 'international',
-      heading: 'Our Presence Across Nepal and Beyond',
+      heading: 'Trusted Across Borders',
       subheading: 'From Kathmandu to the far west — Danphe HMIS serves healthcare institutions across diverse geographies.',
       body: '',
       image: '',
@@ -693,8 +693,8 @@ async function main() {
     },
     {
       key: 'testimonials',
-      heading: 'What Our Clients Say',
-      subheading: '',
+      heading: 'See what our valuable clients tell about us',
+      subheading: "Trusted by leading healthcare institutions across Nepal, our clients share their experiences working with Danphe Health's hospital management system.",
       body: '',
       image: '',
       ctaLabel: '',
@@ -704,8 +704,13 @@ async function main() {
     {
       key: 'faqs',
       heading: 'Frequently Asked Questions',
-      subheading: '',
-      body: "Why DANPHE is different from other available in the market|DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust. Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.|What are the security aspects of DANPHE?|As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions. The database in the system is secured in several ways: Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls). Software and module logins are effectively password protected. All passwords are individually generated. For security reasons, these passwords need to be changed at regular intervals.|Is it true that extremely less time is required to implement DANPHE HMIS?|DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.|Is DANPHE HMIS suitable for all small to big healthcare institution?|This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don't worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.|Is it possible to transfer the entire existing data to the newly implemented DANPHE System?|Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.|Does Imark Digital offer after sales support services for DANPHE HMIS System?|In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.",
+      subheading: 'Everything you need to know about DANPHE HMIS',
+      body: `Why DANPHE is different from other available in the market|DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust. Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.
+What are the security aspects of DANPHE?|As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions. The database in the system is secured in several ways: Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls). Software and module logins are effectively password protected. All passwords are individually generated. For security reasons, these passwords need to be changed at regular intervals.
+Is it true that extremely less time is required to implement DANPHE HMIS?|DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.
+Is DANPHE HMIS suitable for all small to big healthcare institution?|This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don't worry about business size or scale, DANPHE is capable enough to easily get fitted in any size or type of healthcare institution, may it be a small nursing home, a medium-sized hospital, or a large multi-specialty tertiary care center.
+Is it possible to transfer the entire existing data to the newly implemented DANPHE System?|Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body.
+Does Imark Digital offer after sales support services for DANPHE HMIS System?|In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.`,
       image: '',
       ctaLabel: '',
       ctaUrl: '',

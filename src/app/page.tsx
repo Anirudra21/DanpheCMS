@@ -201,23 +201,23 @@ export default async function Home() {
           ctaUrl={outcomes.ctaUrl}
         />
         <FeaturesSection
-          heading={featuresRow.heading || featuresRow.subheading}
-          subheading={featuresRow.heading ? featuresRow.subheading : ''}
+          heading={featuresRow.heading}
+          subheading={featuresRow.subheading}
           featureCards={featureCards}
         />
         <ComparisonSection
-          heading={comparison.heading || comparison.subheading}
-          subheading={comparison.heading ? comparison.subheading : ''}
+          heading={comparison.heading}
+          subheading={comparison.subheading}
           cards={comparisonCards}
         />
         <OpenSourceSection
-          heading={opensource.heading || opensource.subheading}
-          subheading={opensource.heading ? opensource.subheading : ''}
+          heading={opensource.heading}
+          subheading={opensource.subheading}
           benefits={openSourceBenefits}
         />
         <TechSection
-          heading={tech.heading || tech.subheading}
-          subheading={tech.heading ? tech.subheading : ''}
+          heading={tech.heading}
+          subheading={tech.subheading}
           features={techFeatures}
         />
         <InternationalSection
