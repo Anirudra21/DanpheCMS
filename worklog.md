@@ -1388,3 +1388,30 @@ Stage Summary:
 - Footer 'Info' column 'Terms & Conditions' link now navigates to the page
 - Page uses existing design system (gradient hero, max-w-3xl content, framer-motion animations, brand colors)
 - SEO: proper <h1>, meta title/description, semantic HTML
+
+---
+Task ID: privacy-policy-faqs-pages
+Agent: main
+Task: Create Privacy Policy page, FAQ dedicated page, update Info section footer links
+
+Work Log:
+- Explored existing FAQSection component (src/components/danphe/FAQSection.tsx) — already reusable, accepts heading/subheading/faqs props
+- Found FAQ data source: homepage_sections table with key='faqs', body format 'question|answer' per line
+- Created /src/app/(internal)/privacy-policy/page.tsx — matches Terms & Conditions hero + content layout exactly
+- Created /src/app/(internal)/privacy-policy/layout.tsx — metadata: title='Privacy Policy | DANPHE'
+- Created /src/app/(internal)/faqs/page.tsx — server component that fetches FAQ data via getHomepageSections(), passes to existing FAQSection component (single source of truth)
+- Created /src/app/(internal)/faqs/layout.tsx — metadata: title='FAQs | DANPHE'
+- Updated live DB: nav_items Privacy Policy → /privacy-policy, FAQs → /faqs
+- Updated seed-content.ts to match for future consistency
+- Verified via agent-browser:
+  - All 3 Info footer links: FAQs → /faqs, Privacy Policy → /privacy-policy, Terms & Conditions → /terms-and-conditions
+  - Privacy Policy page: renders all 7 sections (Collection, Use, Disclosure, Security, Links, Children, Changes) + Contact section
+  - FAQs page: renders existing FAQ data from DB, accordion expand/collapse works
+  - Mobile (iPhone 14): both pages render correctly with responsive layout
+  - No new lint errors, no runtime errors
+
+Stage Summary:
+- /privacy-policy — new page with DANPHE branding, matching Terms & Conditions visual pattern
+- /faqs — new page reusing FAQSection component + getHomepageSections() query (single source of truth, no content duplication)
+- Footer Info section: all 3 links now navigate to correct pages
+- Files created: 4 (2 pages + 2 layouts), files modified: 1 (seed-content.ts), DB updated: 2 nav_items rows
