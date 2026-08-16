@@ -33,11 +33,16 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { title, department, location, employmentType, description, requirements, applyEmail, status } = body;
+    const { title, department, location, employmentType, description, requirements, applyEmail, status, postedAt } = body;
 
     const existing = await db.job.findUnique({ where: { id } });
     if (!existing) {
       return NextResponse.json({ error: 'Job not found' }, { status: 404 });
+    }
+
+    // Validate status enum if provided
+    if (status !== undefined && !['OPEN', 'CLOSED'].includes(status)) {
+      return NextResponse.json({ error: 'status must be OPEN or CLOSED' }, { status: 400 });
     }
 
     const job = await db.job.update({
@@ -51,6 +56,7 @@ export async function PUT(
         ...(requirements !== undefined && { requirements: requirements ?? '' }),
         ...(applyEmail !== undefined && { applyEmail: applyEmail?.trim() ?? '' }),
         ...(status !== undefined && { status }),
+        ...(postedAt !== undefined && { postedAt: new Date(postedAt) }),
       },
     });
 

@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
         requirements: requirements ?? '',
         applyEmail: applyEmail?.trim() ?? '',
         status: status === 'CLOSED' ? 'CLOSED' : 'OPEN',
+        postedAt: data.postedAt ? new Date(data.postedAt) : new Date(),
       },
     });
 

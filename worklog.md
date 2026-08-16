@@ -1035,3 +1035,147 @@ Next Phase Priority Recommendations
 3. Build Careers admin (Job CRUD with status management)
 4. Build Leads admin (read-only list with filters)
 5. Polish frontend website pages
+
+---
+Task ID: component-enhancements-1
+Agent: main
+Task: Enhance RichTextEditor with image support, create DatePicker component, add datetime field type to ModelForm
+
+Work Log:
+- Enhanced `src/components/cms/RichTextEditor.tsx`:
+  - Imported `Image` from `@tiptap/extension-image` and added to editor extensions
+  - Added `ImageIcon` import from lucide-react
+  - Added image toolbar button after Horizontal Rule with separator, uses `window.prompt()` to get URL then calls `editor.chain().focus().setImage({ src: url }).run()`
+  - Added CSS for `.tiptap img`: `max-width: 100%; height: auto; border-radius: 0.5rem; margin: 1rem 0;`
+- Created `src/app/(admin)/admin/_components/DatePicker.tsx`:
+  - Reusable 'use client' component using Popover + Calendar from shadcn/ui
+  - Props: `value: string`, `onChange: (date: string) => void`, `label?: string`, `placeholder?: string`
+  - Uses `format` from `date-fns` for date display (e.g. "Jan 15, 2025")
+  - CalendarIcon from lucide-react in trigger button, styled with `h-9 w-full justify-start text-left font-normal text-sm`
+  - Shows `text-slate-400` placeholder when no date selected
+  - Calendar uses `mode="single"` and `selected` prop
+  - On select, calls `onChange(d.toISOString())`
+- Updated `src/app/(admin)/admin/_components/ModelForm.tsx`:
+  - Added `'datetime'` to the FieldType union type
+  - Imported DatePicker component
+  - Added datetime rendering block before the Number block, using `watch(field.name)` and `setValue(field.name, date, { shouldValidate: true })`
+  - datetime fields fall through to `z.string().optional()` in buildSchema (no special case needed)
+- Ran `bun run lint` — no errors
+
+---
+Task ID: posts-community-admin
+Agent: main
+Task: Build admin screens for Posts (News & Events) and Community CRUD with custom list pages (search + status filter) and custom form pages (DatePicker, hidden type, status toggle)
+
+Work Log:
+- Fixed `src/app/api/posts/route.ts`:
+  - Updated GET ordering to use `publishedAt: { sort: 'desc', nulls: 'last' }` with secondary `createdAt: 'desc'`
+  - Added slug uniqueness check in POST (returns 409 if duplicate)
+  - Improved `publishedAt` handling: checks for non-empty string before parsing
+- Fixed `src/app/api/posts/[id]/route.ts`:
+  - Added `slugify` import from `@/lib/cms-utils`
+  - Added slug uniqueness check on PUT when slug changes (returns 409 if duplicate)
+  - Improved `publishedAt` handling: empty string → null, non-empty string → `new Date(value)`
+- Rewrote `src/app/(admin)/admin/posts/page.tsx` as custom list page:
+  - Replaced DataTable with shadcn Table components for custom search/filter UI
+  - Added search bar with Search icon, filters posts by title (case-insensitive)
+  - Added status filter chips: All / Published / Draft (toggle-able pill buttons)
+  - Table columns: Title (bold + slug), Author, Published Date (formatDate or "—"), Status (emerald Badge for Published, slate Badge for Draft)
+  - Edit (Pencil) and Delete (Trash2) buttons with opacity-0 group-hover:opacity-100
+  - "New Post" button in header, empty state with FileText icon
+  - Fetches from `/api/posts?type=NEWS_EVENT`
+  - Framer-motion container/item animations
+- Rewrote `src/app/(admin)/admin/posts/new/page.tsx` as custom form:
+  - Uses react-hook-form + zod/v4 + zodResolver (not ModelForm)
+  - Fields: Title, Slug (auto-generated from title), Cover Image (ImageUpload), Author, Published At (DatePicker), Excerpt (textarea), Body (RichTextEditor), Published (Switch toggle)
+  - Hidden `type: 'NEWS_EVENT'` in submit payload
+  - Status stored as boolean `isPublished`, converted to 'PUBLISHED'/'DRAFT' on submit
+  - Error banner pattern matching other admin pages
+  - Back arrow + "New News & Event" title
+- Rewrote `src/app/(admin)/admin/posts/[id]/edit/page.tsx` as custom form:
+  - Same form as new, fetches existing post on mount via `params.then(p => p.id)`
+  - Converts `publishedAt` from ISO string for DatePicker
+  - Converts `status: 'PUBLISHED'` to `isPublished: true` on reset
+- Rewrote `src/app/(admin)/admin/community/page.tsx` as custom list page:
+  - Identical to posts/page.tsx but fetches `/api/posts?type=COMMUNITY`
+  - Title: "Community", description: "Manage community posts and updates."
+  - Empty message: "No community posts yet."
+  - New button links to `/admin/community/new`, edit links to `/admin/community/${post.id}/edit`
+  - "New Community Post" button label
+- Created `src/app/(admin)/admin/community/new/page.tsx`:
+  - Same as posts/new but title "New Community Post", type='COMMUNITY', listHref='/admin/community'
+- Created `src/app/(admin)/admin/community/[id]/edit/page.tsx`:
+  - Same as posts/[id]/edit but listHref='/admin/community'
+- Ran `bun run db:push` — schema already in sync
+- Ran `bun run lint` — no errors
+
+---
+Task ID: 5
+Agent: main
+Task: Build custom Careers admin screens with status filter, section-card forms, RichTextEditor, DatePicker
+
+Work Log:
+- Updated `src/app/api/jobs/route.ts`:
+  - Added `postedAt` handling in POST — accepts ISO string, converts to Date, defaults to `new Date()` if not provided
+- Updated `src/app/api/jobs/[id]/route.ts`:
+  - Added `postedAt` handling in PUT — accepts ISO string, converts to Date
+  - Added status enum validation — rejects invalid status values with 400 error
+- Updated `src/app/(admin)/admin/careers/page.tsx`:
+  - Changed filter chips from white-on-gray tabs to rounded-full buttons: active uses `bg-danphe-accent text-white`, inactive uses `bg-slate-100 text-slate-600 hover:bg-slate-200`
+  - Updated Closed status badge from red to slate colors (`bg-slate-100 text-slate-600 border-slate-200`)
+- Rewrote `src/app/(admin)/admin/careers/new/page.tsx` as custom form (replacing ModelForm):
+  - `'use client'`, framer-motion container/item animations
+  - react-hook-form + zod/v4 + zodResolver
+  - Section cards with colored icon headers (same pattern as settings page):
+    - **Job Details** (Briefcase, bg-amber-50): Title (required), Department, Location, Employment Type (select)
+    - **Description** (FileText, bg-sky-50): Description (RichTextEditor), Requirements (RichTextEditor)
+    - **Application** (Mail, bg-violet-50): Apply Email (type=email), Posted Date (DatePicker)
+  - Status toggle: "Open" label + Switch (default true)
+  - Converts `isOpen` boolean to `'OPEN'`/`'CLOSED'` on submit
+  - Save + Cancel buttons
+- Rewrote `src/app/(admin)/admin/careers/[id]/edit/page.tsx` as custom form:
+  - Same form structure as new page
+  - Resolves `id` from `params.then(p => p.id)`
+  - Fetches existing job from `GET /api/jobs/${id}` on mount
+  - Converts `postedAt` ISO string for DatePicker
+  - Converts `status: 'OPEN'` → `isOpen: true`, `'CLOSED'` → `false` on reset
+  - PUT to `/api/jobs/${id}` on submit
+- Ran `bun run lint` — no errors
+
+---
+Task ID: 6
+Agent: main
+Task: Build Posts (News & Events + Community) and Careers admin screens
+
+Work Log:
+- Enhanced RichTextEditor with @tiptap/extension-image: Insert Image toolbar button, responsive CSS for images
+- Created reusable DatePicker component (Calendar + Popover) for datetime fields
+- Added 'datetime' field type to ModelForm for future reuse
+- Built Posts API (GET with ?type= filter, POST with slug auto-gen, PUT, DELETE)
+- Built /admin/posts (News & Events): searchable list with status filter chips (All/Published/Draft), custom form with title, slug auto-gen, cover image, author, DatePicker for publishedAt, excerpt, RichTextEditor with image support, published toggle
+- Built /admin/community: same pattern as posts but filtered by type=COMMUNITY
+- Built Jobs API (GET with ?status= filter, POST, PUT with status validation, DELETE)
+- Built /admin/careers: list with status filter chips (All/Open/Closed), custom form with 3 section cards (Job Details, Description with 2 RichTextEditors, Application), employment type select, DatePicker, open/closed toggle
+
+Stage Summary:
+- 16 files created/modified: 4 API routes, 9 admin pages, 3 enhanced components
+- All 3 list pages verified: search bar, status filter chips, data display, empty states
+- New post creation verified end-to-end: slug auto-gen, redirect to list, data display
+- RichTextEditor image embedding added (toolbar button + prompt for URL)
+- DatePicker component created and integrated into posts and careers forms
+- ESLint passes cleanly, no runtime errors
+- Test post cleaned up from database
+
+---
+Project Status Assessment
+- 9 of 12 Prisma models now have admin CRUD: Solutions, TeamMembers, Stats, Testimonials, ClientLogos, NavItems, SiteSetting, Post, Job
+- Remaining without admin: Lead (read-only list), AdminUser (user management)
+- HomepageSection editor (/admin/homepage) still not built
+- All admin sidebar links now have working pages EXCEPT /admin/leads and /admin/users
+
+---
+Next Phase Priority Recommendations
+1. Build /admin/leads — read-only list with source filter, export capability
+2. Build /admin/users — AdminUser CRUD with role management
+3. Build /admin/homepage — HomepageSection editor (deferred from Phase 4)
+4. Polish public-facing website pages

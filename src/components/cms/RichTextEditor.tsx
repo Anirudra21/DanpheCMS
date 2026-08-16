@@ -3,6 +3,7 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
+import Image from '@tiptap/extension-image';
 import {
   Bold,
   Italic,
@@ -15,6 +16,7 @@ import {
   Quote,
   Code,
   Minus,
+  ImageIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/cms-utils';
 import { Button } from '@/components/ui/button';
@@ -62,6 +64,7 @@ export function RichTextEditor({
     extensions: [
       StarterKit,
       Placeholder.configure({ placeholder }),
+      Image,
     ],
     content,
     onUpdate: ({ editor }) => {
@@ -182,6 +185,20 @@ export function RichTextEditor({
         >
           <Minus className="h-4 w-4" />
         </ToolbarButton>
+
+        <Separator orientation="vertical" className="mx-1 h-5" />
+
+        <ToolbarButton
+          onClick={() => {
+            const url = window.prompt('Enter image URL:');
+            if (url) {
+              editor.chain().focus().setImage({ src: url }).run();
+            }
+          }}
+          title="Insert Image"
+        >
+          <ImageIcon className="h-4 w-4" />
+        </ToolbarButton>
       </div>
 
       {/* Editor Content */}
@@ -249,6 +266,12 @@ export function RichTextEditor({
         .tiptap hr {
           border-color: #e2e8f0;
           margin: 1.5rem 0;
+        }
+        .tiptap img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 0.5rem;
+          margin: 1rem 0;
         }
       `}</style>
     </div>

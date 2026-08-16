@@ -15,7 +15,10 @@ export async function GET(request: NextRequest) {
 
     const posts = await db.post.findMany({
       where,
-      orderBy: { publishedAt: 'desc' },
+      orderBy: [
+        { publishedAt: { sort: 'desc', nulls: 'last' } },
+        { createdAt: 'desc' },
+      ],
     });
 
     return NextResponse.json(posts);
@@ -43,13 +46,19 @@ export async function POST(request: NextRequest) {
 
     const finalSlug = slug?.trim() ? slug.trim() : slugify(title.trim());
 
+    // Check slug uniqueness
+    const slugExists = await db.post.findUnique({ where: { slug: finalSlug } });
+    if (slugExists) {
+      return NextResponse.json({ error: 'A post with this slug already exists' }, { status: 409 });
+    }
+
     const post = await db.post.create({
       data: {
         title: title.trim(),
         slug: finalSlug,
         coverImageUrl: coverImageUrl?.trim() ?? '',
         author: author?.trim() ?? '',
-        publishedAt: publishedAt ? new Date(publishedAt) : null,
+        publishedAt: publishedAt && typeof publishedAt === 'string' && publishedAt.trim() !== '' ? new Date(publishedAt) : null,
         excerpt: excerpt?.trim() ?? '',
         body: body ?? '',
         type,

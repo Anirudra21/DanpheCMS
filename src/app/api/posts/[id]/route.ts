@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { slugify } from '@/lib/cms-utils';
 
 /**
  * GET /api/posts/:id — single post
@@ -40,14 +41,33 @@ export async function PUT(
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
+    // Determine final slug
+    const finalSlug = slug !== undefined
+      ? (slug?.trim() || (title ? slugify(title) : existing.slug))
+      : existing.slug;
+    if (finalSlug !== existing.slug) {
+      const slugExists = await db.post.findUnique({ where: { slug: finalSlug } });
+      if (slugExists) {
+        return NextResponse.json({ error: 'A post with this slug already exists' }, { status: 409 });
+      }
+    }
+
+    // Handle publishedAt: empty string → null
+    let parsedPublishedAt: Date | null | undefined = undefined;
+    if (publishedAt !== undefined) {
+      parsedPublishedAt = (typeof publishedAt === 'string' && publishedAt.trim() !== '')
+        ? new Date(publishedAt)
+        : null;
+    }
+
     const post = await db.post.update({
       where: { id },
       data: {
         ...(title !== undefined && { title: title.trim() }),
-        ...(slug !== undefined && { slug: slug?.trim() ?? existing.slug }),
+        ...(slug !== undefined && { slug: finalSlug }),
         ...(coverImageUrl !== undefined && { coverImageUrl: coverImageUrl?.trim() ?? '' }),
         ...(author !== undefined && { author: author?.trim() ?? '' }),
-        ...(publishedAt !== undefined && { publishedAt: publishedAt ? new Date(publishedAt) : null }),
+        ...(parsedPublishedAt !== undefined && { publishedAt: parsedPublishedAt }),
         ...(excerpt !== undefined && { excerpt: excerpt?.trim() ?? '' }),
         ...(postBody !== undefined && { body: postBody ?? '' }),
         ...(type !== undefined && { type }),

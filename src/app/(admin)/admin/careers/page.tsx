@@ -118,7 +118,7 @@ const columns: ColumnDef<Job>[] = [
           'text-[11px] font-medium',
           job.status === 'OPEN'
             ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-            : 'text-red-600',
+            : 'bg-slate-100 text-slate-600 border-slate-200',
         )}
       >
         {job.status === 'OPEN' ? 'Open' : 'Closed'}
@@ -184,19 +184,19 @@ export default function CareersListPage() {
         </p>
       </motion.div>
 
-      {/* Filter Tabs */}
+      {/* Filter Chips */}
       <motion.div variants={item}>
-        <div className="flex items-center gap-1 rounded-lg bg-slate-100 p-1 w-fit">
+        <div className="flex items-center gap-2">
           {filterTabs.map((tab) => (
             <button
               key={tab.value}
               type="button"
               onClick={() => setActiveTab(tab.value)}
               className={cn(
-                'px-3 py-1.5 text-sm font-medium rounded-md transition-colors',
+                'px-3 py-1.5 text-sm font-medium rounded-full transition-colors',
                 activeTab === tab.value
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700',
+                  ? 'bg-danphe-accent text-white'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200',
               )}
             >
               {tab.label}

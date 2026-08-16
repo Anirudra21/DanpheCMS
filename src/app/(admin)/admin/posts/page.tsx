@@ -1,10 +1,21 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { DataTable, type ColumnDef } from '../_components/DataTable';
-import { Badge } from '@/components/ui/badge';
+import { Plus, Search, Pencil, Trash2, Loader2, FileText } from 'lucide-react';
 import { cn, formatDate } from '@/lib/cms-utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,7 +44,7 @@ type Post = {
   updatedAt: string;
 };
 
-type FilterTab = 'ALL' | 'NEWS_EVENT' | 'COMMUNITY';
+type StatusFilter = 'ALL' | 'PUBLISHED' | 'DRAFT';
 
 // ─── Animation ────────────────────────────────────────────────────────────
 
@@ -46,94 +57,28 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-// ─── Filter Tabs ──────────────────────────────────────────────────────────
+// ─── Status Filter Chips ─────────────────────────────────────────────────
 
-const filterTabs: { value: FilterTab; label: string }[] = [
+const statusFilters: { value: StatusFilter; label: string }[] = [
   { value: 'ALL', label: 'All' },
-  { value: 'NEWS_EVENT', label: 'News & Events' },
-  { value: 'COMMUNITY', label: 'Community' },
-];
-
-// ─── Columns ─────────────────────────────────────────────────────────────
-
-const columns: ColumnDef<Post>[] = [
-  {
-    key: 'title',
-    label: 'Title',
-    render: (post) => (
-      <div>
-        <p className="font-medium text-slate-900 text-sm">{post.title}</p>
-        {post.excerpt && (
-          <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">{post.excerpt}</p>
-        )}
-      </div>
-    ),
-  },
-  {
-    key: 'type',
-    label: 'Type',
-    className: 'w-32',
-    render: (post) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          'text-[11px] font-medium border-0',
-          post.type === 'NEWS_EVENT'
-            ? 'bg-blue-100 text-blue-700'
-            : 'bg-purple-100 text-purple-700',
-        )}
-      >
-        {post.type === 'NEWS_EVENT' ? 'News & Events' : 'Community'}
-      </Badge>
-    ),
-  },
-  {
-    key: 'status',
-    label: 'Status',
-    className: 'w-28',
-    render: (post) => (
-      <Badge
-        variant={post.status === 'PUBLISHED' ? 'default' : 'outline'}
-        className={cn(
-          'text-[11px] font-medium',
-          post.status === 'PUBLISHED' && 'bg-emerald-600 hover:bg-emerald-700 text-white',
-        )}
-      >
-        {post.status === 'PUBLISHED' ? 'Published' : 'Draft'}
-      </Badge>
-    ),
-  },
-  {
-    key: 'author',
-    label: 'Author',
-    className: 'w-36',
-    render: (post) => (
-      <span className="text-sm text-slate-600">{post.author || '—'}</span>
-    ),
-  },
-  {
-    key: 'publishedAt',
-    label: 'Published Date',
-    className: 'w-32',
-    render: (post) => (
-      <span className="text-sm text-slate-500">{post.publishedAt ? formatDate(post.publishedAt) : '—'}</span>
-    ),
-  },
+  { value: 'PUBLISHED', label: 'Published' },
+  { value: 'DRAFT', label: 'Draft' },
 ];
 
 // ─── Page ───────────────────────────────────────────────────────────────
 
 export default function PostsListPage() {
+  const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<FilterTab>('ALL');
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('ALL');
   const [deleteTarget, setDeleteTarget] = useState<Post | null>(null);
   const [deleting, setDeleting] = useState(false);
 
   const fetchPosts = useCallback(async () => {
     try {
-      const query = activeTab === 'ALL' ? '' : `?type=${activeTab}`;
-      const res = await fetch(`/api/posts${query}`);
+      const res = await fetch('/api/posts?type=NEWS_EVENT');
       if (!res.ok) throw new Error();
       const data = await res.json();
       setPosts(data);
@@ -142,9 +87,21 @@ export default function PostsListPage() {
     } finally {
       setLoading(false);
     }
-  }, [activeTab]);
+  }, []);
 
   useEffect(() => { fetchPosts(); }, [fetchPosts]);
+
+  const filteredPosts = useMemo(() => {
+    let result = posts;
+    if (statusFilter !== 'ALL') {
+      result = result.filter((p) => p.status === statusFilter);
+    }
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      result = result.filter((p) => p.title.toLowerCase().includes(q));
+    }
+    return result;
+  }, [posts, statusFilter, search]);
 
   const handleDelete = async () => {
     if (!deleteTarget) return;
@@ -163,48 +120,144 @@ export default function PostsListPage() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
-      <motion.div variants={item}>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Posts</h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Manage your news, events, and community posts.
-        </p>
+      {/* Header */}
+      <motion.div variants={item} className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">News & Events</h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Manage news articles and event announcements.
+          </p>
+        </div>
+        <Button
+          onClick={() => router.push('/admin/posts/new')}
+          className="h-9 gap-2 text-sm font-medium"
+        >
+          <Plus className="h-4 w-4" />
+          New Post
+        </Button>
       </motion.div>
 
-      {/* Filter Tabs */}
-      <motion.div variants={item}>
-        <div className="flex items-center gap-1 rounded-lg bg-slate-100 p-1 w-fit">
-          {filterTabs.map((tab) => (
+      {/* Search + Filters */}
+      <motion.div variants={item} className="space-y-3">
+        {/* Search bar */}
+        <div className="relative max-w-sm">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by title..."
+            className="h-9 pl-9 text-sm"
+          />
+        </div>
+
+        {/* Status filter chips */}
+        <div className="flex items-center gap-2">
+          {statusFilters.map((f) => (
             <button
-              key={tab.value}
+              key={f.value}
               type="button"
-              onClick={() => setActiveTab(tab.value)}
+              onClick={() => setStatusFilter(f.value)}
               className={cn(
-                'px-3 py-1.5 text-sm font-medium rounded-md transition-colors',
-                activeTab === tab.value
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700',
+                'px-3 py-1.5 text-xs font-medium rounded-full border transition-colors',
+                statusFilter === f.value
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50',
               )}
             >
-              {tab.label}
+              {f.label}
             </button>
           ))}
         </div>
       </motion.div>
 
+      {/* Table */}
       <motion.div variants={item}>
-        <DataTable<Post>
-          columns={columns}
-          data={posts}
-          isLoading={loading}
-          emptyMessage="No posts yet. Create your first post."
-          newHref="/admin/posts/new"
-          newLabel="New Post"
-          editable
-          editHref={(post) => `/admin/posts/${post.id}/edit`}
-          deletable
-          onDelete={setDeleteTarget}
-          title={`${posts.length} ${posts.length === 1 ? 'post' : 'posts'}`}
-        />
+        {loading ? (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+          </div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <FileText className="h-10 w-10 text-slate-300 mb-3" />
+            <p className="text-sm font-medium text-slate-500">
+              {search || statusFilter !== 'ALL'
+                ? 'No posts match your filters.'
+                : 'No news & events yet.'}
+            </p>
+            <p className="text-xs text-slate-400 mt-1">
+              {search || statusFilter !== 'ALL'
+                ? 'Try adjusting your search or filter.'
+                : 'Create your first news post or event.'}
+            </p>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-slate-50/80 hover:bg-slate-50/80">
+                  <TableHead className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Title</TableHead>
+                  <TableHead className="text-xs font-semibold text-slate-500 uppercase tracking-wider w-36">Author</TableHead>
+                  <TableHead className="text-xs font-semibold text-slate-500 uppercase tracking-wider w-32">Published Date</TableHead>
+                  <TableHead className="text-xs font-semibold text-slate-500 uppercase tracking-wider w-28">Status</TableHead>
+                  <TableHead className="w-20" />
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredPosts.map((post) => (
+                  <TableRow key={post.id} className="group">
+                    <TableCell>
+                      <div>
+                        <p className="font-medium text-slate-900 text-sm">{post.title}</p>
+                        <p className="text-xs text-slate-400 mt-0.5">/{post.slug}</p>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm text-slate-600">{post.author || '—'}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm text-slate-500">
+                        {post.publishedAt ? formatDate(post.publishedAt) : '—'}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={post.status === 'PUBLISHED' ? 'default' : 'outline'}
+                        className={cn(
+                          'text-[11px] font-medium',
+                          post.status === 'PUBLISHED'
+                            ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                            : 'bg-slate-100 text-slate-500 border-slate-200',
+                        )}
+                      >
+                        {post.status === 'PUBLISHED' ? 'Published' : 'Draft'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0 text-slate-400 hover:text-slate-700"
+                          onClick={() => router.push(`/admin/posts/${post.id}/edit`)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0 text-slate-400 hover:text-red-600"
+                          onClick={() => setDeleteTarget(post)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
       </motion.div>
 
       {/* Delete confirmation dialog */}

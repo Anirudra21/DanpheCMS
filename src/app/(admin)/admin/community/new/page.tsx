@@ -13,8 +13,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { RichTextEditor } from '@/components/cms/RichTextEditor';
-import { ImageUpload } from '../../../_components/ImageUpload';
-import { DatePicker } from '../../../_components/DatePicker';
+import { ImageUpload } from '../../_components/ImageUpload';
+import { DatePicker } from '../../_components/DatePicker';
 
 // ─── Schema ─────────────────────────────────────────────────────────────
 
@@ -33,10 +33,8 @@ type FormValues = z.infer<typeof schema>;
 
 // ─── Page ───────────────────────────────────────────────────────────────
 
-export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
+export default function NewCommunityPage() {
   const router = useRouter();
-  const [id, setId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -54,42 +52,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     },
   });
 
-  const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = form;
-
-  // Resolve params
-  useEffect(() => {
-    params.then((p) => {
-      setId(p.id);
-    });
-  }, [params]);
-
-  // Fetch existing post
-  useEffect(() => {
-    if (!id) return;
-    let cancelled = false;
-    setLoading(true);
-    fetch(`/api/posts/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to load post');
-        return res.json();
-      })
-      .then((data) => {
-        if (cancelled) return;
-        reset({
-          title: data.title ?? '',
-          slug: data.slug ?? '',
-          coverImageUrl: data.coverImageUrl ?? '',
-          author: data.author ?? '',
-          publishedAt: data.publishedAt ? new Date(data.publishedAt).toISOString() : '',
-          excerpt: data.excerpt ?? '',
-          body: data.body ?? '',
-          isPublished: data.status === 'PUBLISHED',
-        });
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => !cancelled && setLoading(false));
-    return () => { cancelled = true; };
-  }, [id, reset]);
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = form;
 
   // Auto-generate slug from title
   const titleValue = watch('title');
@@ -104,25 +67,25 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
   }, [titleValue, slugValue, setValue]);
 
   const onSubmit = async (values: FormValues) => {
-    if (!id) return;
     setSaving(true);
     setError('');
     try {
-      const res = await fetch(`/api/posts/${id}`, {
-        method: 'PUT',
+      const res = await fetch('/api/posts', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...values,
+          type: 'COMMUNITY',
           status: values.isPublished ? 'PUBLISHED' : 'DRAFT',
         }),
       });
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || 'Failed to update post');
+        throw new Error(data.error || 'Failed to create post');
       }
 
-      router.push('/admin/posts');
+      router.push('/admin/community');
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -130,14 +93,6 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
       setSaving(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-6">
@@ -147,11 +102,11 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           variant="ghost"
           size="sm"
           className="h-8 w-8 p-0"
-          onClick={() => router.push('/admin/posts')}
+          onClick={() => router.push('/admin/community')}
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
-        <h1 className="text-lg font-semibold text-slate-900">Edit News & Event</h1>
+        <h1 className="text-lg font-semibold text-slate-900">New Community Post</h1>
       </div>
 
       {/* Error banner */}
@@ -288,7 +243,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
             ) : (
               <>
                 <Save className="h-4 w-4" />
-                Update
+                Create
               </>
             )}
           </Button>
@@ -296,7 +251,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
             type="button"
             variant="outline"
             className="h-9 text-sm"
-            onClick={() => router.push('/admin/posts')}
+            onClick={() => router.push('/admin/community')}
           >
             Cancel
           </Button>

@@ -15,6 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { RichTextEditor } from '@/components/cms/RichTextEditor';
 import { ImageUpload } from './ImageUpload';
+import { DatePicker } from './DatePicker';
 import {
   Select,
   SelectContent,
@@ -25,7 +26,7 @@ import {
 
 // ─── Field Config Types ───────────────────────────────────────────────────
 
-export type FieldType = 'text' | 'textarea' | 'richtext' | 'image' | 'select' | 'checkbox' | 'number' | 'slug';
+export type FieldType = 'text' | 'textarea' | 'richtext' | 'image' | 'select' | 'checkbox' | 'number' | 'slug' | 'datetime';
 
 export interface FieldConfig {
   name: string;
@@ -497,6 +498,20 @@ export function ModelForm(props: ModelFormConfig) {
                     onCheckedChange={(checked) => setValue(field.name, checked, { shouldValidate: true })}
                   />
                 </div>
+              );
+            }
+
+            // ── DateTime ──
+            if (field.type === 'datetime') {
+              const val = watch(field.name) as string;
+              return (
+                <DatePicker
+                  key={field.name}
+                  value={val ?? ''}
+                  onChange={(date) => setValue(field.name, date, { shouldValidate: true })}
+                  label={field.label}
+                  placeholder={field.placeholder}
+                />
               );
             }
 

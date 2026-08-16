@@ -33,7 +33,7 @@ type FormValues = z.infer<typeof schema>;
 
 // ─── Page ───────────────────────────────────────────────────────────────
 
-export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
+export default function EditCommunityPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [id, setId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -122,7 +122,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
         throw new Error(data.error || 'Failed to update post');
       }
 
-      router.push('/admin/posts');
+      router.push('/admin/community');
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -147,11 +147,11 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           variant="ghost"
           size="sm"
           className="h-8 w-8 p-0"
-          onClick={() => router.push('/admin/posts')}
+          onClick={() => router.push('/admin/community')}
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
-        <h1 className="text-lg font-semibold text-slate-900">Edit News & Event</h1>
+        <h1 className="text-lg font-semibold text-slate-900">Edit Community Post</h1>
       </div>
 
       {/* Error banner */}
@@ -296,7 +296,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
             type="button"
             variant="outline"
             className="h-9 text-sm"
-            onClick={() => router.push('/admin/posts')}
+            onClick={() => router.push('/admin/community')}
           >
             Cancel
           </Button>
