@@ -97,7 +97,7 @@ async function main() {
     // FOOTER_INFO (order 0-2)
     { label: 'FAQs', url: '#', order: 0, location: 'FOOTER_INFO' as const },
     { label: 'Privacy Policy', url: '#', order: 1, location: 'FOOTER_INFO' as const },
-    { label: 'Terms & Conditions', url: '#', order: 2, location: 'FOOTER_INFO' as const },
+    { label: 'Terms & Conditions', url: '/terms-and-conditions', order: 2, location: 'FOOTER_INFO' as const },
   ];
 
   for (const item of navItems) {

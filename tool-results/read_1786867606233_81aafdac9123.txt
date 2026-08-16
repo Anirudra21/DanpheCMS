@@ -1,0 +1,754 @@
+     1→     1→import { PrismaClient } from '@prisma/client';
+     2→     2→
+     3→     3→const db = new PrismaClient({
+     4→     4→  datasources: {
+     5→     5→    db: { url: 'file:/home/z/my-project/db/custom.db' },
+     6→     6→  },
+     7→     7→});
+     8→     8→
+     9→     9→async function main() {
+    10→    10→  console.log('🌱 Seeding content into database...');
+    11→    11→
+    12→    12→  // ═══════════════════════════════════════════════════════════════════════════════
+    13→    13→  // 1. SiteSettings (singleton — upsert)
+    14→    14→  // ═══════════════════════════════════════════════════════════════════════════════
+    15→    15→  console.log('\n📌 Seeding SiteSettings...');
+    16→    16→  const existing = await db.siteSetting.findFirst();
+    17→    17→  if (existing) {
+    18→    18→    await db.siteSetting.update({
+    19→    19→      where: { id: existing.id },
+    20→    20→      data: {
+    21→    21→        logo: 'https://danphehealth.com/frontend/img/logo.png',
+    22→    22→        email: 'info@danphehealth.com',
+    23→    23→        phone: '+977-9852088004',
+    24→    24→        facebookUrl: 'https://www.facebook.com/DapheHealth',
+    25→    25→        instagramUrl: 'https://www.instagram.com/danphe_health/',
+    26→    26→        address: 'Imark Digital Pvt. Ltd. Dillibazar, Kathmandu, Nepal',
+    27→    27→        mapEmbedUrl:
+    28→    28→          'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.32398903228!2d85.32684882524008!3d27.707281275494772!2d3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb197f4baea3f5%3A0x55e4bb647cf623f8!2sImark%20Digital!5e0!3m2!1sen!2snp!4v1707112335014!5m2!1sen!2snp',
+    29→    29→        footerText: 'www.danphecare.com / www.danphehealth.com',
+    30→    30→        copyrightText: '© Copyright 2024. All Rights Reserved.',
+    31→    31→      },
+    32→    32→    });
+    33→    33→    console.log('  ✅ SiteSettings updated');
+    34→    34→  } else {
+    35→    35→    await db.siteSetting.create({
+    36→    36→      data: {
+    37→    37→        logo: 'https://danphehealth.com/frontend/img/logo.png',
+    38→    38→        email: 'info@danphehealth.com',
+    39→    39→        phone: '+977-9852088004',
+    40→    40→        facebookUrl: 'https://www.facebook.com/DapheHealth',
+    41→    41→        instagramUrl: 'https://www.instagram.com/danphe_health/',
+    42→    42→        address: 'Imark Digital Pvt. Ltd. Dillibazar, Kathmandu, Nepal',
+    43→    43→        mapEmbedUrl:
+    44→    44→          'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.32398903228!2d85.32684882524008!3d27.707281275494772!2d3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb197f4baea3f5%3A0x55e4bb647cf623f8!2sImark%20Digital!5e0!3m2!1sen!2snp!4v1707112335014!5m2!1sen!2snp',
+    45→    45→        footerText: 'www.danphecare.com / www.danphehealth.com',
+    46→    46→        copyrightText: '© Copyright 2024. All Rights Reserved.',
+    47→    47→      },
+    48→    48→    });
+    49→    49→    console.log('  ✅ SiteSettings created');
+    50→    50→  }
+    51→    51→
+    52→    52→  // ═══════════════════════════════════════════════════════════════════════════════
+    53→    53→  // 2. NavItems
+    54→    54→  // ═══════════════════════════════════════════════════════════════════════════════
+    55→    55→  console.log('\n📌 Seeding NavItems...');
+    56→    56→  await db.navItem.deleteMany();
+    57→    57→  console.log('  Cleared existing NavItems');
+    58→    58→
+    59→    59→  const navItems = [
+    60→    60→    // HEADER (order 0-6)
+    61→    61→    { label: 'Company', url: '/company', order: 0, location: 'HEADER' as const },
+    62→    62→    { label: 'Our Solution', url: '/solutions', order: 1, location: 'HEADER' as const },
+    63→    63→    { label: 'Our Clients', url: '/clients', order: 2, location: 'HEADER' as const },
+    64→    64→    { label: 'News & Events', url: '/news-events', order: 3, location: 'HEADER' as const },
+    65→    65→    { label: 'Career', url: '/careers', order: 4, location: 'HEADER' as const },
+    66→    66→    { label: 'Danphe Community', url: '/danphe-community', order: 5, location: 'HEADER' as const },
+    67→    67→    { label: 'Contact Us', url: '/contact', order: 6, location: 'HEADER' as const },
+    68→    68→
+    69→    69→    // FOOTER_COMPANY (order 0-4)
+    70→    70→    { label: 'Company', url: '/company', order: 0, location: 'FOOTER_COMPANY' as const },
+    71→    71→    { label: 'Our Clients', url: '/clients', order: 1, location: 'FOOTER_COMPANY' as const },
+    72→    72→    { label: 'Career', url: '/careers', order: 2, location: 'FOOTER_COMPANY' as const },
+    73→    73→    { label: 'News & Events', url: '/news-events', order: 3, location: 'FOOTER_COMPANY' as const },
+    74→    74→    { label: 'Contact Us', url: '/contact', order: 4, location: 'FOOTER_COMPANY' as const },
+    75→    75→
+    76→    76→    // FOOTER_SOLUTIONS (order 0-3)
+    77→    77→    {
+    78→    78→      label: 'Patient Management',
+    79→    79→      url: '/solution/patient-administration',
+    80→    80→      order: 0,
+    81→    81→      location: 'FOOTER_SOLUTIONS' as const,
+    82→    82→    },
+    83→    83→    {
+    84→    84→      label: 'Materials (goods) Management',
+    85→    85→      url: '/solution/inventory-management',
+    86→    86→      order: 1,
+    87→    87→      location: 'FOOTER_SOLUTIONS' as const,
+    88→    88→    },
+    89→    89→    { label: 'Revenue Management', url: '/solutions', order: 2, location: 'FOOTER_SOLUTIONS' as const },
+    90→    90→    {
+    91→    91→      label: 'Hospital Employee Management (HR Management)',
+    92→    92→      url: '/solutions',
+    93→    93→      order: 3,
+    94→    94→      location: 'FOOTER_SOLUTIONS' as const,
+    95→    95→    },
+    96→    96→
+    97→    97→    // FOOTER_INFO (order 0-2)
+    98→    98→    { label: 'FAQs', url: '#', order: 0, location: 'FOOTER_INFO' as const },
+    99→    99→    { label: 'Privacy Policy', url: '#', order: 1, location: 'FOOTER_INFO' as const },
+   100→   100→    { label: 'Terms & Conditions', url: '#', order: 2, location: 'FOOTER_INFO' as const },
+   101→   101→  ];
+   102→   102→
+   103→   103→  for (const item of navItems) {
+   104→   104→    await db.navItem.create({ data: item });
+   105→   105→  }
+   106→   106→  console.log(`  ✅ Created ${navItems.length} NavItems`);
+   107→   107→
+   108→   108→  // ═══════════════════════════════════════════════════════════════════════════════
+   109→   109→  // 3. Solutions + SolutionFeatures
+   110→   110→  // ═══════════════════════════════════════════════════════════════════════════════
+   111→   111→  console.log('\n📌 Seeding Solutions & Features...');
+   112→   112→  await db.solutionFeature.deleteMany();
+   113→   113→  await db.solution.deleteMany();
+   114→   114→  console.log('  Cleared existing Solutions and Features');
+   115→   115→
+   116→   116→  const solutions = [
+   117→   117→    {
+   118→   118→      title: 'Patient Administration',
+   119→   119→      slug: 'patient-administration',
+   120→   120→      shortDescription:
+   121→   121→        'This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others.',
+   122→   122→      body: 'This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information related to patients for treatment. It also incorporates billing for outpatient, inpatient, and discharge services, among others. The incentive module deals with calculating and managing incentives for hospital staff, including doctors, nurses, and other staff members. It involves features such as defining incentive plans, tracking performance, and calculating incentives.',
+   123→   123→      iconUrl: 'https://danphehealth.com/storage/uploads/o8LhlIHosonN1ss1Xbnx4BuPQIH2j5kTJLsqkWUF.svg',
+   124→   124→      heroImageUrl: 'https://danphehealth.com/storage/uploads/B06yY9y2MQiUCBEHpIcSITBjuN4yhkH4mLGvejX0.jpg',
+   125→   125→      order: 0,
+   126→   126→      isPublished: true,
+   127→   127→      features: [
+   128→   128→        'Online/ Phone/ Physical appointments',
+   129→   129→        'General information of patients',
+   130→   130→        'Follow-up patient management',
+   131→   131→        'Doctor/ Department management',
+   132→   132→        'Referral management (third party referral)',
+   133→   133→        'Referral management (inter-departmental)',
+   134→   134→        'Tests items, billing items and other services billing management',
+   135→   135→        'Health package billing management',
+   136→   136→        'Membership and schemes management',
+   137→   137→        'Zero price item-wise billing',
+   138→   138→        'Referred by, Prescriber and Performer auto captured',
+   139→   139→        'Dr. Fraction configuration',
+   140→   140→        'Multi-Level Auto fraction setups and captures',
+   141→   141→        'Payment management with account integration',
+   142→   142→      ],
+   143→   143→    },
+   144→   144→    {
+   145→   145→      title: 'OPD Management',
+   146→   146→      slug: 'opd-management',
+   147→   147→      shortDescription:
+   148→   148→        'An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software.',
+   149→   149→      body: 'An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective OPD, from registration through patient history, diagnosis, and prescriptions, is efficiently stored and managed by DANPHE Software. The system enhances functionality with health insurance and SSF tracking, alongside the integration of ICDX codes. It boasts powerful reporting capabilities, enabling the scanning and storage of comprehensive patient demographics, including X-rays, ultrasound images, pathology reports, and other diagnostic documents.',
+   150→   150→      iconUrl: 'https://danphehealth.com/storage/uploads/1FLzrtg52EKgMbKXaPPcngIBl8ThbVT5f93VKn5U.svg',
+   151→   151→      heroImageUrl: 'https://danphehealth.com/storage/uploads/3BiXFrnlBFMoMRwWZkoNm4XuMbUw1kNJgDkGIYdo.jpg',
+   152→   152→      order: 1,
+   153→   153→      isPublished: true,
+   154→   154→      features: [
+   155→   155→        'OPD Appointments',
+   156→   156→        'OPD Registration',
+   157→   157→        'OPD Charges',
+   158→   158→        'Medical Observation',
+   159→   159→        'Consultant wise OPD',
+   160→   160→        'Case wise/ Department wise OPD',
+   161→   161→        'Procedure and clinical services requests',
+   162→   162→        'LAB service request',
+   163→   163→        'Pharmacy service request',
+   164→   164→      ],
+   165→   165→    },
+   166→   166→    {
+   167→   167→      title: 'IPD Management',
+   168→   168→      slug: 'ipd-management',
+   169→   169→      shortDescription:
+   170→   170→        'The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records.',
+   171→   171→      body: "The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to billing, along with comprehensive tracking of patient records. Featuring built-in ward management and nursing station management, as well as ICU and NICU availability, the IPD offers a 360-degree view of the entire admitted patient's journey from admission to discharge.",
+   172→   172→      iconUrl: 'https://danphehealth.com/storage/uploads/JZb6vJSIzCQZjvPUKBy1ds3KmAL8FMlvVL1XhtV7.svg',
+   173→   173→      heroImageUrl: 'https://danphehealth.com/storage/uploads/91ujO9IGH8LC6R1nc1fwwGeEiLrNIJQMSDegvElw.jpg',
+   174→   174→      order: 2,
+   175→   175→      isPublished: true,
+   176→   176→      features: [
+   177→   177→        'Wards, Floor, Room & Bed Configuration',
+   178→   178→        'Bed occupation status',
+   179→   179→        'Admission and bed allocation (live)',
+   180→   180→        'Payment receipts',
+   181→   181→        'Medical observation and Nursing notes',
+   182→   182→        'LAB & Radiology Investigation requests',
+   183→   183→        'Procedure and clinical services requests',
+   184→   184→        'Patient payment and dues reports',
+   185→   185→      ],
+   186→   186→    },
+   187→   187→    {
+   188→   188→      title: 'OT Management',
+   189→   189→      slug: 'ot-management',
+   190→   190→      shortDescription:
+   191→   191→        'The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient tracking, operation theater rosters, and notes, along with managing death and birth certificates. The purpose of OT management is to optimize the utilization of operation theaters, reduce patient wait times, and ensure timely and efficient surgical procedures.',
+   192→   192→      body: 'The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient tracking, operation theater rosters, and notes, along with managing death and birth certificates. The purpose of OT management is to optimize the utilization of operation theaters, reduce patient wait times, and ensure timely and efficient surgical procedures.',
+   193→   193→      iconUrl: 'https://danphehealth.com/storage/uploads/CACHu7gc6zeiiyuUvDBzfZIn2tBT51gzsKA0wpLj.svg',
+   194→   194→      heroImageUrl: 'https://danphehealth.com/storage/uploads/bBYlK3VeJuVsh9FG2yR6gS2Y11p3dUJmWPNmE7nX.jpg',
+   195→   195→      order: 3,
+   196→   196→      isPublished: true,
+   197→   197→      features: [
+   198→   198→        'OT Scheduling of the patient',
+   199→   199→        'Team of Doctors/ Assistance involved in the operations',
+   200→   200→        'Consent forms',
+   201→   201→        "OT Reporting's",
+   202→   202→        'Birth/ Death Certificates',
+   203→   203→      ],
+   204→   204→    },
+   205→   205→    {
+   206→   206→      title: 'SSF Management',
+   207→   207→      slug: 'ssf-management',
+   208→   208→      shortDescription:
+   209→   209→        'This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports registration, billing, pharmacy, and claim management and is equipped with API integration with the SSF system.',
+   210→   210→      body: 'This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports registration, billing, pharmacy, and claim management and is equipped with API integration with the SSF system.',
+   211→   211→      iconUrl: 'https://danphehealth.com/storage/uploads/aSIoLyT5ERWOjXCnvgrP9PKL5797LBQc2MQY0lim.svg',
+   212→   212→      heroImageUrl: 'https://danphehealth.com/storage/uploads/qFoZIpGXbbatD2dCVlfzh7RqWhUuOx9t3Dl5pQpA.jpg',
+   213→   213→      order: 4,
+   214→   214→      isPublished: true,
+   215→   215→      features: [
+   216→   216→        'SSF rate list mapping with hospital item lists',
+   217→   217→        'Eligibility mapping of the SSF patient via API',
+   218→   218→        'Balance sync and update as per SSF',
+   219→   219→        'Claim booking in SSF',
+   220→   220→        'Claim submission',
+   221→   221→        'Copayment management',
+   222→   222→        'Integration with accounting module so as to book the sales etc.',
+   223→   223→      ],
+   224→   224→    },
+   225→   225→    {
+   226→   226→      title: 'Pathology Software',
+   227→   227→      slug: 'pathology-software',
+   228→   228→      shortDescription:
+   229→   229→        'The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully configurable laboratory test reports that can be ordered for both outpatients and inpatients instantaneously.',
+   230→   230→      body: 'The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully configurable laboratory test reports that can be ordered for both outpatients and inpatients instantaneously.',
+   231→   231→      iconUrl: 'https://danphehealth.com/storage/uploads/KFsFp99lsTgyXnVKJbiUi7gCRmRp2NR1umxVb19S.svg',
+   232→   232→      heroImageUrl: 'https://danphehealth.com/storage/uploads/PsJBHIIIEf0rhUAtYiK14G1fZx0lB76ZKIr90GS2.jpg',
+   233→   233→      order: 5,
+   234→   234→      isPublished: true,
+   235→   235→      features: [
+   236→   236→        'Receive investigation request from OP/IP department',
+   237→   237→        'Receipt printing',
+   238→   238→        'Investigation sample collection',
+   239→   239→        'Patient and test sticker printing',
+   240→   240→        'Integration with patient billing system',
+   241→   241→        'Generate investigation reports',
+   242→   242→        'Warning and alerts for abnormal reports',
+   243→   243→        'Report output to PDF',
+   244→   244→        'Report validation before dispatch',
+   245→   245→      ],
+   246→   246→    },
+   247→   247→    {
+   248→   248→      title: 'Pharmacy',
+   249→   249→      slug: 'pharmacy',
+   250→   250→      shortDescription:
+   251→   251→        'The pharmacy module encompasses both central and distributed pharmacies, incorporating several functional units such as stock tracking, ordering, and receiving medicines from vendors.',
+   252→   252→      body: 'The pharmacy module encompasses both central and distributed pharmacies, incorporating several functional units such as stock tracking, ordering, and receiving medicines from vendors.',
+   253→   253→      iconUrl: 'https://danphehealth.com/storage/uploads/lBnFUPj2tIcbTR3o0nL771yPqyvn9iy538SOfRrH.svg',
+   254→   254→      heroImageUrl: 'https://danphehealth.com/storage/uploads/toh9opS0qNh9sYaC0VLqXpjHSYnJUrfowh50Ogkh.jpg',
+   255→   255→      order: 6,
+   256→   256→      isPublished: true,
+   257→   257→      features: [
+   258→   258→        'Purchase and orders',
+   259→   259→        'Good receipt notes/ Purchase returns',
+   260→   260→        'Drugs/ Medical supplies to patients and wards',
+   261→   261→        'Batch and expiry management',
+   262→   262→        'Fast moving/ Nonmoving drugs',
+   263→   263→        'Stock transfer between sub-stores',
+   264→   264→        'Stock re-order reports',
+   265→   265→        'Drug stocks',
+   266→   266→        'Supplies outstanding etc.',
+   267→   267→      ],
+   268→   268→    },
+   269→   269→    {
+   270→   270→      title: 'Inventory Management',
+   271→   271→      slug: 'inventory-management',
+   272→   272→      shortDescription:
+   273→   273→        'The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other departments, regulating the complete stock movement throughout the institution.',
+   274→   274→      body: 'The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other departments, regulating the complete stock movement throughout the institution.',
+   275→   275→      iconUrl: 'https://danphehealth.com/storage/uploads/Yn3oJlVoSPd36iYdBg85CBZADxQrdi5TjpDPepKe.svg',
+   276→   276→      heroImageUrl: 'https://danphehealth.com/storage/uploads/MQfWurB0r1HXok9nRVNTJ0B4iNaxVgI7XMhyNJ6g.jpg',
+   277→   277→      order: 7,
+   278→   278→      isPublished: true,
+   279→   279→      features: [
+   280→   280→        'Purchase Indents & Approval',
+   281→   281→        'Quotation & Follow-ups',
+   282→   282→        'PO generation',
+   283→   283→        'Goods receipts',
+   284→   284→        'Purchase invoicing and returns',
+   285→   285→        'Goods issue to different department',
+   286→   286→        'Stock reorder management',
+   287→   287→        'Suppliers outstanding',
+   288→   288→        'Financial posting to account section',
+   289→   289→      ],
+   290→   290→    },
+   291→   291→    {
+   292→   292→      title: 'Queue Management',
+   293→   293→      slug: 'queue-management',
+   294→   294→      shortDescription:
+   295→   295→        'The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient flow within the hospital. It ensures that patients are attended to promptly and efficiently, thereby reducing waiting times and enhancing patient satisfaction.',
+   296→   296→      body: 'The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient flow within the hospital. It ensures that patients are attended to promptly and efficiently, thereby reducing waiting times and enhancing patient satisfaction.',
+   297→   297→      iconUrl: 'https://danphehealth.com/storage/uploads/3ifn90GrhvLTmH9h79XwY4ebCxajfC8ivC1JHe3L.svg',
+   298→   298→      heroImageUrl: 'https://danphehealth.com/storage/uploads/nlWH1aOywuLS90YcmM2ZCMZrYkB7xv9eFNtulLV0.jpg',
+   299→   299→      order: 8,
+   300→   300→      isPublished: true,
+   301→   301→      features: [
+   302→   302→        'Queue display',
+   303→   303→        'Appointment scheduling with token number',
+   304→   304→        'Patient tracking with status',
+   305→   305→        'Patient check-in',
+   306→   306→      ],
+   307→   307→    },
+   308→   308→  ];
+   309→   309→
+   310→   310→  for (const sol of solutions) {
+   311→   311→    const { features, ...solutionData } = sol;
+   312→   312→    const created = await db.solution.create({ data: solutionData });
+   313→   313→    for (let i = 0; i < features.length; i++) {
+   314→   314→      await db.solutionFeature.create({
+   315→   315→        data: {
+   316→   316→          label: features[i],
+   317→   317→          order: i,
+   318→   318→          solutionId: created.id,
+   319→   319→        },
+   320→   320→      });
+   321→   321→    }
+   322→   322→  }
+   323→   323→  console.log(`  ✅ Created ${solutions.length} Solutions with features`);
+   324→   324→
+   325→   325→  // ═══════════════════════════════════════════════════════════════════════════════
+   326→   326→  // 4. Stats
+   327→   327→  // ═══════════════════════════════════════════════════════════════════════════════
+   328→   328→  console.log('\n📌 Seeding Stats...');
+   329→   329→  await db.stat.deleteMany();
+   330→   330→  console.log('  Cleared existing Stats');
+   331→   331→
+   332→   332→  const stats = [
+   333→   333→    { label: 'Hospitals', value: '60', suffix: '+', order: 0 },
+   334→   334→    { label: 'Integrated Modules', value: '9', suffix: '+', order: 1 },
+   335→   335→    { label: 'Web-Based', value: '100', suffix: '%', order: 2 },
+   336→   336→    { label: 'Support', value: '24', suffix: '/7', order: 3 },
+   337→   337→    { label: 'Years of Experience', value: '15', suffix: '+', order: 4 },
+   338→   338→    { label: 'Hospitals and Clinics', value: '55', suffix: '+', order: 5 },
+   339→   339→    { label: 'Employees', value: '130', suffix: '+', order: 6 },
+   340→   340→    { label: 'HIMS Modules', value: '30', suffix: '+', order: 7 },
+   341→   341→  ];
+   342→   342→
+   343→   343→  for (const stat of stats) {
+   344→   344→    await db.stat.create({ data: stat });
+   345→   345→  }
+   346→   346→  console.log(`  ✅ Created ${stats.length} Stats`);
+   347→   347→
+   348→   348→  // ═══════════════════════════════════════════════════════════════════════════════
+   349→   349→  // 5. TeamMembers
+   350→   350→  // ═══════════════════════════════════════════════════════════════════════════════
+   351→   351→  console.log('\n📌 Seeding TeamMembers...');
+   352→   352→  await db.teamMember.deleteMany();
+   353→   353→  console.log('  Cleared existing TeamMembers');
+   354→   354→
+   355→   355→  const teamMembers = [
+   356→   356→    {
+   357→   357→      name: 'Ram P. Dhungana',
+   358→   358→      title: 'Chairman',
+   359→   359→      photoUrl: '/team/ram-dhungana.jpg',
+   360→   360→      order: 0,
+   361→   361→      isPublished: true,
+   362→   362→    },
+   363→   363→    {
+   364→   364→      name: 'Dr Prabhat Adhikari, MD',
+   365→   365→      title: 'Co-Founder and\nClinical Director',
+   366→   366→      photoUrl: '/team/prabhat-adhikari.jpg',
+   367→   367→      order: 1,
+   368→   368→      isPublished: true,
+   369→   369→    },
+   370→   370→    {
+   371→   371→      name: 'Shiv P Koirala',
+   372→   372→      title: 'Co-Founder and\nTechnical Director',
+   373→   373→      photoUrl: '/team/shiv-koirala.jpg',
+   374→   374→      order: 2,
+   375→   375→      isPublished: true,
+   376→   376→    },
+   377→   377→    {
+   378→   378→      name: 'Dr.Binod Dhungana, MD, MBA',
+   379→   379→      title: 'Co-founder and Director',
+   380→   380→      photoUrl: '/team/binod-dhungana.jpg',
+   381→   381→      order: 3,
+   382→   382→      isPublished: true,
+   383→   383→    },
+   384→   384→  ];
+   385→   385→
+   386→   386→  for (const member of teamMembers) {
+   387→   387→    await db.teamMember.create({ data: member });
+   388→   388→  }
+   389→   389→  console.log(`  ✅ Created ${teamMembers.length} TeamMembers`);
+   390→   390→
+   391→   391→  // ═══════════════════════════════════════════════════════════════════════════════
+   392→   392→  // 6. Testimonials
+   393→   393→  // ═══════════════════════════════════════════════════════════════════════════════
+   394→   394→  console.log('\n📌 Seeding Testimonials...');
+   395→   395→  await db.testimonial.deleteMany();
+   396→   396→  console.log('  Cleared existing Testimonials');
+   397→   397→
+   398→   398→  const testimonials = [
+   399→   399→    {
+   400→   400→      authorName: 'Mark International Kidney Center',
+   401→   401→      quote:
+   402→   402→        'MI Kidney Centre is focusing on spreading Dialysis services in different districts of Nepal, prioritizing rural cities with frequent screening and awareness programs for Kidney diseases.',
+   403→   403→      imageUrl: 'https://danphehealth.com/storage/uploads/CvegKrVeoWfcXC7sMrXLVmB6Vj5ikChWIPZEln7d.png',
+   404→   404→      order: 0,
+   405→   405→      isPublished: true,
+   406→   406→    },
+   407→   407→    {
+   408→   408→      authorName: 'Buddhanilkantha Healthcare Pvt. Ltd.',
+   409→   409→      quote:
+   410→   410→        'A team of doctors committed to providing affordable and high-quality basic medical services believes in preventing and reducing illness within an affordable setup.',
+   411→   411→      imageUrl: 'https://danphehealth.com/storage/uploads/WJhqEGEa3RoG8kMO0vitnHKhk5L3LDixj72dxwfm.png',
+   412→   412→      order: 1,
+   413→   413→      isPublished: true,
+   414→   414→    },
+   415→   415→    {
+   416→   416→      authorName: 'Charak Hospital Pvt. Ltd.',
+   417→   417→      quote:
+   418→   418→        'Charak Memorial Hospital strives for excellence in quality, hygiene, and technology, meeting public health needs in the Western Region through innovation and cost-effective solutions.',
+   419→   419→      imageUrl: 'https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg',
+   420→   420→      order: 2,
+   421→   421→      isPublished: true,
+   422→   422→    },
+   423→   423→    {
+   424→   424→      authorName: 'Maya Metro Hospital pvt. Ltd.',
+   425→   425→      quote:
+   426→   426→        'MMTH, part of NEHCO, champions equitable healthcare and quality education through collaborative efforts.',
+   427→   427→      imageUrl: 'https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png',
+   428→   428→      order: 3,
+   429→   429→      isPublished: true,
+   430→   430→    },
+   431→   431→    {
+   432→   432→      authorName: 'Manmohan Hospital',
+   433→   433→      quote:
+   434→   434→        'This hospital plays a vital role related to health issues and their solution in the far west development region in Nepal, with great experience and an expert doctors team.',
+   435→   435→      imageUrl: 'https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg',
+   436→   436→      order: 4,
+   437→   437→      isPublished: true,
+   438→   438→    },
+   439→   439→  ];
+   440→   440→
+   441→   441→  for (const t of testimonials) {
+   442→   442→    await db.testimonial.create({ data: t });
+   443→   443→  }
+   444→   444→  console.log(`  ✅ Created ${testimonials.length} Testimonials`);
+   445→   445→
+   446→   446→  // ═══════════════════════════════════════════════════════════════════════════════
+   447→   447→  // 7. ClientLogos
+   448→   448→  // ═══════════════════════════════════════════════════════════════════════════════
+   449→   449→  console.log('\n📌 Seeding ClientLogos...');
+   450→   450→  await db.clientLogo.deleteMany();
+   451→   451→  console.log('  Cleared existing ClientLogos');
+   452→   452→
+   453→   453→  // The 12 TRUSTED_HOSPITALS that appear on the homepage
+   454→   454→  const homepageClients = new Set([
+   455→   455→    'Manipal College of Medical Science',
+   456→   456→    'Tilganga Institute of Ophthalmology (Tilganga)',
+   457→   457→    'APF (Armed Police Force) Hospital',
+   458→   458→    'Siddhartha Nagar City Hospital Pvt.Ltd.',
+   459→   459→    'Charak Hospital Pvt. Ltd.',
+   460→   460→    'Fishtail Hospital Pvt. Ltd.',
+   461→   461→    'Manakamana Hospital Pvt. Ltd.',
+   462→   462→    'Maya Metro Hospital pvt. Ltd.',
+   463→   463→    'Neuro Cardio Hospital',
+   464→   464→    'Manmohan Hospital',
+   465→   465→    'Lumbini Provincial Hospital',
+   466→   466→    'SGM Hospital Pvt. Ltd',
+   467→   467→  ]);
+   468→   468→
+   469→   469→  const clientLogos = [
+   470→   470→    { name: 'Mark International Kidney Center', logoUrl: 'https://danphehealth.com/storage/uploads/CvegKrVeoWfcXC7sMrXLVmB6Vj5ikChWIPZEln7d.png', order: 0 },
+   471→   471→    { name: 'National Trauma Center (NAMS)', logoUrl: 'https://danphehealth.com/storage/uploads/o5Zhgt2GGub5BUNAydXVUlUETvmRXeGEIvEriLYl.png', order: 1 },
+   472→   472→    { name: 'Manipal College of Medical Science', logoUrl: 'https://danphehealth.com/storage/uploads/4IY4SO3BaLokN5TATWTijwqOSQvnAq880dX06swm.png', order: 2 },
+   473→   473→    { name: 'Tilganga Institute of Ophthalmology (Tilganga)', logoUrl: 'https://danphehealth.com/storage/uploads/YRlPFHdotC4yL6OpPwfpJi6W0S8G0kcPNNmvL5JG.png', order: 3 },
+   474→   474→    { name: 'APF (Armed Police Force) Hospital', logoUrl: 'https://danphehealth.com/storage/uploads/LvNtx7mQtJlbz9ycPe8pQZVoPzLBiFsuMyfRY1Pr.png', order: 4 },
+   475→   475→    { name: 'Hope International College & Hospital Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/fUyQ04tj66mbgHu2q9oWf7BX8O7CXvP1keYHTx6r.png', order: 5 },
+   476→   476→    { name: 'Center for American Medical Specialists (CAMS)', logoUrl: 'https://danphehealth.com/storage/uploads/RqdskDldRTpgBYg5sUUu0OkcmNuBw9QwFK6KKG7e.png', order: 6 },
+   477→   477→    { name: 'Anamiwa Health & Wellness Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/zNwWDfrw7lORANZr3TVsvRIl4TNt9okcwnV0VyJd.png', order: 7 },
+   478→   478→    { name: 'We care Health Center Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/mrp9fZCqpE7RB9QtJPcaqCtF9D7xPuwW1PdAEYem.png', order: 8 },
+   479→   479→    { name: 'Buddhanilkantha Healthcare Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/WJhqEGEa3RoG8kMO0vitnHKhk5L3LDixj72dxwfm.png', order: 9 },
+   480→   480→    { name: 'DanpheCare Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/iT0rlozWMUr6cep6wMmTncN7B6RUaU6YzntOUzC7.png', order: 10 },
+   481→   481→    { name: 'J & J Hospital', logoUrl: 'https://danphehealth.com/storage/uploads/NGs58eWiZYX8ugT3PgCYYSvIXGWDR0WuhaeYCdql.png', order: 11 },
+   482→   482→    { name: 'Path Minds Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/FKitStuvautdQFj0B3RhWI38ThpL4wmjDnE5oQTk.png', order: 12 },
+   483→   483→    { name: 'Siddhartha Nagar City Hospital Pvt.Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/dpOuibvB4foJdzuMpROb1Xaduko2KPZ8h5sof1Nz.png', order: 13 },
+   484→   484→    { name: 'United Hospital Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/UY5Nl1ge0eh2V1131Jui5X3yM7p1bcMr1bL8rxh8.png', order: 14 },
+   485→   485→    { name: 'Charak Hospital Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg', order: 15 },
+   486→   486→    { name: 'Fishtail Hospital Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/rqjKdONW5AKP4sX49m4IIgKAx8zo4I6qm9pHLIdw.png', order: 16 },
+   487→   487→    { name: 'Medi Plus Hospital Pvt. Ltd.', logoUrl: '', order: 17 },
+   488→   488→    { name: 'Padma Nursing Home Pvt. Ltd.', logoUrl: '', order: 18 },
+   489→   489→    { name: 'Kaligandaki Diagnostic and Research Center Hospital', logoUrl: '', order: 19 },
+   490→   490→    { name: 'Deep Hospital & Research Center Pvt. Ltd.', logoUrl: '', order: 20 },
+   491→   491→    { name: 'Manakamana Hospital Pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/DvtgZd0LZopNWutTMb8AYZ7AnQRKHH4ROmN7zCIw.png', order: 21 },
+   492→   492→    { name: 'Koshish Cancer Center Pvt. Ltd.', logoUrl: '', order: 22 },
+   493→   493→    { name: 'National City Hospital Pvt. Ltd.', logoUrl: '', order: 23 },
+   494→   494→    { name: 'Raskot Community Hospital', logoUrl: '', order: 24 },
+   495→   495→    { name: 'Bhaktapur International Hospital Pvt.Ltd.', logoUrl: '', order: 25 },
+   496→   496→    { name: 'Clinic One', logoUrl: '', order: 26 },
+   497→   497→    { name: 'Rhythm Neuropsychiatry Hospital & Research Center Pvt. Ltd.', logoUrl: '', order: 27 },
+   498→   498→    { name: 'Maya Metro Hospital pvt. Ltd.', logoUrl: 'https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png', order: 28 },
+   499→   499→    { name: 'Radiant Skin Care Pvt. Ltd.', logoUrl: '', order: 29 },
+   500→   500→    { name: 'Dr. Iwamura Hospital', logoUrl: '', order: 30 },
+   501→   501→    { name: "Dr. Priyanka's Clinic", logoUrl: '', order: 31 },
+   502→   502→    { name: 'Tillottama Hospital', logoUrl: '', order: 32 },
+   503→   503→    { name: 'Butwal Hospital', logoUrl: '', order: 33 },
+   504→   504→    { name: 'Times Care Hospital', logoUrl: '', order: 34 },
+   505→   505→    { name: 'Neuro Cardio Hospital', logoUrl: 'https://danphehealth.com/storage/uploads/PSjGCpwlgqK620FI8qTz4h6vkUvexhNIq0iQUvEz.png', order: 35 },
+   506→   506→    { name: 'Manmohan Hospital', logoUrl: 'https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg', order: 36 },
+   507→   507→    { name: 'Ministry of Social Development and Health, Gandaki Province', logoUrl: '', order: 37 },
+   508→   508→    { name: 'Lumbini Provincial Hospital', logoUrl: 'https://danphehealth.com/storage/uploads/XwKrcFgg8NzD5hs58C8dz91oiCFZ0MnLJNKoqdaQ.png', order: 38 },
+   509→   509→    { name: 'SGM Hospital Pvt. Ltd', logoUrl: 'https://danphehealth.com/storage/uploads/roKTGWaMI1ZvCpKyogTJV22ri3QYifaTXylgCdcC.png', order: 39 },
+   510→   510→    { name: 'Annapurna Neuro Hospital', logoUrl: '', order: 40 },
+   511→   511→    { name: 'Bhagiratha Buddhashanti Hospital', logoUrl: '', order: 41 },
+   512→   512→    { name: 'Gorkha Kalika Hospital Pvt.Ltd.', logoUrl: '', order: 42 },
+   513→   513→    { name: 'Star Hospital Limited', logoUrl: '', order: 43 },
+   514→   514→    { name: 'Matrika Eye Center', logoUrl: '', order: 44 },
+   515→   515→    { name: 'Tilottama Hospital Pvt. Ltd.', logoUrl: '', order: 45 },
+   516→   516→    { name: 'Sudur Paschim International Dialysis Center', logoUrl: '', order: 46 },
+   517→   517→  ];
+   518→   518→
+   519→   519→  for (const cl of clientLogos) {
+   520→   520→    await db.clientLogo.create({
+   521→   521→      data: {
+   522→   522→        name: cl.name,
+   523→   523→        logoUrl: cl.logoUrl,
+   524→   524→        order: cl.order,
+   525→   525→        showOnHomepage: homepageClients.has(cl.name),
+   526→   526→        isPublished: true,
+   527→   527→      },
+   528→   528→    });
+   529→   529→  }
+   530→   530→  console.log(`  ✅ Created ${clientLogos.length} ClientLogos`);
+   531→   531→
+   532→   532→  // ═══════════════════════════════════════════════════════════════════════════════
+   533→   533→  // 8. Posts (NEWS_EVENT type)
+   534→   534→  // ═══════════════════════════════════════════════════════════════════════════════
+   535→   535→  console.log('\n📌 Seeding Posts (NEWS_EVENT)...');
+   536→   536→  await db.post.deleteMany({ where: { type: 'NEWS_EVENT' } });
+   537→   537→  console.log('  Cleared existing NEWS_EVENT Posts');
+   538→   538→
+   539→   539→  const posts = [
+   540→   540→    {
+   541→   541→      title: '2023 Recap of AI developments',
+   542→   542→      slug: '2023-recap-ai-developments',
+   543→   543→      coverImageUrl:
+   544→   544→        'https://danphehealth.com/storage/uploads/qJC8UWbueNgrVxOUzwXyz4vAXQi9zxmNFD2dBWU9.png',
+   545→   545→      author: 'Digwatch',
+   546→   546→      publishedAt: new Date('2024-01-03'),
+   547→   547→      excerpt:
+   548→   548→        "In the swiftly evolving landscape of the artificial intelligence technology, returning to the incipit of this revolutionary invention's precise moment of origin is complex. However, in the third decade of the 20th century, the earliest materialisation of such ideas and concepts occurred in literature.",
+   549→   549→      type: 'NEWS_EVENT' as const,
+   550→   550→      status: 'PUBLISHED' as const,
+   551→   551→    },
+   552→   552→    {
+   553→   553→      title:
+   554→   554→        'Navigating the Healthcare Landscape: A Comprehensive Guide to HIPAA Compliance in Hospitals.',
+   555→   555→      slug: 'hipaa-compliance-hospitals',
+   556→   556→      coverImageUrl:
+   557→   557→        'https://danphehealth.com/storage/uploads/UCplaL4d4WzJAv9ZxgqTOUIpvHGjL2ZPj6jOnDdf.jpg',
+   558→   558→      author: 'Danphe Health',
+   559→   559→      publishedAt: new Date('2024-01-08'),
+   560→   560→      excerpt:
+   561→   561→        'In the ever-evolving realm of healthcare, safeguarding patient information is of paramount importance. The Health Insurance Portability and Accountability Act (HIPAA) plays a central role in ensuring the confidentiality, integrity, and availability of patient data.',
+   562→   562→      type: 'NEWS_EVENT' as const,
+   563→   563→      status: 'PUBLISHED' as const,
+   564→   564→    },
+   565→   565→    {
+   566→   566→      title: 'How do electronic health records (EHR or EMR) make healthcare better?',
+   567→   567→      slug: 'ehr-emr-healthcare-better',
+   568→   568→      coverImageUrl:
+   569→   569→        'https://danphehealth.com/storage/uploads/h2HDNsv5bp2mI8WG9xv7spFXiQFhIWlr2hUMHLG5.jpg',
+   570→   570→      author: 'Eduhealth System',
+   571→   571→      publishedAt: new Date('2023-02-17'),
+   572→   572→      excerpt:
+   573→   573→        'There is a growing interest in EHRs around the world. Technology and innovations are changing the health industry, governments and organizations are focusing on providing better health services to the public.',
+   574→   574→      type: 'NEWS_EVENT' as const,
+   575→   575→      status: 'PUBLISHED' as const,
+   576→   576→    },
+   577→   577→    {
+   578→   578→      title: 'Importance of Electronic Health Records in Nursing',
+   579→   579→      slug: 'ehr-importance-nursing',
+   580→   580→      coverImageUrl:
+   581→   581→        'https://danphehealth.com/storage/uploads/an0lprVHccGkqUYrQk6A3spAlUjZWuVMB7E1gUo0.jpg',
+   582→   582→      author: 'Regis College',
+   583→   583→      publishedAt: new Date('2023-05-04'),
+   584→   584→      excerpt:
+   585→   585→        'In 2009, only 12% of hospitals used EHRs, according to the Office of the National Coordinator for Health Information Technology. By 2021 — thanks in part to $27 billion in financial incentives from Congress — EHRs were almost universal, with 96% of hospitals adopting them.',
+   586→   586→      type: 'NEWS_EVENT' as const,
+   587→   587→      status: 'PUBLISHED' as const,
+   588→   588→    },
+   589→   589→  ];
+   590→   590→
+   591→   591→  for (const post of posts) {
+   592→   592→    await db.post.create({ data: post });
+   593→   593→  }
+   594→   594→  console.log(`  ✅ Created ${posts.length} Posts`);
+   595→   595→
+   596→   596→  // ═══════════════════════════════════════════════════════════════════════════════
+   597→   597→  // 9. HomepageSections
+   598→   598→  // ═══════════════════════════════════════════════════════════════════════════════
+   599→   599→  console.log('\n📌 Seeding HomepageSections...');
+   600→   600→  await db.homepageSection.deleteMany();
+   601→   601→  console.log('  Cleared existing HomepageSections');
+   602→   602→
+   603→   603→  const homepageSections = [
+   604→   604→    {
+   605→   605→      key: 'hero',
+   606→   606→      heading: 'Enterprise-Grade, Open-Source Hospital Management System',
+   607→   607→      subheading: 'Complete HIMS with Integrated EMR & EHR — Trusted by 60+ Hospitals',
+   608→   608→      body: '',
+   609→   609→      image: '',
+   610→   610→      ctaLabel: 'Schedule a Demo',
+   611→   611→      ctaUrl: '/schedule-a-demo',
+   612→   612→      order: 0,
+   613→   613→    },
+   614→   614→    {
+   615→   615→      key: 'trusted',
+   616→   616→      heading: 'Trusted by 53+ hospitals and healthcare institutions across Nepal and beyond',
+   617→   617→      subheading: '',
+   618→   618→      body: '',
+   619→   619→      image: '',
+   620→   620→      ctaLabel: '',
+   621→   621→      ctaUrl: '',
+   622→   622→      order: 1,
+   623→   623→    },
+   624→   624→    {
+   625→   625→      key: 'value_adds',
+   626→   626→      heading: 'What values DANPHE can ADD to your business',
+   627→   627→      subheading: '',
+   628→   628→      body: "Helping our customer to take lead in their business using Information Technology\nTime tested products to increase customer operational efficiency immediately\nAvailability of information's in right product will help in right decision making",
+   629→   629→      image: 'https://danphehealth.com/frontend/img/about-img.png',
+   630→   630→      ctaLabel: 'Schedule a Demo',
+   631→   631→      ctaUrl: '/schedule-a-demo',
+   632→   632→      order: 2,
+   633→   633→    },
+   634→   634→    {
+   635→   635→      key: 'outcomes',
+   636→   636→      heading: 'Delivering better outcomes by working together to build smart system solutions for you',
+   637→   637→      subheading: '',
+   638→   638→      body: 'Improve your patient experience by improving your process with DANPHE HMIS Software\nSignificant reduction in time and effort required to manage your Health Institution',
+   639→   639→      image: 'https://danphehealth.com/frontend/img/doctor.png',
+   640→   640→      ctaLabel: 'Explore More',
+   641→   641→      ctaUrl: '/solutions',
+   642→   642→      order: 3,
+   643→   643→    },
+   644→   644→    {
+   645→   645→      key: 'features_row',
+   646→   646→      heading: 'Built By Doctors For Doctors|Customizable & Scalable|Cloudbase Service',
+   647→   647→      subheading: "We have your efficiency and ease in mind, so we have developed an user-friendly solution.|We built it from the bottom up, so we can customize to your needs. Also, as your business grows, Danphe can scale to meet your demands|We offer both on premises and cloud based services catering to your needs.",
+   648→   648→      body: '',
+   649→   649→      image: '',
+   650→   650→      ctaLabel: '',
+   651→   651→      ctaUrl: '',
+   652→   652→      order: 4,
+   653→   653→    },
+   654→   654→    {
+   655→   655→      key: 'comparison',
+   656→   656→      heading: 'Why Healthcare Institutions Choose DANPHE',
+   657→   657→      subheading: 'The only HMIS built by doctors, for doctors — with the flexibility of open source.',
+   658→   658→      body: 'Built by Healthcare Professionals|Developed with deep domain expertise from doctors and hospital administrators who understand real clinical workflows.|Proven in Production|Battle-tested across 60+ hospitals handling millions of patient records, billing cycles, and clinical workflows daily.|Open-Source Freedom|Full access to source code. No vendor lock-in. Customize, extend, and integrate with your existing systems.',
+   659→   659→      image: '',
+   660→   660→      ctaLabel: '',
+   661→   661→      ctaUrl: '',
+   662→   662→      order: 5,
+   663→   663→    },
+   664→   664→    {
+   665→   665→      key: 'opensource',
+   666→   666→      heading: 'Why Open-Source HMIS?',
+   667→   667→      subheading: 'Transparency, flexibility, and community-driven innovation — the foundation of trustworthy healthcare software.',
+   668→   668→      body: 'Full Transparency|Review, audit, and verify every line of code. Complete visibility into how your patient data is handled.|No Vendor Lock-in|Own your data and infrastructure. Migrate, customize, and extend without restrictions.|Community Driven|Benefit from contributions, bug fixes, and feature requests from a global community of healthcare technology professionals.|Cost Effective|Eliminate expensive licensing fees. Invest your budget in what matters — patient care and hospital operations.',
+   669→   669→      image: '',
+   670→   670→      ctaLabel: '',
+   671→   671→      ctaUrl: '',
+   672→   672→      order: 6,
+   673→   673→    },
+   674→   674→    {
+   675→   675→      key: 'technology',
+   676→   676→      heading: 'Built on Modern Technology',
+   677→   677→      subheading: 'Designed for reliability, scalability, and performance in mission-critical healthcare environments.',
+   678→   678→      body: '100% Web-Based|Access your hospital management system from any device with a modern web browser. No installations, no compatibility issues — just seamless access from anywhere.|2|Scalable Architecture|1|From small clinics to large multi-specialty hospitals, Danphe scales with your organization. Handle increasing patient volumes and complex workflows effortlessly.|1|Secure by Design|1|Role-based access controls, password-protected modules, and centralized database security ensure your sensitive healthcare data remains protected.',
+   679→   679→      image: '',
+   680→   680→      ctaLabel: '',
+   681→   681→      ctaUrl: '',
+   682→   682→      order: 7,
+   683→   683→    },
+   684→   684→    {
+   685→   685→      key: 'international',
+   686→   686→      heading: 'Our Presence Across Nepal and Beyond',
+   687→   687→      subheading: 'From Kathmandu to the far west — Danphe HMIS serves healthcare institutions across diverse geographies.',
+   688→   688→      body: '',
+   689→   689→      image: '',
+   690→   690→      ctaLabel: '',
+   691→   691→      ctaUrl: '',
+   692→   692→      order: 8,
+   693→   693→    },
+   694→   694→    {
+   695→   695→      key: 'testimonials',
+   696→   696→      heading: 'What Our Clients Say',
+   697→   697→      subheading: '',
+   698→   698→      body: '',
+   699→   699→      image: '',
+   700→   700→      ctaLabel: '',
+   701→   701→      ctaUrl: '',
+   702→   702→      order: 9,
+   703→   703→    },
+   704→   704→    {
+   705→   705→      key: 'faqs',
+   706→   706→      heading: 'Frequently Asked Questions',
+   707→   707→      subheading: '',
+   708→   708→      body: "Why DANPHE is different from other available in the market|DANPHE-HMIS with EMR by Imark Digital has been offered to customers for many years, providing advantages in managing business processes more effectively. DANPHE is a 100% web-based HMIS solution available in the market with trust. Unlike other HMIS systems on the market that offer inadequate solutions to meet hospital needs, DANPHE from Imark Digital is capable of controlling inventory, purchase orders, entry planning, accounting, human resource management, and clinical management solutions.|What are the security aspects of DANPHE?|As we have been in the market for many years, we have always prioritized security. It has been proven that DANPHE HMIS is fully secure from various unexpected technical intrusions. The software provides valuable ways to protect the centralized database and facilitates access for relevant departments or units with accurate permissions. The database in the system is secured in several ways: Access to the system is restricted to only two entities: the admin and individuals with legal authority (user-based permissions and controls). Software and module logins are effectively password protected. All passwords are individually generated. For security reasons, these passwords need to be changed at regular intervals.|Is it true that extremely less time is required to implement DANPHE HMIS?|DANPHE follows a phased-based implementation modality that facilitates timely and cost-effective service. We assert that DANPHE HMIS implementation is faster and more reliable compared to others. We provide a guarantee to our respected clients that their proposed software will go live according to defined protocols and within defined time frames.|Is DANPHE HMIS suitable for all small to big healthcare institution?|This is an extremely deep and important question that has been asked many times by most growing industry verticals. Well, don't worry about business size or scale, DANPHE is capable enough to easily gather each module and ensure optimum results that are in favor of the institution. We are a proven product in handling small clinics to tertiary and medical colleges, with load testing in a well-integrated business environment. DANPHE not only assists our clients in growing, but we also provide the enterprise with various feasible ways to adopt the business dynamics.|Is it possible to transfer the entire existing data to the newly implemented DANPHE System?|Yes, of course. Data migration is feasible in DANPHE, which is a plus point with our latest DANPHE product. In some cases and modules, the facility may not be available as per the rules of the governing body. However, doable data are migrated, and non-migrated data can be viewed as per need without any hassles, and that too in a short time frame.|Does Imark Digital offer after sales support services for DANPHE HMIS System?|In case of any inconvenience regarding software operation or implementation, our technical executives are here to resolve all system-related issues and hassles. We have a dedicated team of support engineers assigned to each hospital to take care of their needs.",
+   709→   709→      image: '',
+   710→   710→      ctaLabel: '',
+   711→   711→      ctaUrl: '',
+   712→   712→      order: 10,
+   713→   713→    },
+   714→   714→    {
+   715→   715→      key: 'subscribe',
+   716→   716→      heading: 'Subscribe for a Transformative Demo of Our Cutting-Edge Solutions!',
+   717→   717→      subheading:
+   718→   718→        'Subscribe now for a personalized demo and unlock the future with innovative solutions tailored to enhance efficiency and elevate your overall experience.',
+   719→   719→      body: '',
+   720→   720→      image: '',
+   721→   721→      ctaLabel: '',
+   722→   722→      ctaUrl: '',
+   723→   723→      order: 11,
+   724→   724→    },
+   725→   725→    {
+   726→   726→      key: 'contact',
+   727→   727→      heading: 'Let us know how we can help you.',
+   728→   728→      subheading: 'You can send an email to info@danphehealth.com',
+   729→   729→      body: '',
+   730→   730→      image: '',
+   731→   731→      ctaLabel: '',
+   732→   732→      ctaUrl: '',
+   733→   733→      order: 12,
+   734→   734→    },
+   735→   735→  ];
+   736→   736→
+   737→   737→  for (const section of homepageSections) {
+   738→   738→    await db.homepageSection.create({ data: section });
+   739→   739→  }
+   740→   740→  console.log(`  ✅ Created ${homepageSections.length} HomepageSections`);
+   741→   741→
+   742→   742→  // ═══════════════════════════════════════════════════════════════════════════════
+   743→   743→  // Done
+   744→   744→  // ═══════════════════════════════════════════════════════════════════════════════
+   745→   745→  console.log('\n✅ All content seeded successfully!');
+   746→   746→}
+   747→   747→
+   748→   748→main()
+   749→   749→  .then(() => process.exit(0))
+   750→   750→  .catch((e) => {
+   751→   751→    console.error('❌ Seed failed:', e);
+   752→   752→    process.exit(1);
+   753→   753→  });
+   754→   754→

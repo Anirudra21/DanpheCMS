@@ -1365,3 +1365,26 @@ Stage Summary:
 - Modified server pages: solutions/page.tsx, solution/[slug]/page.tsx, clients/page.tsx, company/page.tsx, news-events/page.tsx, careers/page.tsx, contact/page.tsx
 - Contact page form now posts to /api/leads with source=CONTACT (was /api/contact)
 - All visual design, layout, colors, animations, framer-motion preserved exactly as before
+
+---
+Task ID: terms-conditions-page
+Agent: main
+Task: Create dedicated Terms & Conditions page at /terms-and-conditions with footer link
+
+Work Log:
+- Explored project structure: (internal) route group with Header/Footer layout, Footer fetches nav items from DB via /api/public-data
+- Found FOOTER_INFO nav items in seed-content.ts — Terms & Conditions already existed with url='#'
+- Created /src/app/(internal)/terms-and-conditions/page.tsx — 'use client' page with hero section + content section matching site design system
+- Created /src/app/(internal)/terms-and-conditions/layout.tsx — exports metadata (title: 'Terms & Conditions | DANPHE', description)
+- Updated seed-content.ts: changed Terms & Conditions url from '#' to '/terms-and-conditions'
+- Updated live DB: ran prisma db execute to UPDATE nav_items SET url='/terms-and-conditions' WHERE label='Terms & Conditions' AND location='FOOTER_INFO'
+- Verified with agent-browser: page renders correctly on desktop (1920x1080) and mobile (iPhone 14)
+- Verified footer link navigates correctly from homepage → /terms-and-conditions
+- Verified page title is 'Terms & Conditions | DANPHE'
+- No new lint errors introduced
+
+Stage Summary:
+- Terms & Conditions page live at /terms-and-conditions
+- Footer 'Info' column 'Terms & Conditions' link now navigates to the page
+- Page uses existing design system (gradient hero, max-w-3xl content, framer-motion animations, brand colors)
+- SEO: proper <h1>, meta title/description, semantic HTML
