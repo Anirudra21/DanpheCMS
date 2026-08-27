@@ -1,0 +1,777 @@
+     1→'use client';
+     2→
+     3→import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
+     4→import { motion, useInView } from 'framer-motion';
+     5→import { MapPin, Globe as GlobeIcon, ArrowLeft } from 'lucide-react';
+     6→import * as THREE from 'three';
+     7→
+     8→/* ═══════════════════════════════════════════════════════════════════════════════
+     9→   Types
+    10→   ═══════════════════════════════════════════════════════════════════════════════ */
+    11→
+    12→export interface GlobeCountryData {
+    13→  id: string;
+    14→  countryName: string;
+    15→  latitude: number;
+    16→  longitude: number;
+    17→  hospitalCount: number;
+    18→  displayLabel: string;
+    19→  isHighlighted: boolean;
+    20→  isActive: boolean;
+    21→  order: number;
+    22→}
+    23→
+    24→interface InteractiveGlobeProps {
+    25→  countries: GlobeCountryData[];
+    26→  heading: string;
+    27→  subheading: string;
+    28→}
+    29→
+    30→/* ═══════════════════════════════════════════════════════════════════════════════
+    31→   Constants
+    32→   ═══════════════════════════════════════════════════════════════════════════════ */
+    33→
+    34→const EARTH_RADIUS = 1;
+    35→const DEFAULT_CAM_Z = 2.6;
+    36→const MIN_CAM_Z = 1.5;
+    37→const MAX_CAM_Z = 4.2;
+    38→const ZOOM_COUNTRY_Z = 1.7;
+    39→const AUTO_SPEED = 0.0012;
+    40→const DRAG_SENS = 0.005;
+    41→const ZOOM_SENS = 0.0008;
+    42→const IDLE_MS = 3500;
+    43→
+    44→/* ═══════════════════════════════════════════════════════════════════════════════
+    45→   Continent polygons — lat/lng — for procedural Earth texture
+    46→   ═══════════════════════════════════════════════════════════════════════════════ */
+    47→
+    48→const LAND: [number, number][][] = [
+    49→  // North America
+    50→  [[-130,55],[-125,60],[-120,65],[-110,68],[-100,70],[-85,72],[-75,70],[-65,62],[-58,48],[-66,44],[-70,42],[-75,36],[-80,25],[-82,22],[-87,18],[-90,16],[-96,18],[-100,20],[-105,22],[-110,30],[-115,32],[-120,34],[-122,37],[-124,42],[-124,48],[-130,55]],
+    51→  // Greenland
+    52→  [[-55,60],[-48,62],[-40,65],[-25,70],[-18,76],[-20,80],[-35,82],[-50,78],[-55,72],[-55,60]],
+    53→  // South America
+    54→  [[-80,10],[-77,8],[-72,8],[-68,6],[-60,5],[-52,3],[-48,0],[-40,-2],[-35,-5],[-35,-12],[-38,-16],[-42,-22],[-48,-26],[-52,-32],[-58,-38],[-64,-50],[-68,-54],[-70,-48],[-72,-40],[-75,-30],[-76,-18],[-80,-5],[-80,10]],
+    55→  // Europe
+    56→  [[-10,36],[-8,38],[-4,40],[-8,43],[-2,44],[0,46],[-2,48],[2,50],[5,52],[5,56],[10,55],[12,58],[14,56],[16,54],[18,55],[22,55],[24,58],[26,60],[28,62],[30,65],[28,68],[25,70],[18,70],[15,68],[12,64],[8,62],[5,62],[5,58],[3,55],[-2,52],[-5,48],[-8,44],[-10,40],[-10,36]],
+    57→  // UK & Ireland
+    58→  [[-10,50],[-6,50],[-5,52],[-3,54],[-5,56],[-3,58],[-2,58],[0,56],[2,53],[0,51],[-2,50],[-5,50],[-10,50]],
+    59→  // Africa
+    60→  [[-15,15],[-17,20],[-17,25],[-13,28],[-8,32],[-5,35],[0,36],[8,37],[10,36],[12,34],[15,33],[20,32],[25,32],[30,30],[33,28],[36,25],[38,20],[42,15],[46,12],[50,10],[48,5],[45,0],[42,-3],[40,-8],[38,-12],[36,-18],[34,-24],[30,-30],[28,-33],[25,-34],[22,-34],[18,-30],[15,-26],[12,-18],[12,-12],[10,-5],[8,0],[5,5],[2,6],[0,5],[-5,5],[-8,8],[-12,10],[-15,15]],
+    61→  // Madagascar
+    62→  [[44,-12],[46,-14],[48,-18],[48,-22],[46,-24],[44,-24],[43,-20],[43,-15],[44,-12]],
+    63→  // Asia (mainland)
+    64→  [[30,35],[32,36],[35,38],[38,40],[42,42],[48,40],[52,42],[55,45],[58,48],[62,48],[65,50],[68,52],[72,55],[76,55],[80,52],[84,48],[88,48],[92,50],[96,48],[100,46],[104,42],[108,38],[112,36],[116,34],[118,36],[120,38],[124,40],[126,42],[128,44],[130,42],[132,44],[134,46],[136,48],[140,48],[142,50],[140,54],[138,58],[134,60],[130,62],[126,58],[122,55],[118,52],[114,50],[108,52],[102,55],[96,58],[90,60],[84,62],[78,65],[72,68],[66,65],[60,60],[54,55],[50,52],[46,48],[42,45],[38,42],[35,40],[30,35]],
+    65→  // India subcontinent
+    66→  [[68,32],[70,28],[72,24],[74,20],[76,16],[78,12],[80,8],[80,10],[78,14],[76,18],[74,22],[72,26],[70,30],[68,32]],
+    67→  // Japan
+    68→  [[130,31],[131,33],[132,34],[134,36],[136,38],[140,40],[142,42],[144,44],[145,42],[143,39],[140,36],[138,34],[136,32],[132,30],[130,31]],
+    69→  // Southeast Asia / Indonesia
+    70→  [[100,18],[102,16],[104,14],[104,10],[106,6],[108,2],[106,-2],[108,-4],[112,-6],[116,-8],[120,-6],[122,-4],[124,-2],[128,0],[130,2],[128,4],[124,6],[120,8],[116,10],[112,12],[108,14],[104,16],[100,18]],
+    71→  // Philippines
+    72→  [[118,8],[120,10],[122,14],[124,16],[124,12],[122,8],[120,6],[118,8]],
+    73→  // Australia
+    74→  [[114,-14],[118,-14],[124,-14],[130,-12],[136,-12],[140,-14],[146,-18],[150,-22],[152,-26],[150,-30],[148,-34],[144,-36],[140,-38],[136,-36],[132,-34],[128,-32],[124,-30],[120,-28],[116,-24],[114,-20],[114,-14]],
+    75→  // New Zealand
+    76→  [[166,-35],[168,-37],[172,-38],[174,-40],[176,-42],[178,-44],[176,-46],[174,-44],[170,-42],[168,-40],[166,-38],[168,-36],[166,-35]],
+    77→  // Arabian Peninsula
+    78→  [[35,28],[36,26],[38,22],[40,18],[42,14],[44,12],[46,16],[50,18],[52,22],[56,24],[56,26],[54,28],[50,28],[48,30],[44,30],[40,30],[36,30],[35,28]],
+    79→];
+    80→
+    81→/* ═══════════════════════════════════════════════════════════════════════════════
+    82→   Utility — lat/lng → Three.js Vector3 on sphere surface
+    83→   ═══════════════════════════════════════════════════════════════════════════════ */
+    84→
+    85→function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
+    86→  const phi = (90 - lat) * (Math.PI / 180);
+    87→  const theta = (lng + 180) * (Math.PI / 180);
+    88→  return new THREE.Vector3(
+    89→    -radius * Math.sin(phi) * Math.cos(theta),
+    90→    radius * Math.cos(phi),
+    91→    radius * Math.sin(phi) * Math.sin(theta),
+    92→  );
+    93→}
+    94→
+    95→/* ═══════════════════════════════════════════════════════════════════════════════
+    96→   Procedural Earth texture (dark navy theme with teal landmasses)
+    97→   ═══════════════════════════════════════════════════════════════════════════════ */
+    98→
+    99→function createEarthTexture(): THREE.CanvasTexture {
+   100→  const W = 2048;
+   101→  const H = 1024;
+   102→  const canvas = document.createElement('canvas');
+   103→  canvas.width = W;
+   104→  canvas.height = H;
+   105→  const ctx = canvas.getContext('2d')!;
+   106→
+   107→  // Ocean
+   108→  ctx.fillStyle = '#091a28';
+   109→  ctx.fillRect(0, 0, W, H);
+   110→
+   111→  // Subtle ocean gradient (lighter at equator)
+   112→  const oceanGrad = ctx.createLinearGradient(0, 0, 0, H);
+   113→  oceanGrad.addColorStop(0, 'rgba(15,35,55,0.5)');
+   114→  oceanGrad.addColorStop(0.5, 'rgba(20,45,65,0.3)');
+   115→  oceanGrad.addColorStop(1, 'rgba(10,25,40,0.5)');
+   116→  ctx.fillStyle = oceanGrad;
+   117→  ctx.fillRect(0, 0, W, H);
+   118→
+   119→  // Grid
+   120→  ctx.strokeStyle = 'rgba(255,255,255,0.025)';
+   121→  ctx.lineWidth = 1;
+   122→  for (let lng = -180; lng <= 180; lng += 30) {
+   123→    const x = ((lng + 180) / 360) * W;
+   124→    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+   125→  }
+   126→  for (let lat = -90; lat <= 90; lat += 30) {
+   127→    const y = ((90 - lat) / 180) * H;
+   128→    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+   129→  }
+   130→
+   131→  // Draw landmasses
+   132→  for (const polygon of LAND) {
+   133→    ctx.beginPath();
+   134→    for (let i = 0; i < polygon.length; i++) {
+   135→      const [lat, lng] = polygon[i];
+   136→      const x = ((lng + 180) / 360) * W;
+   137→      const y = ((90 - lat) / 180) * H;
+   138→      if (i === 0) ctx.moveTo(x, y);
+   139→      else ctx.lineTo(x, y);
+   140→    }
+   141→    ctx.closePath();
+   142→    ctx.fillStyle = '#0f2a38';
+   143→    ctx.fill();
+   144→    ctx.strokeStyle = 'rgba(13,148,136,0.18)';
+   145→    ctx.lineWidth = 1.5;
+   146→    ctx.stroke();
+   147→  }
+   148→
+   149→  // Subtle coastal glow pass
+   150→  for (const polygon of LAND) {
+   151→    ctx.beginPath();
+   152→    for (let i = 0; i < polygon.length; i++) {
+   153→      const [lat, lng] = polygon[i];
+   154→      const x = ((lng + 180) / 360) * W;
+   155→      const y = ((90 - lat) / 180) * H;
+   156→      if (i === 0) ctx.moveTo(x, y);
+   157→      else ctx.lineTo(x, y);
+   158→    }
+   159→    ctx.closePath();
+   160→    ctx.strokeStyle = 'rgba(13,148,136,0.08)';
+   161→    ctx.lineWidth = 4;
+   162→    ctx.stroke();
+   163→  }
+   164→
+   165→  // Noise dots for texture feel
+   166→  ctx.fillStyle = 'rgba(255,255,255,0.008)';
+   167→  for (let i = 0; i < 6000; i++) {
+   168→    const x = Math.random() * W;
+   169→    const y = Math.random() * H;
+   170→    ctx.fillRect(x, y, 1, 1);
+   171→  }
+   172→
+   173→  const tex = new THREE.CanvasTexture(canvas);
+   174→  tex.colorSpace = THREE.SRGBColorSpace;
+   175→  return tex;
+   176→}
+   177→
+   178→/* ═══════════════════════════════════════════════════════════════════════════════
+   179→   Glow sprite texture (for marker halos)
+   180→   ═══════════════════════════════════════════════════════════════════ */
+   181→
+   182→function createGlowTexture(r: number, g: number, b: number): THREE.CanvasTexture {
+   183→  const s = 128;
+   184→  const c = document.createElement('canvas');
+   185→  c.width = s; c.height = s;
+   186→  const ctx = c.getContext('2d')!;
+   187→  const grad = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+   188→  grad.addColorStop(0, `rgba(${r},${g},${b},0.9)`);
+   189→  grad.addColorStop(0.3, `rgba(${r},${g},${b},0.3)`);
+   190→  grad.addColorStop(0.7, `rgba(${r},${g},${b},0.05)`);
+   191→  grad.addColorStop(1, 'transparent');
+   192→  ctx.fillStyle = grad;
+   193→  ctx.fillRect(0, 0, s, s);
+   194→  return new THREE.CanvasTexture(c);
+   195→}
+   196→
+   197→/* ═══════════════════════════════════════════════════════════════════════════════
+   198→   Atmosphere shaders (Fresnel rim glow)
+   199→   ═══════════════════════════════════════════════════════════════════ */
+   200→
+   201→const ATMO_VS = `
+   202→  varying vec3 vWorldNormal;
+   203→  varying vec3 vViewPos;
+   204→  void main() {
+   205→    vec4 wp = modelMatrix * vec4(position, 1.0);
+   206→    vViewPos = (viewMatrix * wp).xyz;
+   207→    vWorldNormal = normalize(mat3(modelMatrix) * normal);
+   208→    gl_Position = projectionMatrix * viewMatrix * wp;
+   209→  }
+   210→`;
+   211→
+   212→const ATMO_FS = `
+   213→  varying vec3 vWorldNormal;
+   214→  varying vec3 vViewPos;
+   215→  void main() {
+   216→    vec3 viewDir = normalize(-vViewPos);
+   217→    float rim = 1.0 - max(0.0, dot(viewDir, vWorldNormal));
+   218→    float glow = pow(rim, 3.5) * 1.4;
+   219→    gl_FragColor = vec4(0.051, 0.58, 0.533, glow * 0.45);
+   220→  }
+   221→`;
+   222→
+   223→/* ═══════════════════════════════════════════════════════════════════════════════
+   224→   Component
+   225→   ═══════════════════════════════════════════════════════════════════════════════ */
+   226→
+   227→export default function InteractiveGlobe({ countries, heading, subheading }: InteractiveGlobeProps) {
+   228→  const sectionRef = useRef<HTMLDivElement>(null);
+   229→  const containerRef = useRef<HTMLDivElement>(null);
+   230→  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+   231→
+   232→  // Three.js object refs
+   233→  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+   234→  const sceneRef = useRef<THREE.Scene | null>(null);
+   235→  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+   236→  const earthGroupRef = useRef<THREE.Group | null>(null);
+   237→  const markersGroupRef = useRef<THREE.Group | null>(null);
+   238→  const animRef = useRef(0);
+   239→  const clockRef = useRef(new THREE.Timer());
+   240→  const nepalRingRef = useRef<THREE.Mesh | null>(null);
+   241→
+   242→  // Interaction refs
+   243→  const isDragRef = useRef(false);
+   244→  const autoRotRef = useRef(true);
+   245→  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+   246→  const prevPtrRef = useRef({ x: 0, y: 0 });
+   247→  const targetZoomRef = useRef(DEFAULT_CAM_Z);
+   248→  const zoomingToRef = useRef<string | null>(null);
+   249→  const targetRotYRef = useRef<number | null>(null);
+   250→
+   251→  // Raycasting
+   252→  const raycasterRef = useRef(new THREE.Raycaster());
+   253→  const markerMapRef = useRef<Map<number, GlobeCountryData>>(new Map());
+   254→
+   255→  // React state
+   256→  const [tooltip, setTooltip] = useState<{ country: GlobeCountryData; x: number; y: number } | null>(null);
+   257→  const [containerW, setContainerW] = useState(300);
+   258→  const [zoomedId, setZoomedId] = useState<string | null>(null);
+   259→
+   260→  // Computed data
+   261→  const activeCountries = useMemo(() => countries.filter((c) => c.isActive), [countries]);
+   262→  const totalHospitals = useMemo(() => activeCountries.reduce((s, c) => s + c.hospitalCount, 0), [activeCountries]);
+   263→  const nepalData = useMemo(() => countries.find((c) => c.isHighlighted) || null, [countries]);
+   264→
+   265→  // ─── Three.js scene setup (runs once when in view) ──────────────────
+   266→  useEffect(() => {
+   267→    const container = containerRef.current;
+   268→    if (!container || !isInView) return;
+   269→    const w = container.clientWidth;
+   270→    const h = container.clientHeight;
+   271→    if (w === 0 || h === 0) return;
+   272→
+   273→    setContainerW(w);
+   274→
+   275→    // Scene
+   276→    const scene = new THREE.Scene();
+   277→    sceneRef.current = scene;
+   278→
+   279→    // Camera
+   280→    const camera = new THREE.PerspectiveCamera(42, w / h, 0.1, 100);
+   281→    camera.position.set(0, 0, DEFAULT_CAM_Z);
+   282→    cameraRef.current = camera;
+   283→
+   284→    // Renderer
+   285→    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+   286→    renderer.setSize(w, h);
+   287→    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+   288→    renderer.setClearColor(0x000000, 0);
+   289→    container.appendChild(renderer.domElement);
+   290→    rendererRef.current = renderer;
+   291→
+   292→    // Lights
+   293→    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+   294→    const dir = new THREE.DirectionalLight(0xffffff, 0.9);
+   295→    dir.position.set(5, 3, 5);
+   296→    scene.add(dir);
+   297→    const rim = new THREE.DirectionalLight(0x3366aa, 0.2);
+   298→    rim.position.set(-4, -2, -4);
+   299→    scene.add(rim);
+   300→
+   301→    // Earth group (rotation target)
+   302→    const earthGroup = new THREE.Group();
+   303→    earthGroup.rotation.x = 0.25; // slight tilt
+   304→    earthGroup.rotation.y = -0.5;
+   305→    scene.add(earthGroup);
+   306→    earthGroupRef.current = earthGroup;
+   307→
+   308→    // Earth sphere
+   309→    const earthTex = createEarthTexture();
+   310→    const earthGeom = new THREE.SphereGeometry(EARTH_RADIUS, 80, 80);
+   311→    const earthMat = new THREE.MeshPhongMaterial({
+   312→          map: earthTex,
+   313→          shininess: 12,
+   314→          specular: new THREE.Color('#0e2233'),
+   315→    });
+   316→    earthGroup.add(new THREE.Mesh(earthGeom, earthMat));
+   317→
+   318→    // Atmosphere glow (back-face sphere)
+   319→    const atmosGeom = new THREE.SphereGeometry(EARTH_RADIUS * 1.018, 64, 64);
+   320→    const atmosMat = new THREE.ShaderMaterial({
+   321→      vertexShader: ATMO_VS,
+   322→      fragmentShader: ATMO_FS,
+   323→      transparent: true,
+   324→      side: THREE.BackSide,
+   325→      depthWrite: false,
+   326→    });
+   327→    scene.add(new THREE.Mesh(atmosGeom, atmosMat));
+   328→
+   329→    // Markers group (child of earthGroup so markers rotate with the globe)
+   330→    const markersGroup = new THREE.Group();
+   331→    earthGroup.add(markersGroup);
+   332→    markersGroupRef.current = markersGroup;
+   333→
+   334→    // ── Animation loop ────────────────────────────────────────────────
+   335→    const clock = clockRef.current;
+   336→
+   337→    const animate = () => {
+   338→      animRef.current = requestAnimationFrame(animate);
+   339→      const elapsed = clock.getElapsedTime();
+   340→      const group = earthGroupRef.current;
+   341→      const cam = cameraRef.current;
+   342→      const ren = rendererRef.current;
+   343→      const mg = markersGroupRef.current;
+   344→      if (!group || !cam || !ren || !mg) return;
+   345→
+   346→      // Auto-rotate
+   347→      if (autoRotRef.current && !isDragRef.current && !zoomingToRef.current) {
+   348→        group.rotation.y += AUTO_SPEED;
+   349→      }
+   350→
+   351→      // Smooth zoom
+   352→      cam.position.z += (targetZoomRef.current - cam.position.z) * 0.06;
+   353→
+   354→      // Zoom-to-country animation
+   355→      if (zoomingToRef.current && targetRotYRef.current !== null) {
+   356→        let diff = targetRotYRef.current - group.rotation.y;
+   357→        while (diff > Math.PI) diff -= Math.PI * 2;
+   358→        while (diff < -Math.PI) diff += Math.PI * 2;
+   359→        group.rotation.y += diff * 0.06;
+   360→      }
+   361→
+   362→      // Nepal pulse ring
+   363→      const ring = nepalRingRef.current;
+   364→      if (ring) {
+   365→        const s = 1 + 0.5 * Math.sin(elapsed * 2.5);
+   366→        ring.scale.set(s, s, s);
+   367→        (ring.material as THREE.MeshBasicMaterial).opacity = 0.55 * (1 - (s - 1) / 0.5);
+   368→      }
+   369→
+   370→      // Marker visibility (hide markers on back side)
+   371→      const camWorldPos = cam.position.clone();
+   372→      for (let i = 0; i < mg.children.length; i++) {
+   373→        const child = mg.children[i];
+   374→        if (child.userData.isRing) continue; // rings are always visible
+   375→        const wPos = new THREE.Vector3();
+   376→        child.getWorldPosition(wPos);
+   377→        const toCam = camWorldPos.clone().sub(wPos).normalize();
+   378→        const normal = wPos.clone().normalize();
+   379→        child.visible = toCam.dot(normal) > -0.15;
+   380→      }
+   381→
+   382→      ren.render(scene, sceneRef.current!);
+   383→    };
+   384→
+   385→    animRef.current = requestAnimationFrame(animate);
+   386→
+   387→    // Resize
+   388→    const onResize = () => {
+   389→      const cw = container.clientWidth;
+   390→      const ch = container.clientHeight;
+   391→      if (cw === 0 || ch === 0) return;
+   392→      cam.aspect = cw / ch;
+   393→      cam.updateProjectionMatrix();
+   394→      ren.setSize(cw, ch);
+   395→    };
+   396→    window.addEventListener('resize', onResize);
+   397→
+   398→    // Cleanup
+   399→    return () => {
+   400→      cancelAnimationFrame(animRef.current);
+   401→      window.removeEventListener('resize', onResize);
+   402→      earthGeom.dispose();
+   403→      earthMat.dispose();
+   404→      earthTex.dispose();
+   405→      atmosGeom.dispose();
+   406→      atmosMat.dispose();
+   407→      ren.dispose();
+   408→      if (container.contains(renderer.domElement)) {
+   409→        container.removeChild(renderer.domElement);
+   410→      }
+   411→    };
+   412→  }, [isInView]);
+   413→
+   414→  // ─── Update markers when countries change ────────────────────────────
+   415→  useEffect(() => {
+   416→    const mg = markersGroupRef.current;
+   417→    if (!mg) return;
+   418→
+   419→    // Dispose old
+   420→    while (mg.children.length) {
+   421→      const c = mg.children[0];
+   422→      mg.remove(c);
+   423→      if ((c as THREE.Mesh).geometry) (c as THREE.Mesh).geometry.dispose();
+   424→      if ((c as THREE.Mesh).material) {
+   425→        const mat = (c as THREE.Mesh).material;
+   426→        if (mat instanceof THREE.SpriteMaterial) mat.map?.dispose();
+   427→        mat.dispose();
+   428→      }
+   429→    }
+   430→    markerMapRef.current.clear();
+   431→    nepalRingRef.current = null;
+   432→
+   433→    const glowTex = createGlowTexture(7, 194, 188);
+   434→    const normalGlow = createGlowTexture(13, 148, 136);
+   435→
+   436→    for (const country of activeCountries) {
+   437→      const pos = latLngToVec3(country.latitude, country.longitude, EARTH_RADIUS * 1.006);
+   438→      const isHL = country.isHighlighted;
+   439→      const sz = isHL ? 0.022 : 0.013;
+   440→
+   441→      // Marker dot
+   442→      const geom = new THREE.SphereGeometry(sz, 16, 16);
+   443→      const mat = new THREE.MeshBasicMaterial({
+   444→        color: isHL ? '#07c2b8' : '#0d9488',
+   445→      });
+   446→      const mesh = new THREE.Mesh(geom, mat);
+   447→      mesh.position.copy(pos);
+   448→      mg.add(mesh);
+   449→      markerMapRef.current.set(mesh.id, country);
+   450→
+   451→      // Glow sprite
+   452→      const spriteMat = new THREE.SpriteMaterial({
+   453→        map: isHL ? glowTex : normalGlow,
+   454→        transparent: true,
+   455→        depthWrite: false,
+   456→        blending: THREE.AdditiveBlending,
+   457→      });
+   458→      const sprite = new THREE.Sprite(spriteMat);
+   459→      sprite.position.copy(pos);
+   460→      sprite.scale.set(isHL ? 0.14 : 0.09, isHL ? 0.14 : 0.09, 1);
+   461→      mg.add(sprite);
+   462→
+   463→      // Pulse ring for highlighted (Nepal)
+   464→      if (isHL) {
+   465→        const ringGeom = new THREE.RingGeometry(0.028, 0.035, 32);
+   466→        const ringMat = new THREE.MeshBasicMaterial({
+   467→          color: '#07c2b8',
+   468→          transparent: true,
+   469→          opacity: 0.5,
+   470→          side: THREE.DoubleSide,
+   471→          depthWrite: false,
+   472→        });
+   473→        const ring = new THREE.Mesh(ringGeom, ringMat);
+   474→        ring.position.copy(pos);
+   475→        ring.lookAt(pos.clone().multiplyScalar(2));
+   476→        ring.userData.isRing = true;
+   477→        mg.add(ring);
+   478→        nepalRingRef.current = ring;
+   479→      }
+   480→    }
+   481→  }, [activeCountries]);
+   482→
+   483→  // ─── Pointer interaction handlers ────────────────────────────────────
+   484→  useEffect(() => {
+   485→    const el = containerRef.current;
+   486→    if (!el) return;
+   487→
+   488→    const onDown = (e: PointerEvent) => {
+   489→      isDragRef.current = true;
+   490→      autoRotRef.current = false;
+   491→      prevPtrRef.current = { x: e.clientX, y: e.clientY };
+   492→      el.setPointerCapture(e.pointerId);
+   493→      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+   494→      if (zoomingToRef.current) {
+   495→        // Cancel zoom if user drags during zoom
+   496→        zoomingToRef.current = null;
+   497→        targetRotYRef.current = null;
+   498→        targetZoomRef.current = DEFAULT_CAM_Z;
+   499→        setZoomedId(null);
+   500→      }
+   501→    };
+   502→
+   503→    const onMove = (e: PointerEvent) => {
+   504→      if (isDragRef.current) {
+   505→        const dx = e.clientX - prevPtrRef.current.x;
+   506→        const dy = e.clientY - prevPtrRef.current.y;
+   507→        const g = earthGroupRef.current;
+   508→        if (g) {
+   509→          g.rotation.y += dx * DRAG_SENS;
+   510→          g.rotation.x = Math.max(-0.8, Math.min(0.8, g.rotation.x + dy * DRAG_SENS));
+   511→        }
+   512→        prevPtrRef.current = { x: e.clientX, y: e.clientY };
+   513→        setTooltip(null);
+   514→        return;
+   515→      }
+   516→
+   517→      // Hover detection
+   518→      const rect = el.getBoundingClientRect();
+   519→      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+   520→      const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+   521→
+   522→      const cam = cameraRef.current;
+   523→      const mg = markersGroupRef.current;
+   524→      if (!cam || !mg) return;
+   525→
+   526→      raycasterRef.current.setFromCamera(new THREE.Vector2(nx, ny), cam);
+   527→      const hits = raycasterRef.current.intersectObjects(
+   528→        mg.children.filter((c) => !c.userData.isRing && c.visible),
+   529→      );
+   530→
+   531→      if (hits.length > 0) {
+   532→        const country = markerMapRef.current.get(hits[0].object.id);
+   533→        if (country) {
+   534→          setTooltip({ country, x: e.clientX - rect.left, y: e.clientY - rect.top });
+   535→          el.style.cursor = 'pointer';
+   536→          return;
+   537→        }
+   538→      }
+   539→      setTooltip(null);
+   540→      el.style.cursor = 'grab';
+   541→    };
+   542→
+   543→    const onUp = () => {
+   544→      isDragRef.current = false;
+   545→      el.style.cursor = 'grab';
+   546→      idleTimerRef.current = setTimeout(() => { autoRotRef.current = true; }, IDLE_MS);
+   547→    };
+   548→
+   549→    const onWheel = (e: WheelEvent) => {
+   550→      e.preventDefault();
+   551→      targetZoomRef.current = Math.max(MIN_CAM_Z, Math.min(MAX_CAM_Z, targetZoomRef.current + e.deltaY * ZOOM_SENS));
+   552→    };
+   553→
+   554→    const onClick = (e: MouseEvent) => {
+   555→      const rect = el.getBoundingClientRect();
+   556→      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+   557→      const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+   558→
+   559→      const cam = cameraRef.current;
+   560→      const mg = markersGroupRef.current;
+   561→      if (!cam || !mg) return;
+   562→
+   563→      raycasterRef.current.setFromCamera(new THREE.Vector2(nx, ny), cam);
+   564→      const hits = raycasterRef.current.intersectObjects(
+   565→        mg.children.filter((c) => !c.userData.isRing && c.visible),
+   566→      );
+   567→
+   568→      if (hits.length > 0) {
+   569→        const country = markerMapRef.current.get(hits[0].object.id);
+   570→        if (!country) return;
+   571→
+   572→        if (country.isHighlighted) {
+   573→          // Zoom into Nepal
+   574→          const targetY = -country.longitude * (Math.PI / 180);
+   575→          targetRotYRef.current = targetY;
+   576→          targetZoomRef.current = ZOOM_COUNTRY_Z;
+   577→          zoomingToRef.current = country.id;
+   578→          setZoomedId(country.id);
+   579→          setTooltip(null);
+   580→        } else {
+   581→          // Show tooltip for non-Nepal countries
+   582→          setTooltip({ country, x: e.clientX - rect.left, y: e.clientY - rect.top });
+   583→        }
+   584→      } else {
+   585→        setTooltip(null);
+   586→      }
+   587→    };
+   588→
+   589→    el.addEventListener('pointerdown', onDown);
+   590→    el.addEventListener('pointermove', onMove);
+   591→    el.addEventListener('pointerup', onUp);
+   592→    el.addEventListener('pointerleave', onUp);
+   593→    el.addEventListener('wheel', onWheel, { passive: false });
+   594→    el.addEventListener('click', onClick);
+   595→
+   596→    return () => {
+   597→      el.removeEventListener('pointerdown', onDown);
+   598→      el.removeEventListener('pointermove', onMove);
+   599→      el.removeEventListener('pointerup', onUp);
+   600→      el.removeEventListener('pointerleave', onUp);
+   601→      el.removeEventListener('wheel', onWheel);
+   602→      el.removeEventListener('click', onClick);
+   603→      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+   604→    };
+   605→  }, []);
+   606→
+   607→  // ─── Zoom out handler ────────────────────────────────────────────────
+   608→  const handleZoomOut = useCallback(() => {
+   609→    zoomingToRef.current = null;
+   610→    targetRotYRef.current = null;
+   611→    targetZoomRef.current = DEFAULT_CAM_Z;
+   612→    setZoomedId(null);
+   613→  }, []);
+   614→
+   615→  // ─── Render ───────────────────────────────────────────────────────────
+   616→  return (
+   617→    <section
+   618→      ref={sectionRef}
+   619→      className="bg-white py-16 md:py-24"
+   620→      aria-label="Trusted Across Borders"
+   621→    >
+   622→      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+   623→        {/* ── Heading ────────────────────────────────────────────────── */}
+   624→        <motion.div
+   625→          initial={{ opacity: 0, y: 16 }}
+   626→          animate={isInView ? { opacity: 1, y: 0 } : {}}
+   627→          transition={{ duration: 0.5 }}
+   628→          className="mb-10 text-center"
+   629→        >
+   630→          <h2 className="font-heading mb-3 text-2xl font-bold text-danphe-primary sm:text-3xl md:text-4xl">
+   631→            {heading}
+   632→          </h2>
+   633→          <p className="mx-auto max-w-2xl text-sm text-danphe-text sm:text-base">
+   634→            {subheading}
+   635→          </p>
+   636→        </motion.div>
+   637→
+   638→        <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-8">
+   639→          {/* ── Left: Statistics cards ──────────────────────────────────── */}
+   640→          <motion.div
+   641→            initial={{ opacity: 0, x: -20 }}
+   642→            animate={isInView ? { opacity: 1, x: 0 } : {}}
+   643→            transition={{ duration: 0.5, delay: 0.1 }}
+   644→            className="flex flex-col gap-4 lg:col-span-5"
+   645→          >
+   646→            {/* Nepal Card */}
+   647→            {nepalData && (
+   648→              <div className="glass rounded-2xl p-5 shadow-premium">
+   649→                <div className="mb-3 flex items-center gap-3">
+   650→                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-danphe-accent/10">
+   651→                    <MapPin className="h-4.5 w-4.5 text-danphe-accent" />
+   652→                  </div>
+   653→                  <div>
+   654→                    <h3 className="font-heading text-base font-semibold text-danphe-primary">
+   655→                      {nepalData.countryName}
+   656→                    </h3>
+   657→                    <p className="text-[11px] text-danphe-text/60">Headquarters</p>
+   658→                  </div>
+   659→                </div>
+   660→                <p className="font-heading text-2xl font-bold text-danphe-primary">
+   661→                  {nepalData.displayLabel || `${nepalData.hospitalCount}+`}
+   662→                </p>
+   663→              </div>
+   664→            )}
+   665→
+   666→            {/* Global Stats */}
+   667→            <div className="glass rounded-2xl p-5 shadow-premium">
+   668→              <div className="mb-3 flex items-center gap-3">
+   669→                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-danphe-accent/10">
+   670→                  <GlobeIcon className="h-4.5 w-4.5 text-danphe-accent" />
+   671→                </div>
+   672→                <h3 className="font-heading text-base font-semibold text-danphe-primary">Global Reach</h3>
+   673→              </div>
+   674→              <div className="grid grid-cols-2 gap-3">
+   675→                <div>
+   676→                  <p className="font-heading text-xl font-bold text-danphe-primary">{activeCountries.length}+</p>
+   677→                  <p className="text-[11px] text-danphe-text">Countries Served</p>
+   678→                </div>
+   679→                <div>
+   680→                  <p className="font-heading text-xl font-bold text-danphe-primary">{totalHospitals}+</p>
+   681→                  <p className="text-[11px] text-danphe-text">Hospitals & Partners</p>
+   682→                </div>
+   683→              </div>
+   684→            </div>
+   685→
+   686→            {/* Country list */}
+   687→            <div className="glass rounded-2xl p-4 shadow-premium">
+   688→              <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-danphe-text/50">
+   689→                Active Regions
+   690→              </p>
+   691→              <div className="max-h-40 space-y-2 overflow-y-auto pr-1">
+   692→                {activeCountries
+   693→                  .sort((a, b) => b.hospitalCount - a.hospitalCount)
+   694→                  .map((c) => (
+   695→                    <div key={c.id} className="flex items-center justify-between">
+   696→                      <div className="flex items-center gap-2">
+   697→                        <span
+   698→                          className={`h-1.5 w-1.5 rounded-full ${c.isHighlighted ? 'bg-danphe-accent shadow-[0_0_6px_rgba(13,148,136,0.6)]' : 'bg-danphe-accent/40'}`}
+   699→                        />
+   700→                        <span className="text-[13px] text-danphe-text">{c.countryName}</span>
+   701→                      </div>
+   702→                      <span className="text-[11px] font-medium text-danphe-primary">
+   703→                        {c.displayLabel || `${c.hospitalCount}+`}
+   704→                      </span>
+   705→                    </div>
+   706→                  ))}
+   707→              </div>
+   708→            </div>
+   709→
+   710→            <p className="hidden text-[11px] text-danphe-text/40 lg:block">
+   711→              Drag to rotate · Scroll to zoom · Click markers for details
+   712→            </p>
+   713→          </motion.div>
+   714→
+   715→          {/* ── Right: 3D Globe ─────────────────────────────────────────── */}
+   716→          <motion.div
+   717→            initial={{ opacity: 0, x: 20 }}
+   718→            animate={isInView ? { opacity: 1, x: 0 } : {}}
+   719→            transition={{ duration: 0.6, delay: 0.2 }}
+   720→            className="lg:col-span-7"
+   721→          >
+   722→            <div
+   723→              ref={containerRef}
+   724→              className="relative mx-auto h-[340px] w-full max-w-[520px] overflow-hidden rounded-2xl bg-danphe-dark sm:h-[400px] md:h-[460px]"
+   725→              style={{ cursor: 'grab' }}
+   726→            >
+   727→              {/* Three.js canvas is injected here by useEffect */}
+   728→
+   729→              {/* Tooltip overlay */}
+   730→              {tooltip && !zoomedId && (
+   731→                <div
+   732→                  className="pointer-events-none absolute z-20 rounded-xl border border-white/10 bg-slate-900/90 px-3.5 py-2.5 shadow-xl backdrop-blur-sm"
+   733→                  style={{
+   734→                    left: Math.min(tooltip.x + 14, containerW - 160),
+   735→                    top: tooltip.y - 50,
+   736→                  }}
+   737→                >
+   738→                  <p className="text-xs font-semibold text-white">{tooltip.country.countryName}</p>
+   739→                  <p className="mt-0.5 text-[11px] font-medium text-danphe-accent">
+   740→                    {tooltip.country.displayLabel || `${tooltip.country.hospitalCount}+ Hospitals`}
+   741→                  </p>
+   742→                </div>
+   743→              )}
+   744→
+   745→              {/* Nepal zoom overlay */}
+   746→              {zoomedId && nepalData && (
+   747→                <motion.div
+   748→                  initial={{ opacity: 0, y: 20 }}
+   749→                  animate={{ opacity: 1, y: 0 }}
+   750→                  className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between rounded-xl border border-danphe-accent/20 bg-slate-900/85 px-4 py-3 backdrop-blur-md"
+   751→                >
+   752→                  <div>
+   753→                    <p className="text-xs font-semibold text-danphe-accent">{nepalData.countryName} — Headquarters</p>
+   754→                    <p className="text-lg font-bold text-white">{nepalData.displayLabel || `${nepalData.hospitalCount}+ Hospitals`}</p>
+   755→                  </div>
+   756→                  <button
+   757→                    onClick={handleZoomOut}
+   758→                    className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-white/70 transition-colors hover:bg-white/20 hover:text-white"
+   759→                  >
+   760→                    <ArrowLeft className="h-4 w-4" />
+   761→                  </button>
+   762→                </motion.div>
+   763→              )}
+   764→
+   765→              {/* Bottom-right status */}
+   766→              <div className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5">
+   767→                <span className="h-1.5 w-1.5 rounded-full bg-danphe-accent animate-pulse" />
+   768→                <span className="text-[10px] font-medium text-white/40">Interactive 3D Globe</span>
+   769→              </div>
+   770→            </div>
+   771→          </motion.div>
+   772→        </div>
+   773→      </div>
+   774→    </section>
+   775→  );
+   776→}
+   777→

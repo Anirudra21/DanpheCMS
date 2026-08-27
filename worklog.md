@@ -1521,3 +1521,44 @@ Stage Summary:
 - Full interactivity: drag, zoom, auto-rotate, click, Nepal zoom
 - Compact 400-500px globe, responsive two-column layout
 - Admin panel unchanged — all data still manageable from /admin/globe-countries
+---
+Task ID: globe-v2
+Agent: main
+Task: Redesign InteractiveGlobe with realistic 3D Earth (Three.js + real textures)
+
+Work Log:
+- Downloaded real Earth texture images to public/textures/:
+  - earth-day-hd.jpg (4096x2048, 1.4MB) - NASA Blue Marble color map
+  - earth-topology.png (2048x1024, 370KB) - grayscale bump map for terrain relief
+  - earth-water.png (1600x800, 421KB) - ocean specular map (available but not used in current material)
+- Completely rewrote src/components/danphe/InteractiveGlobe.tsx (946 lines → clean rewrite)
+- Replaced procedural dark navy canvas texture with real Three.js TextureLoader + real Earth textures
+- Upgraded from MeshPhongMaterial to MeshStandardMaterial (PBR) with map + bumpMap + bumpScale
+- Added proper lighting setup: ambient + directional sun + fill light + rim light
+- Added ACES Filmic tone mapping for realistic color rendering
+- Added dual atmosphere glow: BackSide Fresnel shader (outer) + FrontSide inner glow
+- Added subtle star field background (300 points)
+- Improved marker system: 3D pin geometry (cylinder stem + sphere head) instead of flat dots
+- Added drag momentum/inertia with configurable friction (0.92)
+- Added pinch-to-zoom support for mobile (two-finger touch)
+- Added click-vs-drag detection (dragDistance > 8 threshold)
+- Improved zoom-to-country: now animates both rotation Y AND rotation X for proper centering
+- Added Nepal-specific zoom (closer: ZOOM_COUNTRY_Z=1.8 vs 2.0 for others)
+- All countries now show info panel on click (not just Nepal)
+- Added IntersectionObserver to pause rendering when section is off-screen
+- Added WebGL support detection with graceful fallback UI
+- Added loading spinner while textures load
+- Removed dark navy background (bg-danphe-dark) - transparent/clean background
+- Container sizing: 320px mobile → 380px sm → 440px md → 460px lg (max 460px)
+- Fixed THREE.Clock deprecation → THREE.Timer with clock.update() before getElapsed()
+- Removed unused ArrowLeft import
+- Layout: white section bg with subtle gradient, flexbox two-column (cards + globe)
+- Info panel: glass-morphism style, shows country name + hospital count + 'Headquarters' for Nepal
+- Tooltip: compact dark tooltip on hover, AnimatePresence transitions
+
+Stage Summary:
+- Globe V2 complete: realistic 3D Earth with real continent/ocean textures via Three.js
+- All 15 acceptance criteria addressed (realistic Earth, 400-500px, drag/zoom/auto-rotate, markers, click-to-focus, Nepal zoom, data-driven, responsive)
+- Dev server compiles successfully (GET / 200), zero lint errors in InteractiveGlobe.tsx
+- 11 active countries in DB, data-driven from admin panel
+- Files changed: src/components/danphe/InteractiveGlobe.tsx (full rewrite), public/textures/ (3 new files)
