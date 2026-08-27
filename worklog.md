@@ -1562,3 +1562,26 @@ Stage Summary:
 - Dev server compiles successfully (GET / 200), zero lint errors in InteractiveGlobe.tsx
 - 11 active countries in DB, data-driven from admin panel
 - Files changed: src/components/danphe/InteractiveGlobe.tsx (full rewrite), public/textures/ (3 new files)
+
+---
+Task ID: globe-v2-fix
+Agent: main
+Task: Fix invisible globe - Earth not rendering on page
+
+Work Log:
+- Diagnosed root cause: useEffect gated by isInView dependency - if IntersectionObserver didn't fire during hydration, entire Three.js scene was never created
+- Secondary cause: Earth sphere was only created AFTER async texture load - if textures failed, nothing rendered
+- Fix 1: Removed isInView dependency from main useEffect (now runs on mount with [])
+- Fix 2: Created immediate visible Earth sphere with MeshPhongMaterial (dark blue #1a5276) - visible before any texture loads
+- Fix 3: Texture loading upgrades material in-place (applyTexture function swaps MeshStandardMaterial onto existing mesh)
+- Fix 4: Added fallback chain: earth-day-hd.jpg → earth-day.jpg → keep placeholder
+- Fix 5: Added rAF-based retry for container dimensions (handles layout not settled on mount)
+- Fix 6: Removed setState in effect (webglFailed) to fix lint error
+- Fix 7: Added cleanupFnRef pattern for proper cleanup of nested function scope resources
+
+Stage Summary:
+- Globe now renders immediately on mount (blue sphere visible before textures)
+- Textures load async and upgrade the material when ready
+- If all textures fail, the blue placeholder sphere remains visible
+- Zero lint errors in InteractiveGlobe.tsx
+- Dev server confirms GET / 200 (page compiles successfully)
