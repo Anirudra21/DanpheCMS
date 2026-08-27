@@ -21,6 +21,7 @@ import {
   Navigation,
   UserCog,
   Globe,
+  Earth,
   X,
 } from 'lucide-react';
 import { cn } from '@/lib/cms-utils';
@@ -59,6 +60,7 @@ const navSections = [
       { href: '/admin/stats', label: 'Stats', icon: BarChart3 },
       { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquareQuote },
       { href: '/admin/clients', label: 'Client Logos', icon: Building2 },
+      { href: '/admin/globe-countries', label: 'Globe Countries', icon: Earth },
     ],
   },
   {

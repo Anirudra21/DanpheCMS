@@ -7,7 +7,7 @@ import FeaturesSection from '@/components/danphe/FeaturesSection';
 import OpenSourceSection from '@/components/danphe/OpenSourceSection';
 import TechSection from '@/components/danphe/TechSection';
 import ComparisonSection from '@/components/danphe/ComparisonSection';
-import InternationalSection from '@/components/danphe/InternationalSection';
+import InteractiveGlobe, { type GlobeCountryData } from '@/components/danphe/InteractiveGlobe';
 import TestimonialsSection from '@/components/danphe/TestimonialsSection';
 import TrustedSection from '@/components/danphe/TrustedSection';
 import FAQSection from '@/components/danphe/FAQSection';
@@ -24,13 +24,14 @@ import {
   getTestimonials,
   getClientLogos,
   getSiteSettings,
+  getGlobeCountries,
 } from '@/lib/queries';
 
 /* ------------------------------------------------------------------ */
 /*  Server Component — fetches all homepage data                       */
 /* ------------------------------------------------------------------ */
 export default async function Home() {
-  const [sections, allStats, solutions, testimonials, clientLogos, siteSettings] =
+  const [sections, allStats, solutions, testimonials, clientLogos, siteSettings, globeCountries] =
     await Promise.all([
       getHomepageSections(),
       getStats(),
@@ -38,6 +39,7 @@ export default async function Home() {
       getTestimonials(),
       getClientLogos({ showOnHomepage: true }),
       getSiteSettings(),
+      getGlobeCountries(),
     ]);
 
   /* helper: find a homepage section by key */
@@ -220,9 +222,10 @@ export default async function Home() {
           subheading={tech.subheading}
           features={techFeatures}
         />
-        <InternationalSection
+        <InteractiveGlobe
           heading={international.heading}
           subheading={international.subheading}
+          countries={globeCountries as GlobeCountryData[]}
         />
         <TestimonialsSection
           heading={testimonialsSection.heading}

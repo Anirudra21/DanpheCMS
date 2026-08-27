@@ -745,6 +745,34 @@ Does Imark Digital offer after sales support services for DANPHE HMIS System?|In
   console.log(`  ✅ Created ${homepageSections.length} HomepageSections`);
 
   // ═══════════════════════════════════════════════════════════════════════════════
+  // 10. Globe Countries (Trusted Across Borders) ──────────────────────────
+  // ═══════════════════════════════════════════════════════════════════════════════
+  console.log('\n📌 Seeding GlobeCountries...');
+  const existingGlobeCountries = await db.globeCountry.count();
+  if (existingGlobeCountries > 0) {
+    console.log(`  ⏭️  GlobeCountries already exist (${existingGlobeCountries}), skipping`);
+  } else {
+    const globeCountries = [
+      { countryName: 'Nepal', latitude: 28.3949, longitude: 84.124, hospitalCount: 60, displayLabel: '60+ Hospitals', isHighlighted: true, isActive: true, order: 0 },
+      { countryName: 'India', latitude: 20.5937, longitude: 78.9629, hospitalCount: 15, displayLabel: '15+ Hospitals', isHighlighted: false, isActive: true, order: 1 },
+      { countryName: 'Bangladesh', latitude: 23.685, longitude: 90.3563, hospitalCount: 5, displayLabel: '5+ Hospitals', isHighlighted: false, isActive: true, order: 2 },
+      { countryName: 'Sri Lanka', latitude: 7.8731, longitude: 80.7718, hospitalCount: 3, displayLabel: '3+ Hospitals', isHighlighted: false, isActive: true, order: 3 },
+      { countryName: 'Myanmar', latitude: 21.9162, longitude: 95.956, hospitalCount: 2, displayLabel: '2+ Hospitals', isHighlighted: false, isActive: true, order: 4 },
+      { countryName: 'Kenya', latitude: -0.0236, longitude: 37.9062, hospitalCount: 4, displayLabel: '4+ Hospitals', isHighlighted: false, isActive: true, order: 5 },
+      { countryName: 'Nigeria', latitude: 9.082, longitude: 8.6753, hospitalCount: 3, displayLabel: '3+ Hospitals', isHighlighted: false, isActive: true, order: 6 },
+      { countryName: 'United States', latitude: 37.09, longitude: -95.7129, hospitalCount: 2, displayLabel: '2+ Partners', isHighlighted: false, isActive: true, order: 7 },
+      { countryName: 'United Kingdom', latitude: 55.3781, longitude: -3.436, hospitalCount: 1, displayLabel: '1+ Partner', isHighlighted: false, isActive: true, order: 8 },
+      { countryName: 'Bhutan', latitude: 27.5142, longitude: 90.4336, hospitalCount: 3, displayLabel: '3+ Hospitals', isHighlighted: false, isActive: true, order: 9 },
+      { countryName: 'Ethiopia', latitude: 9.145, longitude: 40.4897, hospitalCount: 2, displayLabel: '2+ Hospitals', isHighlighted: false, isActive: true, order: 10 },
+      { countryName: 'Tanzania', latitude: -6.369, longitude: 34.8888, hospitalCount: 1, displayLabel: '1+ Hospital', isHighlighted: false, isActive: false, order: 11 },
+    ];
+    for (const country of globeCountries) {
+      await db.globeCountry.create({ data: country });
+    }
+    console.log(`  ✅ Created ${globeCountries.length} GlobeCountries`);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════════
   // Done
   // ═══════════════════════════════════════════════════════════════════════════════
   console.log('\n✅ All content seeded successfully!');

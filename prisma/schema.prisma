@@ -280,3 +280,23 @@ model AdminUser {
 
   @@map("admin_users")
 }
+
+// ─── Globe Countries (Trusted Across Borders) ─────────────────────────────
+
+model GlobeCountry {
+  id            String   @id @default(cuid())
+  countryName   String
+  latitude      Float
+  longitude     Float
+  hospitalCount Int      @default(0)
+  displayLabel  String   @default("")   // e.g. "60+ Hospitals"
+  isHighlighted Boolean  @default(false) // Nepal = highlighted
+  isActive      Boolean  @default(true)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([order])
+  @@index([isActive, order])
+  @@map("globe_countries")
+}

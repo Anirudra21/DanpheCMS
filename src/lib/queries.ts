@@ -123,3 +123,12 @@ export async function getJobs(status = 'OPEN') {
 export async function revalidatePublicContent() {
   revalidateTag(REVALIDATE_TAG);
 }
+
+// ─── Globe Countries (Trusted Across Borders) ────────────────────────
+export async function getGlobeCountries() {
+  dynamicQuery();
+  return db.globeCountry.findMany({
+    where: { isActive: true },
+    orderBy: { order: 'asc' },
+  });
+}
