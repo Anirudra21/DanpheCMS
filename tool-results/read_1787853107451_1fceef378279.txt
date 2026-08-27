@@ -1,0 +1,879 @@
+     1→'use client';
+     2→
+     3→import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
+     4→import { motion, useInView, AnimatePresence } from 'framer-motion';
+     5→import { MapPin, Globe as GlobeIcon, X, Building2 } from 'lucide-react';
+     6→import * as THREE from 'three';
+     7→
+     8→/* ═══════════════════════════════════════════════════════════════════════════════
+     9→   Types
+    10→   ═══════════════════════════════════════════════════════════════════════════════ */
+    11→
+    12→export interface GlobeCountryData {
+    13→  id: string;
+    14→  countryName: string;
+    15→  latitude: number;
+    16→  longitude: number;
+    17→  hospitalCount: number;
+    18→  displayLabel: string;
+    19→  isHighlighted: boolean;
+    20→  isActive: boolean;
+    21→  order: number;
+    22→}
+    23→
+    24→interface InteractiveGlobeProps {
+    25→  countries: GlobeCountryData[];
+    26→  heading: string;
+    27→  subheading: string;
+    28→}
+    29→
+    30→/* ═══════════════════════════════════════════════════════════════════════════════
+    31→   Constants
+    32→   ═══════════════════════════════════════════════════════════════════════════════ */
+    33→
+    34→const EARTH_RADIUS = 1;
+    35→const DEFAULT_CAM_Z = 2.8;
+    36→const MIN_CAM_Z = 1.6;
+    37→const MAX_CAM_Z = 5.0;
+    38→const ZOOM_COUNTRY_Z = 1.8;
+    39→const AUTO_SPEED = 0.0008;
+    40→const DRAG_SENS = 0.004;
+    41→const ZOOM_SENS = 0.0006;
+    42→const IDLE_MS = 4000;
+    43→const MOMENTUM_FRICTION = 0.92;
+    44→
+    45→/* ═══════════════════════════════════════════════════════════════════════════════
+    46→   Utility: lat/lng → 3D position on sphere
+    47→   ═══════════════════════════════════════════════════════════════════════════════ */
+    48→
+    49→function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
+    50→  const phi = (90 - lat) * (Math.PI / 180);
+    51→  const theta = (lng + 180) * (Math.PI / 180);
+    52→  return new THREE.Vector3(
+    53→    -radius * Math.sin(phi) * Math.cos(theta),
+    54→    radius * Math.cos(phi),
+    55→    radius * Math.sin(phi) * Math.sin(theta),
+    56→  );
+    57→}
+    58→
+    59→/* ═══════════════════════════════════════════════════════════════════════════════
+    60→   Glow sprite texture
+    61→   ═══════════════════════════════════════════════════════════════════════════════ */
+    62→
+    63→function createGlowTexture(r: number, g: number, b: number, alpha = 0.9): THREE.CanvasTexture {
+    64→  const s = 128;
+    65→  const c = document.createElement('canvas');
+    66→  c.width = s; c.height = s;
+    67→  const ctx = c.getContext('2d')!;
+    68→  const grad = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    69→  grad.addColorStop(0, `rgba(${r},${g},${b},${alpha})`);
+    70→  grad.addColorStop(0.25, `rgba(${r},${g},${b},0.35)`);
+    71→  grad.addColorStop(0.6, `rgba(${r},${g},${b},0.08)`);
+    72→  grad.addColorStop(1, 'rgba(0,0,0,0)');
+    73→  ctx.fillStyle = grad;
+    74→  ctx.fillRect(0, 0, s, s);
+    75→  return new THREE.CanvasTexture(c);
+    76→}
+    77→
+    78→/* ═══════════════════════════════════════════════════════════════════════════════
+    79→   Atmosphere shaders
+    80→   ═══════════════════════════════════════════════════════════════════════════════ */
+    81→
+    82→const ATMO_VS = `
+    83→  varying vec3 vWorldNormal;
+    84→  varying vec3 vViewPos;
+    85→  void main() {
+    86→    vec4 wp = modelMatrix * vec4(position, 1.0);
+    87→    vViewPos = (viewMatrix * wp).xyz;
+    88→    vWorldNormal = normalize(mat3(modelMatrix) * normal);
+    89→    gl_Position = projectionMatrix * viewMatrix * wp;
+    90→  }
+    91→`;
+    92→
+    93→const ATMO_FS = `
+    94→  varying vec3 vWorldNormal;
+    95→  varying vec3 vViewPos;
+    96→  void main() {
+    97→    vec3 viewDir = normalize(-vViewPos);
+    98→    float rim = 1.0 - max(0.0, dot(viewDir, vWorldNormal));
+    99→    float glow = pow(rim, 3.0) * 1.6;
+   100→    gl_FragColor = vec4(0.04, 0.52, 0.48, glow * 0.4);
+   101→  }
+   102→`;
+   103→
+   104→/* ═══════════════════════════════════════════════════════════════════════════════
+   105→   Component
+   106→   ═══════════════════════════════════════════════════════════════════════════════ */
+   107→
+   108→export default function InteractiveGlobe({ countries, heading, subheading }: InteractiveGlobeProps) {
+   109→  const sectionRef = useRef<HTMLDivElement>(null);
+   110→  const containerRef = useRef<HTMLDivElement>(null);
+   111→  const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
+   112→
+   113→  // Three.js refs
+   114→  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+   115→  const sceneRef = useRef<THREE.Scene | null>(null);
+   116→  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+   117→  const earthGroupRef = useRef<THREE.Group | null>(null);
+   118→  const markersGroupRef = useRef<THREE.Group | null>(null);
+   119→  const animRef = useRef(0);
+   120→  const clockRef = useRef(new THREE.Timer());
+   121→  const nepalRingRef = useRef<THREE.Mesh | null>(null);
+   122→  const cleanupFnRef = useRef<(() => void) | null>(null);
+   123→
+   124→  // Interaction refs
+   125→  const isDragRef = useRef(false);
+   126→  const autoRotRef = useRef(true);
+   127→  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+   128→  const prevPtrRef = useRef({ x: 0, y: 0 });
+   129→  const momentumRef = useRef({ x: 0, y: 0 });
+   130→  const targetZoomRef = useRef(DEFAULT_CAM_Z);
+   131→  const zoomingToRef = useRef<string | null>(null);
+   132→  const targetRotYRef = useRef<number | null>(null);
+   133→  const targetRotXRef = useRef<number | null>(null);
+   134→  const isVisibleRef = useRef(true);
+   135→
+   136→  // Raycasting
+   137→  const raycasterRef = useRef(new THREE.Raycaster());
+   138→  const markerMapRef = useRef<Map<number, GlobeCountryData>>(new Map());
+   139→
+   140→  // React state
+   141→  const [tooltip, setTooltip] = useState<{ country: GlobeCountryData; x: number; y: number } | null>(null);
+   142→  const [containerW, setContainerW] = useState(400);
+   143→  const [zoomedCountry, setZoomedCountry] = useState<GlobeCountryData | null>(null);
+   144→  const [globeReady, setGlobeReady] = useState(false);
+   145→
+   146→  // Computed data
+   147→  const activeCountries = useMemo(() => countries.filter((c) => c.isActive), [countries]);
+   148→  const totalHospitals = useMemo(() => activeCountries.reduce((s, c) => s + c.hospitalCount, 0), [activeCountries]);
+   149→  const nepalData = useMemo(() => countries.find((c) => c.isHighlighted) || null, [countries]);
+   150→
+   151→  // ─── Three.js scene setup — runs once on mount ──────────────────
+   152→  useEffect(() => {
+   153→    const container = containerRef.current;
+   154→    if (!container) return;
+   155→
+   156→    // WebGL support check
+   157→    let hasWebGL = false;
+   158→    try {
+   159→      const c = document.createElement('canvas');
+   160→      hasWebGL = !!(c.getContext('webgl2') || c.getContext('webgl'));
+   161→    } catch { /* no webgl */ }
+   162→    if (!hasWebGL) return;
+   163→
+   164→    // Defer to next frame so layout has settled
+   165→    let rafId = 0;
+   166→    let destroyed = false;
+   167→
+   168→    const tryInit = () => {
+   169→      if (destroyed) return;
+   170→      const w = container.clientWidth;
+   171→      const h = container.clientHeight;
+   172→      if (w < 10 || h < 10) { rafId = requestAnimationFrame(tryInit); return; }
+   173→      init(w, h);
+   174→    };
+   175→    rafId = requestAnimationFrame(tryInit);
+   176→
+   177→    function init(w: number, h: number) {
+   178→      if (destroyed) return;
+   179→      setContainerW(w);
+   180→
+   181→      const scene = new THREE.Scene();
+   182→      sceneRef.current = scene;
+   183→
+   184→      const camera = new THREE.PerspectiveCamera(38, w / h, 0.1, 100);
+   185→      camera.position.set(0, 0.15, DEFAULT_CAM_Z);
+   186→      cameraRef.current = camera;
+   187→
+   188→      const renderer = new THREE.WebGLRenderer({
+   189→        antialias: true,
+   190→        alpha: true,
+   191→        powerPreference: 'high-performance',
+   192→      });
+   193→      renderer.setSize(w, h);
+   194→      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+   195→      renderer.setClearColor(0x000000, 0);
+   196→      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+   197→      renderer.toneMappingExposure = 1.1;
+   198→      container.appendChild(renderer.domElement);
+   199→      rendererRef.current = renderer;
+   200→
+   201→      // Lights
+   202→      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+   203→      const sun = new THREE.DirectionalLight(0xfff5e6, 1.2);
+   204→      sun.position.set(5, 3, 5);
+   205→      scene.add(sun);
+   206→      const fill = new THREE.DirectionalLight(0x8ecae6, 0.35);
+   207→      fill.position.set(-4, -1, -3);
+   208→      scene.add(fill);
+   209→      const rimLight = new THREE.DirectionalLight(0x0d9488, 0.15);
+   210→      rimLight.position.set(-3, 2, -5);
+   211→      scene.add(rimLight);
+   212→
+   213→      // Earth group
+   214→      const earthGroup = new THREE.Group();
+   215→      earthGroup.rotation.x = 0.25;
+   216→      earthGroup.rotation.y = -0.5;
+   217→      scene.add(earthGroup);
+   218→      earthGroupRef.current = earthGroup;
+   219→
+   220→      // ── IMMEDIATE visible Earth sphere (placeholder until textures load) ──
+   221→      const earthGeom = new THREE.SphereGeometry(EARTH_RADIUS, 96, 64);
+   222→      const placeholderMat = new THREE.MeshPhongMaterial({
+   223→        color: 0x1a5276,
+   224→        emissive: 0x0a2a3d,
+   225→        shininess: 15,
+   226→      });
+   227→      const earthMesh = new THREE.Mesh(earthGeom, placeholderMat);
+   228→      earthGroup.add(earthMesh);
+   229→
+   230→      // Atmosphere (back-face glow)
+   231→      const atmosGeom = new THREE.SphereGeometry(EARTH_RADIUS * 1.025, 64, 48);
+   232→      const atmosMat = new THREE.ShaderMaterial({
+   233→        vertexShader: ATMO_VS,
+   234→        fragmentShader: ATMO_FS,
+   235→        transparent: true,
+   236→        side: THREE.BackSide,
+   237→        depthWrite: false,
+   238→      });
+   239→      scene.add(new THREE.Mesh(atmosGeom, atmosMat));
+   240→
+   241→      // Inner glow
+   242→      const innerGlowGeom = new THREE.SphereGeometry(EARTH_RADIUS * 1.005, 64, 48);
+   243→      const innerGlowMat = new THREE.ShaderMaterial({
+   244→        vertexShader: ATMO_VS,
+   245→        fragmentShader: `
+   246→          varying vec3 vWorldNormal;
+   247→          varying vec3 vViewPos;
+   248→          void main() {
+   249→            vec3 viewDir = normalize(-vViewPos);
+   250→            float rim = 1.0 - max(0.0, dot(viewDir, vWorldNormal));
+   251→            float glow = pow(rim, 5.0) * 0.6;
+   252→            gl_FragColor = vec4(0.05, 0.58, 0.53, glow * 0.25);
+   253→          }
+   254→        `,
+   255→        transparent: true,
+   256→        side: THREE.FrontSide,
+   257→        depthWrite: false,
+   258→      });
+   259→      scene.add(new THREE.Mesh(innerGlowGeom, innerGlowMat));
+   260→
+   261→      // Markers group
+   262→      const markersGroup = new THREE.Group();
+   263→      earthGroup.add(markersGroup);
+   264→      markersGroupRef.current = markersGroup;
+   265→
+   266→      // Stars
+   267→      const starsGeom = new THREE.BufferGeometry();
+   268→      const starPos = new Float32Array(200 * 3);
+   269→      for (let i = 0; i < 200; i++) {
+   270→        const t = Math.random() * Math.PI * 2;
+   271→        const p = Math.acos(2 * Math.random() - 1);
+   272→        const r = 8 + Math.random() * 6;
+   273→        starPos[i * 3] = r * Math.sin(p) * Math.cos(t);
+   274→        starPos[i * 3 + 1] = r * Math.sin(p) * Math.sin(t);
+   275→        starPos[i * 3 + 2] = r * Math.cos(p);
+   276→      }
+   277→      starsGeom.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+   278→      const starsMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.03, transparent: true, opacity: 0.3 });
+   279→      scene.add(new THREE.Points(starsGeom, starsMat));
+   280→
+   281→      // ── Load textures and upgrade material ──
+   282→      const loader = new THREE.TextureLoader();
+   283→
+   284→      const upgradeEarth = (colorMap: THREE.Texture, bumpMap: THREE.Texture | null) => {
+   285→        if (destroyed) return;
+   286→        colorMap.colorSpace = THREE.SRGBColorSpace;
+   287→        colorMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
+   288→        if (bumpMap) bumpMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
+   289→        const realMat = new THREE.MeshStandardMaterial({
+   290→          map: colorMap,
+   291→          bumpMap: bumpMap || undefined,
+   292→          bumpScale: 0.015,
+   293→          roughness: 0.75,
+   294→          metalness: 0.05,
+   295→        });
+   296→        earthMesh.material = realMat;
+   297→        placeholderMat.dispose();
+   298→        setGlobeReady(true);
+   299→      };
+   300→
+   301→      // Try HD texture, fall back to SD, then keep placeholder
+   302→      loader.load(
+   303→        '/textures/earth-day-hd.jpg',
+   304→        (tex) => {
+   305→          loader.load(
+   306→            '/textures/earth-topology.png',
+   307→            (bump) => upgradeEarth(tex, bump),
+   308→            undefined,
+   309→            () => upgradeEarth(tex, null),
+   310→          );
+   311→        },
+   312→        undefined,
+   313→        () => {
+   314→          loader.load(
+   315→            '/textures/earth-day.jpg',
+   316→            (tex) => upgradeEarth(tex, null),
+   317→            undefined,
+   318→            () => setGlobeReady(true),
+   319→          );
+   320→        },
+   321→      );
+   322→
+   323→      // ── Animation loop ──
+   324→      const clock = clockRef.current;
+   325→
+   326→      const animate = () => {
+   327→        animRef.current = requestAnimationFrame(animate);
+   328→        if (!isVisibleRef.current) return;
+   329→
+   330→        clock.update();
+   331→        const elapsed = clock.getElapsed();
+   332→        const group = earthGroupRef.current;
+   333→        const cam = cameraRef.current;
+   334→        const ren = rendererRef.current;
+   335→        const mg = markersGroupRef.current;
+   336→        if (!group || !cam || !ren) return;
+   337→
+   338→        // Auto-rotate
+   339→        if (autoRotRef.current && !isDragRef.current && !zoomingToRef.current) {
+   340→          group.rotation.y += AUTO_SPEED;
+   341→        }
+   342→
+   343→        // Momentum
+   344→        if (!isDragRef.current && !autoRotRef.current && !zoomingToRef.current) {
+   345→          const m = momentumRef.current;
+   346→          if (Math.abs(m.x) > 0.0001 || Math.abs(m.y) > 0.0001) {
+   347→            group.rotation.y += m.x;
+   348→            group.rotation.x = Math.max(-0.8, Math.min(0.8, group.rotation.x + m.y));
+   349→            m.x *= MOMENTUM_FRICTION;
+   350→            m.y *= MOMENTUM_FRICTION;
+   351→          }
+   352→        }
+   353→
+   354→        // Smooth zoom
+   355→        cam.position.z += (targetZoomRef.current - cam.position.z) * 0.05;
+   356→        cam.position.y += (0.15 - cam.position.y) * 0.05;
+   357→
+   358→        // Zoom-to-country
+   359→        if (zoomingToRef.current && targetRotYRef.current !== null) {
+   360→          let diff = targetRotYRef.current - group.rotation.y;
+   361→          while (diff > Math.PI) diff -= Math.PI * 2;
+   362→          while (diff < -Math.PI) diff += Math.PI * 2;
+   363→          group.rotation.y += diff * 0.04;
+   364→          if (targetRotXRef.current !== null) {
+   365→            group.rotation.x += (targetRotXRef.current - group.rotation.x) * 0.04;
+   366→          }
+   367→        }
+   368→
+   369→        // Nepal pulse
+   370→        const ring = nepalRingRef.current;
+   371→        if (ring) {
+   372→          const s = 1 + 0.6 * Math.sin(elapsed * 2);
+   373→          ring.scale.set(s, s, s);
+   374→          (ring.material as THREE.MeshBasicMaterial).opacity = 0.5 * (1 - (s - 1) / 0.6);
+   375→        }
+   376→
+   377→        // Marker orientation & visibility
+   378→        if (mg) {
+   379→          const camWP = cam.position.clone();
+   380→          for (let i = 0; i < mg.children.length; i++) {
+   381→            const child = mg.children[i];
+   382→            if (child.userData.isRing || child.userData.isGlow) continue;
+   383→            const surfPos = child.position.clone().normalize();
+   384→            const quat = new THREE.Quaternion().setFromUnitVectors(
+   385→              new THREE.Vector3(0, 1, 0), surfPos,
+   386→            );
+   387→            child.quaternion.copy(quat);
+   388→            const wPos = new THREE.Vector3();
+   389→            child.getWorldPosition(wPos);
+   390→            const toCam = camWP.clone().sub(wPos).normalize();
+   391→            const normal = wPos.clone().normalize();
+   392→            child.visible = toCam.dot(normal) > -0.1;
+   393→          }
+   394→        }
+   395→
+   396→        ren.render(scene, sceneRef.current!);
+   397→      };
+   398→
+   399→      animRef.current = requestAnimationFrame(animate);
+   400→
+   401→      // IntersectionObserver
+   402→      const observer = new IntersectionObserver(
+   403→        (entries) => { isVisibleRef.current = entries[0]?.isIntersecting ?? true; },
+   404→        { threshold: 0.05 },
+   405→      );
+   406→      observer.observe(container);
+   407→
+   408→      // Resize
+   409→      const onResize = () => {
+   410→        const cw = container.clientWidth;
+   411→        const ch = container.clientHeight;
+   412→        if (cw < 10 || ch < 10) return;
+   413→        camera.aspect = cw / ch;
+   414→        camera.updateProjectionMatrix();
+   415→        renderer.setSize(cw, ch);
+   416→        setContainerW(cw);
+   417→      };
+   418→      window.addEventListener('resize', onResize);
+   419→
+   420→      // Cleanup
+   421→      cleanupFnRef.current = () => {
+   422→        cancelAnimationFrame(animRef.current);
+   423→        window.removeEventListener('resize', onResize);
+   424→        observer.disconnect();
+   425→        if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+   426→        earthGeom.dispose();
+   427→        atmosGeom.dispose();
+   428→        atmosMat.dispose();
+   429→        innerGlowGeom.dispose();
+   430→        innerGlowMat.dispose();
+   431→        starsGeom.dispose();
+   432→        starsMat.dispose();
+   433→        renderer.dispose();
+   434→        if (container.contains(renderer.domElement)) {
+   435→          container.removeChild(renderer.domElement);
+   436→        }
+   437→      };
+   438→    }
+   439→
+   440→    return () => {
+   441→      destroyed = true;
+   442→      cancelAnimationFrame(rafId);
+   443→      cleanupFnRef.current?.();
+   444→    };
+   445→  }, []);
+   446→
+   447→  // ─── Cleanup on unmount ───────────────────────────────────────────────
+   448→  useEffect(() => {
+   449→    return () => { cleanupFnRef.current?.(); };
+   450→  }, []);
+   451→
+   452→  // ─── Update markers when countries change ────────────────────────────
+   453→  useEffect(() => {
+   454→    const mg = markersGroupRef.current;
+   455→    if (!mg) return;
+   456→
+   457→    // Dispose old
+   458→    while (mg.children.length) {
+   459→      const c = mg.children[0];
+   460→      mg.remove(c);
+   461→      c.traverse((obj) => {
+   462→        if ((obj as THREE.Mesh).geometry) (obj as THREE.Mesh).geometry.dispose();
+   463→        if ((obj as THREE.Mesh).material) {
+   464→          const mat = (obj as THREE.Mesh).material;
+   465→          if (mat instanceof THREE.SpriteMaterial) mat.map?.dispose();
+   466→          mat.dispose();
+   467→        }
+   468→      });
+   469→    }
+   470→    markerMapRef.current.clear();
+   471→    nepalRingRef.current = null;
+   472→
+   473→    const hlGlow = createGlowTexture(7, 194, 188);
+   474→    const normalGlow = createGlowTexture(13, 148, 136, 0.7);
+   475→
+   476→    for (const country of activeCountries) {
+   477→      const pos = latLngToVec3(country.latitude, country.longitude, EARTH_RADIUS * 1.006);
+   478→      const isHL = country.isHighlighted;
+   479→
+   480→      // Marker pin (cylinder stem + sphere head)
+   481→      const pin = new THREE.Group();
+   482→      const pinH = isHL ? 0.06 : 0.04;
+   483→      const headR = isHL ? 0.018 : 0.012;
+   484→      const stemGeom = new THREE.CylinderGeometry(0.003, 0.005, pinH, 8);
+   485→      const stemMat = new THREE.MeshBasicMaterial({ color: isHL ? 0x07c2b8 : 0x0d9488, transparent: true, opacity: 0.9 });
+   486→      const stem = new THREE.Mesh(stemGeom, stemMat);
+   487→      stem.position.y = pinH / 2;
+   488→      pin.add(stem);
+   489→
+   490→      const headGeom = new THREE.SphereGeometry(headR, 12, 12);
+   491→      const headMat = new THREE.MeshBasicMaterial({ color: isHL ? 0x07c2b8 : 0x0d9488 });
+   492→      const head = new THREE.Mesh(headGeom, headMat);
+   493→      head.position.y = pinH + headR * 0.3;
+   494→      pin.add(head);
+   495→
+   496→      pin.position.copy(pos);
+   497→      pin.userData.isMarker = true;
+   498→      mg.add(pin);
+   499→      markerMapRef.current.set(head.id, country);
+   500→
+   501→      // Glow sprite
+   502→      const spriteMat = new THREE.SpriteMaterial({
+   503→        map: isHL ? hlGlow : normalGlow,
+   504→        transparent: true,
+   505→        depthWrite: false,
+   506→        blending: THREE.AdditiveBlending,
+   507→      });
+   508→      const sprite = new THREE.Sprite(spriteMat);
+   509→      sprite.position.copy(pos);
+   510→      sprite.position.y += pinH + headR * 0.5;
+   511→      sprite.scale.set(isHL ? 0.12 : 0.08, isHL ? 0.12 : 0.08, 1);
+   512→      sprite.userData.isGlow = true;
+   513→      mg.add(sprite);
+   514→
+   515→      // Pulse ring for highlighted (Nepal)
+   516→      if (isHL) {
+   517→        const ringGeom = new THREE.RingGeometry(0.03, 0.038, 32);
+   518→        const ringMat = new THREE.MeshBasicMaterial({
+   519→          color: '#07c2b8', transparent: true, opacity: 0.5,
+   520→          side: THREE.DoubleSide, depthWrite: false,
+   521→        });
+   522→        const ring = new THREE.Mesh(ringGeom, ringMat);
+   523→        ring.position.copy(pos);
+   524→        ring.lookAt(pos.clone().multiplyScalar(2));
+   525→        ring.userData.isRing = true;
+   526→        mg.add(ring);
+   527→        nepalRingRef.current = ring;
+   528→      }
+   529→    }
+   530→  }, [activeCountries]);
+   531→
+   532→  // ─── Pointer interaction handlers ────────────────────────────────────
+   533→  useEffect(() => {
+   534→    const el = containerRef.current;
+   535→    if (!el) return;
+   536→
+   537→    let dragDistance = 0;
+   538→
+   539→    const onDown = (e: PointerEvent) => {
+   540→      isDragRef.current = true;
+   541→      autoRotRef.current = false;
+   542→      dragDistance = 0;
+   543→      prevPtrRef.current = { x: e.clientX, y: e.clientY };
+   544→      momentumRef.current = { x: 0, y: 0 };
+   545→      el.setPointerCapture(e.pointerId);
+   546→      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+   547→      if (zoomingToRef.current) {
+   548→        zoomingToRef.current = null;
+   549→        targetRotYRef.current = null;
+   550→        targetRotXRef.current = null;
+   551→        targetZoomRef.current = DEFAULT_CAM_Z;
+   552→        setZoomedCountry(null);
+   553→      }
+   554→    };
+   555→
+   556→    const onMove = (e: PointerEvent) => {
+   557→      if (isDragRef.current) {
+   558→        const dx = e.clientX - prevPtrRef.current.x;
+   559→        const dy = e.clientY - prevPtrRef.current.y;
+   560→        dragDistance += Math.abs(dx) + Math.abs(dy);
+   561→        const g = earthGroupRef.current;
+   562→        if (g) {
+   563→          g.rotation.y += dx * DRAG_SENS;
+   564→          g.rotation.x = Math.max(-0.8, Math.min(0.8, g.rotation.x + dy * DRAG_SENS));
+   565→          momentumRef.current = { x: dx * DRAG_SENS * 0.5, y: dy * DRAG_SENS * 0.3 };
+   566→        }
+   567→        prevPtrRef.current = { x: e.clientX, y: e.clientY };
+   568→        setTooltip(null);
+   569→        el.style.cursor = 'grabbing';
+   570→        return;
+   571→      }
+   572→
+   573→      // Hover detection
+   574→      const rect = el.getBoundingClientRect();
+   575→      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+   576→      const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+   577→      const cam = cameraRef.current;
+   578→      const mg = markersGroupRef.current;
+   579→      if (!cam || !mg) return;
+   580→
+   581→      raycasterRef.current.setFromCamera(new THREE.Vector2(nx, ny), cam);
+   582→      const meshes: THREE.Object3D[] = [];
+   583→      for (const marker of mg.children) {
+   584→        if (!marker.userData.isMarker || !marker.visible) continue;
+   585→        marker.traverse((child) => { if ((child as THREE.Mesh).isMesh) meshes.push(child); });
+   586→      }
+   587→      const hits = raycasterRef.current.intersectObjects(meshes, false);
+   588→
+   589→      if (hits.length > 0) {
+   590→        let obj: THREE.Object3D | null = hits[0].object;
+   591→        while (obj && !obj.userData.isMarker) obj = obj.parent;
+   592→        if (obj) {
+   593→          const headMesh = obj.children[1] as THREE.Mesh;
+   594→          const country = markerMapRef.current.get(headMesh.id);
+   595→          if (country) {
+   596→            setTooltip({ country, x: e.clientX - rect.left, y: e.clientY - rect.top });
+   597→            el.style.cursor = 'pointer';
+   598→            return;
+   599→          }
+   600→        }
+   601→      }
+   602→      setTooltip(null);
+   603→      el.style.cursor = 'grab';
+   604→    };
+   605→
+   606→    const onUp = () => {
+   607→      isDragRef.current = false;
+   608→      el.style.cursor = 'grab';
+   609→      idleTimerRef.current = setTimeout(() => { autoRotRef.current = true; }, IDLE_MS);
+   610→    };
+   611→
+   612→    const onWheel = (e: WheelEvent) => {
+   613→      e.preventDefault();
+   614→      targetZoomRef.current = Math.max(MIN_CAM_Z, Math.min(MAX_CAM_Z, targetZoomRef.current + e.deltaY * ZOOM_SENS));
+   615→    };
+   616→
+   617→    const onClick = (e: MouseEvent) => {
+   618→      if (dragDistance > 8) return;
+   619→      const rect = el.getBoundingClientRect();
+   620→      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+   621→      const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+   622→      const cam = cameraRef.current;
+   623→      const mg = markersGroupRef.current;
+   624→      if (!cam || !mg) return;
+   625→
+   626→      raycasterRef.current.setFromCamera(new THREE.Vector2(nx, ny), cam);
+   627→      const meshes: THREE.Object3D[] = [];
+   628→      for (const marker of mg.children) {
+   629→        if (!marker.userData.isMarker || !marker.visible) continue;
+   630→        marker.traverse((child) => { if ((child as THREE.Mesh).isMesh) meshes.push(child); });
+   631→      }
+   632→      const hits = raycasterRef.current.intersectObjects(meshes, false);
+   633→
+   634→      if (hits.length > 0) {
+   635→        let obj: THREE.Object3D | null = hits[0].object;
+   636→        while (obj && !obj.userData.isMarker) obj = obj.parent;
+   637→        if (obj) {
+   638→          const headMesh = obj.children[1] as THREE.Mesh;
+   639→          const country = markerMapRef.current.get(headMesh.id);
+   640→          if (!country) return;
+   641→          const targetY = -country.longitude * (Math.PI / 180);
+   642→          const targetX = country.latitude * (Math.PI / 180) * -0.4;
+   643→          targetRotYRef.current = targetY;
+   644→          targetRotXRef.current = targetX;
+   645→          targetZoomRef.current = country.isHighlighted ? ZOOM_COUNTRY_Z : ZOOM_COUNTRY_Z + 0.2;
+   646→          zoomingToRef.current = country.id;
+   647→          setZoomedCountry(country);
+   648→          setTooltip(null);
+   649→        }
+   650→      }
+   651→    };
+   652→
+   653→    // Touch pinch zoom
+   654→    let lastPinchDist = 0;
+   655→    const onTouchStart = (e: TouchEvent) => {
+   656→      if (e.touches.length === 2) {
+   657→        const dx = e.touches[0].clientX - e.touches[1].clientX;
+   658→        const dy = e.touches[0].clientY - e.touches[1].clientY;
+   659→        lastPinchDist = Math.sqrt(dx * dx + dy * dy);
+   660→      }
+   661→    };
+   662→    const onTouchMove = (e: TouchEvent) => {
+   663→      if (e.touches.length === 2) {
+   664→        const dx = e.touches[0].clientX - e.touches[1].clientX;
+   665→        const dy = e.touches[0].clientY - e.touches[1].clientY;
+   666→        const dist = Math.sqrt(dx * dx + dy * dy);
+   667→        const delta = lastPinchDist - dist;
+   668→        targetZoomRef.current = Math.max(MIN_CAM_Z, Math.min(MAX_CAM_Z, targetZoomRef.current + delta * 0.005));
+   669→        lastPinchDist = dist;
+   670→      }
+   671→    };
+   672→
+   673→    el.addEventListener('pointerdown', onDown);
+   674→    el.addEventListener('pointermove', onMove);
+   675→    el.addEventListener('pointerup', onUp);
+   676→    el.addEventListener('pointerleave', onUp);
+   677→    el.addEventListener('wheel', onWheel, { passive: false });
+   678→    el.addEventListener('click', onClick);
+   679→    el.addEventListener('touchstart', onTouchStart, { passive: true });
+   680→    el.addEventListener('touchmove', onTouchMove, { passive: true });
+   681→
+   682→    return () => {
+   683→      el.removeEventListener('pointerdown', onDown);
+   684→      el.removeEventListener('pointermove', onMove);
+   685→      el.removeEventListener('pointerup', onUp);
+   686→      el.removeEventListener('pointerleave', onUp);
+   687→      el.removeEventListener('wheel', onWheel);
+   688→      el.removeEventListener('click', onClick);
+   689→      el.removeEventListener('touchstart', onTouchStart);
+   690→      el.removeEventListener('touchmove', onTouchMove);
+   691→      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+   692→    };
+   693→  }, []);
+   694→
+   695→  // ─── Zoom out handler ────────────────────────────────────────────────
+   696→  const handleZoomOut = useCallback(() => {
+   697→    zoomingToRef.current = null;
+   698→    targetRotYRef.current = null;
+   699→    targetRotXRef.current = null;
+   700→    targetZoomRef.current = DEFAULT_CAM_Z;
+   701→    setZoomedCountry(null);
+   702→  }, []);
+   703→
+   704→  // ─── Render ───────────────────────────────────────────────────────────
+   705→  return (
+   706→    <section
+   707→      ref={sectionRef}
+   708→      className="relative overflow-hidden bg-white py-16 md:py-24"
+   709→      aria-label="Trusted Across Borders"
+   710→    >
+   711→      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-50/50 via-transparent to-slate-50/50" />
+   712→
+   713→      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+   714→        {/* Heading */}
+   715→        <motion.div
+   716→          initial={{ opacity: 0, y: 16 }}
+   717→          animate={isInView ? { opacity: 1, y: 0 } : {}}
+   718→          transition={{ duration: 0.5 }}
+   719→          className="mb-10 text-center"
+   720→        >
+   721→          <h2 className="font-heading mb-3 text-2xl font-bold text-danphe-primary sm:text-3xl md:text-4xl">
+   722→            {heading}
+   723→          </h2>
+   724→          <p className="mx-auto max-w-2xl text-sm text-danphe-text sm:text-base">
+   725→            {subheading}
+   726→          </p>
+   727→        </motion.div>
+   728→
+   729→        <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-10">
+   730→          {/* Left: Statistics */}
+   731→          <motion.div
+   732→            initial={{ opacity: 0, x: -20 }}
+   733→            animate={isInView ? { opacity: 1, x: 0 } : {}}
+   734→            transition={{ duration: 0.5, delay: 0.1 }}
+   735→            className="flex w-full flex-col gap-4 lg:w-[380px] xl:w-[420px] lg:shrink-0"
+   736→          >
+   737→            {nepalData && (
+   738→              <div className="glass rounded-2xl border border-danphe-accent/10 p-5 shadow-premium">
+   739→                <div className="mb-3 flex items-center gap-3">
+   740→                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-danphe-accent/10">
+   741→                    <MapPin className="h-5 w-5 text-danphe-accent" />
+   742→                  </div>
+   743→                  <div>
+   744→                    <h3 className="font-heading text-base font-semibold text-danphe-primary">{nepalData.countryName}</h3>
+   745→                    <p className="text-[11px] font-medium text-danphe-accent">Headquarters</p>
+   746→                  </div>
+   747→                </div>
+   748→                <p className="font-heading text-2xl font-bold text-danphe-primary">
+   749→                  {nepalData.displayLabel || `${nepalData.hospitalCount}+`}
+   750→                </p>
+   751→                <p className="mt-1 text-[11px] text-danphe-text/50">Hospitals &amp; Health Institutions</p>
+   752→              </div>
+   753→            )}
+   754→
+   755→            <div className="glass rounded-2xl p-5 shadow-premium">
+   756→              <div className="mb-3 flex items-center gap-3">
+   757→                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-danphe-accent/10">
+   758→                  <GlobeIcon className="h-5 w-5 text-danphe-accent" />
+   759→                </div>
+   760→                <h3 className="font-heading text-base font-semibold text-danphe-primary">Global Reach</h3>
+   761→              </div>
+   762→              <div className="grid grid-cols-2 gap-3">
+   763→                <div>
+   764→                  <p className="font-heading text-2xl font-bold text-danphe-primary">{activeCountries.length}+</p>
+   765→                  <p className="text-[11px] text-danphe-text/70">Countries Served</p>
+   766→                </div>
+   767→                <div>
+   768→                  <p className="font-heading text-2xl font-bold text-danphe-primary">{totalHospitals}+</p>
+   769→                  <p className="text-[11px] text-danphe-text/70">Hospitals &amp; Partners</p>
+   770→                </div>
+   771→              </div>
+   772→            </div>
+   773→
+   774→            <div className="glass rounded-2xl p-4 shadow-premium">
+   775→              <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-danphe-text/40">Active Regions</p>
+   776→              <div className="max-h-44 space-y-2 overflow-y-auto pr-1">
+   777→                {activeCountries
+   778→                  .sort((a, b) => b.hospitalCount - a.hospitalCount)
+   779→                  .map((c) => (
+   780→                    <div key={c.id} className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-colors hover:bg-danphe-accent/5">
+   781→                      <div className="flex items-center gap-2.5">
+   782→                        <span className={`h-2 w-2 rounded-full ${c.isHighlighted ? 'bg-danphe-accent shadow-[0_0_8px_rgba(13,148,136,0.6)]' : 'bg-danphe-accent/40'}`} />
+   783→                        <span className="text-[13px] font-medium text-danphe-text">{c.countryName}</span>
+   784→                      </div>
+   785→                      <span className="text-[11px] font-semibold text-danphe-primary/80">
+   786→                        {c.displayLabel || `${c.hospitalCount}+`}
+   787→                      </span>
+   788→                    </div>
+   789→                  ))}
+   790→              </div>
+   791→            </div>
+   792→
+   793→            <p className="hidden text-[11px] text-danphe-text/30 lg:block">
+   794→              Drag to rotate · Scroll to zoom · Click markers for details
+   795→            </p>
+   796→          </motion.div>
+   797→
+   798→          {/* Right: 3D Globe */}
+   799→          <motion.div
+   800→            initial={{ opacity: 0, scale: 0.95 }}
+   801→            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+   802→            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+   803→            className="flex flex-1 items-center justify-center"
+   804→          >
+   805→            <div
+   806→              ref={containerRef}
+   807→              className="relative h-[300px] w-full max-w-[460px] sm:h-[360px] md:h-[420px] lg:h-[460px]"
+   808→              style={{ cursor: 'grab' }}
+   809→            >
+   810→              {/* Loading indicator */}
+   811→              {!globeReady && (
+   812→                <div className="pointer-events-none absolute bottom-3 left-3 z-20 flex items-center gap-1.5">
+   813→                  <div className="h-3 w-3 animate-spin rounded-full border border-danphe-accent/30 border-t-danphe-accent" />
+   814→                  <span className="text-[10px] text-danphe-text/30">Loading...</span>
+   815→                </div>
+   816→              )}
+   817→
+   818→              {/* Tooltip */}
+   819→              <AnimatePresence>
+   820→                {tooltip && !zoomedCountry && (
+   821→                  <motion.div
+   822→                    initial={{ opacity: 0, scale: 0.9, y: 4 }}
+   823→                    animate={{ opacity: 1, scale: 1, y: 0 }}
+   824→                    exit={{ opacity: 0, scale: 0.9, y: 4 }}
+   825→                    transition={{ duration: 0.15 }}
+   826→                    className="pointer-events-none absolute z-20 rounded-xl border border-white/10 bg-slate-900/90 px-3.5 py-2.5 shadow-xl backdrop-blur-sm"
+   827→                    style={{
+   828→                      left: Math.min(Math.max(tooltip.x + 14, 8), containerW - 170),
+   829→                      top: tooltip.y - 56,
+   830→                    }}
+   831→                  >
+   832→                    <p className="text-xs font-semibold text-white">{tooltip.country.countryName}</p>
+   833→                    <p className="mt-0.5 text-[11px] font-medium text-danphe-accent">
+   834→                      {tooltip.country.displayLabel || `${tooltip.country.hospitalCount}+ Hospitals`}
+   835→                    </p>
+   836→                  </motion.div>
+   837→                )}
+   838→              </AnimatePresence>
+   839→
+   840→              {/* Country info panel (zoomed) */}
+   841→              <AnimatePresence>
+   842→                {zoomedCountry && (
+   843→                  <motion.div
+   844→                    initial={{ opacity: 0, y: 16, scale: 0.95 }}
+   845→                    animate={{ opacity: 1, y: 0, scale: 1 }}
+   846→                    exit={{ opacity: 0, y: 16, scale: 0.95 }}
+   847→                    transition={{ duration: 0.25, ease: 'easeOut' }}
+   848→                    className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between gap-3 rounded-xl border border-danphe-accent/15 bg-slate-900/85 px-4 py-3.5 shadow-2xl backdrop-blur-md sm:left-auto sm:right-4 sm:w-auto sm:min-w-[240px]"
+   849→                  >
+   850→                    <div className="min-w-0">
+   851→                      <div className="flex items-center gap-2">
+   852→                        <Building2 className="h-3.5 w-3.5 shrink-0 text-danphe-accent" />
+   853→                        <p className="truncate text-[11px] font-semibold text-danphe-accent">
+   854→                          {zoomedCountry.isHighlighted ? 'Headquarters' : 'Danphe HMIS Presence'}
+   855→                        </p>
+   856→                      </div>
+   857→                      <p className="mt-1 text-base font-bold text-white">{zoomedCountry.countryName}</p>
+   858→                      <p className="mt-0.5 text-sm font-medium text-white/80">
+   859→                        {zoomedCountry.displayLabel || `${zoomedCountry.hospitalCount}+ Hospitals`}
+   860→                      </p>
+   861→                    </div>
+   862→                    <button
+   863→                      onClick={handleZoomOut}
+   864→                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 text-white/60 transition-all hover:bg-white/20 hover:text-white"
+   865→                      aria-label="Zoom out"
+   866→                    >
+   867→                      <X className="h-4 w-4" />
+   868→                    </button>
+   869→                  </motion.div>
+   870→                )}
+   871→              </AnimatePresence>
+   872→            </div>
+   873→          </motion.div>
+   874→        </div>
+   875→      </div>
+   876→    </section>
+   877→  );
+   878→}
+   879→

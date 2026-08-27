@@ -28,22 +28,7 @@ interface InteractiveGlobeProps {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   Constants
-   ═══════════════════════════════════════════════════════════════════════════════ */
-
-const EARTH_RADIUS = 1;
-const DEFAULT_CAM_Z = 2.8;
-const MIN_CAM_Z = 1.6;
-const MAX_CAM_Z = 5.0;
-const ZOOM_COUNTRY_Z = 1.8;
-const AUTO_SPEED = 0.0008;
-const DRAG_SENS = 0.004;
-const ZOOM_SENS = 0.0006;
-const IDLE_MS = 4000;
-const MOMENTUM_FRICTION = 0.92;
-
-/* ═══════════════════════════════════════════════════════════════════════════════
-   Utility: lat/lng → 3D position on sphere
+   Utility
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
@@ -57,541 +42,442 @@ function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   Glow sprite texture
-   ═══════════════════════════════════════════════════════════════════════════════ */
-
-function createGlowTexture(r: number, g: number, b: number, alpha = 0.9): THREE.CanvasTexture {
-  const s = 128;
-  const c = document.createElement('canvas');
-  c.width = s; c.height = s;
-  const ctx = c.getContext('2d')!;
-  const grad = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-  grad.addColorStop(0, `rgba(${r},${g},${b},${alpha})`);
-  grad.addColorStop(0.25, `rgba(${r},${g},${b},0.35)`);
-  grad.addColorStop(0.6, `rgba(${r},${g},${b},0.08)`);
-  grad.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, s, s);
-  return new THREE.CanvasTexture(c);
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════════
-   Atmosphere shaders
-   ═══════════════════════════════════════════════════════════════════════════════ */
-
-const ATMO_VS = `
-  varying vec3 vWorldNormal;
-  varying vec3 vViewPos;
-  void main() {
-    vec4 wp = modelMatrix * vec4(position, 1.0);
-    vViewPos = (viewMatrix * wp).xyz;
-    vWorldNormal = normalize(mat3(modelMatrix) * normal);
-    gl_Position = projectionMatrix * viewMatrix * wp;
-  }
-`;
-
-const ATMO_FS = `
-  varying vec3 vWorldNormal;
-  varying vec3 vViewPos;
-  void main() {
-    vec3 viewDir = normalize(-vViewPos);
-    float rim = 1.0 - max(0.0, dot(viewDir, vWorldNormal));
-    float glow = pow(rim, 3.0) * 1.6;
-    gl_FragColor = vec4(0.04, 0.52, 0.48, glow * 0.4);
-  }
-`;
-
-/* ═══════════════════════════════════════════════════════════════════════════════
    Component
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 export default function InteractiveGlobe({ countries, heading, subheading }: InteractiveGlobeProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
+  const canvasWrapRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-50px' });
 
-  // Three.js refs
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const earthGroupRef = useRef<THREE.Group | null>(null);
-  const markersGroupRef = useRef<THREE.Group | null>(null);
-  const animRef = useRef(0);
-  const clockRef = useRef(new THREE.Timer());
-  const nepalRingRef = useRef<THREE.Mesh | null>(null);
-  const cleanupFnRef = useRef<(() => void) | null>(null);
+  /* Three.js handles — stored in a single ref to survive re-renders */
+  const threeRef = useRef<{
+    renderer: THREE.WebGLRenderer;
+    scene: THREE.Scene;
+    camera: THREE.PerspectiveCamera;
+    earthGroup: THREE.Group;
+    earthMesh: THREE.Mesh;
+    markersGroup: THREE.Group;
+    rafId: number;
+    disposed: boolean;
+  } | null>(null);
 
-  // Interaction refs
-  const isDragRef = useRef(false);
-  const autoRotRef = useRef(true);
-  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const prevPtrRef = useRef({ x: 0, y: 0 });
-  const momentumRef = useRef({ x: 0, y: 0 });
-  const targetZoomRef = useRef(DEFAULT_CAM_Z);
-  const zoomingToRef = useRef<string | null>(null);
-  const targetRotYRef = useRef<number | null>(null);
-  const targetRotXRef = useRef<number | null>(null);
-  const isVisibleRef = useRef(true);
+  /* Interaction state refs */
+  const isDragging = useRef(false);
+  const autoRotate = useRef(true);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevPointer = useRef({ x: 0, y: 0 });
+  const momentum = useRef({ x: 0, y: 0 });
+  const zoomTarget = useRef(2.6);
+  const zoomingToCountry = useRef<string | null>(null);
+  const targetRotY = useRef<number | null>(null);
+  const targetRotX = useRef<number | null>(null);
+  const markerMap = useRef<Map<number, GlobeCountryData>>(new Map());
 
-  // Raycasting
-  const raycasterRef = useRef(new THREE.Raycaster());
-  const markerMapRef = useRef<Map<number, GlobeCountryData>>(new Map());
-
-  // React state
+  /* React state for UI overlays */
   const [tooltip, setTooltip] = useState<{ country: GlobeCountryData; x: number; y: number } | null>(null);
   const [containerW, setContainerW] = useState(400);
   const [zoomedCountry, setZoomedCountry] = useState<GlobeCountryData | null>(null);
-  const [globeReady, setGlobeReady] = useState(false);
+  const [textureLoaded, setTextureLoaded] = useState(false);
 
-  // Computed data
+  /* Derived data */
   const activeCountries = useMemo(() => countries.filter((c) => c.isActive), [countries]);
   const totalHospitals = useMemo(() => activeCountries.reduce((s, c) => s + c.hospitalCount, 0), [activeCountries]);
   const nepalData = useMemo(() => countries.find((c) => c.isHighlighted) || null, [countries]);
 
-  // ─── Three.js scene setup — runs once on mount ──────────────────
+  /* ────────────────────────────────────────────────────────────────────
+     Three.js Initialization — runs once, immediately on mount
+     ──────────────────────────────────────────────────────────────────── */
   useEffect(() => {
-    const container = containerRef.current;
+    const container = canvasWrapRef.current;
     if (!container) return;
 
-    // WebGL support check
-    let hasWebGL = false;
-    try {
-      const c = document.createElement('canvas');
-      hasWebGL = !!(c.getContext('webgl2') || c.getContext('webgl'));
-    } catch { /* no webgl */ }
-    if (!hasWebGL) return;
+    /* Check WebGL */
+    const testCanvas = document.createElement('canvas');
+    const gl = testCanvas.getContext('webgl2') || testCanvas.getContext('webgl');
+    if (!gl) return;
 
-    // Defer to next frame so layout has settled
-    let rafId = 0;
-    let destroyed = false;
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    if (w < 1 || h < 1) return;
 
-    const tryInit = () => {
-      if (destroyed) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      if (w < 10 || h < 10) { rafId = requestAnimationFrame(tryInit); return; }
-      init(w, h);
+    /* ── Scene ── */
+    const scene = new THREE.Scene();
+
+    /* ── Camera ── */
+    const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+    camera.position.set(0, 0.2, 2.6);
+    camera.lookAt(0, 0, 0);
+
+    /* ── Renderer ── */
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0); // transparent
+    container.appendChild(renderer.domElement);
+
+    /* ── Lights ── */
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    scene.add(ambientLight);
+
+    const sunLight = new THREE.DirectionalLight(0xfff8ee, 1.8);
+    sunLight.position.set(5, 3, 5);
+    scene.add(sunLight);
+
+    const fillLight = new THREE.DirectionalLight(0x8ecae6, 0.4);
+    fillLight.position.set(-4, -1, -3);
+    scene.add(fillLight);
+
+    /* ── Earth Group (rotated together) ── */
+    const earthGroup = new THREE.Group();
+    earthGroup.rotation.x = 0.25;
+    earthGroup.rotation.y = -0.5;
+    scene.add(earthGroup);
+
+    /* ── Earth Sphere ── */
+    const earthGeom = new THREE.SphereGeometry(1, 64, 48);
+
+    /* Start with a bright, visible blue placeholder */
+    const placeholderMat = new THREE.MeshPhongMaterial({
+      color: 0x2277bb,
+      emissive: 0x112244,
+      shininess: 25,
+    });
+    const earthMesh = new THREE.Mesh(earthGeom, placeholderMat);
+    earthGroup.add(earthMesh);
+
+    /* ── Atmosphere glow (outer, BackSide) ── */
+    const atmosGeom = new THREE.SphereGeometry(1.04, 48, 36);
+    const atmosMat = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+        void main() {
+          vec3 viewDir = normalize(-vPosition);
+          float rim = 1.0 - max(0.0, dot(viewDir, vNormal));
+          float glow = pow(rim, 3.0) * 1.2;
+          gl_FragColor = vec4(0.05, 0.58, 0.53, glow * 0.35);
+        }
+      `,
+      transparent: true,
+      side: THREE.BackSide,
+      depthWrite: false,
+    });
+    scene.add(new THREE.Mesh(atmosGeom, atmosMat));
+
+    /* ── Markers Group ── */
+    const markersGroup = new THREE.Group();
+    earthGroup.add(markersGroup);
+
+    /* ── Store refs ── */
+    const threeCtx = {
+      renderer,
+      scene,
+      camera,
+      earthGroup,
+      earthMesh,
+      markersGroup,
+      rafId: 0,
+      disposed: false,
     };
-    rafId = requestAnimationFrame(tryInit);
+    threeRef.current = threeCtx;
 
-    function init(w: number, h: number) {
-      if (destroyed) return;
-      setContainerW(w);
+    /* ── Load Earth Texture ── */
+    const textureLoader = new THREE.TextureLoader();
 
-      const scene = new THREE.Scene();
-      sceneRef.current = scene;
-
-      const camera = new THREE.PerspectiveCamera(38, w / h, 0.1, 100);
-      camera.position.set(0, 0.15, DEFAULT_CAM_Z);
-      cameraRef.current = camera;
-
-      const renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        powerPreference: 'high-performance',
+    function applyTexture(tex: THREE.Texture) {
+      if (threeCtx.disposed) return;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      const realMat = new THREE.MeshStandardMaterial({
+        map: tex,
+        roughness: 0.75,
+        metalness: 0.05,
       });
-      renderer.setSize(w, h);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setClearColor(0x000000, 0);
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.1;
-      container.appendChild(renderer.domElement);
-      rendererRef.current = renderer;
-
-      // Lights
-      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-      const sun = new THREE.DirectionalLight(0xfff5e6, 1.2);
-      sun.position.set(5, 3, 5);
-      scene.add(sun);
-      const fill = new THREE.DirectionalLight(0x8ecae6, 0.35);
-      fill.position.set(-4, -1, -3);
-      scene.add(fill);
-      const rimLight = new THREE.DirectionalLight(0x0d9488, 0.15);
-      rimLight.position.set(-3, 2, -5);
-      scene.add(rimLight);
-
-      // Earth group
-      const earthGroup = new THREE.Group();
-      earthGroup.rotation.x = 0.25;
-      earthGroup.rotation.y = -0.5;
-      scene.add(earthGroup);
-      earthGroupRef.current = earthGroup;
-
-      // ── IMMEDIATE visible Earth sphere (placeholder until textures load) ──
-      const earthGeom = new THREE.SphereGeometry(EARTH_RADIUS, 96, 64);
-      const placeholderMat = new THREE.MeshPhongMaterial({
-        color: 0x1a5276,
-        emissive: 0x0a2a3d,
-        shininess: 15,
-      });
-      const earthMesh = new THREE.Mesh(earthGeom, placeholderMat);
-      earthGroup.add(earthMesh);
-
-      // Atmosphere (back-face glow)
-      const atmosGeom = new THREE.SphereGeometry(EARTH_RADIUS * 1.025, 64, 48);
-      const atmosMat = new THREE.ShaderMaterial({
-        vertexShader: ATMO_VS,
-        fragmentShader: ATMO_FS,
-        transparent: true,
-        side: THREE.BackSide,
-        depthWrite: false,
-      });
-      scene.add(new THREE.Mesh(atmosGeom, atmosMat));
-
-      // Inner glow
-      const innerGlowGeom = new THREE.SphereGeometry(EARTH_RADIUS * 1.005, 64, 48);
-      const innerGlowMat = new THREE.ShaderMaterial({
-        vertexShader: ATMO_VS,
-        fragmentShader: `
-          varying vec3 vWorldNormal;
-          varying vec3 vViewPos;
-          void main() {
-            vec3 viewDir = normalize(-vViewPos);
-            float rim = 1.0 - max(0.0, dot(viewDir, vWorldNormal));
-            float glow = pow(rim, 5.0) * 0.6;
-            gl_FragColor = vec4(0.05, 0.58, 0.53, glow * 0.25);
-          }
-        `,
-        transparent: true,
-        side: THREE.FrontSide,
-        depthWrite: false,
-      });
-      scene.add(new THREE.Mesh(innerGlowGeom, innerGlowMat));
-
-      // Markers group
-      const markersGroup = new THREE.Group();
-      earthGroup.add(markersGroup);
-      markersGroupRef.current = markersGroup;
-
-      // Stars
-      const starsGeom = new THREE.BufferGeometry();
-      const starPos = new Float32Array(200 * 3);
-      for (let i = 0; i < 200; i++) {
-        const t = Math.random() * Math.PI * 2;
-        const p = Math.acos(2 * Math.random() - 1);
-        const r = 8 + Math.random() * 6;
-        starPos[i * 3] = r * Math.sin(p) * Math.cos(t);
-        starPos[i * 3 + 1] = r * Math.sin(p) * Math.sin(t);
-        starPos[i * 3 + 2] = r * Math.cos(p);
-      }
-      starsGeom.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-      const starsMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.03, transparent: true, opacity: 0.3 });
-      scene.add(new THREE.Points(starsGeom, starsMat));
-
-      // ── Load textures and upgrade material ──
-      const loader = new THREE.TextureLoader();
-
-      const upgradeEarth = (colorMap: THREE.Texture, bumpMap: THREE.Texture | null) => {
-        if (destroyed) return;
-        colorMap.colorSpace = THREE.SRGBColorSpace;
-        colorMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        if (bumpMap) bumpMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        const realMat = new THREE.MeshStandardMaterial({
-          map: colorMap,
-          bumpMap: bumpMap || undefined,
-          bumpScale: 0.015,
-          roughness: 0.75,
-          metalness: 0.05,
-        });
-        earthMesh.material = realMat;
-        placeholderMat.dispose();
-        setGlobeReady(true);
-      };
-
-      // Try HD texture, fall back to SD, then keep placeholder
-      loader.load(
-        '/textures/earth-day-hd.jpg',
-        (tex) => {
-          loader.load(
-            '/textures/earth-topology.png',
-            (bump) => upgradeEarth(tex, bump),
-            undefined,
-            () => upgradeEarth(tex, null),
-          );
-        },
-        undefined,
-        () => {
-          loader.load(
-            '/textures/earth-day.jpg',
-            (tex) => upgradeEarth(tex, null),
-            undefined,
-            () => setGlobeReady(true),
-          );
-        },
-      );
-
-      // ── Animation loop ──
-      const clock = clockRef.current;
-
-      const animate = () => {
-        animRef.current = requestAnimationFrame(animate);
-        if (!isVisibleRef.current) return;
-
-        clock.update();
-        const elapsed = clock.getElapsed();
-        const group = earthGroupRef.current;
-        const cam = cameraRef.current;
-        const ren = rendererRef.current;
-        const mg = markersGroupRef.current;
-        if (!group || !cam || !ren) return;
-
-        // Auto-rotate
-        if (autoRotRef.current && !isDragRef.current && !zoomingToRef.current) {
-          group.rotation.y += AUTO_SPEED;
-        }
-
-        // Momentum
-        if (!isDragRef.current && !autoRotRef.current && !zoomingToRef.current) {
-          const m = momentumRef.current;
-          if (Math.abs(m.x) > 0.0001 || Math.abs(m.y) > 0.0001) {
-            group.rotation.y += m.x;
-            group.rotation.x = Math.max(-0.8, Math.min(0.8, group.rotation.x + m.y));
-            m.x *= MOMENTUM_FRICTION;
-            m.y *= MOMENTUM_FRICTION;
-          }
-        }
-
-        // Smooth zoom
-        cam.position.z += (targetZoomRef.current - cam.position.z) * 0.05;
-        cam.position.y += (0.15 - cam.position.y) * 0.05;
-
-        // Zoom-to-country
-        if (zoomingToRef.current && targetRotYRef.current !== null) {
-          let diff = targetRotYRef.current - group.rotation.y;
-          while (diff > Math.PI) diff -= Math.PI * 2;
-          while (diff < -Math.PI) diff += Math.PI * 2;
-          group.rotation.y += diff * 0.04;
-          if (targetRotXRef.current !== null) {
-            group.rotation.x += (targetRotXRef.current - group.rotation.x) * 0.04;
-          }
-        }
-
-        // Nepal pulse
-        const ring = nepalRingRef.current;
-        if (ring) {
-          const s = 1 + 0.6 * Math.sin(elapsed * 2);
-          ring.scale.set(s, s, s);
-          (ring.material as THREE.MeshBasicMaterial).opacity = 0.5 * (1 - (s - 1) / 0.6);
-        }
-
-        // Marker orientation & visibility
-        if (mg) {
-          const camWP = cam.position.clone();
-          for (let i = 0; i < mg.children.length; i++) {
-            const child = mg.children[i];
-            if (child.userData.isRing || child.userData.isGlow) continue;
-            const surfPos = child.position.clone().normalize();
-            const quat = new THREE.Quaternion().setFromUnitVectors(
-              new THREE.Vector3(0, 1, 0), surfPos,
-            );
-            child.quaternion.copy(quat);
-            const wPos = new THREE.Vector3();
-            child.getWorldPosition(wPos);
-            const toCam = camWP.clone().sub(wPos).normalize();
-            const normal = wPos.clone().normalize();
-            child.visible = toCam.dot(normal) > -0.1;
-          }
-        }
-
-        ren.render(scene, sceneRef.current!);
-      };
-
-      animRef.current = requestAnimationFrame(animate);
-
-      // IntersectionObserver
-      const observer = new IntersectionObserver(
-        (entries) => { isVisibleRef.current = entries[0]?.isIntersecting ?? true; },
-        { threshold: 0.05 },
-      );
-      observer.observe(container);
-
-      // Resize
-      const onResize = () => {
-        const cw = container.clientWidth;
-        const ch = container.clientHeight;
-        if (cw < 10 || ch < 10) return;
-        camera.aspect = cw / ch;
-        camera.updateProjectionMatrix();
-        renderer.setSize(cw, ch);
-        setContainerW(cw);
-      };
-      window.addEventListener('resize', onResize);
-
-      // Cleanup
-      cleanupFnRef.current = () => {
-        cancelAnimationFrame(animRef.current);
-        window.removeEventListener('resize', onResize);
-        observer.disconnect();
-        if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-        earthGeom.dispose();
-        atmosGeom.dispose();
-        atmosMat.dispose();
-        innerGlowGeom.dispose();
-        innerGlowMat.dispose();
-        starsGeom.dispose();
-        starsMat.dispose();
-        renderer.dispose();
-        if (container.contains(renderer.domElement)) {
-          container.removeChild(renderer.domElement);
-        }
-      };
+      earthMesh.material = realMat;
+      placeholderMat.dispose();
+      setTextureLoaded(true);
     }
 
+    /* Try local HD texture first */
+    textureLoader.load(
+      '/textures/earth-day-hd.jpg',
+      (tex) => {
+        applyTexture(tex);
+      },
+      undefined,
+      () => {
+        /* Fallback to SD local */
+        textureLoader.load(
+          '/textures/earth-day.jpg',
+          (tex) => {
+            applyTexture(tex);
+          },
+          undefined,
+          () => {
+            /* Fallback to CDN */
+            textureLoader.load(
+              'https://unpkg.com/three-globe/example/img/earth-day.jpg',
+              (tex) => {
+                applyTexture(tex);
+              },
+              undefined,
+              () => {
+                /* All texture sources failed, keeping placeholder */
+                setTextureLoaded(true);
+              },
+            );
+          },
+        );
+      },
+    );
+
+    /* ── Animation Loop ── */
+    function animate() {
+      if (threeCtx.disposed) return;
+      threeCtx.rafId = requestAnimationFrame(animate);
+
+      /* Auto-rotate */
+      if (autoRotate.current && !isDragging.current && !zoomingToCountry.current) {
+        earthGroup.rotation.y += 0.001;
+      }
+
+      /* Momentum */
+      if (!isDragging.current && !autoRotate.current && !zoomingToCountry.current) {
+        const m = momentum.current;
+        if (Math.abs(m.x) > 0.0001 || Math.abs(m.y) > 0.0001) {
+          earthGroup.rotation.y += m.x;
+          earthGroup.rotation.x = Math.max(-0.8, Math.min(0.8, earthGroup.rotation.x + m.y));
+          m.x *= 0.92;
+          m.y *= 0.92;
+        }
+      }
+
+      /* Smooth zoom */
+      camera.position.z += (zoomTarget.current - camera.position.z) * 0.06;
+      camera.position.y += (0.2 - camera.position.y) * 0.04;
+
+      /* Zoom-to-country rotation */
+      if (zoomingToCountry.current && targetRotY.current !== null) {
+        let diff = targetRotY.current - earthGroup.rotation.y;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        earthGroup.rotation.y += diff * 0.04;
+        if (targetRotX.current !== null) {
+          earthGroup.rotation.x += (targetRotX.current - earthGroup.rotation.x) * 0.04;
+        }
+      }
+
+      /* Marker visibility (hide when on back side) */
+      for (let i = 0; i < markersGroup.children.length; i++) {
+        const child = markersGroup.children[i];
+        if (child.userData.isGlow || child.userData.isRing) continue;
+        const wPos = new THREE.Vector3();
+        child.getWorldPosition(wPos);
+        const normal = wPos.clone().normalize();
+        const toCamera = camera.position.clone().sub(wPos).normalize();
+        child.visible = toCamera.dot(normal) > -0.15;
+      }
+
+      renderer.render(scene, camera);
+    }
+    threeCtx.rafId = requestAnimationFrame(animate);
+
+    /* ── Resize handler ── */
+    function onResize() {
+      if (threeCtx.disposed) return;
+      const cw = container.clientWidth;
+      const ch = container.clientHeight;
+      if (cw < 1 || ch < 1) return;
+      camera.aspect = cw / ch;
+      camera.updateProjectionMatrix();
+      renderer.setSize(cw, ch);
+      setContainerW(cw);
+    }
+    window.addEventListener('resize', onResize);
+    setContainerW(w);
+
+    /* ── Cleanup ── */
     return () => {
-      destroyed = true;
-      cancelAnimationFrame(rafId);
-      cleanupFnRef.current?.();
+      threeCtx.disposed = true;
+      cancelAnimationFrame(threeCtx.rafId);
+      window.removeEventListener('resize', onResize);
+      if (idleTimer.current) clearTimeout(idleTimer.current);
+
+      /* Dispose Three.js resources */
+      earthGeom.dispose();
+      atmosGeom.dispose();
+      atmosMat.dispose();
+      renderer.dispose();
+
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+      threeRef.current = null;
     };
   }, []);
 
-  // ─── Cleanup on unmount ───────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────────────
+     Build markers when countries data arrives
+     ──────────────────────────────────────────────────────────────────── */
   useEffect(() => {
-    return () => { cleanupFnRef.current?.(); };
-  }, []);
+    const ctx = threeRef.current;
+    if (!ctx) return;
+    const { markersGroup } = ctx;
 
-  // ─── Update markers when countries change ────────────────────────────
-  useEffect(() => {
-    const mg = markersGroupRef.current;
-    if (!mg) return;
-
-    // Dispose old
-    while (mg.children.length) {
-      const c = mg.children[0];
-      mg.remove(c);
-      c.traverse((obj) => {
+    /* Clear old markers */
+    while (markersGroup.children.length > 0) {
+      const child = markersGroup.children[0];
+      markersGroup.remove(child);
+      child.traverse((obj) => {
         if ((obj as THREE.Mesh).geometry) (obj as THREE.Mesh).geometry.dispose();
         if ((obj as THREE.Mesh).material) {
-          const mat = (obj as THREE.Mesh).material;
-          if (mat instanceof THREE.SpriteMaterial) mat.map?.dispose();
-          mat.dispose();
+          const mat = obj as THREE.Mesh;
+          if (mat.material instanceof THREE.SpriteMaterial) mat.material.map?.dispose();
+          (mat.material as THREE.Material).dispose();
         }
       });
     }
-    markerMapRef.current.clear();
-    nepalRingRef.current = null;
+    markerMap.current.clear();
 
-    const hlGlow = createGlowTexture(7, 194, 188);
-    const normalGlow = createGlowTexture(13, 148, 136, 0.7);
-
+    /* Create new markers */
     for (const country of activeCountries) {
-      const pos = latLngToVec3(country.latitude, country.longitude, EARTH_RADIUS * 1.006);
+      const pos = latLngToVec3(country.latitude, country.longitude, 1.005);
       const isHL = country.isHighlighted;
 
-      // Marker pin (cylinder stem + sphere head)
+      /* Pin group */
       const pin = new THREE.Group();
-      const pinH = isHL ? 0.06 : 0.04;
+      const stemH = isHL ? 0.06 : 0.04;
       const headR = isHL ? 0.018 : 0.012;
-      const stemGeom = new THREE.CylinderGeometry(0.003, 0.005, pinH, 8);
-      const stemMat = new THREE.MeshBasicMaterial({ color: isHL ? 0x07c2b8 : 0x0d9488, transparent: true, opacity: 0.9 });
-      const stem = new THREE.Mesh(stemGeom, stemMat);
-      stem.position.y = pinH / 2;
+
+      const stem = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.003, 0.005, stemH, 8),
+        new THREE.MeshBasicMaterial({ color: isHL ? 0x07c2b8 : 0x0d9488, transparent: true, opacity: 0.9 }),
+      );
+      stem.position.y = stemH / 2;
       pin.add(stem);
 
-      const headGeom = new THREE.SphereGeometry(headR, 12, 12);
-      const headMat = new THREE.MeshBasicMaterial({ color: isHL ? 0x07c2b8 : 0x0d9488 });
-      const head = new THREE.Mesh(headGeom, headMat);
-      head.position.y = pinH + headR * 0.3;
+      const head = new THREE.Mesh(
+        new THREE.SphereGeometry(headR, 12, 12),
+        new THREE.MeshBasicMaterial({ color: isHL ? 0x07c2b8 : 0x0d9488 }),
+      );
+      head.position.y = stemH + headR * 0.3;
       pin.add(head);
 
       pin.position.copy(pos);
       pin.userData.isMarker = true;
-      mg.add(pin);
-      markerMapRef.current.set(head.id, country);
+      markersGroup.add(pin);
+      markerMap.current.set(head.id, country);
 
-      // Glow sprite
-      const spriteMat = new THREE.SpriteMaterial({
-        map: isHL ? hlGlow : normalGlow,
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-      });
-      const sprite = new THREE.Sprite(spriteMat);
-      sprite.position.copy(pos);
-      sprite.position.y += pinH + headR * 0.5;
-      sprite.scale.set(isHL ? 0.12 : 0.08, isHL ? 0.12 : 0.08, 1);
-      sprite.userData.isGlow = true;
-      mg.add(sprite);
+      /* Glow sprite */
+      const glowCanvas = document.createElement('canvas');
+      glowCanvas.width = 64;
+      glowCanvas.height = 64;
+      const gCtx = glowCanvas.getContext('2d')!;
+      const grad = gCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0, isHL ? 'rgba(7,194,184,0.9)' : 'rgba(13,148,136,0.7)');
+      grad.addColorStop(0.4, isHL ? 'rgba(7,194,184,0.2)' : 'rgba(13,148,136,0.15)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      gCtx.fillStyle = grad;
+      gCtx.fillRect(0, 0, 64, 64);
 
-      // Pulse ring for highlighted (Nepal)
-      if (isHL) {
-        const ringGeom = new THREE.RingGeometry(0.03, 0.038, 32);
-        const ringMat = new THREE.MeshBasicMaterial({
-          color: '#07c2b8', transparent: true, opacity: 0.5,
-          side: THREE.DoubleSide, depthWrite: false,
-        });
-        const ring = new THREE.Mesh(ringGeom, ringMat);
-        ring.position.copy(pos);
-        ring.lookAt(pos.clone().multiplyScalar(2));
-        ring.userData.isRing = true;
-        mg.add(ring);
-        nepalRingRef.current = ring;
-      }
+      const glowSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+          map: new THREE.CanvasTexture(glowCanvas),
+          transparent: true,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+        }),
+      );
+      glowSprite.position.copy(pos);
+      glowSprite.position.y += stemH + headR * 0.5;
+      glowSprite.scale.set(isHL ? 0.12 : 0.08, isHL ? 0.12 : 0.08, 1);
+      glowSprite.userData.isGlow = true;
+      markersGroup.add(glowSprite);
     }
   }, [activeCountries]);
 
-  // ─── Pointer interaction handlers ────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────────────
+     Pointer interaction handlers
+     ──────────────────────────────────────────────────────────────────── */
   useEffect(() => {
-    const el = containerRef.current;
+    const el = canvasWrapRef.current;
     if (!el) return;
 
-    let dragDistance = 0;
+    let dragDist = 0;
 
     const onDown = (e: PointerEvent) => {
-      isDragRef.current = true;
-      autoRotRef.current = false;
-      dragDistance = 0;
-      prevPtrRef.current = { x: e.clientX, y: e.clientY };
-      momentumRef.current = { x: 0, y: 0 };
+      isDragging.current = true;
+      autoRotate.current = false;
+      dragDist = 0;
+      prevPointer.current = { x: e.clientX, y: e.clientY };
+      momentum.current = { x: 0, y: 0 };
       el.setPointerCapture(e.pointerId);
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-      if (zoomingToRef.current) {
-        zoomingToRef.current = null;
-        targetRotYRef.current = null;
-        targetRotXRef.current = null;
-        targetZoomRef.current = DEFAULT_CAM_Z;
+      if (idleTimer.current) clearTimeout(idleTimer.current);
+      /* Cancel zoom-to if dragging */
+      if (zoomingToCountry.current) {
+        zoomingToCountry.current = null;
+        targetRotY.current = null;
+        targetRotX.current = null;
+        zoomTarget.current = 2.6;
         setZoomedCountry(null);
       }
     };
 
     const onMove = (e: PointerEvent) => {
-      if (isDragRef.current) {
-        const dx = e.clientX - prevPtrRef.current.x;
-        const dy = e.clientY - prevPtrRef.current.y;
-        dragDistance += Math.abs(dx) + Math.abs(dy);
-        const g = earthGroupRef.current;
+      if (isDragging.current) {
+        const dx = e.clientX - prevPointer.current.x;
+        const dy = e.clientY - prevPointer.current.y;
+        dragDist += Math.abs(dx) + Math.abs(dy);
+        const g = threeRef.current?.earthGroup;
         if (g) {
-          g.rotation.y += dx * DRAG_SENS;
-          g.rotation.x = Math.max(-0.8, Math.min(0.8, g.rotation.x + dy * DRAG_SENS));
-          momentumRef.current = { x: dx * DRAG_SENS * 0.5, y: dy * DRAG_SENS * 0.3 };
+          g.rotation.y += dx * 0.004;
+          g.rotation.x = Math.max(-0.8, Math.min(0.8, g.rotation.x + dy * 0.004));
+          momentum.current = { x: dx * 0.002, y: dy * 0.001 };
         }
-        prevPtrRef.current = { x: e.clientX, y: e.clientY };
+        prevPointer.current = { x: e.clientX, y: e.clientY };
         setTooltip(null);
         el.style.cursor = 'grabbing';
         return;
       }
 
-      // Hover detection
+      /* Hover detection via raycasting */
+      const ctx = threeRef.current;
+      if (!ctx) return;
       const rect = el.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      const cam = cameraRef.current;
-      const mg = markersGroupRef.current;
-      if (!cam || !mg) return;
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(new THREE.Vector2(nx, ny), ctx.camera);
 
-      raycasterRef.current.setFromCamera(new THREE.Vector2(nx, ny), cam);
-      const meshes: THREE.Object3D[] = [];
-      for (const marker of mg.children) {
+      const meshes: THREE.Mesh[] = [];
+      for (const marker of ctx.markersGroup.children) {
         if (!marker.userData.isMarker || !marker.visible) continue;
-        marker.traverse((child) => { if ((child as THREE.Mesh).isMesh) meshes.push(child); });
+        marker.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) meshes.push(child as THREE.Mesh);
+        });
       }
-      const hits = raycasterRef.current.intersectObjects(meshes, false);
+      const hits = raycaster.intersectObjects(meshes, false);
 
       if (hits.length > 0) {
         let obj: THREE.Object3D | null = hits[0].object;
         while (obj && !obj.userData.isMarker) obj = obj.parent;
         if (obj) {
           const headMesh = obj.children[1] as THREE.Mesh;
-          const country = markerMapRef.current.get(headMesh.id);
+          const country = markerMap.current.get(headMesh.id);
           if (country) {
             setTooltip({ country, x: e.clientX - rect.left, y: e.clientY - rect.top });
             el.style.cursor = 'pointer';
@@ -604,53 +490,53 @@ export default function InteractiveGlobe({ countries, heading, subheading }: Int
     };
 
     const onUp = () => {
-      isDragRef.current = false;
+      isDragging.current = false;
       el.style.cursor = 'grab';
-      idleTimerRef.current = setTimeout(() => { autoRotRef.current = true; }, IDLE_MS);
+      idleTimer.current = setTimeout(() => { autoRotate.current = true; }, 4000);
     };
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      targetZoomRef.current = Math.max(MIN_CAM_Z, Math.min(MAX_CAM_Z, targetZoomRef.current + e.deltaY * ZOOM_SENS));
+      zoomTarget.current = Math.max(1.5, Math.min(5, zoomTarget.current + e.deltaY * 0.0006));
     };
 
     const onClick = (e: MouseEvent) => {
-      if (dragDistance > 8) return;
+      if (dragDist > 8) return;
+      const ctx = threeRef.current;
+      if (!ctx) return;
       const rect = el.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      const cam = cameraRef.current;
-      const mg = markersGroupRef.current;
-      if (!cam || !mg) return;
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(new THREE.Vector2(nx, ny), ctx.camera);
 
-      raycasterRef.current.setFromCamera(new THREE.Vector2(nx, ny), cam);
-      const meshes: THREE.Object3D[] = [];
-      for (const marker of mg.children) {
+      const meshes: THREE.Mesh[] = [];
+      for (const marker of ctx.markersGroup.children) {
         if (!marker.userData.isMarker || !marker.visible) continue;
-        marker.traverse((child) => { if ((child as THREE.Mesh).isMesh) meshes.push(child); });
+        marker.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) meshes.push(child as THREE.Mesh);
+        });
       }
-      const hits = raycasterRef.current.intersectObjects(meshes, false);
+      const hits = raycaster.intersectObjects(meshes, false);
 
       if (hits.length > 0) {
         let obj: THREE.Object3D | null = hits[0].object;
         while (obj && !obj.userData.isMarker) obj = obj.parent;
         if (obj) {
           const headMesh = obj.children[1] as THREE.Mesh;
-          const country = markerMapRef.current.get(headMesh.id);
+          const country = markerMap.current.get(headMesh.id);
           if (!country) return;
-          const targetY = -country.longitude * (Math.PI / 180);
-          const targetX = country.latitude * (Math.PI / 180) * -0.4;
-          targetRotYRef.current = targetY;
-          targetRotXRef.current = targetX;
-          targetZoomRef.current = country.isHighlighted ? ZOOM_COUNTRY_Z : ZOOM_COUNTRY_Z + 0.2;
-          zoomingToRef.current = country.id;
+          targetRotY.current = -country.longitude * (Math.PI / 180);
+          targetRotX.current = country.latitude * (Math.PI / 180) * -0.4;
+          zoomTarget.current = country.isHighlighted ? 1.7 : 1.9;
+          zoomingToCountry.current = country.id;
           setZoomedCountry(country);
           setTooltip(null);
         }
       }
     };
 
-    // Touch pinch zoom
+    /* Touch pinch zoom */
     let lastPinchDist = 0;
     const onTouchStart = (e: TouchEvent) => {
       if (e.touches.length === 2) {
@@ -665,7 +551,7 @@ export default function InteractiveGlobe({ countries, heading, subheading }: Int
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         const dist = Math.sqrt(dx * dx + dy * dy);
         const delta = lastPinchDist - dist;
-        targetZoomRef.current = Math.max(MIN_CAM_Z, Math.min(MAX_CAM_Z, targetZoomRef.current + delta * 0.005));
+        zoomTarget.current = Math.max(1.5, Math.min(5, zoomTarget.current + delta * 0.005));
         lastPinchDist = dist;
       }
     };
@@ -688,20 +574,22 @@ export default function InteractiveGlobe({ countries, heading, subheading }: Int
       el.removeEventListener('click', onClick);
       el.removeEventListener('touchstart', onTouchStart);
       el.removeEventListener('touchmove', onTouchMove);
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      if (idleTimer.current) clearTimeout(idleTimer.current);
     };
   }, []);
 
-  // ─── Zoom out handler ────────────────────────────────────────────────
+  /* ─── Zoom out handler ─── */
   const handleZoomOut = useCallback(() => {
-    zoomingToRef.current = null;
-    targetRotYRef.current = null;
-    targetRotXRef.current = null;
-    targetZoomRef.current = DEFAULT_CAM_Z;
+    zoomingToCountry.current = null;
+    targetRotY.current = null;
+    targetRotX.current = null;
+    zoomTarget.current = 2.6;
     setZoomedCountry(null);
   }, []);
 
-  // ─── Render ───────────────────────────────────────────────────────────
+  /* ═══════════════════════════════════════════════════════════════════════════════
+     Render
+     ═══════════════════════════════════════════════════════════════════════════════ */
   return (
     <section
       ref={sectionRef}
@@ -795,7 +683,7 @@ export default function InteractiveGlobe({ countries, heading, subheading }: Int
             </p>
           </motion.div>
 
-          {/* Right: 3D Globe */}
+          {/* Right: 3D Globe Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -803,15 +691,15 @@ export default function InteractiveGlobe({ countries, heading, subheading }: Int
             className="flex flex-1 items-center justify-center"
           >
             <div
-              ref={containerRef}
+              ref={canvasWrapRef}
               className="relative h-[300px] w-full max-w-[460px] sm:h-[360px] md:h-[420px] lg:h-[460px]"
               style={{ cursor: 'grab' }}
             >
               {/* Loading indicator */}
-              {!globeReady && (
+              {!textureLoaded && (
                 <div className="pointer-events-none absolute bottom-3 left-3 z-20 flex items-center gap-1.5">
                   <div className="h-3 w-3 animate-spin rounded-full border border-danphe-accent/30 border-t-danphe-accent" />
-                  <span className="text-[10px] text-danphe-text/30">Loading...</span>
+                  <span className="text-[10px] text-danphe-text/30">Loading Earth...</span>
                 </div>
               )}
 

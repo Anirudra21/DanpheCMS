@@ -1585,3 +1585,29 @@ Stage Summary:
 - If all textures fail, the blue placeholder sphere remains visible
 - Zero lint errors in InteractiveGlobe.tsx
 - Dev server confirms GET / 200 (page compiles successfully)
+
+---
+Task ID: globe-fix
+Agent: main
+Task: Fix the 3D Earth globe not rendering in "Trusted Across Borders" section
+
+Work Log:
+- Diagnosed the issue: the previous InteractiveGlobe.tsx (~880 lines) had overly complex initialization with deferred `tryInit()` via rAF, an `isVisibleRef` that gated the entire render loop, and a fragile texture loading chain
+- Verified texture files are valid: earth-day-hd.jpg (4096x2048 JPEG) and earth-topology.png (2048x1024 PNG) both confirmed with `file` command
+- Rewrote InteractiveGlobe.tsx from scratch with a much simpler, bulletproof approach:
+  - Removed deferred init: Three.js initializes directly in useEffect, no rAF retry loop
+  - Removed isVisibleRef gating: animation loop always renders (no IntersectionObserver blocking)
+  - Used a bright blue MeshPhongMaterial as immediate placeholder (visible before texture loads)
+- Added 3-tier texture fallback: local HD → local SD → CDN (unpkg.com/three-globe)
+- Preserved all existing UI features: stats cards, country list, tooltips, zoom-to-country, drag rotation, pinch zoom
+- Preserved atmosphere shader (Fresnel rim glow on BackSide)
+- Preserved marker pins with glow sprites for all active countries
+- Verified via agent-browser + VLM: canvas is 460x460, HD texture loaded successfully, Earth is VISIBLE with blue oceans and green/brown continents
+- Removed all debug console.log statements
+- InteractiveGlobe.tsx passes lint with zero errors
+
+Stage Summary:
+- The 3D Earth globe is now fully visible and rendering in the "Trusted Across Borders" section
+- Root causes of the previous failure: deferred initialization (rAF retry) combined with isVisibleRef gating prevented the render loop from executing; the complex texture chain had silent failure modes
+- Fix: simplified initialization to run synchronously in useEffect, removed render-loop gating, added CDN fallback for textures
+- The globe auto-rotates, supports drag rotation, scroll zoom, pinch zoom, marker hover tooltips, and click-to-zoom on country markers
