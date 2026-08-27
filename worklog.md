@@ -1493,3 +1493,31 @@ Stage Summary:
 - Server must be started with `npx next dev -p 3000 -H ::` for Caddy gateway compatibility
 - Memory constraint (4GB VM) means initial compilation is tight; server stable after first compile
 - Produced artifacts: usePublicData.ts hook, updated Header.tsx, Footer.tsx, db.ts, middleware.ts
+---
+Task ID: globe-redesign
+Agent: main
+Task: Redesign "Trusted Across Borders" section with compact, realistic interactive 3D Earth globe using Three.js
+
+Work Log:
+- Installed three@0.185.1 as project dependency
+- Completely rewrote InteractiveGlobe.tsx from canvas-2D to full Three.js WebGL renderer
+- Created procedural Earth texture generator (2048x1024 canvas) with dark navy oceans, filled continent polygons, subtle teal coastlines, grid lines, and noise texture
+- Added 15 detailed continent polygon datasets (North America, Greenland, South America, Europe, UK, Africa, Madagascar, Asia, India, Japan, Southeast Asia, Philippines, Australia, New Zealand, Arabian Peninsula)
+- Implemented Fresnel atmosphere glow shader (vertex + fragment GLSL) for realistic rim lighting
+- Built 3D country marker system: sphere markers positioned on globe surface via lat/lng→Vector3 conversion, glow sprites with additive blending, and animated pulse ring for highlighted Nepal marker
+- Implemented full interactivity: drag-to-rotate (pointer events with sensitivity), scroll-to-zoom (clamped 1.5-4.2), auto-rotation after 3.5s idle, raycaster-based click detection, hover tooltips
+- Implemented Nepal zoom feature: clicking Nepal animates camera closer (z=1.7) and rotates globe to center Nepal, with overlay card showing "60+ Hospitals" and back button
+- Marker visibility system: markers on back side of globe are hidden using dot-product visibility check
+- Compact layout: h-[340px]/sm:h-[400px]/md:h-[460px] globe container, max-w-[520px], 5/12 + 7/12 grid, responsive mobile stacking
+- Left panel: Nepal HQ card, Global Reach stats card, Active Regions scrollable list
+- All data remains driven by GlobeCountry Prisma model, manageable from admin panel
+- Fixed all lint issues (replaced THREE.Clock with THREE.Timer, fixed ref-during-render error with state-based containerW)
+- Verified: dev server compiles cleanly, GET / 200, no runtime errors
+
+Stage Summary:
+- Replaced canvas-2D globe with full Three.js WebGL 3D Earth
+- Procedural Earth texture with 15 continent polygons, teal coastlines, navy theme
+- Fresnel atmosphere shader, 3D markers with glow sprites, Nepal pulse ring
+- Full interactivity: drag, zoom, auto-rotate, click, Nepal zoom
+- Compact 400-500px globe, responsive two-column layout
+- Admin panel unchanged — all data still manageable from /admin/globe-countries
