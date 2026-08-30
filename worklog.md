@@ -1644,3 +1644,99 @@ Stage Summary:
 - Longest-match-first active detection prevents double-highlighting for nested routes
 - Zero lint errors, zero build errors
 - Files modified: layout.tsx, AutumnScene.tsx, LoginCard.tsx, login/page.tsx
+---
+Task ID: SEO Manager Module
+Agent: main
+Task: Build complete SEO Manager module for Danphe Health admin CMS
+
+Work Log:
+- Created 5 API routes under /src/app/api/seo/:
+  - /api/seo/global/route.ts — GET singleton (auto-creates default), PUT update with requireAdmin + logActivity
+  - /api/seo/pages/route.ts — GET list all SeoPageMeta with optional ?pageType= filter
+  - /api/seo/pages/[id]/route.ts — GET single, PATCH update, DELETE with auth + logging
+  - /api/seo/redirects/route.ts — GET list all, POST create with validation & unique constraint handling
+  - /api/seo/redirects/[id]/route.ts — PATCH update, DELETE with auth + logging + unique constraint
+- Created 3 admin pages under /src/app/(admin)/admin/seo/:
+  - /admin/seo/page.tsx — Global SEO Settings: title template, meta description, OG image, favicon, Google/Bing verification, FAQ schema toggle (Switch), robots.txt textarea, sitemap URL, Save button
+  - /admin/seo/pages/page.tsx — Per-Page SEO Editor: filter tabs (All/Homepage/Solutions/Posts/Jobs), table with Page Title/Type badge/URL Path/Meta Title/Edit button, edit Dialog with Meta Title/Meta Description/Canonical URL/OG Image Override
+  - /admin/seo/redirects/page.tsx — Redirect Manager: table with From Path/To Path/Type badge (301 green/302 amber)/Enabled Switch/Edit+Delete buttons, Add dialog with type selector cards, edit dialog, delete AlertDialog confirmation
+- All pages use framer-motion fade-in animations, sonner toasts, Loader2 spinners, shadcn/ui components
+- Styling follows project conventions: text-slate-900/500/600, border-slate-200, bg-white, bg-danphe-accent buttons, rounded-xl cards
+- ESLint passes clean with no errors
+
+---
+Task ID: 19
+Agent: main
+Task: Build Maintenance Mode and Analytics & Tracking modules for Danphe Health admin CMS
+
+Work Log:
+- Created 2 Maintenance Mode API routes:
+  - /api/settings/maintenance/route.ts — GET/PUT, requireSuperAdmin, reads/writes MaintenanceConfig via getSystemConfig/setSystemConfig with key 'maintenance'
+  - /api/settings/maintenance/status/route.ts — GET (public, no auth), returns { enabled: boolean } only
+- Created 2 Analytics API routes:
+  - /api/settings/analytics/route.ts — GET/PUT, requireSuperAdmin, key 'analytics', type AnalyticsConfig
+  - /api/settings/cookie-consent/route.ts — GET/PUT, requireAdmin, key 'cookie_consent', type CookieConsentConfig
+- Created Maintenance Mode admin page (/admin/maintenance/page.tsx):
+  - Big toggle Switch at top with amber styling when enabled
+  - AnimatePresence amber Alert banner when maintenance is active
+  - Two-column layout: left card (heading input, message textarea), right card (return time datetime-local, IP allowlist textarea with monospace font)
+  - All fields controlled via useState, save button PUTs to /api/settings/maintenance
+- Created Analytics & Tracking admin page (/admin/analytics/page.tsx):
+  - 4 tracking cards in 2x2 grid (GA, GTM, FB Pixel, LinkedIn Insight) each with icon, label, input field, green/gray status dot based on value
+  - Cookie Consent section in full-width card with banner text textarea, accept/reject label inputs in 2-column grid
+  - Save button PUTs to both /api/settings/analytics and /api/settings/cookie-consent in parallel via Promise.all
+- All pages use framer-motion animations, sonner toasts, Loader2 spinners, shadcn/ui components (Switch, Alert, Input, Textarea, Label, Button)
+- Styling follows project conventions: text-slate-900/500/600, border-slate-200, bg-white, bg-danphe-accent hover:bg-danphe-accent/90 text-white buttons, rounded-xl border border-slate-200 cards
+- ESLint passes clean with no errors
+
+---
+Task ID: roles-permissions-activity
+Agent: main
+Task: Build Roles & Permissions and Activity Log modules
+
+Work Log:
+- Rewrote `/src/app/api/activity-logs/route.ts`:
+  - Replaced getServerSession with requireAdmin(request) from @/lib/admin-auth
+  - Removed user relation include (ActivityLog uses userId/userName directly, no FK)
+  - Added ?search= query param with OR search on userName, details, resource
+  - Changed response format to { data: ActivityLog[], total, page, totalPages } matching spec
+  - Supports ?action=, ?resource=, ?page=, ?limit= query params
+- Created `/src/app/(admin)/admin/roles/page.tsx`:
+  - Imports getAllPermissions, getPermissionsForRole, AdminRole, PermissionDef, PermissionGroup from @/lib/admin-auth
+  - Permission matrix table: rows grouped by 6 permission groups (General, Content, Engage, SEO, Appearance, Admin), columns = 4 roles (Super Admin, Editor, Content Manager, Support)
+  - Green Check (emerald-100 circle) / X (slate-100 circle) icons for each cell
+  - Role summary cards below matrix: 4-column grid, each card shows role name, description, permission count badge, and list of users in that role (fetched from GET /api/users)
+  - User list shows avatar initials in role-colored circles, name, and email
+  - Uses framer-motion staggered animations for cards
+  - Styling: text-slate-900/500/600, border-slate-200, bg-white, rounded-xl cards
+- Rewrote `/src/app/(admin)/admin/activity/page.tsx`:
+  - Filter bar: Search input, Action dropdown (ALL, CREATE, UPDATE, DELETE, PUBLISH, LOGIN), Resource dropdown (20 resource types)
+  - Raw Table component with 5 columns: Timestamp (formatted with month/day/year hour:minute AM/PM), User, Action (colored Badge with border), Resource (with truncated ID), Details (parsed JSON with readable summary)
+  - Action badge colors: CREATE=emerald, UPDATE=blue, DELETE=red, PUBLISH=purple, LOGIN=slate, others=amber
+  - Details column parses JSON and extracts: title/name, field changes summary ("Changed: field1, field2 +N more"), status, email, or key-value pairs as fallback
+  - Pagination: Previous/Next buttons with ChevronLeft/Right icons, "Page X of Y" text, auto-resets page on filter change
+  - Total record count in header subtitle
+  - Skeleton loading state, empty state message
+  - Styling: text-slate-900/500/600, border-slate-200, bg-white rounded-xl, Badge outline variant
+- ESLint passes clean with no errors
+
+---
+Task ID: LeadSettings
+Agent: main
+Task: Build Form & Lead Notification Settings module
+
+Work Log:
+- Created 4 API routes under /api/leads/:
+  - /api/leads/settings/route.ts — GET/PUT for lead notification emails (key: lead_notification, type: LeadNotificationConfig)
+  - /api/leads/auto-reply/route.ts — GET/PUT for auto-reply templates (key: auto_reply, type: AutoReplyConfig)
+  - /api/leads/form-config/route.ts — GET/PUT for form field configuration (key: form_config, type: FormConfig)
+  - /api/leads/captcha/route.ts — GET/PUT for CAPTCHA/spam protection (key: captcha, type: CaptchaConfig)
+- All APIs use requireAdmin() for auth, getSystemConfig/setSystemConfig for persistence, and follow the same pattern as existing settings APIs
+- Created admin page at /(admin)/admin/leads/settings/page.tsx with 4-tab interface:
+  - Tab 1 "Notification Emails": 3 cards (Contact/Demo/Newsletter) with icons, descriptions, email inputs, shared Save button
+  - Tab 2 "Auto-Reply Templates": Accordion with 3 sections, subject input + monospace textarea, {{name}}/{{email}} variable helper text
+  - Tab 3 "Form Configuration": 3 sections with field tables showing code badge (read-only), editable label input, required Switch toggle, info banner
+  - Tab 4 "Spam Protection": CAPTCHA card with provider Select (None/reCAPTCHA v2/Turnstile), site key input, secret key with Eye/EyeOff toggle
+- Each tab has independent loading state and Save button with Loader2 spinner and sonner toast notifications
+- Lint passed with zero errors
+

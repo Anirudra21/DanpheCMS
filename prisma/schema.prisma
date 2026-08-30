@@ -46,6 +46,31 @@ enum LeadSource {
 enum AdminRole {
   SUPER_ADMIN
   EDITOR
+  CONTENT_MANAGER
+  SUPPORT
+}
+
+enum MediaCategory {
+  GENERAL
+  CLIENT_LOGO
+  SOLUTION_ICON
+  TEAM_PHOTO
+  NEWS_IMAGE
+  HERO_IMAGE
+  FEATURE_ICON
+}
+
+enum SeoPageType {
+  HOMEPAGE
+  SOLUTION
+  POST
+  JOB
+  PAGE
+}
+
+enum RedirectType {
+  PERMANENT_301
+  TEMPORARY_302
 }
 
 // ─── Site Settings (singleton — enforce one row at application level) ──────
@@ -299,4 +324,107 @@ model GlobeCountry {
   @@index([order])
   @@index([isActive, order])
   @@map("globe_countries")
+}
+
+// ─── Media Library ──────────────────────────────────────────────────────
+
+model Media {
+  id         String        @id @default(cuid())
+  filename   String
+  alt        String        @default("")
+  url        String
+  mimeType   String        @default("")
+  size       Int           @default(0)
+  width      Int           @default(0)
+  height     Int           @default(0)
+  category   MediaCategory @default(GENERAL)
+  uploadedBy String        @default("")
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([category])
+  @@index([createdAt(sort: Desc)])
+  @@map("media")
+}
+
+// ─── Activity Log ───────────────────────────────────────────────────────
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  userId     String   @default("")
+  userName   String   @default("")
+  action     String   // CREATE, UPDATE, DELETE, PUBLISH, LOGIN, etc.
+  resource   String   // e.g. "Solution", "Post", "HomepageSection"
+  resourceId String   @default("")
+  details    String   @default("") // JSON string with change details
+  createdAt  DateTime @default(now())
+
+  @@index([action])
+  @@index([resource])
+  @@index([userId])
+  @@index([createdAt(sort: Desc)])
+  @@map("activity_logs")
+}
+
+// ─── System Config (flexible key-value store) ───────────────────────────
+
+model SystemConfig {
+  key       String   @id
+  value     String   @default("{}") // JSON-encoded config
+  updatedAt DateTime @updatedAt
+
+  @@map("system_configs")
+}
+
+// ─── SEO Global Settings ────────────────────────────────────────────────
+
+model SeoGlobal {
+  id               String   @id @default(cuid())
+  titleTemplate    String   @default("%s | Danphe Health")
+  metaDescription  String   @default("")
+  ogImageUrl       String   @default("")
+  faviconUrl       String   @default("")
+  googleVerify     String   @default("")
+  bingVerify       String   @default("")
+  faqSchemaEnabled Boolean  @default(false)
+  robotsTxt        String   @default("User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: https://danphehealth.com/sitemap.xml")
+  sitemapUrl       String   @default("https://danphehealth.com/sitemap.xml")
+  lastSitemapGen   DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("seo_globals")
+}
+
+// ─── SEO Per-Page Meta ──────────────────────────────────────────────────
+
+model SeoPageMeta {
+  id          String      @id @default(cuid())
+  pageType    SeoPageType
+  pageSlug    String      @default("")
+  pageTitle   String      @default("")
+  metaTitle   String      @default("")
+  metaDesc    String      @default("")
+  canonicalUrl String     @default("")
+  ogImageUrl  String      @default("")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@unique([pageType, pageSlug])
+  @@index([pageType])
+  @@map("seo_page_metas")
+}
+
+// ─── Redirect Rules ─────────────────────────────────────────────────────
+
+model RedirectRule {
+  id        String       @id @default(cuid())
+  fromPath  String       @unique
+  toPath    String
+  type      RedirectType @default(PERMANENT_301)
+  enabled   Boolean      @default(true)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@map("redirect_rules")
 }
