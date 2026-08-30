@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useSyncExternalStore, useCallback } from 'react';
 
 // ─── Color Palette ───────────────────────────────────────────────────────────
 
@@ -32,26 +32,24 @@ const C = {
 // ─── Hooks ──────────────────────────────────────────────────────────────────
 
 function usePrefersReducedMotion() {
-  const [r, setR] = useState(false);
-  useEffect(() => {
+  const subscribe = useCallback((callback: () => void) => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setR(mq.matches);
-    const h = (e: MediaQueryListEvent) => setR(e.matches);
-    mq.addEventListener('change', h);
-    return () => mq.removeEventListener('change', h);
+    mq.addEventListener('change', callback);
+    return () => mq.removeEventListener('change', callback);
   }, []);
-  return r;
+  const getSnapshot = useCallback(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, []);
+  const getServerSnapshot = useCallback(() => false, []);
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 function useIsMobile() {
-  const [m, setM] = useState(false);
-  useEffect(() => {
-    const c = () => setM(window.innerWidth < 768);
-    c();
-    window.addEventListener('resize', c);
-    return () => window.removeEventListener('resize', c);
+  const subscribe = useCallback((callback: () => void) => {
+    window.addEventListener('resize', callback);
+    return () => window.removeEventListener('resize', callback);
   }, []);
-  return m;
+  const getSnapshot = useCallback(() => window.innerWidth < 768, []);
+  const getServerSnapshot = useCallback(() => false, []);
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 // ─── Tree Component ─────────────────────────────────────────────────────────

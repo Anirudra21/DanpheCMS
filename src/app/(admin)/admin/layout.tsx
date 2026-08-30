@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import {
@@ -23,12 +23,21 @@ import {
   Globe,
   Earth,
   X,
+  Search,
+  ArrowRightLeft,
+  Wrench,
+  LineChart as LineChartIcon,
+  Shield,
+  ScrollText,
+  ImageIcon,
+  Settings2,
+  Palette,
 } from 'lucide-react';
 import { cn } from '@/lib/cms-utils';
 import { Toaster } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
@@ -49,6 +58,8 @@ const navSections = [
       { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
       { href: '/admin/settings', label: 'Site Settings', icon: Settings },
       { href: '/admin/navigation', label: 'Navigation', icon: Navigation },
+      { href: '/admin/maintenance', label: 'Maintenance', icon: Wrench },
+      { href: '/admin/analytics', label: 'Analytics', icon: LineChartIcon },
     ],
   },
   {
@@ -61,6 +72,7 @@ const navSections = [
       { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquareQuote },
       { href: '/admin/clients', label: 'Client Logos', icon: Building2 },
       { href: '/admin/globe-countries', label: 'Globe Countries', icon: Earth },
+      { href: '/admin/media', label: 'Media Library', icon: ImageIcon },
     ],
   },
   {
@@ -70,21 +82,68 @@ const navSections = [
       { href: '/admin/community', label: 'Danphe Community', icon: Globe },
       { href: '/admin/careers', label: 'Careers', icon: Briefcase },
       { href: '/admin/leads', label: 'Leads', icon: Megaphone },
+      { href: '/admin/leads/settings', label: 'Lead Settings', icon: Settings2 },
+    ],
+  },
+  {
+    label: 'SEO & Growth',
+    links: [
+      { href: '/admin/seo', label: 'SEO Settings', icon: Search },
+      { href: '/admin/seo/pages', label: 'Per-Page SEO', icon: Search },
+      { href: '/admin/seo/redirects', label: 'Redirects', icon: ArrowRightLeft },
+    ],
+  },
+  {
+    label: 'Appearance',
+    links: [
+      { href: '/admin/appearance/themes', label: 'Theme Builder', icon: Palette },
+    ],
+  },
+  {
+    label: 'Admin & Security',
+    links: [
       { href: '/admin/users', label: 'Users', icon: UserCog },
+      { href: '/admin/roles', label: 'Roles & Permissions', icon: Shield },
+      { href: '/admin/activity', label: 'Activity Log', icon: ScrollText },
     ],
   },
 ];
 
-// Flatten for top-bar page title lookup
-const allLinks = navSections.flatMap((s) => s.links);
+// Flatten and sort longest-href-first so /admin/leads/settings matches before /admin/leads
+const allLinks = navSections
+  .flatMap((s) => s.links)
+  .sort((a, b) => b.href.length - a.href.length);
+
+/** Check if a link is active for the given pathname (longest-match wins) */
+function isLinkActive(linkHref: string, pathname: string): boolean {
+  if (linkHref === '/admin/dashboard') return pathname === linkHref;
+  return pathname === linkHref || pathname.startsWith(linkHref + '/');
+}
 
 // ─── Sidebar Content (shared desktop & mobile) ────────────────────────────────
 
 function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
+  const activeRef = useRef<HTMLAnchorElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to active link on mount and pathname change
+  const scrollToActive = useCallback(() => {
+    requestAnimationFrame(() => {
+      const el = activeRef.current;
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }, []);
+
+  useEffect(() => {
+    scrollToActive();
+  }, [pathname, scrollToActive]);
+
+  const activeHref = allLinks.find((l) => isLinkActive(l.href, pathname))?.href;
 
   return (
-    <ScrollArea className="flex-1 px-3 py-4">
+    <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-4">
       <nav className="space-y-6">
         {navSections.map((section) => (
           <div key={section.label}>
@@ -93,14 +152,12 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             </p>
             <div className="space-y-0.5">
               {section.links.map((link) => {
-                const isActive =
-                  pathname === link.href ||
-                  (link.href !== '/admin/dashboard' &&
-                    pathname.startsWith(link.href + '/'));
+                const isActive = activeHref === link.href;
                 const Icon = link.icon;
                 return (
                   <a
                     key={link.href}
+                    ref={isActive ? activeRef : undefined}
                     href={link.href}
                     onClick={onNavigate}
                     className={cn(
@@ -119,7 +176,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
           </div>
         ))}
       </nav>
-    </ScrollArea>
+    </div>
   );
 }
 
@@ -198,12 +255,10 @@ export default function AdminLayout({
   const [collapsed, setCollapsed] = useState(false);
   const { status, data: session } = useSession();
   const router = useRouter();
+  const desktopActiveRef = useRef<HTMLAnchorElement>(null);
+  const desktopScrollRef = useRef<HTMLDivElement>(null);
 
-  const activeLink = allLinks.find(
-    (l) =>
-      pathname === l.href ||
-      (l.href !== '/admin/dashboard' && pathname.startsWith(l.href + '/')),
-  );
+  const activeLink = allLinks.find((l) => isLinkActive(l.href, pathname));
   const pageTitle = activeLink?.label ?? 'Admin';
 
   const user = session?.user;
@@ -215,6 +270,15 @@ export default function AdminLayout({
       router.push('/admin/login');
     }
   }, [status, router]);
+
+  // Auto-scroll desktop sidebar to active link on mount and pathname change
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      const el = desktopActiveRef.current;
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }, [pathname]);
 
   // Login and unauthorized pages render without sidebar
   if (pathname === '/admin/login' || pathname === '/admin/unauthorized') {
@@ -267,7 +331,7 @@ export default function AdminLayout({
 
         {/* Navigation with collapsible support */}
         <div className="flex flex-1 flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto px-3 py-4">
+          <div ref={desktopScrollRef} className="flex-1 overflow-y-auto px-3 py-4">
             <nav className="space-y-6">
               {navSections.map((section) => (
                 <div key={section.label}>
@@ -278,14 +342,12 @@ export default function AdminLayout({
                   )}
                   <div className="space-y-0.5">
                     {section.links.map((link) => {
-                      const isActive =
-                        pathname === link.href ||
-                        (link.href !== '/admin/dashboard' &&
-                          pathname.startsWith(link.href + '/'));
+                      const isActive = activeLink?.href === link.href;
                       const Icon = link.icon;
                       return (
                         <a
                           key={link.href}
+                          ref={isActive ? desktopActiveRef : undefined}
                           href={link.href}
                           title={collapsed ? link.label : undefined}
                           className={cn(

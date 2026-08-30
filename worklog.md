@@ -1611,3 +1611,36 @@ Stage Summary:
 - Root causes of the previous failure: deferred initialization (rAF retry) combined with isVisibleRef gating prevented the render loop from executing; the complex texture chain had silent failure modes
 - Fix: simplified initialization to run synchronously in useEffect, removed render-loop gating, added CDN fallback for textures
 - The globe auto-rotates, supports drag rotation, scroll zoom, pinch zoom, marker hover tooltips, and click-to-zoom on country markers
+
+---
+Task ID: sidebar-scroll-to-active
+Agent: main
+Task: Make admin sidebar scroll to active module on click and page refresh, restore missing nav sections
+
+Work Log:
+- Discovered the admin sidebar was missing all 6 new module groups (SEO & Growth, Appearance, Admin & Security) and new items in existing groups (Maintenance, Analytics, Media Library, Lead Settings)
+- Restored complete sidebar with 6 navigation groups and 22 total nav items:
+  - General: Dashboard, Site Settings, Navigation, Maintenance, Analytics
+  - Content: Homepage, Solutions, Team, Stats, Testimonials, Clients, Globe Countries, Media Library
+  - Engage: News & Events, Danphe Community, Careers, Leads, Lead Settings
+  - SEO & Growth: SEO Settings, Per-Page SEO, Redirects
+  - Appearance: Theme Builder
+  - Admin & Security: Users, Roles & Permissions, Activity Log
+- Fixed active link detection: sorted allLinks longest-href-first, created isLinkActive() helper for consistent matching (fixes /admin/leads/settings vs /admin/leads)
+- Added auto-scroll-to-active behavior:
+  - Mobile SidebarNav: useRef + useEffect on pathname change, calls scrollIntoView({behavior:'smooth', block:'nearest'}) on active link element
+  - Desktop sidebar: separate desktopActiveRef + useEffect on pathname change, same scrollIntoView behavior
+  - Uses requestAnimationFrame to ensure DOM is ready before scrolling
+- Fixed 5 remaining ESLint react-hooks/set-state-in-effect errors:
+  - AutumnScene.tsx: Replaced useState+useEffect with useSyncExternalStore for usePrefersReducedMotion and useIsMobile
+  - LoginCard.tsx: Wrapped synchronous setState in setTimeout(,0) to move into async callback
+  - login/page.tsx: Same setTimeout(,0) pattern for SecurityShield component
+- Verified: bun run lint passes with zero errors
+- Verified: npx next build succeeds with all 101 routes
+
+Stage Summary:
+- Sidebar now auto-scrolls to the active module on page load, refresh, and navigation
+- All 6 nav groups with 22 items fully restored
+- Longest-match-first active detection prevents double-highlighting for nested routes
+- Zero lint errors, zero build errors
+- Files modified: layout.tsx, AutumnScene.tsx, LoginCard.tsx, login/page.tsx

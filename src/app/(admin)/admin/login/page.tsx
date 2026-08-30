@@ -167,18 +167,18 @@ function SecurityShield({ triggerSuccess }: { triggerSuccess: boolean }) {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) { setPhase('idle'); return; }
-    const t = setTimeout(() => setPhase('idle'), 1000);
+    const delay = reduced ? 0 : 1000;
+    const t = setTimeout(() => setPhase('idle'), delay);
     return () => clearTimeout(t);
-  }, []);
+  }, [reduced]);
 
   useEffect(() => {
     if (triggerSuccess && !reduced) {
-      setPhase('glow');
-      const t = setTimeout(() => setPhase('idle'), 1400);
-      return () => clearTimeout(t);
+      const t = setTimeout(() => setPhase('glow'), 0);
+      const t2 = setTimeout(() => setPhase('idle'), 1400);
+      return () => { clearTimeout(t); clearTimeout(t2); };
     }
-  }, [triggerSuccess]);
+  }, [triggerSuccess, reduced]);
 
   const drawn = phase !== 'draw';
   const checkOk = phase === 'idle' || phase === 'glow';

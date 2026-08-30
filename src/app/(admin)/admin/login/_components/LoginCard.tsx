@@ -44,18 +44,18 @@ function AnimatedShield({ triggerSuccess }: { triggerSuccess: boolean }) {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) { setPhase('idle'); return; }
-    const t = setTimeout(() => setPhase('idle'), 1200);
+    const delay = reduced ? 0 : 1200;
+    const t = setTimeout(() => setPhase('idle'), delay);
     return () => clearTimeout(t);
-  }, []);
+  }, [reduced]);
 
   useEffect(() => {
     if (triggerSuccess && !reduced) {
-      setPhase('success');
-      const t = setTimeout(() => setPhase('idle'), 1600);
-      return () => clearTimeout(t);
+      const t = setTimeout(() => setPhase('success'), 0);
+      const t2 = setTimeout(() => setPhase('idle'), 1600);
+      return () => { clearTimeout(t); clearTimeout(t2); };
     }
-  }, [triggerSuccess]);
+  }, [triggerSuccess, reduced]);
 
   const drawn = phase !== 'drawing';
   const checkDrawn = phase === 'idle' || phase === 'success';
