@@ -300,7 +300,7 @@ export default function SeoPagesPage() {
                 type="url"
                 value={editForm.ogImageUrl}
                 onChange={(e) => setEditForm((p) => ({ ...p, ogImageUrl: e.target.value }))}
-                placeholder="https://danphehealth.com/og-page.jpg"
+                placeholder="/og-page.jpg"
                 className={inputCls}
               />
             </div>

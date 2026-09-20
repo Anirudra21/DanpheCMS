@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 export const dynamic = 'force-dynamic';
 
@@ -66,6 +68,14 @@ export async function GET() {
     });
   } catch (error) {
     console.error('public-data error:', error);
-    return NextResponse.json({ error: 'Failed to load public data' }, { status: 500 });
+    try {
+      const fallbackPath = join(process.cwd(), 'src', 'data', 'public-data-fallback.json');
+      const raw = readFileSync(fallbackPath, 'utf-8');
+      const json = JSON.parse(raw);
+      return NextResponse.json(json);
+    } catch (e) {
+      console.error('fallback public-data read error:', e);
+      return NextResponse.json({ error: 'Failed to load public data' }, { status: 500 });
+    }
   }
 }

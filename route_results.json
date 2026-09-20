@@ -1,0 +1,419 @@
+[
+  {
+    "route": "/admin/activity",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/analytics",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/careers/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/careers",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/clients/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/clients",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/community/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/community",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/dashboard",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/globe-countries/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/globe-countries",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/homepage",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/leads",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/leads/settings",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/login",
+    "admin": true,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/maintenance",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/media",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/navigation/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/navigation",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/pages/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/pages",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/posts/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/posts",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/roles",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/seo",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/seo/pages",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/seo/redirects",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/settings",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/solutions/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/solutions",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/stats/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/stats",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/team/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/team",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/testimonials/new",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/testimonials",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/unauthorized",
+    "admin": true,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/admin/users",
+    "admin": true,
+    "status": 307,
+    "hasFooter": false,
+    "hasFooterTag": false,
+    "keyMarkers": []
+  },
+  {
+    "route": "/careers",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/clients",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/company",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/contact",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/danphe-community",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/faqs",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/news-events",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/partners",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/privacy-policy",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/schedule-a-demo",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/solutions",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/terms-and-conditions",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": []
+  },
+  {
+    "route": "/",
+    "admin": false,
+    "status": 200,
+    "hasFooter": true,
+    "hasFooterTag": true,
+    "keyMarkers": [
+      {
+        "name": "hero",
+        "ok": true
+      },
+      {
+        "name": "sections",
+        "ok": true
+      }
+    ]
+  }
+]

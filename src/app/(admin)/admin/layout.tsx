@@ -305,11 +305,9 @@ export default function AdminLayout({
         {/* Logo + collapse toggle */}
         <div className="flex h-14 items-center justify-between px-4 shrink-0 border-b border-white/[0.06]">
           {collapsed ? (
-            <span className="text-lg font-bold text-danphe-accent mx-auto">D</span>
+            <img src="/logo.svg" alt="Danphe" className="h-6 w-auto mx-auto brightness-0 invert" />
           ) : (
-            <h1 className="text-lg font-bold tracking-tight">
-              Danphe <span className="text-danphe-accent">CMS</span>
-            </h1>
+            <img src="/frontend/img/logo.png" alt="DanpheHealth Logo" className="h-7 w-auto brightness-0 invert" />
           )}
           <Button
             variant="ghost"

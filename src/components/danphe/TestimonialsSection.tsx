@@ -100,13 +100,17 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                   {/* Shadow behind avatar */}
                   <div className="absolute inset-0 rounded-full bg-danphe-accent/20 blur-md" />
                   <div className="relative h-12 w-12 overflow-hidden rounded-full ring-2 ring-danphe-accent/40 ring-offset-2 ring-offset-white">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      unoptimized
-                      className="object-cover"
-                    />
+                    {testimonial.image ? (
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        unoptimized
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div aria-hidden className="h-full w-full bg-gray-50" />
+                    )}
                   </div>
                 </div>
                 <span className="text-sm font-bold text-danphe-primary">
@@ -126,12 +130,23 @@ export default function TestimonialsSection({ heading, subheading, testimonials 
   const areaRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Provide a safe fallback so the section always renders
+  const safeTestimonials = (testimonials && testimonials.length > 0)
+    ? testimonials
+    : [
+        {
+          name: 'Danphe Health',
+          quote: 'Trusted by hospitals across the region.',
+          image: '',
+        },
+      ];
+
   const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
+      setCurrent((prev) => (prev + 1) % safeTestimonials.length);
     }, 5000);
-  }, [testimonials.length]);
+  }, [safeTestimonials.length]);
 
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
@@ -148,8 +163,9 @@ export default function TestimonialsSection({ heading, subheading, testimonials 
   const handleMouseEnter = () => stopTimer();
   const handleMouseLeave = () => startTimer();
 
-  // Compute visible indices: 1 on mobile, 3 on desktop
-  const indices = [0, 1, 2].map((i) => (current + i) % testimonials.length);
+  // Compute visible indices: 1 on mobile, up to 3 on desktop but avoid duplicates
+  const visibleCount = Math.min(3, safeTestimonials.length);
+  const indices = Array.from({ length: visibleCount }, (_, i) => (current + i) % safeTestimonials.length);
 
   return (
     <section
@@ -196,13 +212,13 @@ export default function TestimonialsSection({ heading, subheading, testimonials 
             >
               {/* Desktop: show 3 cards */}
               {indices.map((idx) => (
-                <div key={testimonials[idx].name} className="hidden md:block">
-                  <TestimonialCard testimonial={testimonials[idx]} />
+                <div key={`t-${idx}-${safeTestimonials[idx].name}`} className="hidden md:block">
+                  <TestimonialCard testimonial={safeTestimonials[idx]} />
                 </div>
               ))}
               {/* Mobile: show only current, centered and well-padded */}
               <div className="mx-auto w-full max-w-md md:hidden">
-                <TestimonialCard testimonial={testimonials[current]} />
+                <TestimonialCard testimonial={safeTestimonials[current % safeTestimonials.length]} />
               </div>
             </motion.div>
           </AnimatePresence>
@@ -214,7 +230,7 @@ export default function TestimonialsSection({ heading, subheading, testimonials 
           role="tablist"
           aria-label="Testimonial navigation"
         >
-          {testimonials.map((_, idx) => (
+          {safeTestimonials.map((_, idx) => (
             <motion.button
               key={idx}
               role="tab"

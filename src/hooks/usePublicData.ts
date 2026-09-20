@@ -27,7 +27,7 @@ export interface PublicData {
 
 const DEFAULT_DATA: PublicData = {
   siteSettings: {
-    logo: 'https://danphehealth.com/frontend/img/logo.png',
+    logo: '/images/logo/logo.png',
     email: 'info@danphehealth.com',
     phone: '+977-9852088004',
     facebookUrl: '',

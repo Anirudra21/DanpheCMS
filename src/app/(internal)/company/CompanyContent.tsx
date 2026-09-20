@@ -166,7 +166,7 @@ export default function CompanyContent({ stats, team }: { stats: StatItem[]; tea
               className="grid grid-cols-2 gap-4"
             >
               <Image
-                src="https://danphehealth.com/storage/uploads/nc2YYOp5UgiAIZbiOMUj82uxIdG4jlNwKztoLIdn.jpg"
+                src="/images/content/nc2YYOp5UgiAIZbiOMUj82uxIdG4jlNwKztoLIdn.jpg"
                 alt="Danphe team at work"
                 width={400}
                 height={300}
@@ -174,7 +174,7 @@ export default function CompanyContent({ stats, team }: { stats: StatItem[]; tea
                 className="rounded-xl shadow-lg"
               />
               <Image
-                src="https://danphehealth.com/storage/uploads/oQLbkHz6vDmpHhrZodXRmQiXOv44n7S5MX6WrKbm.jpg"
+                src="/images/content/oQLbkHz6vDmpHhrZodXRmQiXOv44n7S5MX6WrKbm.jpg"
                 alt="Danphe office"
                 width={400}
                 height={300}
@@ -266,13 +266,17 @@ export default function CompanyContent({ stats, team }: { stats: StatItem[]; tea
                 <Card className="group h-full overflow-hidden border-danphe-border text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   <CardContent className="p-0">
                     <div className="relative mx-auto mt-5 h-28 w-28 overflow-hidden rounded-full ring-3 ring-danphe-accent/20 ring-offset-2 transition-all duration-300 group-hover:ring-danphe-accent/50 sm:h-32 sm:w-32">
-                      <Image
-                        src={member.photoUrl}
-                        alt={member.name}
-                        fill
-                        className="object-cover object-top"
-                        sizes="(max-width: 640px) 50vw, 20vw"
-                      />
+                      {member.photoUrl ? (
+                        <Image
+                          src={member.photoUrl}
+                          alt={member.name}
+                          fill
+                          className="object-cover object-top"
+                          sizes="(max-width: 640px) 50vw, 20vw"
+                        />
+                      ) : (
+                        <div aria-hidden className="h-full w-full bg-gray-50" />
+                      )}
                     </div>
                     <div className="p-4 pb-5">
                       <h3 className="text-sm font-bold text-danphe-primary sm:text-base">{member.name}</h3>
@@ -388,7 +392,7 @@ export default function CompanyContent({ stats, team }: { stats: StatItem[]; tea
               transition={{ duration: 0.6 }}
             >
               <Image
-                src="https://danphehealth.com/storage/uploads/Z5p6J64WddandSwTO03HBpjeNI0dxB2T8rauXZwv.jpg"
+                src="/images/content/Z5p6J64WddandSwTO03HBpjeNI0dxB2T8rauXZwv.jpg"
                 alt="Danphe support team"
                 width={600}
                 height={450}
@@ -414,7 +418,7 @@ export default function CompanyContent({ stats, team }: { stats: StatItem[]; tea
                 Schedule a Demo
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" asChild>
+            <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-danphe-primary" asChild>
               <Link href="/solutions">
                 Explore Solutions
                 <ArrowRight className="ml-2 h-4 w-4" />

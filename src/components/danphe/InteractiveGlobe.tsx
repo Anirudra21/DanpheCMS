@@ -228,19 +228,9 @@ export default function InteractiveGlobe({ countries, heading, subheading }: Int
           },
           undefined,
           () => {
-            /* Fallback to CDN */
-            textureLoader.load(
-              'https://unpkg.com/three-globe/example/img/earth-day.jpg',
-              (tex) => {
-                applyTexture(tex);
-              },
-              undefined,
-              () => {
-                /* All texture sources failed, keeping placeholder */
-                setTextureLoaded(true);
-              },
-            );
-          },
+            /* All texture sources failed, keeping placeholder */
+            setTextureLoaded(true);
+          }
         );
       },
     );

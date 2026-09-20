@@ -9,69 +9,13 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlserver"
   url      = env("DATABASE_URL")
 }
 
 // ─── Enums ─────────────────────────────────────────────────────────────────
 
-enum NavLocation {
-  HEADER
-  FOOTER_COMPANY
-  FOOTER_SOLUTIONS
-  FOOTER_INFO
-}
-
-enum PostType {
-  NEWS_EVENT
-  COMMUNITY
-}
-
-enum PostStatus {
-  DRAFT
-  PUBLISHED
-}
-
-enum JobStatus {
-  OPEN
-  CLOSED
-}
-
-enum LeadSource {
-  CONTACT
-  DEMO_REQUEST
-  NEWSLETTER
-}
-
-enum AdminRole {
-  SUPER_ADMIN
-  EDITOR
-  CONTENT_MANAGER
-  SUPPORT
-}
-
-enum MediaCategory {
-  GENERAL
-  CLIENT_LOGO
-  SOLUTION_ICON
-  TEAM_PHOTO
-  NEWS_IMAGE
-  HERO_IMAGE
-  FEATURE_ICON
-}
-
-enum SeoPageType {
-  HOMEPAGE
-  SOLUTION
-  POST
-  JOB
-  PAGE
-}
-
-enum RedirectType {
-  PERMANENT_301
-  TEMPORARY_302
-}
+// Enums converted to string fields for SQL Server compatibility
 
 // ─── Site Settings (singleton — enforce one row at application level) ──────
 
@@ -99,7 +43,7 @@ model NavItem {
   label    String
   url      String
   order    Int         @default(0)
-  location NavLocation
+  location String
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
@@ -114,7 +58,7 @@ model HomepageSection {
   key        String   @unique              // e.g. "hero", "value_adds", "features_row"
   heading    String   @default("")
   subheading String   @default("")
-  body       String   @default("") // rich-text / HTML
+  body       String   @default("") @db.NVarChar(MAX) // rich-text / HTML
   image      String   @default("")
   ctaLabel   String   @default("")
   ctaUrl     String   @default("")
@@ -133,7 +77,7 @@ model Solution {
   title            String
   slug             String           @unique
   shortDescription String           @default("")
-  body             String           @default("")
+  body             String           @default("") @db.NVarChar(MAX)
   iconUrl          String           @default("")
   heroImageUrl     String           @default("")
   order            Int              @default(0)
@@ -198,7 +142,7 @@ model Stat {
 
 model Testimonial {
   id         String   @id @default(cuid())
-  quote      String  
+  quote      String  @db.NVarChar(MAX)
   authorName String
   authorOrg  String   @default("")
   imageUrl   String   @default("")
@@ -240,9 +184,9 @@ model Post {
   author        String     @default("")
   publishedAt   DateTime?
   excerpt       String     @default("")
-  body          String     @default("") // rich-text / Tiptap HTML
-  type          PostType
-  status        PostStatus @default(DRAFT)
+  body          String     @default("") @db.NVarChar(MAX) // rich-text / Tiptap HTML
+  type          String
+  status        String @default("DRAFT")
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 
@@ -260,10 +204,10 @@ model Job {
   department     String     @default("")
   location       String     @default("")
   employmentType String     @default("")
-  description    String     @default("")
-  requirements   String     @default("")
+  description    String     @default("") @db.NVarChar(MAX)
+  requirements   String     @default("") @db.NVarChar(MAX)
   applyEmail     String     @default("")
-  status         JobStatus  @default(OPEN)
+  status         String  @default("OPEN")
   order          Int        @default(0)
   postedAt       DateTime   @default(now())
   createdAt      DateTime   @default(now())
@@ -281,8 +225,8 @@ model Lead {
   name      String     @default("")
   email     String     @default("")
   phone     String     @default("")
-  message   String     @default("")
-  source    LeadSource
+  message   String     @default("") @db.NVarChar(MAX)
+  source    String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
@@ -299,7 +243,7 @@ model AdminUser {
   email        String    @unique
   passwordHash String
   name         String    @default("")
-  role         AdminRole @default(EDITOR)
+  role         String @default("EDITOR")
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
@@ -337,7 +281,7 @@ model Media {
   size       Int           @default(0)
   width      Int           @default(0)
   height     Int           @default(0)
-  category   MediaCategory @default(GENERAL)
+  category   String @default("GENERAL")
   uploadedBy String        @default("")
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
@@ -356,7 +300,7 @@ model ActivityLog {
   action     String   // CREATE, UPDATE, DELETE, PUBLISH, LOGIN, etc.
   resource   String   // e.g. "Solution", "Post", "HomepageSection"
   resourceId String   @default("")
-  details    String   @default("") // JSON string with change details
+  details    String   @default("") @db.NVarChar(MAX) // JSON string with change details
   createdAt  DateTime @default(now())
 
   @@index([action])
@@ -370,7 +314,7 @@ model ActivityLog {
 
 model SystemConfig {
   key       String   @id
-  value     String   @default("{}") // JSON-encoded config
+  value     String   @default("{}") @db.NVarChar(MAX) // JSON-encoded config
   updatedAt DateTime @updatedAt
 
   @@map("system_configs")
@@ -400,7 +344,7 @@ model SeoGlobal {
 
 model SeoPageMeta {
   id          String      @id @default(cuid())
-  pageType    SeoPageType
+  pageType    String
   pageSlug    String      @default("")
   pageTitle   String      @default("")
   metaTitle   String      @default("")
@@ -421,7 +365,7 @@ model RedirectRule {
   id        String       @id @default(cuid())
   fromPath  String       @unique
   toPath    String
-  type      RedirectType @default(PERMANENT_301)
+  type      String @default("PERMANENT_301")
   enabled   Boolean      @default(true)
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt

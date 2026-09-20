@@ -44,18 +44,22 @@ export default function TrustedSection({ heading, clients }: TrustedSectionProps
           <div className="flex animate-marquee">
             {[...clients, ...clients].map((hospital, idx) => (
               <div
-                key={`r1-${idx}`}
+                key={`r1-${idx}-${hospital.name}`}
                 className="mx-2 flex-shrink-0 bg-white rounded-xl border border-danphe-border/30 px-6 py-4 transition-shadow hover:shadow-md"
                 aria-label={hospital.name}
               >
-                <Image
-                  src={hospital.logo}
-                  alt={hospital.name}
-                  unoptimized
-                  width={120}
-                  height={32}
-                  className="h-8 w-auto object-contain"
-                />
+                {hospital.logo ? (
+                  <Image
+                    src={hospital.logo}
+                    alt={hospital.name}
+                    unoptimized
+                    width={120}
+                    height={32}
+                    className="h-8 w-auto object-contain"
+                  />
+                ) : (
+                  <div className="h-8 w-28" aria-hidden />
+                )}
               </div>
             ))}
           </div>
@@ -66,18 +70,22 @@ export default function TrustedSection({ heading, clients }: TrustedSectionProps
           <div className="flex animate-marquee" style={{ animationDirection: 'reverse' }}>
             {[...clients, ...clients].map((hospital, idx) => (
               <div
-                key={`r2-${idx}`}
+                key={`r2-${idx}-${hospital.name}`}
                 className="mx-2 flex-shrink-0 bg-white rounded-xl border border-danphe-border/30 px-6 py-4 transition-shadow hover:shadow-md"
                 aria-label={hospital.name}
               >
-                <Image
-                  src={hospital.logo}
-                  alt={hospital.name}
-                  unoptimized
-                  width={120}
-                  height={32}
-                  className="h-8 w-auto object-contain"
-                />
+                {hospital.logo ? (
+                  <Image
+                    src={hospital.logo}
+                    alt={hospital.name}
+                    unoptimized
+                    width={120}
+                    height={32}
+                    className="h-8 w-auto object-contain"
+                  />
+                ) : (
+                  <div className="h-8 w-28" aria-hidden />
+                )}
               </div>
             ))}
           </div>

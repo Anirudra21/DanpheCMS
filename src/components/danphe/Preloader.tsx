@@ -28,7 +28,7 @@ export default function Preloader() {
               transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
             >
               <Image
-                src="https://danphehealth.com/frontend/img/logo.png"
+                src="/images/logo/logo.png"
                 alt="Danphe Health"
                 width={192}
                 height={48}

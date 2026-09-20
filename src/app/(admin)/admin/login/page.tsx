@@ -13,7 +13,7 @@ const TEAL = '#079E96';
 const NAVY = '#083F5C';
 const NAVY_LIGHT = '#0c4a6e';
 const SLATE = '#607087';
-const LOGO_URL = 'https://danphehealth.com/frontend/img/logo.png';
+const LOGO_URL = '/images/logo/logo.png';
 
 type Phase = 'idle' | 'loading' | 'success' | 'error';
 

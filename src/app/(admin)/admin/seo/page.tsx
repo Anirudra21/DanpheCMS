@@ -255,7 +255,7 @@ export default function SeoSettingsPage() {
             type="url"
             value={form.ogImageUrl}
             onChange={(e) => update('ogImageUrl', e.target.value)}
-            placeholder="https://danphehealth.com/og-default.jpg"
+            placeholder="/og-default.jpg"
             className={inputCls}
           />
         </FormField>

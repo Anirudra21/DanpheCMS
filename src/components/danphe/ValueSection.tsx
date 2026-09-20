@@ -37,14 +37,18 @@ export default function ValueSection({ heading, valuePoints, image, ctaLabel, ct
             className="relative lg:col-span-7"
           >
             <div className="relative overflow-hidden rounded-3xl shadow-premium-lg border-l-4 border-danphe-accent">
-              <Image
-                src={image}
-                alt="Danphe Health about"
-                width={800}
-                height={600}
-                unoptimized
-                className="h-auto w-full object-cover"
-              />
+              {image ? (
+                <Image
+                  src={image}
+                  alt="Danphe Health about"
+                  width={800}
+                  height={600}
+                  unoptimized
+                  className="h-auto w-full object-cover"
+                />
+              ) : (
+                <div aria-hidden className="h-[600px] w-full bg-gray-50" />
+              )}
             </div>
           </motion.div>
 

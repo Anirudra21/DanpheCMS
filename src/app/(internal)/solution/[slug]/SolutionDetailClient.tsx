@@ -55,14 +55,18 @@ export default function SolutionDetailClient({ module: mod }: { module: ModuleDa
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex items-center gap-4"
           >
-            <Image
-              src={mod.icon}
-              alt={mod.name}
-              width={48}
-              height={48}
-              unoptimized
-              className="h-12 w-12 brightness-0 invert"
-            />
+            {mod.icon ? (
+              <Image
+                src={mod.icon}
+                alt={mod.name}
+                width={48}
+                height={48}
+                unoptimized
+                className="h-12 w-12 brightness-0 invert"
+              />
+            ) : (
+              <div className="h-12 w-12" aria-hidden />
+            )}
             <div>
               <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">{mod.name}</h1>
               <p className="mt-2 text-white/80 sm:text-lg">{mod.title}</p>
@@ -98,13 +102,17 @@ export default function SolutionDetailClient({ module: mod }: { module: ModuleDa
               transition={{ duration: 0.6, delay: 0.15 }}
               className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-xl"
             >
-              <Image
-                src={mod.image}
-                alt={mod.name}
-                fill
-                unoptimized
-                className="object-cover"
-              />
+              {mod.image ? (
+                <Image
+                  src={mod.image}
+                  alt={mod.name}
+                  fill
+                  unoptimized
+                  className="object-cover"
+                />
+              ) : (
+                <div aria-hidden className="h-full w-full bg-gray-50" />
+              )}
             </motion.div>
           </div>
         </div>

@@ -158,7 +158,11 @@ export default function SolutionsContent({ solutions }: { solutions: SolutionIte
                 <Card className="group h-full overflow-hidden border-danphe-border transition-all duration-300 hover:shadow-lg">
                   <CardContent className="p-6">
                     <div className="mb-4 flex items-center gap-3">
-                      <Image src={sol.icon} alt={sol.name} width={32} height={32} unoptimized className="h-8 w-8" />
+                      {sol.icon ? (
+                        <Image src={sol.icon} alt={sol.name} width={32} height={32} unoptimized className="h-8 w-8" />
+                      ) : (
+                        <div className="h-8 w-8" aria-hidden />
+                      )}
                       <h3 className="text-lg font-bold text-danphe-primary">{sol.name}</h3>
                     </div>
                     <p className="mb-4 text-sm text-danphe-text-light leading-relaxed line-clamp-3">

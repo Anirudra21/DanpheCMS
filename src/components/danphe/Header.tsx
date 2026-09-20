@@ -51,7 +51,7 @@ export default function Header() {
   // Always render – never return null
   const settings = siteData.siteSettings;
   const headerNav = siteData.navByLocation.HEADER ?? [];
-  const logoUrl = settings?.logo || 'https://danphehealth.com/frontend/img/logo.png';
+  const logoUrl = settings?.logo || '/images/logo/logo.png';
   const email = settings?.email || 'info@danphehealth.com';
   const phone = settings?.phone || '+977-9852088004';
   const facebookUrl = settings?.facebookUrl || '';

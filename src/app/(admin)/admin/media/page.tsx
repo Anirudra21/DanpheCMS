@@ -206,7 +206,7 @@ export default function MediaPage() {
               >
                 {/* Thumbnail */}
                 <div className="aspect-square bg-danphe-bg-light relative overflow-hidden">
-                  {isImage(item.mimeType) ? (
+                  {isImage(item.mimeType) && item.path ? (
                     <img
                       src={item.path}
                       alt={item.filename}

@@ -67,13 +67,17 @@ export default function NewsEventsContent({ articles }: { articles: Article[] })
                 >
                   <Card className="h-full overflow-hidden border-danphe-border transition-shadow hover:shadow-lg">
                     <div className="relative aspect-[16/9]">
-                      <Image
-                        src={article.coverImageUrl}
-                        alt={article.title}
-                        fill
-                        unoptimized
-                        className="object-cover"
-                      />
+                      {article.coverImageUrl ? (
+                        <Image
+                          src={article.coverImageUrl}
+                          alt={article.title}
+                          fill
+                          unoptimized
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div aria-hidden className="h-full w-full bg-gray-50" />
+                      )}
                     </div>
                     <CardContent className="p-6">
                       <div className="mb-3 flex items-center gap-3 text-xs text-danphe-text-light">

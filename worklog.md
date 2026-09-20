@@ -1260,7 +1260,7 @@ Task: Redesign admin login as clean, minimal, premium experience with Danphe Hea
 Work Log:
 - Removed old AutumnScene.tsx and LoginCard.tsx components from _components directory
 - Deleted entire _components directory under admin/login
-- Created single clean login page with official Danphe Health logo (https://danphehealth.com/frontend/img/logo.png via next/image)
+- Created single clean login page with official Danphe Health logo (/frontend/img/logo.png via next/image)
 - Subtle ambient background: light gradient (#f8fafb → #f0f9ff → #e8f4f8), canvas particle network (teal, ~40 particles with faint connections), radial teal glows
 - Canvas animation respects prefers-reduced-motion (static particles, no movement)
 - Login card: white, rounded-2xl, subtle border and shadow, max-w-400px

@@ -49,7 +49,7 @@ export default function ClientsContent({ clients }: { clients: ClientItem[] }) {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {clients.map((client, i) => (
               <motion.div
-                key={client.name}
+                key={`client-${i}-${client.name}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

@@ -85,14 +85,18 @@ export default function OutcomesSection({ heading, outcomePoints, image, ctaLabe
             {/* Decorative accent shape behind image */}
             <div className="absolute -top-6 -right-6 -bottom-4 -left-4 rounded-2xl bg-danphe-accent/10 -rotate-3" />
             <div className="relative overflow-hidden rounded-3xl shadow-premium-lg">
-              <Image
-                src={image}
-                alt="Doctor using Danphe HMIS"
-                width={600}
-                height={700}
-                unoptimized
-                className="h-auto w-full object-cover"
-              />
+              {image ? (
+                <Image
+                  src={image}
+                  alt="Doctor using Danphe HMIS"
+                  width={600}
+                  height={700}
+                  unoptimized
+                  className="h-auto w-full object-cover"
+                />
+              ) : (
+                <div aria-hidden className="h-[700px] w-full bg-gray-50" />
+              )}
             </div>
           </motion.div>
         </div>
@@ -153,7 +157,7 @@ export default function OutcomesSection({ heading, outcomePoints, image, ctaLabe
                   One solution, no software clutter – Comprehensive EHR and HIMS in a nutshell.
                 </p>
                 <a
-                  href="https://danphehealth.com/downloads/danphe-hmis-brochure.pdf"
+                  href="/downloads/danphe-hmis-brochure.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full bg-danphe-accent px-4 py-2 text-xs font-semibold text-white transition-all duration-300 hover:bg-danphe-accent-light hover:shadow-glow-accent"
@@ -180,7 +184,7 @@ export default function OutcomesSection({ heading, outcomePoints, image, ctaLabe
                   One solution, no software clutter – Comprehensive EHR and HIMS in a nutshell.
                 </p>
                 <a
-                  href="https://danphehealth.com/downloads/danphe-presentation.pdf"
+                  href="/downloads/danphe-presentation.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full bg-danphe-accent px-4 py-2 text-xs font-semibold text-white transition-all duration-300 hover:bg-danphe-accent-light hover:shadow-glow-accent"

@@ -102,7 +102,7 @@ export default function CareersContent({ jobs }: { jobs: Job[] }) {
               transition={{ duration: 0.6, delay: 0.15 }}
             >
               <Image
-                src="https://danphehealth.com/frontend/img/image33.jpg"
+                src="/images/content/image33.jpg"
                 alt="Danphe team"
                 width={600}
                 height={450}

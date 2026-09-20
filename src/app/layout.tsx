@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     'Danphe Health, HIMS, healthcare information management system, Top HIMS system in Nepal, Complete HIMS Solution in Nepal, OPD management system in Nepal, Payroll management system in Nepal',
   authors: [{ name: 'Imark Digital Pvt. Ltd.' }],
   icons: {
-    icon: 'https://danphehealth.com/admin/assets/media/logos/favicon.ico',
+    icon: '/favicon.ico',
   },
   openGraph: {
     title: 'Danphe Health - a complete solution for HIMS with EMR',
     description:
       'Danphe Health is a complete solution for HIMS with EMR, offering precision in healthcare information management',
-    url: 'https://danphehealth.com',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
     siteName: 'Danphe Health',
     type: 'website',
   },

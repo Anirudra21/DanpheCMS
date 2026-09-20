@@ -70,6 +70,10 @@ export default function ModuleSection({ modules }: ModuleSectionProps) {
   const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
   const activeModule = modules[activeIdx];
 
+  if (!modules || modules.length === 0) {
+    return null;
+  }
+
   const goPrev = () =>
     setActiveIdx((i) => (i === 0 ? modules.length - 1 : i - 1));
   const goNext = () =>
@@ -98,11 +102,10 @@ export default function ModuleSection({ modules }: ModuleSectionProps) {
     return CATEGORY_MAP[activeFilter]?.includes(moduleName) ?? false;
   };
 
-  const visibleFeatures = showAllFeatures
-    ? activeModule.features
-    : activeModule.features.slice(0, 4);
+  const activeFeatures = activeModule.features ?? [];
+  const visibleFeatures = showAllFeatures ? activeFeatures : activeFeatures.slice(0, 4);
 
-  const hasMoreFeatures = activeModule.features.length > 4;
+  const hasMoreFeatures = activeFeatures.length > 4;
 
   return (
     <section
@@ -189,8 +192,8 @@ export default function ModuleSection({ modules }: ModuleSectionProps) {
                   aria-label={`View ${mod.name} details`}
                 >
                   {/* Feature Count Badge */}
-                  <span className="absolute top-2 right-2 z-10 rounded-full bg-danphe-accent/10 text-danphe-accent text-[10px] font-bold px-1.5 py-0.5 leading-none">
-                    {mod.features.length}
+                    <span className="absolute top-2 right-2 z-10 rounded-full bg-danphe-accent/10 text-danphe-accent text-[10px] font-bold px-1.5 py-0.5 leading-none">
+                    {(mod.features ?? []).length}
                   </span>
 
                   {/* Icon in colored circle */}
@@ -201,18 +204,22 @@ export default function ModuleSection({ modules }: ModuleSectionProps) {
                         : 'bg-danphe-primary/5 group-hover:bg-danphe-accent/10'
                     }`}
                   >
-                    <Image
-                      src={mod.icon}
-                      alt={`${mod.name} icon`}
-                      width={22}
-                      height={22}
-                      unoptimized
-                      className={`h-5 w-5 object-contain transition-all duration-300 ${
-                        isActive
-                          ? 'brightness-0 saturate-100'
-                          : ''
-                      }`}
-                    />
+                    {mod.icon ? (
+                      <Image
+                        src={mod.icon}
+                        alt={`${mod.name} icon`}
+                        width={22}
+                        height={22}
+                        unoptimized
+                        className={`h-5 w-5 object-contain transition-all duration-300 ${
+                          isActive
+                            ? 'brightness-0 saturate-100'
+                            : ''
+                        }`}
+                      />
+                    ) : (
+                      <div className="h-5 w-5" aria-hidden />
+                    )}
                   </div>
                   {/* Module name */}
                   <span
@@ -307,13 +314,17 @@ export default function ModuleSection({ modules }: ModuleSectionProps) {
 
                 {/* Right: Image */}
                 <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-premium-lg">
-                  <Image
-                    src={activeModule.image}
-                    alt={activeModule.name}
-                    fill
-                    unoptimized
-                    className="object-cover"
-                  />
+                  {activeModule.image ? (
+                    <Image
+                      src={activeModule.image}
+                      alt={activeModule.name}
+                      fill
+                      unoptimized
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div aria-hidden className="h-full w-full bg-gray-50" />
+                  )}
                 </div>
               </div>
 
